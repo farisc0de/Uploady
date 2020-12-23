@@ -1,0 +1,11 @@
+{
+  "require": {
+    "phpmailer/phpmailer": "^6.2",
+    "google/recaptcha": "^1.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Uploady\\": "src/Uploady"
+    }
+  }
+}
