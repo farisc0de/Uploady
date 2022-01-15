@@ -5,12 +5,12 @@ namespace Uploady\Handler;
 /**
  * PHP Library to help you build your own file sharing website.
  *
- * @version 1.5.2
+ * @version 1.5.3
  * @category File_Upload
  * @package Uploady
  * @author fariscode <farisksa79@gmail.com>
  * @license MIT
- * @link https://github.com/FarisCode511/Uploady
+ * @link https://github.com/farisc0de/Uploady
  */
 final class Upload
 {
@@ -22,35 +22,24 @@ final class Upload
      * @var array
      */
     private $upload_input;
-
     /**
      * Array For Filename Protection Filter
      *
      * @var array
      */
     private $name_array = [];
-
     /**
      * Array For File Protection Filter
      *
      * @var array
      */
     private $filter_array = [];
-
     /**
      * Class Controller Path
      *
      * @var string
      */
     private $controller;
-
-    /**
-     * File Upload Controller
-     *
-     * @var string
-     */
-    private $upload_controller;
-
     /**
      * Array For the upload folder data
      * 
@@ -59,84 +48,72 @@ final class Upload
      * @var array
      */
     private $upload_folder = [];
-
     /**
      * Size limit for protection
      *
      * @var int
      */
     private $size;
-
     /**
-     * Use hashed name insted of the uploaded file name
+     * Image minimum width
      *
-     * @var boolean
+     * @var int
      */
-    private $use_hash;
-
+    private $hash_name;
+    /**
+     * Image minimum width
+     *
+     * @var int
+     */
+    private $hash_id;
     /**
      * File ID for the database
      *
      * @var string
      */
     private $file_id;
-
     /**
      * User ID for the database
      *
      * @var string
      */
     private $user_id;
-
     /**
      * System Logs Array
      *
      * @var array
      */
     private $logs = [];
-
-    /**
-     * Enable or Disable file overwriting
-     *
-     * @var bool
-     */
-    private $overwrite_file;
-
     /**
      * Array for the all uploaded files informations
      *
      * @var array
      */
     private $files = [];
-
     /**
      * Image miximum height
      *
      * @var int
      */
     private $max_height;
-
     /**
      * Image miximum width
      *
      * @var int
      */
     private $max_width;
-
     /**
      * Image minimum height
      *
      * @var int
      */
     private $min_height;
-
     /**
      * Image minimum width
      *
      * @var int
      */
     private $min_width;
-
     /**
      * Array list of error codes and the messages
      *
@@ -173,10 +150,6 @@ final class Upload
      *  The upload controller that contains the factory code like upload.php
      * @param int $size
      *  The miximum size that the class allow to upload
-     * @param boolean $use_hash
-     *  Use the hashed file name as the upload name insted of the raw format
-     * @param boolean $overwrite_file
-     *  Enable it if you want to overwrite the file it the exist on the server
      * @param int $max_height
      *  The miximum image height allowed
      * @param int $max_width
@@ -197,8 +170,6 @@ final class Upload
         $controller = null,
         $upload_controller = "upload.php",
         $size = "5 GB",
-        $use_hash = false,
-        $overwrite_file = true,
         $max_height = null,
         $max_width = null,
         $min_height = null,
@@ -206,22 +177,18 @@ final class Upload
         $file_id = null,
         $user_id = null
     ) {
-        // initialize attributes
-        $this->upload_input = $upload_input; // Set file input
-        $this->upload_folder = $upload_folder; // Set upload folder
-        $this->controller = $this->sanitize($controller); // Set the class controller folder
-        $this->upload_controller = $this->sanitize($upload_controller); // Set the upload controller | Example => upload.php
-        $this->size = $this->sizeInBytes($this->sanitize($size)); // Set limit Size
-        $this->use_hash = $use_hash; // use hashed name insted of the raw name
-        $this->overwrite_file = $overwrite_file; // Set file overwriting to true to enable file overwriting
-        $this->max_height = $max_height; // Set Max Height for an image
-        $this->max_width = $max_width; // Set Max Width for an image
-        $this->min_height = $min_height; // Set Min Height for an image
-        $this->min_width = $min_width; // Set Min Width for an image
-        $this->file_id = $file_id; // Set File ID for security
-        $this->user_id = $user_id; // Set User ID for security
+        $this->upload_input = $upload_input;
+        $this->upload_folder = $upload_folder;
+        $this->controller = $this->sanitize($controller);
+        $this->upload_controller = $this->sanitize($upload_controller);
+        $this->size = $this->sizeInBytes($this->sanitize($size));
+        $this->max_height = $max_height;
+        $this->max_width = $max_width;
+        $this->min_height = $min_height;
+        $this->min_width = $min_width;
+        $this->file_id = $file_id;
+        $this->user_id = $user_id;
     }
-
     /** 
      * Function to set upload input when needed
      *
@@ -231,9 +198,8 @@ final class Upload
      */
     public function setUpload($upload_input)
     {
-        $this->upload_input = $upload_input; // Set the upload input to a new one
+        $this->upload_input = $upload_input;
     }
-
     /**
      * Function to set the controller when needed
      * 
@@ -243,9 +209,8 @@ final class Upload
      */
     public function setController($controller)
     {
-        $this->controller = $this->sanitize($controller); // Set the class controller path
+        $this->controller = $this->sanitize($controller);
     }
-
     /**
      * Set the upload controller file
      * 
@@ -255,21 +220,8 @@ final class Upload
      */
     public function setUploadController($upload_controller)
     {
-        $this->upload_controller = realpath($this->sanitize($upload_controller)); // Sanitize and set the upload controller name
+        $this->upload_controller = realpath($this->sanitize($upload_controller));
     }
-
-    /**
-     * Set $use_hash to true or false when needed
-     * 
-     * @param boolean $use_hash
-     *  Set true to use the hashed file name as the upload name insted of the raw format
-     * @return void
-     */
-    public function useHashAsName($use_hash = false)
-    {
-        $this->use_hash = $use_hash;
-    }
-
     /** 
      * Enable File Uploading Protection and Filters
      * 
@@ -277,10 +229,6 @@ final class Upload
      */
     public function enableProtection()
     {
-
-        // Decode JSON and Set Protection Data
-
-        // Enable Level 1 Protection
         $this->name_array = json_decode(
             file_get_contents(
                 $this->sanitize(
@@ -289,7 +237,6 @@ final class Upload
             )
         );
 
-        // Enable Level 2 and 3 Protection
         $this->filter_array = json_decode(
             file_get_contents(
                 $this->controller . "filter.json"
@@ -297,7 +244,6 @@ final class Upload
             true
         );
     }
-
     /**
      * Set Forbidden array to a custom list when needed
      *
@@ -312,7 +258,6 @@ final class Upload
     {
         $this->name_array = $forbidden_array; // Custom name filter array
     }
-
     /**
      * Set Extension array to a custom list when needed
      * 
@@ -322,9 +267,8 @@ final class Upload
      */
     public function setProtectionFilter($filter_array)
     {
-        $this->filter_array = $filter_array; // Custom extension filter array
+        $this->filter_array = $filter_array;
     }
-
     /**
      * Set file size limit when needed
      * 
@@ -334,7 +278,6 @@ final class Upload
      */
     public function setSizeLimit($size)
     {
-        // Set file size limit to a new limit
         $this->size = $this->fixintOverflow(
             $this->sizeInBytes(
                 $this->sanitize(
@@ -343,7 +286,6 @@ final class Upload
             )
         );
     }
-
     /**
      * Set upload folder when needed
      *
@@ -356,9 +298,38 @@ final class Upload
      */
     public function setUploadFolder($folder_name)
     {
-        $this->upload_folder = $folder_name; // Sanitize and set the upload folder when needed
+        $this->upload_folder = $folder_name;
+    }
+    /**
+     * Create a folder for a spesfic user
+     *
+     * @return true
+     *  Returns true if the folder is created
+     */
+    public function createUserCloud($main_upload_folder)
+    {
+        $user_id = $this->getUserID();
+        $user_cloud = $main_upload_folder .
+            DIRECTORY_SEPARATOR .
+            $user_id;
+
+        if (!file_exists($user_cloud)) {
+            @mkdir($user_cloud);
+            @chmod($user_cloud, 777);
+        }
+
+        return true;
     }
 
+    public function getUserCloud($main_upload_folder)
+    {
+        $user_id = $this->getUserID();
+        $user_cloud = $main_upload_folder .
+            DIRECTORY_SEPARATOR .
+            $user_id;
+
+        return $user_cloud;
+    }
     /**
      * Firewall 1: Check File Extension
      *
@@ -367,15 +338,13 @@ final class Upload
      */
     public function checkExtension()
     {
-        // Check if the file extension is whitelisted
         if (key_exists(str_replace('.', '', $this->getExtension()), $this->filter_array)) {
-            return true; // Return true if the extension is not blacklisted
+            return true;
         } else {
-            $this->addLog(['filename' => $this->getName(), "message" => 1]); // Show an error message
+            $this->addLog(['filename' => $this->hash_name, "message" => 1]);
             return false;
         }
     }
-
     /**
      * Function to return the file input extension
      * 
@@ -386,7 +355,6 @@ final class Upload
     {
         return strtolower(pathinfo($this->getName(), PATHINFO_EXTENSION));
     }
-
     /**
      * Firewall 2: Check File MIME Type
      * 
@@ -395,20 +363,17 @@ final class Upload
      */
     public function checkMime()
     {
-        // Get the file MIME type using the browser
         $mime = mime_content_type($this->getTempName());
-        // Check if the file MIME type is whitelisted
+
         if ($this->filter_array[$this->getExtension()] == $mime) {
-            // Check if the browser MIME type equals the server MIME type
             if ($mime == $this->getMime()) {
-                return true; // Return true if the MIME type is not blacklisted
+                return true;
             } else {
-                $this->addLog(['filename' => $this->getName(), "message" => 1]); // Show an error message
+                $this->addLog(['filename' => $this->hash_name, "message" => 1]);
                 return false;
             }
         }
     }
-
     /**
      * Function to get the MIME type using the server
      *
@@ -417,16 +382,16 @@ final class Upload
      */
     private function getMime()
     {
-        $finfo = finfo_open(FILEINFO_MIME_TYPE); // Open the file to get MIME type
-        $mtype = finfo_file($finfo, $this->getTempName()); // get MIME type and add it to a variable
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mtype = finfo_file($finfo, $this->getTempName());
+
         if (finfo_close($finfo)) {
-            return $mtype; // close the file the and return the MIME type
+            return $mtype;
         } else {
-            $this->addLog(['filename' => $this->getName(), "message" => 2]); // Show a message error
+            $this->addLog(['filename' => $this->hash_name, "message" => 2]);
             return "application/octet-stream";
         }
     }
-
     /**
      * Function that return the uploaded file MIME type
      *
@@ -435,9 +400,8 @@ final class Upload
      */
     public function getFileType()
     {
-        return $this->upload_input['type']; // Return the MIME type using php default settings
+        return $this->upload_input['type'];
     }
-
     /**
      * Firewall 3: Check File Name is Forbidden
      * 
@@ -446,15 +410,13 @@ final class Upload
      */
     public function checkForbidden()
     {
-        // check if a file name is forbidden
-        if (!(in_array($this->getName(), $this->name_array))) {
-            return true; // Return true if the name is not forbidden
+        if (!(in_array($this->hash_name, $this->name_array))) {
+            return true;
         } else {
-            $this->addLog(['filename' => $this->getName(), "message" => 3]); // Show an error message
+            $this->addLog(['filename' => $this->hash_name, "message" => 3]);
             return false;
         }
     }
-
     /**
      * Firewall 4: Check file size limit
      * 
@@ -463,15 +425,13 @@ final class Upload
      */
     public function checkSize()
     {
-        // Check if a file size is less or equal the size limit
         if ($this->getSize() <= $this->size) {
-            return true; // Return true if the uploaded passed the size limit test
+            return true;
         } else {
-            $this->addLog(['filename' => $this->getName(), "message" => 4]); // Show an error message
+            $this->addLog(['filename' => $this->hash_name, "message" => 4]);
             return false;
         }
     }
-
     /**
      * Return the size of the uploaded file as bytes
      * 
@@ -482,7 +442,6 @@ final class Upload
     {
         return $this->fixintOverflow($this->upload_input['size']);
     }
-
     /**
      * Function to check if the HTML input is empty
      * 
@@ -491,15 +450,13 @@ final class Upload
      */
     public function checkIfEmpty()
     {
-        // check if a the HTML input is empty
         if ($this->upload_input['error'] == UPLOAD_ERR_NO_FILE) {
-            $this->addLog(['filename' => $this->getName(), "message" => 5]); // Return false if the input is empty
+            $this->addLog(['filename' => $this->hash_name, "message" => 5]);
             return false;
         } else {
-            return true; // Return true if the input has a file
+            return true;
         }
     }
-
     /**
      * Return the name of the uploaded file
      * 
@@ -510,7 +467,6 @@ final class Upload
     {
         return $this->upload_input['name'];
     }
-
     /**
      * Return the PHP Generated name for the uploaded file
      * 
@@ -521,7 +477,6 @@ final class Upload
     {
         return $this->upload_input['tmp_name']; // Return the PHP Generated Temp name
     }
-
     /**
      * Generate a Qr Code of the download url
      *
@@ -532,9 +487,8 @@ final class Upload
      */
     public function generateQrCode($qr_size = "150x150")
     {
-        return "https://chart.googleapis.com/chart?chs=" . $this->sanitize($qr_size) . "&cht=qr&chl=" . $this->generateDownloadLink() . "&choe=UTF-8"; # Using google charts api to generate a Qr Code with a custom size using $qr_size
+        return "https://chart.googleapis.com/chart?chs=" . $this->sanitize($qr_size) . "&cht=qr&chl=" . $this->generateDownloadLink() . "&choe=UTF-8";
     }
-
     /**
      * Generate a download link
      * 
@@ -544,15 +498,14 @@ final class Upload
     public function generateDownloadLink()
     {
         $file_id = $this->file_id;
-        // Return a formated download link
+
         return sprintf(
             "%s/%s?file_id=%s",
             SITE_URL,
-            "download.php", // set the download worker file
-            $file_id // Get the uploaded file id
-        ); // Format String as the download link example => http://localhost/up/download.php?file_id=???????
+            "download.php",
+            $file_id
+        );
     }
-
     /**
      * Generate a delete link
      * 
@@ -565,16 +518,14 @@ final class Upload
         $file_id = $this->file_id;
         $user_id = $this->user_id;
 
-        // Return a formated download link
         return sprintf(
             "%s/%s?file_id=%s&user_id=%s",
             SITE_URL,
-            "delete.php", // set the delete worker file
-            $file_id, // Uploaded File ID
-            $user_id // Uploaded User ID
-        ); // Format String as the delete link example => http://localhost/up/delete.php?file_id=???????&user_id==???????&
+            "delete.php",
+            $file_id,
+            $user_id
+        );
     }
-
     /**
      * Generate a direct download link
      * 
@@ -583,18 +534,15 @@ final class Upload
      */
     public function generateDirectDownloadLink()
     {
-        $filename = ($this->use_hash ?
-            $this->hashName() . "." . $this->getExtension() :
-            $this->getName());
-        // Return a formated download link
+        $filename = ($this->hash_name);
+
         return sprintf(
             "%s/%s/%s",
-            SITE_URL, // get the requested url base dir name
-            $this->upload_folder['folder_name'], // Get the upload folder
-            $filename // Get the uploaded file name
-        ); // Format String as the download link example => http://localhost/up/upload/filename.txt
+            SITE_URL,
+            $this->upload_folder['folder_name'],
+            $filename
+        );
     }
-
     /**
      * Get the unique file id
      * 
@@ -605,7 +553,6 @@ final class Upload
     {
         return $this->file_id;
     }
-
     /**
      * Set the unique file id manualy when needed
      * 
@@ -618,7 +565,6 @@ final class Upload
 
         $this->file_id = $file_id;
     }
-
     /**
      * Get the unique user id for security
      * 
@@ -630,7 +576,6 @@ final class Upload
     {
         return $this->user_id;
     }
-
     /**
      * Set the unique user id manualy when needed
      * 
@@ -643,70 +588,32 @@ final class Upload
 
         $this->user_id = $user_id;
     }
-
-    /**
-     * Generate a simple upload form
-     * 
-     * @param boolean $multiple
-     *  Set true if you want to make the upload input handles multipe files
-     * @return string
-     *  Return an HTML Upload Form code to use
-     */
-    public function generateForm($multiple = false)
-    {
-        $multiple = $multiple ? "multiple" : null;
-        // Upload Form Code
-        return '
-        <form class="upload_form" action="' . $this->upload_controller . '" method="post" enctype="multipart/form-data">
-            <input class="upload_input" type="file" name="file" ' . $multiple . ' />
-            <button  name="upload" class="upload_button" type="submit">Upload</button>
-        </form>
-        ';
-    }
-
-    /**
-     * Generate a multi upload form
-     *
-     * @param int $size
-     *  The number of inputs in the form
-     * @return string
-     *  Return an HTML Upload Form code to use
-     */
-    public function generateMultiInput($size = 5)
-    {
-        $form = '<form class="upload_form" action="' . $this->upload_controller . '" method="post" enctype="multipart/form-data">'; # Form open tag with with settings to make uploading possible
-        // Using for loop to create forms based on $size
-        for ($i = 0; $i < $size; $i++) {
-            // Upload Form Code
-            $form .= '
-            <div class="container">
-                <input class="upload_input" type="file" name="file[]">
-            </div>
-            ';
-        }
-        $form .= '<button name="upload" class="upload_button" type="submit">Upload</button>'; // button to upload the file (:
-        $form .= '</form>'; // HTML Form closing tag
-
-        return $form;
-    }
-
     /**
      * Return an "SHA1 Hashed File Name" of the uploaded file
      *
-     * @return string
+     * @return true
      *  Return the file real name using getName() function and hash it using SHA1
      */
     public function hashName()
     {
-        return sha1(
-            $this->sanitize( // Sanitize the input
+        $this->hash_id = sha1(
+            $this->sanitize(
                 basename(
-                    $this->getName()
-                )
+                    $this->hash_name
+                ) . uniqid()
             )
-        ); // Get the file real name using getName() function and hash it using SHA1
-    }
+        );
 
+        $this->hash_name = sha1(
+            $this->sanitize(
+                basename(
+                    $this->hash_name
+                ) . uniqid()
+            )
+        ) . "." . $this->getExtension();
+
+        return true;
+    }
     /**
      * Get the date of the uploaded file
      * 
@@ -715,9 +622,8 @@ final class Upload
      */
     public function getDate()
     {
-        return filemtime($this->getTempName()); // Get the temp_name using the function getTempName() and return the date
+        return filemtime($this->getTempName());
     }
-
     /**
      * Function to upload the file to the server
      * 
@@ -726,35 +632,14 @@ final class Upload
      */
     public function upload()
     {
-        // check and set the file name depending on $use_hash
-        $filename = ($this->use_hash ?
-            $this->hashName() . "." . $this->getExtension() :
-            $this->getName());
-        // Check if OverWrite setting is enabled
-        if (!($this->overwrite_file == true)) {
-            // Check if the is uploaded to the server
-            if ($this->isFile($this->upload_folder['folder_path'] . "/" . $filename) == false) {
-                // Function to move the file to the upload folder
-                if ($this->moveFile($filename)) {
-                    $this->addLog(['filename' => $this->getName(), "message" => 0]);
-                    $this->addFile($this->getJSON());
-                    return true;
-                }
-            } else {
-                // Show an error message
-                $this->addLog(['filename' => $this->getName(), "message" => 6]);
-                return false;
-            }
-        } else {
-            // Function to move the file to the upload folder
-            if ($this->moveFile($filename) == true) {
-                $this->addLog(['filename' => $this->getName(), "message" => 0]);
-                $this->addFile($this->getJSON());
-                return true;
-            }
+        $filename = $this->hash_name;
+
+        if ($this->moveFile($filename) == true) {
+            $this->addLog(['filename' => $this->hash_name, "message" => 0]);
+            $this->addFile($this->getJSON($this->hash_name));
+            return true;
         }
     }
-
     /**
      * Function to upload file to the server using chunck system
      * 
@@ -786,11 +671,10 @@ final class Upload
         if (fclose($fp)) {
             return true;
         } else {
-            $this->addLog(['filename' => $this->getName(), "message" => 7]);
+            $this->addLog(['filename' => $filename, "message" => 7]);
             return false;
         }
     }
-
     /**
      * Fix file input array to make it easy to iterate through it
      * 
@@ -801,18 +685,16 @@ final class Upload
      */
     public function fixArray($file_post)
     {
-        $file_array = array(); // An empty array to add the fixed to it
-        $file_count = count($file_post['name']); // Count the number of element in the file input
-        $file_keys = array_keys($file_post); // get the array keys to loop through it
+        $file_array = array();
+        $file_count = count($file_post['name']);
+        $file_keys = array_keys($file_post);
 
-        # loop through the input and fix it
         for ($i = 0; $i < $file_count; $i++) {
             foreach ($file_keys as $key) {
-                // Change the array key placement
                 $file_array[$i][$key] = $file_post[$key][$i];
             }
         }
-        // Return the fixed array
+
         return $file_array;
     }
 
@@ -825,17 +707,17 @@ final class Upload
      */
     public function createUploadFolder($folder_name)
     {
-        // Check if a folder exist or not ?
         if (!file_exists($folder_name) && !is_dir($folder_name)) {
-            // Create a new dir and set the proper permissions
             @mkdir($this->sanitize($folder_name));
             @chmod($this->sanitize($folder_name), 0777);
 
-            // Protect the folder by adding .htaccess and index.php
             $this->protectFoler($folder_name);
         }
 
-        $this->setUploadFolder(["folder_name" => $folder_name, "folder_path" => realpath($folder_name)]);
+        $this->setUploadFolder([
+            "folder_name" => $folder_name,
+            "folder_path" => realpath($folder_name)
+        ]);
     }
 
     /**
@@ -847,23 +729,22 @@ final class Upload
      */
     public function protectFoler($folder_name)
     {
-        // Check if .htaccess does not exist then create a new one with proteciton settings
         if (!file_exists($folder_name . "/" . ".htaccess")) {
-            $content = "Options -Indexes" . "\n"; //
-            $content .= "<Files .htaccess>" . "\n"; //
-            $content .= "Order allow,deny" . "\n"; // HTACCESS FILE CONTENT
-            $content .= "Deny from all" . "\n"; //
-            $content .= "</Files>"; //
-            @file_put_contents($this->sanitize($folder_name) . "/" . ".htaccess", $content); // Write the content to the .htaccess file
+            $content = "Options -Indexes" . "\n";
+            $content .= "<Files .htaccess>" . "\n";
+            $content .= "Order allow,deny" . "\n";
+            $content .= "Deny from all" . "\n";
+            $content .= "</Files>";
+            @file_put_contents($this->sanitize($folder_name) .
+                "/" . ".htaccess", $content);
         }
 
-        // Forbid Access to the upload folder
         if (!file_exists($this->sanitize($folder_name) . "/" . "index.php")) {
-            $content = "<?php http_response_code(403); ?>"; // "Enable Forbidden"
-            @file_put_contents($this->sanitize($folder_name) . "/" . "index.php", $content); // Write the "Enable Forbidden" Code to a new file
+            $content = "<?php http_response_code(403); ?>";
+            @file_put_contents($this->sanitize($folder_name) .
+                "/" . "index.php", $content);
         }
     }
-
     /**
      * Function that helps with input filter and sanitize
      * 
@@ -874,14 +755,12 @@ final class Upload
      */
     public function sanitize($value)
     {
-        // Out-Of-TheBox Filtering and Sanitizing
-        $data = trim($value); // Remove White Spaces
-        $data = htmlspecialchars($data, ENT_QUOTES, "UTF-8"); // Convert characters to HTML entities
-        $data = strip_tags($data); // Strip HTML and PHP Tags
-        $data = filter_var($data, FILTER_SANITIZE_STRING); // filters a variable with a string filter
+        $data = trim($value);
+        $data = htmlspecialchars($data, ENT_QUOTES, "UTF-8");
+        $data = strip_tags($data);
+        $data = filter_var($data, FILTER_SANITIZE_STRING);
         return $data;
     }
-
     /** 
      * Function that format file bytes to a readable format
      * 
@@ -896,15 +775,13 @@ final class Upload
      */
     public function formatBytes($bytes, $precision = 2)
     {
-        // Out-of-TheBox Byte Convertor
-        $units = array('B', 'KB', 'MB', 'GB', 'TB'); // Array to set the current names of storage types
+        $units = array('B', 'KB', 'MB', 'GB', 'TB');
         $bytes = max($bytes, 0);
         $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
         $pow = min($pow, count($units) - 1);
         $bytes /= pow(1024, $pow);
         return round($bytes, $precision) . ' ' . $units[$pow];
     }
-
     /**
      * Return any type of readable storage size to bytes
      * 
@@ -926,7 +803,6 @@ final class Upload
         }
         return (floatval($matches["size"]) * pow(1024, $units[$unit]));
     }
-
     /**
      * Return the files from the upload folder to view them
      * 
@@ -937,7 +813,6 @@ final class Upload
     {
         return scandir($this->upload_folder['folder_path']);
     }
-
     /**
      * Check if a file exist and it is a real file
      *
@@ -949,14 +824,12 @@ final class Upload
     public function isFile($file_name)
     {
         $file_name = $this->sanitize($file_name);
-        // Check if $file_name is a file and is exists on the server
         if (file_exists($file_name) && is_file($file_name)) {
-            return true; // Return true if yes
+            return true;
         } else {
-            return false; // Return true if yes
+            return false;
         }
     }
-
     /**
      * Check if a directory exist and it is a real directory
      * 
@@ -969,14 +842,12 @@ final class Upload
     {
         $dir_name = $this->sanitize($dir_name);
 
-        // Check if $dir_name is a directory and is exists on the server
         if (is_dir($dir_name) && file_exists($dir_name)) {
-            return true; // Return true if yes
+            return true;
         } else {
-            return false; // Return false if no
+            return false;
         }
     }
-
     /**
      * Create a callback function when needed after or before an operation
      * 
@@ -989,17 +860,14 @@ final class Upload
      */
     public function callback($function, $args = null)
     {
-        // check if the function is callable
         if (is_callable($function)) {
-            // check if $args is an array
             if (is_array($args)) {
-                return call_user_func_array($function, $args); // Create a user function with multiple args
+                return call_user_func_array($function, $args);
             } else {
-                return call_user_func($function, $args); // Create a user function with a single args
+                return call_user_func($function, $args);
             }
         }
     }
-
     /**
      * Add a message the system log
      * 
@@ -1012,12 +880,11 @@ final class Upload
     public function addLog($message, $id = null)
     {
         if ($id == null) {
-            array_push($this->logs, $message); // yes then just push the message
+            array_push($this->logs, $message);
         } else {
             $this->logs[$id] = $message;
         }
     }
-
     /**
      * Get all logs from system log to view them
      * 
@@ -1026,9 +893,8 @@ final class Upload
      */
     public function getLogs()
     {
-        return $this->logs; // Return the system logs array
+        return $this->logs;
     }
-
     /**
      * Get a system log message by an array index id
      * 
@@ -1041,20 +907,6 @@ final class Upload
     {
         return $this->logs[$log_id];
     }
-
-    /**
-     * Set file overwriting to true or false
-     * 
-     * @param boolean $status
-     *  Set true if you want to enable overwriting or false otherwise
-     * @return void
-     */
-    public function setFileOverwriting($status)
-    {
-        $this->overwrite_file = $status; // Set file overwriting to true or false
-
-    }
-
     /**
      * Set php.ini settings using an array 
      * 
@@ -1067,10 +919,9 @@ final class Upload
     public function setINI($ini_settings)
     {
         $sttings = [];
-        // Loop through $ini_settings
-        foreach ($ini_settings as $key => $value) {
-            ini_set($key, $value); // Set ini_set using $key and $value
 
+        foreach ($ini_settings as $key => $value) {
+            ini_set($key, $value);
             $sttings[] = $key . "=" . $value;
         }
 
@@ -1080,7 +931,6 @@ final class Upload
 
         file_put_contents('php.ini', '[PHP]' . "\n" . implode("\n", $sttings));
     }
-
     /**
      * Ensure correct value for big ints
      *
@@ -1095,7 +945,6 @@ final class Upload
 
         return $int;
     }
-
     /**
      * Get all the uploaded file information in JSON
      * 
@@ -1104,13 +953,10 @@ final class Upload
      */
     public function getJSON()
     {
-        // Return an the informations Array as JSON Encoded string
         return json_encode(
             [
-                "filename" => $this->use_hash ?
-                    $this->hashName() . "." . $this->getExtension() :
-                    $this->getName(),
-                "filehash" => $this->hashName(),
+                "filename" => $this->hash_name,
+                "filehash" => $this->hash_id,
                 "filesize" => $this->formatBytes($this->getSize()),
                 "uploaddate" => date("Y-m-d h:i:s", $this->getDate()),
                 "user_id" => $this->getUserID(),
@@ -1122,7 +968,6 @@ final class Upload
             ]
         );
     }
-
     /**
      * Function to add a file to the files array
      * 
@@ -1134,7 +979,6 @@ final class Upload
     {
         array_push($this->files, json_decode($json_string));
     }
-
     /**
      * Function to return an array with all the uploaded files information
      * 
@@ -1144,7 +988,6 @@ final class Upload
     {
         return $this->files;
     }
-
     /**
      * Function to get a log message using a message index id
      *
@@ -1155,75 +998,8 @@ final class Upload
      */
     public function getMessage($index)
     {
-        return $this->message[$index]; // Return a message from $message array using $index
+        return $this->message[$index];
     }
-
-    /**
-     * Include Bootstrap CSS
-     * 
-     * @return string
-     *  Return Bootstrap files using CDN
-     */
-    public function includeBootstrap()
-    {
-        // return Bootstrap files using CDN
-        return '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />';
-    }
-
-    /**
-     * Include jQuery Javascript files
-     * 
-     * @return string
-     *  Return jQuery files using CDN
-     */
-    public function includeJquery()
-    {
-        // return jQuery files using CDN
-        return '<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
-				<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" ></script>
-				<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" ></script>';
-    }
-
-    /** 
-     * Function to create an upload worker using one line of code
-     * 
-     * @param array $upload_input
-     *  An array of the upload file information coming from $_FILES
-     * @return bool
-     *  Return true if the file is uploaded otherwise false
-     */
-    public function factory($upload_input = null)
-    {
-        // set upload folder to "uploads"
-        $this->setUploadFolder([
-            "folder_name" => "uploads",
-            "folder_path" => \realpath("uploads"),
-        ]);
-        $this->setFileOverwriting(true); // Set file overwriting to true
-        $this->useHashAsName(false); // Set using hash name to false to use the file real name
-        $this->enableProtection(); // Enable class 3 firewall levels
-        $this->file_id = $this->generateFileID();
-        $this->user_id = $this->generateUserID();
-        if ($upload_input == null) {
-            $this->setUpload($_FILES['file']); // check if $upload_input is null then set the upload input to $_FILES['file']
-        } else {
-            $this->setUpload($upload_input); // else set the upload input to your defined input
-        }
-        // Check all class 5 protection levels
-        if ($this->checkIfEmpty()) {
-            if ($this->checkSize()) {
-                if (
-                    $this->checkForbidden() &&
-                    $this->checkExtension() &&
-                    $this->checkMime()
-                ) {
-                    // Upload the file (:
-                    return $this->upload();
-                }
-            }
-        }
-    }
-
     /**
      * Extra Firewall 1: Check an image dimenstions aginst the class dimenstions
      * 
@@ -1242,7 +1018,7 @@ final class Upload
                 if ($height <= $this->max_height) {
                     return true;
                 } else {
-                    $this->addLog(['filename' => $this->getName(), "message" => 8]);
+                    $this->addLog(['filename' => $this->hash_name, "message" => 8]);
                 }
                 break;
 
@@ -1250,7 +1026,7 @@ final class Upload
                 if ($width <= $this->max_width) {
                     return true;
                 } else {
-                    $this->addLog(['filename' => $this->getName(), "message" => 9]);
+                    $this->addLog(['filename' => $this->hash_name, "message" => 9]);
                 }
                 break;
 
@@ -1258,7 +1034,7 @@ final class Upload
                 if ($width <= $this->max_width && $height <= $this->max_height) {
                     return true;
                 } else {
-                    $this->addLog(['filename' => $this->getName(), "message" => 8]);
+                    $this->addLog(['filename' => $this->hash_name, "message" => 8]);
                 }
                 break;
 
@@ -1266,7 +1042,7 @@ final class Upload
                 if ($height >= $this->min_height) {
                     return true;
                 } else {
-                    $this->addLog(['filename' => $this->getName(), "message" => 10]);
+                    $this->addLog(['filename' => $this->hash_name, "message" => 10]);
                 }
                 break;
 
@@ -1274,7 +1050,7 @@ final class Upload
                 if ($width >= $this->min_width) {
                     return true;
                 } else {
-                    $this->addLog(['filename' => $this->getName(), "message" => 11]);
+                    $this->addLog(['filename' => $this->hash_name, "message" => 11]);
                 }
                 break;
 
@@ -1282,16 +1058,15 @@ final class Upload
                 if ($width >= $this->min_width && $height >= $this->min_height) {
                     return true;
                 } else {
-                    $this->addLog(['filename' => $this->getName(), "message" => 12]);
+                    $this->addLog(['filename' => $this->hash_name, "message" => 12]);
                 }
                 break;
 
             default:
-                $this->addLog(['filename' => $this->getName(), "message" => 14]);
+                $this->addLog(['filename' => $this->hash_name, "message" => 14]);
                 break;
         }
     }
-
     /**
      * Function to set the miximum class image dimenstions to validate them
      * 
@@ -1306,7 +1081,6 @@ final class Upload
         $this->max_height = $height;
         $this->max_width = $width;
     }
-
     /**
      * Function to set the minimum class image dimenstions to validate them
      * 
@@ -1321,7 +1095,6 @@ final class Upload
         $this->min_height = $height;
         $this->min_width = $width;
     }
-
     /**
      * Extra Firewall 2: Function to check if uploaded file is an image
      * 
@@ -1330,10 +1103,15 @@ final class Upload
      */
     public function isImage()
     {
-        if (in_array($this->getMime(), ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/png'])) {
+        if (in_array($this->getMime(), [
+            'image/gif',
+            'image/jpeg',
+            'image/pjpeg',
+            'image/png'
+        ])) {
             return true;
         } else {
-            $this->addLog(['filename' => $this->getName(), "message" => 13]);
+            $this->addLog(['filename' => $this->hash_name, "message" => 13]);
         }
     }
     /**
@@ -1354,9 +1132,9 @@ final class Upload
      * @return string
      *  Return the user id hashed using sha1
      */
-    public function generateUserID($disbale_session = false)
+    public function generateUserID($disable_session = false)
     {
-        if ($disbale_session == true) {
+        if ($disable_session == true) {
             return hash("sha1", "user-" . bin2hex(random_bytes(16)));
         } else {
             return hash("sha1", "user-" . session_id());

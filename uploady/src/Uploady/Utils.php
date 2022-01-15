@@ -6,10 +6,10 @@ namespace Uploady;
  * A class that has some utilities functions
  *
  * @package Uploady
- * @version 1.5.2
- * @author fariscode <farisksa79@gmail.com.com>
+ * @version 1.5.3
+ * @author fariscode <farisksa79@gmail.com>
  * @license MIT
- * @link https://github.com/FarisCode511/Uploady
+ * @link https://github.com/farisc0de/Uploady
  */
 class Utils
 {
@@ -81,7 +81,7 @@ class Utils
 
         return sprintf(
             '<div class="alert alert-%s alert-dismissible fade show">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>%s %s
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>%s %s
              </div>',
             $this->sanitize($style),
             $icon,
@@ -322,19 +322,107 @@ class Utils
     }
 
     /**
-     * Like Codeigniter sanatize a key:value pair array
+     * Sanatize an associative array, a sequential array or a string
      *
-     * @param array $data
-     * @return array
+     * Usage:
+     *  $sanitizer->useSanitize($_POST["username"]);
+     *
+     * @param mixed $data
+     *  The value of the malicious string you want to sanitize
+     * @return mixed
+     *  Return a sanitized string, array, or associative array
      */
     public function esc($data)
     {
-        $sanitized = [];
-
-        foreach ($data as $key => $value) {
-            $sanitized[$this->sanitize($key)] = $this->sanitize($value);
+        if ($this->data != null) {
+            $data = $this->data;
         }
 
-        return $sanitized;
+        if (is_string($data)) {
+            if ($this->isEmpty($data)) {
+                return false;
+            }
+
+            return $this->sanitize($data);
+        }
+
+
+        if (is_array($data)) {
+            $santizied = [];
+
+            if ($this->isEmpty($data)) {
+                return false;
+            }
+
+            if ($this->isAssociative($data) == false) {
+                foreach ($data as $value) {
+                    $santizied[] = $this->sanitize($value);
+                }
+            }
+
+            if ($this->isAssociative($data) == true) {
+                foreach ($data as $key => $value) {
+                    $santizied[$this->sanitize($key)] = $this->sanitize($value);
+                }
+            }
+
+            return $santizied;
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if the provided array is an associative or a sequential array
+     *
+     * @param array $array
+     *  The array you want to check it's type
+     * @return boolean
+     *  Return true if provided array is an associative or false otherwise
+     */
+    public function isAssociative($array)
+    {
+        return array_keys($array) !== range(0, count($array) - 1);
+    }
+
+    /**
+     * Check if the provided variable is empty
+     *
+     * @param mixed $data
+     *  The variable you want to check if it's empty or not
+     * @return boolean
+     *  Return true if the variable does not contain data or false otherwise
+     */
+    public function isEmpty($data)
+    {
+        $bool = false;
+
+        if (is_array($data)) {
+            $bool = array() === $data;
+        }
+
+        if (is_string($data)) {
+            $bool = ($data == "");
+        }
+
+        return $bool;
+    }
+
+    /**
+     * Escape SQL Queries
+     *
+     * @param string $value
+     *  The sql query you want to escape
+     * @return string
+     *  Return the escaped SQL query
+     */
+    public function escape($value)
+    {
+        $data = str_replace(
+            array("\\", "\0", "\n", "\r", "\x1a", "'", '"'),
+            array("\\\\", "\\0", "\\n", "\\r", "\Z", "\'", '\"'),
+            $value
+        );
+        return $data;
     }
 }

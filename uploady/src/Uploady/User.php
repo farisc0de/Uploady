@@ -6,10 +6,10 @@ namespace Uploady;
  *  A Class to Handle User Data
  *
  * @package Uploady
- * @version 1.5.2
- * @author fariscode <farisksa79@gmail.com.com>
+ * @version 1.5.3
+ * @author fariscode <farisksa79@gmail.com>
  * @license MIT
- * @link https://github.com/FarisCode511/Uploady
+ * @link https://github.com/farisc0de/Uploady
  */
 class User
 {
@@ -21,15 +21,24 @@ class User
     private $db;
 
     /**
+     * Object from Utils Class
+     *
+     * @var Utils
+     */
+    private $utils;
+
+    /**
      * User class constructor
      *
      * @param object $database
      *  An object from the Database class
      * @return void
      */
-    public function __construct($database)
+    public function __construct($database, $utils)
     {
         $this->db = $database;
+
+        $this->utils = $utils;
     }
 
     /**
@@ -39,7 +48,7 @@ class User
      */
     public function getUsers()
     {
-        $sql = "SELECT * FROM users;";
+        $sql = $this->utils->escape("SELECT * FROM users;");
 
         $this->db->query($sql);
 
@@ -60,17 +69,13 @@ class User
      */
     public function getUserData($username)
     {
-        $find_by = "";
+        $find_by = $this->findBy($username);
 
-        if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
-            $find_by = "email";
-        } elseif (is_int($username)) {
-            $find_by = "id";
-        } else {
-            $find_by = "username";
-        }
-
-        $sql = sprintf("SELECT * FROM users WHERE %s = %s;", $find_by, ":" . $find_by);
+        $sql = sprintf(
+            $this->utils->escape("SELECT * FROM users WHERE %s = %s;"),
+            $find_by,
+            ":" . $find_by
+        );
 
         $this->db->query($sql);
 
@@ -91,7 +96,9 @@ class User
      */
     public function numUsers()
     {
-        $this->db->query("SELECT * FROM users;");
+        $query = $this->utils->escape("SELECT * FROM users;");
+
+        $this->db->query($query);
 
         if ($this->db->execute()) {
             return $this->db->rowCount();
@@ -108,17 +115,13 @@ class User
      */
     public function checkUser($username)
     {
-        $find_by = "";
+        $find_by = $this->findBy($username);
 
-        if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
-            $find_by = "email";
-        } elseif (is_int($username)) {
-            $find_by = "id";
-        } else {
-            $find_by = "username";
-        }
-
-        $this->db->query(sprintf("SELECT * FROM users WHERE %s = %s;", $find_by, ":" . $find_by));
+        $this->db->query(sprintf(
+            $this->utils->escape("SELECT * FROM users WHERE %s = %s;"),
+            $find_by,
+            ":" . $find_by
+        ));
 
         $this->db->bind(":" . $find_by, $username, \PDO::PARAM_STR);
 
@@ -203,17 +206,7 @@ class User
      */
     public function deleteUser($username)
     {
-        $find_by = "";
-
-        if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
-            $find_by = "email";
-        } elseif (is_int($username)) {
-            $find_by = "id";
-        } else {
-            $find_by = "username";
-        }
-
-        $sql = sprintf("DELETE FROM users WHERE %s = :find_by", $find_by);
+        $sql = sprintf("DELETE FROM users WHERE %s = :find_by", $this->findBy($username));
 
         $this->db->query($sql);
 
@@ -278,5 +271,26 @@ class User
                 return false;
             }
         }
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param string $username
+     * @return void
+     */
+    private function findBy($username)
+    {
+        $find_by = "";
+
+        if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
+            $find_by = "email";
+        } elseif (is_int($username)) {
+            $find_by = "id";
+        } else {
+            $find_by = "username";
+        }
+
+        return $find_by;
     }
 }

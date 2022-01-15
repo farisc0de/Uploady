@@ -41,19 +41,30 @@ include_once APP_PATH . 'logic/indexLogic.php';
                 <p class="card-title lead font-weight-bold text-dark">
                   Select Files
                 </p>
+
                 <form enctype="multipart/form-data" role="form" method="POST" action="upload.php">
-                  <div class="form-group" id="dvFile">
-                    <input type="file" class="form-control-file pt-2" name="file[]" />
-                    <input type="file" class="form-control-file pt-2" name="file[]" />
-                    <input type="file" class="form-control-file pt-2" name="file[]" />
-                    <input type="file" class="form-control-file pt-2" name="file[]" />
+                  <div id="dvFile">
+                    <div>
+                      <input type="file" class="form-control" name="file[]" />
+                    </div>
+                    <div class="pt-2">
+                      <input type="file" class="form-control" name="file[]" />
+                    </div>
+                    <div class="pt-2">
+                      <input type="file" class="form-control" name="file[]" />
+                    </div>
+                    <div class="pt-2">
+                      <input type="file" class="form-control" name="file[]" />
+                    </div>
                   </div>
 
-                  <div class="custom-control custom-checkbox m-3">
-                    <input type="checkbox" class="custom-control-input" id="tos">
-                    <label class="custom-control-label" for="tos">
-                      I agree to the <a href="terms.php">Terms and Conditions</a>
-                    </label>
+                  <div class="text-start">
+                    <div class="form-check m-3">
+                      <input type="checkbox" class="form-check-input" id="tos">
+                      <label class="form-check-label" for="tos">
+                        I agree to the <a href="terms.php">Terms and Conditions</a>
+                      </label>
+                    </div>
                   </div>
 
                   <button id="submit" name="submit" type="submit" class="btn btn-primary" disabled>
@@ -64,6 +75,7 @@ include_once APP_PATH . 'logic/indexLogic.php';
                   </button>
                 </form>
               </div>
+
               <div class="card-footer mb-0">
                 <p class="mb-0">
                   Note: Supported formats:

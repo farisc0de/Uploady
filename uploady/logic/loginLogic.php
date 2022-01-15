@@ -1,7 +1,7 @@
 <?php
 $auth = new Uploady\Auth($db, $utils);
 
-$user = new Uploady\User($db);
+$user = new Uploady\User($db, $utils);
 
 /** Lock out time used for brute force protection */
 

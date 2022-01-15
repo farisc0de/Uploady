@@ -6,7 +6,7 @@ $utils = new Uploady\Utils();
 
 $database = new Uploady\Database();
 
-$user = new Uploady\User($database);
+$user = new Uploady\User($database, $utils);
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $username = isset($_POST['email']) ? $utils->sanitize($_POST['email']) : null;

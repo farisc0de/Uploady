@@ -33,18 +33,16 @@ include_once  APP_PATH . 'logic/loginLogic.php';
                                     <?= $utils->alert($error, 'danger', 'times-circle'); ?>
                                 <?php endif; ?>
                                 <form method="POST" id="login_form">
-                                    <div class="form-group">
+                                    <div class="mb-3">
                                         <input type="text" class="form-control" name="username" placeholder="Enter Username">
                                     </div>
-                                    <div class="form-group">
+                                    <div class="mb-3">
                                         <input type="password" class="form-control" name="password" placeholder="Password">
                                     </div>
                                     <?php if ($settings->getSettingValue('recaptcha_status') == true) : ?>
-                                        <div class="form-group">
-                                            <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
-                                        </div>
+                                        <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
                                     <?php endif; ?>
-                                    <a class="d-block small mt-3" href="forgot-password.php">Forgot Password?</a>
+                                    <a class="d-block small m-3" href="forgot-password.php">Forgot Password?</a>
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-primary">Login</button>
                                     </div>

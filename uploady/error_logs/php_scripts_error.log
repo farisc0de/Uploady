@@ -1,0 +1,162 @@
+[13-Jan-2022 23:33:41 Europe/Moscow] PHP Warning:  Undefined array key "redirect" in /var/www/public_html/uploady_old/logout.php on line 9
+[13-Jan-2022 23:48:14 Europe/Moscow] PHP Warning:  Undefined array key "redirect" in /var/www/public_html/uploady_old/logout.php on line 9
+[14-Jan-2022 01:00:09 Europe/Moscow] PHP Warning:  Undefined array key "redirect" in /var/www/public_html/uploady_old/logout.php on line 9
+[14-Jan-2022 01:22:46 Europe/Moscow] PHP Warning:  unlink(): No such file or directory in /var/www/public_html/uploady_old/logic/deleteLogic.php on line 8
+[14-Jan-2022 01:31:54 Europe/Moscow] PHP Warning:  fopen(/var/www/public_html/uploady_old/uploads/09706325278e37e15b1fde05115dac2d88ed6766/0394a1c2a6a11a5b90d1b59f2b8ab3e211548255.png): Failed to open stream: Permission denied in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 773
+[14-Jan-2022 01:31:54 Europe/Moscow] PHP Fatal error:  Uncaught TypeError: fwrite(): Argument #1 ($stream) must be of type resource, bool given in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php:778
+Stack trace:
+#0 /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php(778): fwrite()
+#1 /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php(750): Uploady\Handler\Upload->moveFile()
+#2 /var/www/public_html/uploady_old/logic/uploadLogic.php(52): Uploady\Handler\Upload->upload()
+#3 /var/www/public_html/uploady_old/upload.php(3): include_once('...')
+#4 {main}
+  thrown in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 778
+[14-Jan-2022 01:34:46 Europe/Moscow] PHP Warning:  unlink(): No such file or directory in /var/www/public_html/uploady_old/logic/deleteLogic.php on line 8
+[14-Jan-2022 01:35:38 Europe/Moscow] PHP Warning:  unlink(): No such file or directory in /var/www/public_html/uploady_old/logic/deleteLogic.php on line 8
+[14-Jan-2022 01:52:44 Europe/Moscow] PHP Warning:  Undefined array key "redirect" in /var/www/public_html/uploady_old/logout.php on line 9
+[14-Jan-2022 01:52:56 Europe/Moscow] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1' for key 'users.PRIMARY' in /var/www/public_html/uploady_old/src/Uploady/Database.php:132
+Stack trace:
+#0 /var/www/public_html/uploady_old/src/Uploady/Database.php(132): PDOStatement->execute()
+#1 /var/www/public_html/uploady_old/src/Uploady/User.php(157): Uploady\Database->execute()
+#2 /var/www/public_html/uploady_old/logic/signupLogic.php(24): Uploady\User->createUser()
+#3 /var/www/public_html/uploady_old/signup.php(3): include_once('...')
+#4 {main}
+  thrown in /var/www/public_html/uploady_old/src/Uploady/Database.php on line 132
+[14-Jan-2022 22:06:22 Europe/Moscow] PHP Warning:  Packets out of order. Expected 1 received 0. Packet size=145 in /var/www/public_html/uploady_old/src/Uploady/Database.php on line 83
+[14-Jan-2022 22:06:37 Europe/Moscow] PHP Warning:  Packets out of order. Expected 1 received 0. Packet size=145 in /var/www/public_html/uploady_old/src/Uploady/Database.php on line 83
+[14-Jan-2022 22:06:42 Europe/Moscow] PHP Warning:  Packets out of order. Expected 1 received 0. Packet size=145 in /var/www/public_html/uploady_old/src/Uploady/Database.php on line 83
+[14-Jan-2022 22:07:24 Europe/Moscow] PHP Warning:  Undefined array key "folder_name" in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 370
+[14-Jan-2022 22:07:24 Europe/Moscow] PHP Warning:  mkdir(): Permission denied in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 375
+[14-Jan-2022 22:07:24 Europe/Moscow] PHP Warning:  chmod(): No such file or directory in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 376
+[14-Jan-2022 22:07:24 Europe/Moscow] PHP Warning:  Undefined array key "folder_path" in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 793
+[14-Jan-2022 22:07:24 Europe/Moscow] PHP Warning:  fopen(/e3a848a392db4e22e896a04108d82c6bee01e292.png): Failed to open stream: Permission denied in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 793
+[14-Jan-2022 22:07:24 Europe/Moscow] PHP Fatal error:  Uncaught TypeError: fwrite(): Argument #1 ($stream) must be of type resource, bool given in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php:798
+Stack trace:
+#0 /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php(798): fwrite()
+#1 /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php(770): Uploady\Handler\Upload->moveFile()
+#2 /var/www/public_html/uploady_old/logic/uploadLogic.php(43): Uploady\Handler\Upload->upload()
+#3 /var/www/public_html/uploady_old/upload.php(3): include_once('...')
+#4 {main}
+  thrown in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 798
+[14-Jan-2022 22:08:02 Europe/Moscow] PHP Warning:  Undefined array key "folder_name" in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 370
+[14-Jan-2022 22:08:02 Europe/Moscow] PHP Warning:  mkdir(): Permission denied in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 375
+[14-Jan-2022 22:08:02 Europe/Moscow] PHP Warning:  chmod(): No such file or directory in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 376
+[14-Jan-2022 22:08:02 Europe/Moscow] PHP Warning:  fopen(/984e4293d4b4c3e540e42db1c3a3827ef5d796e2.png): Failed to open stream: Permission denied in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 793
+[14-Jan-2022 22:08:02 Europe/Moscow] PHP Fatal error:  Uncaught TypeError: fwrite(): Argument #1 ($stream) must be of type resource, bool given in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php:798
+Stack trace:
+#0 /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php(798): fwrite()
+#1 /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php(770): Uploady\Handler\Upload->moveFile()
+#2 /var/www/public_html/uploady_old/logic/uploadLogic.php(48): Uploady\Handler\Upload->upload()
+#3 /var/www/public_html/uploady_old/upload.php(3): include_once('...')
+#4 {main}
+  thrown in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 798
+[14-Jan-2022 22:08:16 Europe/Moscow] PHP Warning:  Undefined array key "folder_name" in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 370
+[14-Jan-2022 22:08:16 Europe/Moscow] PHP Warning:  mkdir(): Permission denied in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 375
+[14-Jan-2022 22:08:16 Europe/Moscow] PHP Warning:  chmod(): No such file or directory in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 376
+[14-Jan-2022 22:08:16 Europe/Moscow] PHP Warning:  fopen(/c2791661f074c12c7cc50165c33e97c5a85b333e.png): Failed to open stream: Permission denied in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 793
+[14-Jan-2022 22:08:16 Europe/Moscow] PHP Fatal error:  Uncaught TypeError: fwrite(): Argument #1 ($stream) must be of type resource, bool given in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php:798
+Stack trace:
+#0 /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php(798): fwrite()
+#1 /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php(770): Uploady\Handler\Upload->moveFile()
+#2 /var/www/public_html/uploady_old/logic/uploadLogic.php(48): Uploady\Handler\Upload->upload()
+#3 /var/www/public_html/uploady_old/upload.php(3): include_once('...')
+#4 {main}
+  thrown in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 798
+[14-Jan-2022 22:08:23 Europe/Moscow] PHP Warning:  Undefined array key "folder_name" in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 370
+[14-Jan-2022 22:08:23 Europe/Moscow] PHP Warning:  mkdir(): Permission denied in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 375
+[14-Jan-2022 22:08:23 Europe/Moscow] PHP Warning:  chmod(): No such file or directory in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 376
+[14-Jan-2022 22:08:23 Europe/Moscow] PHP Warning:  fopen(/431ad57b678f539eba58855dfd1751493e2308bd.png): Failed to open stream: Permission denied in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 793
+[14-Jan-2022 22:08:23 Europe/Moscow] PHP Fatal error:  Uncaught TypeError: fwrite(): Argument #1 ($stream) must be of type resource, bool given in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php:798
+Stack trace:
+#0 /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php(798): fwrite()
+#1 /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php(770): Uploady\Handler\Upload->moveFile()
+#2 /var/www/public_html/uploady_old/logic/uploadLogic.php(48): Uploady\Handler\Upload->upload()
+#3 /var/www/public_html/uploady_old/upload.php(3): include_once('...')
+#4 {main}
+  thrown in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 798
+[14-Jan-2022 22:09:07 Europe/Moscow] PHP Warning:  Undefined array key "folder_name" in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 370
+[14-Jan-2022 22:09:07 Europe/Moscow] PHP Warning:  mkdir(): Permission denied in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 375
+[14-Jan-2022 22:09:07 Europe/Moscow] PHP Warning:  chmod(): No such file or directory in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 376
+[14-Jan-2022 22:09:07 Europe/Moscow] PHP Warning:  fopen(/42fc2832f5247dd9e5296859a9b8366a778b766f.png): Failed to open stream: Permission denied in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 793
+[14-Jan-2022 22:09:07 Europe/Moscow] PHP Fatal error:  Uncaught TypeError: fwrite(): Argument #1 ($stream) must be of type resource, bool given in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php:798
+Stack trace:
+#0 /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php(798): fwrite()
+#1 /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php(770): Uploady\Handler\Upload->moveFile()
+#2 /var/www/public_html/uploady_old/logic/uploadLogic.php(48): Uploady\Handler\Upload->upload()
+#3 /var/www/public_html/uploady_old/upload.php(3): include_once('...')
+#4 {main}
+  thrown in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 798
+[14-Jan-2022 22:09:21 Europe/Moscow] PHP Warning:  mkdir(): No such file or directory in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 375
+[14-Jan-2022 22:09:21 Europe/Moscow] PHP Warning:  chmod(): No such file or directory in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 376
+[14-Jan-2022 22:09:21 Europe/Moscow] PHP Warning:  fopen(/e0934416a102845249a36c33753b4fec0565890b.png): Failed to open stream: Permission denied in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 793
+[14-Jan-2022 22:09:21 Europe/Moscow] PHP Fatal error:  Uncaught TypeError: fwrite(): Argument #1 ($stream) must be of type resource, bool given in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php:798
+Stack trace:
+#0 /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php(798): fwrite()
+#1 /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php(770): Uploady\Handler\Upload->moveFile()
+#2 /var/www/public_html/uploady_old/logic/uploadLogic.php(48): Uploady\Handler\Upload->upload()
+#3 /var/www/public_html/uploady_old/upload.php(3): include_once('...')
+#4 {main}
+  thrown in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 798
+[14-Jan-2022 22:11:04 Europe/Moscow] PHP Warning:  unlink(): No such file or directory in /var/www/public_html/uploady_old/logic/deleteLogic.php on line 8
+[14-Jan-2022 22:52:23 Europe/Moscow] PHP Warning:  mkdir(): No such file or directory in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 375
+[14-Jan-2022 22:52:23 Europe/Moscow] PHP Warning:  chmod(): No such file or directory in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 376
+[14-Jan-2022 22:52:23 Europe/Moscow] PHP Warning:  fopen(/e472f084f69de8337869ea0e8009f7e2b51c2fe7.png): Failed to open stream: Permission denied in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 793
+[14-Jan-2022 22:52:23 Europe/Moscow] PHP Fatal error:  Uncaught TypeError: fwrite(): Argument #1 ($stream) must be of type resource, bool given in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php:798
+Stack trace:
+#0 /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php(798): fwrite()
+#1 /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php(758): Uploady\Handler\Upload->moveFile()
+#2 /var/www/public_html/uploady_old/logic/uploadLogic.php(50): Uploady\Handler\Upload->upload()
+#3 /var/www/public_html/uploady_old/upload.php(3): include_once('...')
+#4 {main}
+  thrown in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 798
+[14-Jan-2022 22:57:55 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 531
+[14-Jan-2022 22:57:56 Europe/Moscow] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '16bd34ca9400a987a65e415ebbc20e832acbfecd' for key 'files.file_id' in /var/www/public_html/uploady_old/src/Uploady/Database.php:132
+Stack trace:
+#0 /var/www/public_html/uploady_old/src/Uploady/Database.php(132): PDOStatement->execute()
+#1 /var/www/public_html/uploady_old/src/Uploady/Handler/UploadHandler.php(44): Uploady\Database->execute()
+#2 /var/www/public_html/uploady_old/logic/uploadLogic.php(54): Uploady\Handler\UploadHandler->addFile()
+#3 /var/www/public_html/uploady_old/upload.php(3): include_once('...')
+#4 {main}
+  thrown in /var/www/public_html/uploady_old/src/Uploady/Database.php on line 132
+[14-Jan-2022 23:02:49 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 531
+[14-Jan-2022 23:02:50 Europe/Moscow] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '3a7aaeb27de0cfdfa25ccb6e317753beaf34f770' for key 'files.file_id' in /var/www/public_html/uploady_old/src/Uploady/Database.php:132
+Stack trace:
+#0 /var/www/public_html/uploady_old/src/Uploady/Database.php(132): PDOStatement->execute()
+#1 /var/www/public_html/uploady_old/src/Uploady/Handler/UploadHandler.php(44): Uploady\Database->execute()
+#2 /var/www/public_html/uploady_old/logic/uploadLogic.php(54): Uploady\Handler\UploadHandler->addFile()
+#3 /var/www/public_html/uploady_old/upload.php(3): include_once('...')
+#4 {main}
+  thrown in /var/www/public_html/uploady_old/src/Uploady/Database.php on line 132
+[14-Jan-2022 23:07:19 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 531
+[14-Jan-2022 23:07:33 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 531
+[14-Jan-2022 23:12:01 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 520
+[14-Jan-2022 23:13:58 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 522
+[14-Jan-2022 23:14:15 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 522
+[14-Jan-2022 23:15:07 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 520
+[14-Jan-2022 23:15:07 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 521
+[14-Jan-2022 23:15:43 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 520
+[14-Jan-2022 23:15:43 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 521
+[14-Jan-2022 23:16:35 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 520
+[14-Jan-2022 23:17:34 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 520
+[14-Jan-2022 23:21:13 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 520
+[14-Jan-2022 23:22:06 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 520
+[14-Jan-2022 23:22:56 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 520
+[14-Jan-2022 23:23:52 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 520
+[14-Jan-2022 23:24:16 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 520
+[14-Jan-2022 23:24:56 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 520
+[14-Jan-2022 23:25:11 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 520
+[14-Jan-2022 23:25:39 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 520
+[14-Jan-2022 23:25:39 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 521
+[14-Jan-2022 23:27:36 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 520
+[14-Jan-2022 23:27:36 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 521
+[14-Jan-2022 23:28:19 Europe/Moscow] PHP Warning:  Trying to access array offset on value of type null in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 520
+[15-Jan-2022 12:46:04 Europe/Moscow] PHP Warning:  Undefined array key "redirect" in /var/www/public_html/uploady_old/logout.php on line 9
+[15-Jan-2022 12:46:09 Europe/Moscow] PHP Warning:  fopen(/var/www/public_html/uploady_old/uploads/c502136abb16df1b8f671a80c10f765802278bc6/69f0cf17da79832716841c76d0dee8e129f04271.png): Failed to open stream: Permission denied in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 658
+[15-Jan-2022 12:46:09 Europe/Moscow] PHP Fatal error:  Uncaught TypeError: fwrite(): Argument #1 ($stream) must be of type resource, bool given in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php:663
+Stack trace:
+#0 /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php(663): fwrite()
+#1 /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php(637): Uploady\Handler\Upload->moveFile()
+#2 /var/www/public_html/uploady_old/logic/uploadLogic.php(49): Uploady\Handler\Upload->upload()
+#3 /var/www/public_html/uploady_old/upload.php(3): include_once('...')
+#4 {main}
+  thrown in /var/www/public_html/uploady_old/src/Uploady/Handler/Upload.php on line 663

@@ -1,6 +1,6 @@
 <?php
 include_once 'session.php';
-include_once 'logic/signupLogic.php';
+include_once APP_PATH . 'logic/signupLogic.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,18 +36,18 @@ include_once 'logic/signupLogic.php';
                                     <?= $utils->alert($msg, 'success', 'check-circle'); ?>
                                 <?php endif; ?>
                                 <form method="POST">
-                                    <div class="form-group">
+                                    <div class="mb-3">
                                         <input type="text" class="form-control" name="username" placeholder="Enter Username" required>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="mb-3">
                                         <input type="email" class="form-control" name="email" placeholder="Enter Email" required>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="mb-3">
                                         <input type="password" class="form-control" name="password" placeholder="Enter Password" required>
                                     </div>
-                                    <div class="custom-control custom-checkbox m-3 text-left">
-                                        <input type="checkbox" class="custom-control-input" id="tos" required>
-                                        <label class="custom-control-label" for="tos">
+                                    <div class="form-check m-3 text-start">
+                                        <input type="checkbox" class="form-check-input" id="tos" required>
+                                        <label class="form-check-label" for="tos">
                                             I agree to the <a href="terms.php">TOS</a>
                                         </label>
                                     </div>

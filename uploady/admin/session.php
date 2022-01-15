@@ -7,7 +7,7 @@ $db = new Uploady\Database();
 
 $utils = new Uploady\Utils();
 
-$user = new Uploady\User($db);
+$user = new Uploady\User($db, $utils);
 
 $auth = new Uploady\Auth($db, $utils);
 

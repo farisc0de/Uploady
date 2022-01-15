@@ -1,6 +1,6 @@
 <?php
 include_once 'session.php';
-include_once 'logic/resetPasswordLogic.php';
+include_once APP_PATH . 'logic/resetPasswordLogic.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">

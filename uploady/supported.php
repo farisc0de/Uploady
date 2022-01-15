@@ -11,7 +11,7 @@ include_once APP_PATH . 'logic/supportedLogic.php';
   <title><?= $st['website_name'] ?> - Supported Formats</title>
   <?php include_once 'components/css.php'; ?>
   <?php $utils->style(
-    'https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css'
+    'https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.css'
   ) ?>
 </head>
 
@@ -40,7 +40,7 @@ include_once APP_PATH . 'logic/supportedLogic.php';
                   <?php foreach ($filter as $key => $value) : ?>
                     <tr>
                       <td class="font-weight-bold"><?= $key ?></td>
-                      <td class="font-weight-bold">100 MB</td>
+                      <td class="font-weight-bold"><?= MAX_SIZE; ?></td>
                       <td class="font-weight-bold">Allowed</td>
                     </tr>
                   <?php endforeach; ?>
@@ -61,7 +61,7 @@ include_once APP_PATH . 'logic/supportedLogic.php';
     'https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js'
   ); ?>
   <?php $utils->script(
-    'https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js'
+    'https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.js'
   ); ?>
 
   <script>

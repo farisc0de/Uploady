@@ -3,7 +3,7 @@ session_start();
 include_once 'config/config.php';
 include_once APP_PATH . 'loadSettings.php';
 
-$user = new Uploady\User($db);
+$user = new Uploady\User($db, $utils);
 $auth = new Uploady\Auth($db, $utils);
 
 $current_url = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];

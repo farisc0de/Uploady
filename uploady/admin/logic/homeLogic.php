@@ -11,7 +11,7 @@ foreach ($files as $file) {
 
 $mailer = new Uploady\Mailer($db);
 
-$user = new Uploady\User($db);
+$user = new Uploady\User($db, $utils);
 
 $count_user = $user->numUsers();
 

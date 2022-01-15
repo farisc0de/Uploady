@@ -71,13 +71,13 @@ include_once 'logic/accountLogic.php';
 
                                     <?= $utils->input('csrf', $_SESSION['csrf']); ?>
 
-                                    <div class="form-group">
+                                    <div class="mb-3">
                                         <input type="text" class="form-control" name="username" placeholder="Enter Username" value="<?= $data->username; ?>">
                                     </div>
-                                    <div class="form-group">
+                                    <div class="mb-3">
                                         <input type="email" class="form-control" name="email" placeholder="Enter Email" value="<?= $data->email; ?>">
                                     </div>
-                                    <div class="form-group" class="text-left">
+                                    <div class="mb-3" class="text-left">
                                         <input type="password" class="form-control" name="password" placeholder="Enter Password">
                                         <small>Keep it empty if you don't want to change the password.</small>
                                     </div>
@@ -104,7 +104,7 @@ include_once 'logic/accountLogic.php';
         function deleteAccount() {
             var conf = confirm("Are you sure ?");
             if (conf == true) {
-                window.location.href = 'actions/delete_me.php';
+                window.location.href = 'actions/delete_me.php?token=<?php echo $_SESSION['csrf']; ?>';
             }
         }
     </script>

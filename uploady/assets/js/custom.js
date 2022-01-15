@@ -1,32 +1,10 @@
-$(".owl-carousel").owlCarousel({
-  loop: true,
-  margin: 10,
-  responsiveClass: true,
-  autoWidth: true,
-  responsive: {
-    0: {
-      items: 1,
-      nav: true,
-    },
-    600: {
-      items: 3,
-      nav: true,
-    },
-    1000: {
-      items: 5,
-      nav: true,
-      loop: false,
-    },
-  },
-});
-
 let add_button = document.getElementById("add_more");
 let count = 4;
 
 add_button.addEventListener("click", () => {
   if (count <= 9) {
     var txt =
-      '<input type="file" class="form-control-file pt-2" id="file[]" name="file[]">';
+      '<div class="pt-2"><input type="file" class="form-control" id="file[]" name="file[]"></div>';
     $("#dvFile").append(txt);
     count++;
   } else {

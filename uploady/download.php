@@ -34,7 +34,7 @@ include_once APP_PATH . 'logic/downloadLogic.php';
                         <div class="col-sm-12 col-md-12 col-lg-4 text-center" id="qr_code">
                           <img class="mr-auto justify-content-center" src="<?= $file_data->qrcode ?>" title="QR Code" />
                         </div>
-                        <div class="col-sm-12 col-md-12 col-lg-8 pt-2 text-left bg-light" id="upload_info">
+                        <div class="col-sm-12 col-md-12 col-lg-8 pt-2 text-start bg-light" id="upload_info">
                           <div class="col-12 text-dark mb-3 mr-3 ml-3 text-underline">
                             <p>
                               <u>File Name:

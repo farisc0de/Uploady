@@ -1,20 +1,17 @@
 <?php
 $utils->style(
-    'https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/' .
+    'https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.1.3/' .
         strtolower($st['theme_name']) .
         '/bootstrap.min.css'
 );
 
 $utils->style(
-    'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css'
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/fontawesome.min.css'
 );
+
+$utils->style(
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css'
+);
+
 
 $utils->style('css/custom.css');
-
-$utils->style(
-    'https://cdn.boomcdn.com/libs/owl-carousel/2.3.4/assets/owl.carousel.min.css'
-);
-
-$utils->style(
-    'https://cdn.boomcdn.com/libs/owl-carousel/2.3.4/assets/owl.theme.default.min.css'
-);

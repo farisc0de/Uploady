@@ -6,10 +6,10 @@ namespace Uploady;
  * Class that Handles Update and Custom Installation System and Process
  *
  * @package Uploady
- * @version 1.5.2
- * @author fariscode <farisksa79@gmail.com.com>
+ * @version 1.5.3
+ * @author fariscode <farisksa79@gmail.com>
  * @license MIT
- * @link https://github.com/FarisCode511/Uploady
+ * @link https://github.com/farisc0de/Uploady
  */
 class Update
 {

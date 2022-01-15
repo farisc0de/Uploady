@@ -15,8 +15,8 @@ include_once 'logic/myFilesLogic.php';
     <?php include_once '../components/css.php'; ?>
 
     <?php $utils->style(
-        'https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css'
-    ); ?>
+        'https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.css'
+    ) ?>
 </head>
 
 <body>
@@ -83,8 +83,11 @@ include_once 'logic/myFilesLogic.php';
                                                         <td><?= $file['filename']; ?></td>
                                                         <td><?= $file['uploaddate']; ?></td>
                                                         <td>
+                                                            <a href="<?= $file['downloadurl']  ?>">
+                                                                <i class="fa fa-download" aria-hidden="true"></i>
+                                                            </a>
                                                             <a href="<?= $file['deletelink']  ?>">
-                                                                Delete
+                                                                <i class="fa fa-trash" aria-hidden="true"></i>
                                                             </a>
                                                         </td>
                                                     </tr>
@@ -114,9 +117,8 @@ include_once 'logic/myFilesLogic.php';
         'https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"'
     ); ?>
     <?php $utils->script(
-        'https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js'
+        'https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.js'
     ); ?>
-
     <script>
         // Call the dataTables jQuery plugin
         $(document).ready(function() {

@@ -1,5 +1,5 @@
 <?php include_once 'session.php';
-include_once './logic/activationLogic.php';
+include_once APP_PATH . 'logic/activationLogic.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,6 +1,6 @@
 <?php
 include_once 'session.php';
-include_once 'logic/forgetPasswordLogic.php';
+include_once APP_PATH . 'logic/forgetPasswordLogic.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +26,7 @@ include_once 'logic/forgetPasswordLogic.php';
                     <div class="col-sm-12 col-md-8 col-lg-4">
                         <div class="card">
                             <div class="card-header">
-                                <b>Forget Password</b>
+                                <b>Password Recovery</b>
                             </div>
                             <div class="card-body">
                                 <?php if (isset($error)) : ?>
@@ -40,7 +40,7 @@ include_once 'logic/forgetPasswordLogic.php';
                                     <p>Enter your email address and we will send you instructions on how to reset your password.</p>
                                 </div>
                                 <form method="POST" id="login_form">
-                                    <div class="form-group">
+                                    <div class="mb-3">
                                         <input type="text" class="form-control" name="email" placeholder="Enter Email">
                                     </div>
 

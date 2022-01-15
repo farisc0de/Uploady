@@ -1,6 +1,6 @@
 <?php
 include_once 'config/config.php';
-include_once 'logic/installLogic.php';
+include_once APP_PATH . 'logic/installLogic.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,20 +16,22 @@ include_once 'logic/installLogic.php';
     <title>
         Uploady - Install Software
     </title>
-    <?php $utils->style(
-        'https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/' .
-            'litera' .
-            '/bootstrap.min.css'
-    ); ?>
-    <?php include_once 'components/css.php'; ?>
+    <?php
+    $utils->style('https://bootswatch.com/5/litera/bootstrap.min.css');
+    $utils->style('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css');
+    $utils->style('css/custom.css');
+    ?>
 </head>
 
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="<?= $utils->siteUrl(); ?>">
-            Uploady
-        </a>
+        <div class="container-fluid">
+            <a class="navbar-brand" href="<?= $utils->siteUrl(); ?>">
+                Uploady
+            </a>
+        </div>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -42,7 +44,7 @@ include_once 'logic/installLogic.php';
                     <div class="col-sm-12 col-md-8 col-lg-4">
                         <div class="card">
                             <div class="card-header">
-                                <b>Website Template</b>
+                                <b>Software Installation</b>
                             </div>
                             <div class="card-body">
                                 <form method="POST">

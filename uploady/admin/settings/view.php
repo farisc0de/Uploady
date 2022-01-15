@@ -71,7 +71,7 @@ include_once '../logic/settingsLogic.php';
 
                                         <div class="form-group">
                                             <div class="form-label-group">
-                                                <input class="form-control" id="email" type="text" name="email" placeholder="Owner Email" value="<?= $settings->getSettingValue('email'); ?>">
+                                                <input class="form-control" id="email" type="text" name="email" placeholder="Owner Email" value="<?= $settings->getSettingValue('owner_email'); ?>">
                                                 <label for="email">Owner Email</label>
                                             </div>
                                         </div>
