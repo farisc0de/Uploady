@@ -31,7 +31,7 @@ foreach ($required_libs as $lib_name => $lib_id) {
     }
 }
 
-$writable = ["uploads", "config/config.php"];
+$writable = ["uploads", "config/config.php", "config/environment.php"];
 
 $is_writable = [];
 
