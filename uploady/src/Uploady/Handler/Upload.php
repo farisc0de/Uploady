@@ -755,11 +755,12 @@ final class Upload
      */
     public function sanitize($value)
     {
-        $data = trim($value);
-        $data = htmlspecialchars($data, ENT_QUOTES, "UTF-8");
-        $data = strip_tags($data);
-        $data = filter_var($data, FILTER_SANITIZE_STRING);
-        return $data;
+        if (!is_null($value)) {
+            $data = trim($value);
+            $data = htmlspecialchars($data, ENT_QUOTES, "UTF-8");
+            $data = strip_tags($data);
+            return $data;
+        }
     }
     /** 
      * Function that format file bytes to a readable format
