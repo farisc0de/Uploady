@@ -31,20 +31,24 @@ foreach ($required_libs as $lib_name => $lib_id) {
     }
 }
 
-$writable = ["uploads", "config/config.php", "config/environment.php"];
+$writables = [
+    "uploads",
+    "config/config.php",
+    "config/environment.php"
+];
 
 $is_writable = [];
 
-foreach ($writable as $name) {
-    if (is_writable($name) == true) {
+foreach ($writables as $file_name) {
+    if (is_writable($file_name) == true) {
         array_push($is_writable, [
-            "name" => $name,
+            "name" => $file_name,
             "status" => "Writable",
             "bool" => true
         ]);
     } else {
         array_push($is_writable, [
-            "name" => $name,
+            "name" => $file_name,
             "status" => "Not Writable",
             "bool" => false
         ]);
