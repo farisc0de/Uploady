@@ -1,0 +1,17 @@
+{
+    "name": "farisc0de/phpfileuploading",
+    "description": "PHP Library to help you build your own file sharing website.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Farisc0de\\PhpFileUploading\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Faris AL-Otaibi",
+            "email": "farisksa79@gmail.com"
+        }
+    ]
+}

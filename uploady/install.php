@@ -79,29 +79,32 @@ include_once APP_PATH . 'logic/installLogic.php';
 
                                     <h3 class="text-center">Create an admin user</h3>
 
-                                    <div class="form-group">
+                                    <div class="pt-2">
                                         <div class="form-label-group">
                                             <input class="form-control" type="text" maxlength="15" id="username" name="username" placeholder="Username" required>
                                             <small id="user_error" class="text-danger"></small>
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
+                                    <div class="pt-3">
                                         <div class="form-label-group">
                                             <input class="form-control" type="password" minlength="8" id="password" name="password" placeholder="Password" required>
                                             <small id="password_error" class="text-danger"></small>
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
+                                    <div class="pt-3">
                                         <div class="form-label-group">
                                             <input class="form-control" type="email" id="email" name="email" placeholder="Email Address" required>
                                             <small id="email_error" class="text-danger"></small>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-block" <?php echo $disabled; ?>>
-                                        Start Installation
-                                    </button>
+
+                                    <div class="pt-3">
+                                        <button type="submit" class="btn btn-primary btn-block" <?php echo $disabled; ?>>
+                                            Start Installation
+                                        </button>
+                                    </div>
                                 </form>
                             </div>
                         </div>

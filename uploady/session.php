@@ -16,7 +16,7 @@ if (isset($_SESSION)) {
             $data = $user->getUserData($username);
 
             if (!isset($_SESSION['user_id'])) {
-                $_SESSION["user_id"] = $data->user_id;
+                $_SESSION["user_id"] = hash("sha1", $data->user_id);
             }
         }
 

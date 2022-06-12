@@ -1,23 +1,25 @@
 <?php
 
-use Uploady\Handler\Upload;
 use Uploady\Handler\UploadHandler;
 
-$upload = new Upload;
+$utilty = new Farisc0de\PhpFileUploading\Utility();
+
+$upload = new Farisc0de\PhpFileUploading\Upload();
+
 $handler = new UploadHandler($db);
 
-$upload->setController("src/Uploady/Handler/");
+$upload->setController("vendor/farisc0de/phpfileuploading/src/");
+
+$upload->setSiteUrl(SITE_URL);
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $inputs = $upload->fixArray($_FILES['file']);
+    $inputs = $utilty->fixArray($_FILES['file']);
 
     if (count($inputs) > 10) {
         $utils->redirect('index.php?error=1');
     }
 
-    $upload->setUserID(
-        (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : $upload->generateUserID())
-    );
+    $upload->generateUserID();
 
     $upload->createUserCloud(UPLOAD_FOLDER);
 
@@ -32,11 +34,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     foreach ($inputs as $file) {
 
-        $upload->setFileID($upload->generateFileID());
+        $upload->generateFileID();
 
-        $upload->setUpload($file);
+        $upload->setUpload(new Farisc0de\PhpFileUploading\File($file));
 
-        if ($upload->checkIfEmpty()) {
+        if ($upload->checkIfNotEmpty()) {
 
             $upload->hashName();
 

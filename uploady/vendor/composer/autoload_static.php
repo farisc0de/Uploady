@@ -27,6 +27,10 @@ class ComposerStaticInit5945ad3276d7348e01910cc39dd50b7b
         array (
             'Google\\Authenticator\\' => 21,
         ),
+        'F' => 
+        array (
+            'Farisc0de\\PhpFileUploading\\' => 27,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -49,6 +53,10 @@ class ComposerStaticInit5945ad3276d7348e01910cc39dd50b7b
         'Google\\Authenticator\\' => 
         array (
             0 => __DIR__ . '/..' . '/sonata-project/google-authenticator/src',
+        ),
+        'Farisc0de\\PhpFileUploading\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/farisc0de/phpfileuploading/src',
         ),
     );
 

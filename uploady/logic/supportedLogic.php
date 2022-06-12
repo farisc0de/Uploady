@@ -1,6 +1,6 @@
 <?php
 $filter = json_decode(
-    file_get_contents("src/Uploady/Handler/filter.json"),
+    file_get_contents("vendor/farisc0de/phpfileuploading/src/filter.json"),
     true
 );
 

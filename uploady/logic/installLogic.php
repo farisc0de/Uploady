@@ -1,12 +1,15 @@
 <?php
 
+use Uploady\Migration\Options\Options;
+use Uploady\Migration\Options\Types;
+
 $utils = new Uploady\Utils();
 
 $database = new Uploady\Database();
 
-$install = new Uploady\Update($database, $utils);
+$install = new \Uploady\Migration\Migration($database, $utils);
 
-$upload = new \Uploady\Handler\Upload();
+$upload = new Farisc0de\PhpFileUploading\Upload();
 
 $php_alert =  "";
 
@@ -68,32 +71,85 @@ if (
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         $users = [
-            ['id', 'int', 'UNSIGNED', 'NOT NULL'],
-            ['username', 'varchar(25)', 'NOT NULL'],
-            ['email', 'varchar(225)', 'NOT NULL'],
-            ["password", "varchar(255)", "NOT NULL"],
-            ['user_id', 'varchar(64)', 'NOT NULL'],
-            ['is_admin', 'tinyint(1)', 'NOT NULL', 'DEFAULT 0'],
-            ['failed_login', 'int', 'NOT NULL', 'DEFAULT 0'],
-            ['last_login', 'timestamp', 'NOT NULL', 'DEFAULT CURRENT_TIMESTAMP'],
-            ['reset_hash', 'varchar(64)', 'DEFAULT NULL'],
-            ['created_at', 'timestamp', 'NULL', 'DEFAULT NULL'],
-            ['activation_hash', 'varchar(64)', 'DEFAULT NULL'],
-            ['is_active', 'tinyint(1)', 'NOT NULL', 'DEFAULT 0']
+            [
+                'id',
+                Types::Integer(),
+                Options::UnSigned(),
+                Options::NotNull()
+            ],
+            [
+                'username', Types::String(25),
+                Options::NotNull()
+            ],
+            [
+                'email',
+                Types::String(225),
+                Options::NotNull()
+            ],
+            [
+                'password',
+                Types::String(225),
+                Options::NotNull()
+            ],
+            [
+                'user_id',
+                Types::String(64),
+                Options::NotNull()
+            ],
+            [
+                'is_admin',
+                Types::Boolean(),
+                Options::NotNull(),
+                Options::DefaultValue("0")
+            ],
+            [
+                'failed_login',
+                Types::Integer(),
+                Options::NotNull(),
+                Options::DefaultValue("0")
+            ],
+            [
+                'last_login',
+                Types::TimeStamp(),
+                Options::NotNull(),
+                Options::DefaultValue("CURRENT_TIMESTAMP")
+            ],
+            [
+                'reset_hash',
+                Types::String(64),
+                Options::DefaultValue("NULL")
+            ],
+            [
+                'created_at',
+                Types::TimeStamp(),
+                Options::Null(),
+                Options::DefaultValue("NULL")
+            ],
+            [
+                'activation_hash',
+                Types::String(64),
+                Options::DefaultValue("NULL")
+            ],
+            [
+                'is_active',
+                Types::Boolean(),
+                Options::NotNull(),
+                Options::DefaultValue("0")
+            ]
         ];
 
         $files = [
-            ['id', 'int', 'NOT NULL'],
-            ['file_id', 'varchar(100)', 'NOT NULL'],
-            ['user_id', 'varchar(100)', 'NOT NULL'],
-            ['file_data', 'text', 'NOT NULL'],
-            ['uploaded_at', 'timestamp', 'NOT NULL']
+            ['id', Types::Integer(), Options::NotNull()],
+            ['file_id', Types::String(100), Options::NotNull()],
+            ['user_id', Types::String(100), Options::NotNull()],
+            ['file_data', 'text', Options::NotNull()],
+            ['uploaded_at', Types::TimeStamp(), Options::NotNull()]
         ];
 
         $settings = [
-            ["id", "int(11)", "unsigned", "NOT NULL"],
-            ["setting_key", "varchar(50)", "NOT NULL"],
-            ["setting_value", "varchar(225)", "NOT NULL"],
+            ["id", Types::Integer(), Options::UnSigned(), Options::NotNull()],
+            ["setting_key", Types::String(50), Options::NotNull()],
+            ["setting_value", Types::String(225), Options::NotNull()],
         ];
 
         $install->createTable("users", $users);
@@ -233,25 +289,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ]
         );
 
-        $install->isPrimary("users", "id");
+        $install->setPrimary("users", "id");
 
-        $install->isUnique("users", "email");
+        $install->setUnique("users", "email");
 
-        $install->isUnique("users", "user_id");
+        $install->setUnique("users", "user_id");
 
-        $install->isUnique("users", "activation_hash");
+        $install->setUnique("users", "activation_hash");
 
-        $install->isAutoinc("users", ["id", "int(11)", "unsigned", "NOT NULL"]);
+        $install->setAutoinc("users", [
+            "id",
+            Types::Integer(),
+            Options::UnSigned(),
+            Options::NotNull()
+        ]);
 
-        $install->isPrimary("files", "id");
+        $install->setPrimary("files", "id");
 
-        $install->isUnique("files", "file_id");
+        $install->setUnique("files", "file_id");
 
-        $install->isAutoinc("files", ["id", "int(11)", "unsigned", "NOT NULL"]);
+        $install->setAutoinc("files", [
+            "id",
+            Types::Integer(),
+            Options::UnSigned(),
+            Options::NotNull()
+        ]);
 
-        $install->isPrimary("settings", "id");
+        $install->setPrimary("settings", "id");
 
-        $install->isAutoinc("settings", ["id", "int(11)", "unsigned", "NOT NULL"]);
+        $install->setAutoinc("settings", [
+            "id",
+            Types::Integer(),
+            Options::UnSigned(),
+            Options::NotNull()
+        ]);
 
         // Enable Production Mode
         /* -------------------------- */

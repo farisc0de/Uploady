@@ -4,8 +4,45 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "50e8d5ce1e30e192c57375b83f6f4d2d",
+    "content-hash": "ea4cf51acd0ac1f2086f905ecfd6869c",
     "packages": [
+        {
+            "name": "farisc0de/phpfileuploading",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/farisc0de/PhpFileUploading.git",
+                "reference": "bb5bd237e202c8f376d6a675b0e8ae63111c04f6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/farisc0de/PhpFileUploading/zipball/bb5bd237e202c8f376d6a675b0e8ae63111c04f6",
+                "reference": "bb5bd237e202c8f376d6a675b0e8ae63111c04f6",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Farisc0de\\PhpFileUploading\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Faris AL-Otaibi",
+                    "email": "farisksa79@gmail.com"
+                }
+            ],
+            "description": "PHP Library to help you build your own file sharing website.",
+            "support": {
+                "issues": "https://github.com/farisc0de/PhpFileUploading/issues",
+                "source": "https://github.com/farisc0de/PhpFileUploading/tree/v1.0.0"
+            },
+            "time": "2022-06-12T15:45:10+00:00"
+        },
         {
             "name": "google/recaptcha",
             "version": "1.2.4",
@@ -60,16 +97,16 @@
         },
         {
             "name": "phpmailer/phpmailer",
-            "version": "v6.5.3",
+            "version": "v6.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "baeb7cde6b60b1286912690ab0693c7789a31e71"
+                "reference": "e43bac82edc26ca04b36143a48bde1c051cfd5b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/baeb7cde6b60b1286912690ab0693c7789a31e71",
-                "reference": "baeb7cde6b60b1286912690ab0693c7789a31e71",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/e43bac82edc26ca04b36143a48bde1c051cfd5b1",
+                "reference": "e43bac82edc26ca04b36143a48bde1c051cfd5b1",
                 "shasum": ""
             },
             "require": {
@@ -82,10 +119,10 @@
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
                 "doctrine/annotations": "^1.2",
                 "php-parallel-lint/php-console-highlighter": "^0.5.0",
-                "php-parallel-lint/php-parallel-lint": "^1.3",
+                "php-parallel-lint/php-parallel-lint": "^1.3.1",
                 "phpcompatibility/php-compatibility": "^9.3.5",
                 "roave/security-advisories": "dev-latest",
-                "squizlabs/php_codesniffer": "^3.6.0",
+                "squizlabs/php_codesniffer": "^3.6.2",
                 "yoast/phpunit-polyfills": "^1.0.0"
             },
             "suggest": {
@@ -126,7 +163,7 @@
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
             "support": {
                 "issues": "https://github.com/PHPMailer/PHPMailer/issues",
-                "source": "https://github.com/PHPMailer/PHPMailer/tree/v6.5.3"
+                "source": "https://github.com/PHPMailer/PHPMailer/tree/v6.6.0"
             },
             "funding": [
                 {
@@ -134,7 +171,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-11-25T16:34:11+00:00"
+            "time": "2022-02-28T15:31:21+00:00"
         },
         {
             "name": "sonata-project/google-authenticator",
@@ -225,5 +262,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }

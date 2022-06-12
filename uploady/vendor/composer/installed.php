@@ -1,22 +1,31 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => NULL,
+        'reference' => '84125bf3532024345ff5aab4c042b4233def4c9d',
         'name' => '__root__',
         'dev' => true,
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => NULL,
+            'reference' => '84125bf3532024345ff5aab4c042b4233def4c9d',
+            'dev_requirement' => false,
+        ),
+        'farisc0de/phpfileuploading' => array(
+            'pretty_version' => 'v1.0.0',
+            'version' => '1.0.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../farisc0de/phpfileuploading',
+            'aliases' => array(),
+            'reference' => 'bb5bd237e202c8f376d6a675b0e8ae63111c04f6',
             'dev_requirement' => false,
         ),
         'google/recaptcha' => array(
@@ -29,12 +38,12 @@
             'dev_requirement' => false,
         ),
         'phpmailer/phpmailer' => array(
-            'pretty_version' => 'v6.5.3',
-            'version' => '6.5.3.0',
+            'pretty_version' => 'v6.6.0',
+            'version' => '6.6.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpmailer/phpmailer',
             'aliases' => array(),
-            'reference' => 'baeb7cde6b60b1286912690ab0693c7789a31e71',
+            'reference' => 'e43bac82edc26ca04b36143a48bde1c051cfd5b1',
             'dev_requirement' => false,
         ),
         'sonata-project/google-authenticator' => array(

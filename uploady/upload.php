@@ -31,23 +31,23 @@ include_once APP_PATH . "logic/uploadLogic.php";
                   <?php foreach ($resp as $msg) : ?>
                     <?php if (($msg['message'] != 5) && ($msg['message'] != 0)) : ?>
                       <?=
-                        $utils->alert(
-                          $msg['filename'] . ': ' . $upload->getMessage($msg['message']),
-                          'danger',
-                          'times-circle'
-                        ); ?>
+                      $utils->alert(
+                        $msg['filename'] . ': ' . $upload->getMessage($msg['message']),
+                        'danger',
+                        'times-circle'
+                      ); ?>
                     <?php endif; ?>
                   <?php endforeach; ?>
                   <?php foreach ($files as $file) : ?>
                     <div class="alert alert-success mb-1 mt-3">
-                      <b><?= $file->filename . " : " . $upload->getMessage(0) ?></b>
+                      <b><?= $file['filename'] . " : " . $upload->getMessage(0) ?></b>
                     </div>
-                    <?= $file->filename; ?>
+                    <?= $file['filename']; ?>
                     <br />
-                    <a class="btn btn-primary" href="<?= $file->downloadurl ?>">
+                    <a class="btn btn-primary" href="<?= $file['downloadlink'] ?>">
                       Click Here to Download
                     </a>
-                    <a class="btn btn-danger" href="<?= $file->deletelink ?>">
+                    <a class="btn btn-danger" href="<?= $file['deletelink'] ?>">
                       Click Here to Delete
                     </a>
                   <?php endforeach; ?>

@@ -37,7 +37,7 @@ include_once APP_PATH . 'logic/supportedLogic.php';
                 </thead>
 
                 <tbody>
-                  <?php foreach ($filter as $key => $value) : ?>
+                  <?php foreach ($filter['extensions'] as $key => $value) : ?>
                     <tr>
                       <td class="font-weight-bold"><?= $key ?></td>
                       <td class="font-weight-bold"><?= MAX_SIZE; ?></td>
