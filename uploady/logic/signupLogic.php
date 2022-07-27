@@ -1,5 +1,5 @@
 <?php
-$upload = new Uploady\Handler\Upload();
+$upload = new \Farisc0de\PhpFileUploading\Upload();
 
 $mailer = new Uploady\Mailer($db);
 
@@ -15,11 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $hash = sha1($token);
 
+        $upload->generateUserID();
+
         $user->createUser([
             'username' => $username,
             'email' => $email,
             'password' => password_hash($password, PASSWORD_BCRYPT),
-            'user_id' => $upload->generateUserID(),
+            'user_id' => $upload->getUserID(),
             'activation_hash' => $hash,
             'is_active' => 0
         ]);

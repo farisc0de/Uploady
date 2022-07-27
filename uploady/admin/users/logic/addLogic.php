@@ -1,7 +1,9 @@
 <?php
-$upload = new Uploady\Handler\Upload();
+$upload = new \Farisc0de\PhpFileUploading\Upload();
 
-$user_id = $upload->generateUserID(true);
+$upload->generateUserID(true);
+
+$user_id = $upload->getUserID();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($auth->checkToken($_POST['csrf'], $_SESSION['csrf'])) {

@@ -335,10 +335,6 @@ class Utils
      */
     public function esc($data)
     {
-        if ($this->data != null) {
-            $data = $this->data;
-        }
-
         if (is_string($data)) {
             if ($this->isEmpty($data)) {
                 return false;

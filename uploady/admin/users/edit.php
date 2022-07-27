@@ -34,7 +34,7 @@ include_once 'logic/editLogic.php';
                                     <?php if ($msg == "yes") : ?>
 
                                         <?php echo $utils->alert(
-                                            "Account has been created",
+                                            "Account has been updated",
                                             "success",
                                             "check-circle"
                                         ); ?>

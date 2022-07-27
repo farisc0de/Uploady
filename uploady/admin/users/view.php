@@ -25,12 +25,50 @@ include_once 'logic/viewLogic.php';
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">Dashboard</li>
                     </ol>
+                    <?php if (isset($msg)) : ?>
+
+                        <?php if ($msg == "yes") : ?>
+
+                            <?php echo $utils->alert(
+                                "Account has been updated",
+                                "success",
+                                "check-circle"
+                            ); ?>
+
+                        <?php elseif ($msg == "csrf") : ?>
+
+                            <?php echo $utils->alert(
+                                "CSRF token is invalid.",
+                                "danger",
+                                "times-circle"
+                            ); ?>
+
+                        <?php elseif ($msg == "forbidden") : ?>
+
+                            <?php echo $utils->alert(
+                                "Sorry, but you can't delete yourself!!",
+                                "danger",
+                                "times-circle"
+                            ); ?>
+
+                        <?php elseif ($msg == "error") : ?>
+
+                            <?php echo $utils->alert(
+                                "An unexpected error has occurred",
+                                "danger",
+                                "times-circle"
+                            ); ?>
+
+                        <?php endif; ?>
+
+                    <?php endif; ?>
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-users mr-1"></i>
                             Manager Users
                         </div>
                         <form method="POST" action="<?= $utils->siteUrl('/admin/users/actions/delete.php') ?>">
+                            <?= $utils->input('csrf', $_SESSION['csrf']); ?>
                             <div class="card-body">
                                 <div class="table-responsive border pl-2 pb-2 pt-2 pr-2 pb-2 rounded">
                                     <table class="table nowrap table-bordered" width="100%" id="dataTable" cellspacing="0">
@@ -55,7 +93,10 @@ include_once 'logic/viewLogic.php';
                                                     <td>
                                                         <div class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input" id="user_<?= $u->id ?>" name="userid[]" value="<?= $u->id; ?>" <?= ($u->id == $data->id) ? 'disabled' : '' ?> />
-                                                            <label class="custom-control-label" for="user_<?= $u->id; ?>" </label> </div> </td> <td><?= $u->username; ?>
+                                                            <label class="custom-control-label" for="user_<?= $u->id; ?>" </label>
+                                                        </div>
+                                                    </td>
+                                                    <td><?= $u->username; ?>
                                                     </td>
                                                     <td><?= $u->email; ?></td>
                                                     <td><?= $u->is_admin ? 'yes' : 'no'; ?></td>
