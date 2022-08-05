@@ -1,3 +1,7 @@
+<div align="center">
+   <img src="https://i.ibb.co/6vX6r6m/UPLOADY-removebg-preview.png" alt="UPLOADY-removebg-preview" border="0" align="center" />
+</div>
+
 # Uploady
 
 Uploady is a Simple File Uploader Script with Multi File Upload Support
