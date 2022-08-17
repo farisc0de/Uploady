@@ -8,7 +8,6 @@ Uploady is a Simple File Uploader Script with Multi File Upload Support
 
 It comes with more than 20 features and you can set up it in less than 5 minutes.
 
-
 ## Features
 
 1. Simple to use and implement
@@ -41,12 +40,15 @@ Make Uploads Folder Writeble ``` chmod 777 uploads ```
 ## TODO
 
 ```
-1. Role Based User Managment with custom settings for each role
+1. Role Based User Managment with size limit for each role
    1. Guest
    2. User
    3. Admin
 2. More charts and stats for admin
 3. Image Manipulation
+4. Adding AdSense Support
+5. Adding 2FA for users
+6. Overall Bug Fixing
 ```
 
 ## License
