@@ -41,6 +41,7 @@ Make Uploads Folder Writeble ``` chmod 777 uploads ```
 
 - [x] Role-based User Managment with size limit for each role
 - [x] More charts and stats for admin
+- [ ] Implementing data collection [IP Address, Browser Information, OS, Country]
 - [ ] Image Manipulation
 - [x] Adding AdSense Support
 - [ ] Adding 2FA for users
