@@ -39,17 +39,12 @@ Make Uploads Folder Writeble ``` chmod 777 uploads ```
 
 ## TODO
 
-```
-1. Role Based User Managment with size limit for each role
-   1. Guest
-   2. User
-   3. Admin
-2. More charts and stats for admin
-3. Image Manipulation
-4. Adding AdSense Support
-5. Adding 2FA for users
-6. Overall Bug Fixing
-```
+- [x] Role-based User Managment with size limit for each role
+- [x] More charts and stats for admin
+- [ ] Image Manipulation
+- [x] Adding AdSense Support
+- [ ] Adding 2FA for users
+- [ ] Overall Bug Fixing
 
 ## License
 
