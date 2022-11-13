@@ -1,11 +1,11 @@
 <footer class="py-4 bg-light mt-auto">
     <div class="container-fluid">
         <div class="d-flex align-items-center justify-content-between small">
-            <div class="text-muted">Copyright &copy; <?= $st['website_name']; ?> 2020</div>
+            <div class="text-muted">Copyright &copy; <?= $st['website_name']; ?> <?= date("Y"); ?></div>
             <div>
-                <a href="#">Privacy Policy</a>
+                <a href="<?= $utils->siteUrl('/page.php?s=privacy'); ?>">Privacy Policy</a>
                 &middot;
-                <a href="<?= $utils->siteUrl('/terms.php'); ?>">
+                <a href="<?= $utils->siteUrl('/page.php?s=terms'); ?>">
                     Terms &amp; Conditions
                 </a>
             </div>

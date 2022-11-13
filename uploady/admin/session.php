@@ -23,7 +23,7 @@ if (isset($_SESSION)) {
     }
 
     if ($username != null) {
-        $data = $user->getUserData($username);
+        $data = $user->get($username);
 
         if (!isset($_SESSION['current_ip'])) {
             $_SESSION['current_ip'] = $utils->sanitize($_SERVER['REMOTE_ADDR']);
@@ -39,7 +39,7 @@ if (isset($_SESSION)) {
             }
         }
 
-        if (!$data->is_admin) {
+        if ($data->role != 3) {
             $utils->redirect($utils->siteUrl('/index.php'));
         }
     } else {

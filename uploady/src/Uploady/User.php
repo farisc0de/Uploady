@@ -46,7 +46,7 @@ class User
      *
      * @return array|bool
      */
-    public function getUsers()
+    public function getAll()
     {
         $sql = $this->utils->escape("SELECT * FROM users;");
 
@@ -67,7 +67,7 @@ class User
      * @return object|bool
      *  An object contains the username information otherwise false
      */
-    public function getUserData($username)
+    public function get($username)
     {
         $find_by = $this->findBy($username);
 
@@ -94,7 +94,7 @@ class User
      * @return int
      *  Return the number of users
      */
-    public function numUsers()
+    public function countAll()
     {
         $query = $this->utils->escape("SELECT * FROM users;");
 
@@ -113,7 +113,7 @@ class User
      * @return bool
      *  Return true if the user exists otherwise return false
      */
-    public function checkUser($username)
+    public function isExist($username)
     {
         $find_by = $this->findBy($username);
 
@@ -140,7 +140,7 @@ class User
      * @param array $user_array
      * @return bool
      */
-    public function createUser($user_array)
+    public function add($user_array)
     {
         $sql = sprintf(
             "INSERT INTO users (%s) VALUES (%s)",
@@ -167,7 +167,7 @@ class User
      * @return bool
      *  Return true if user data is updated
      */
-    public function updateUser($id, $user_array)
+    public function update($id, $user_array)
     {
 
         $array_keys = array_keys($user_array);
@@ -204,7 +204,7 @@ class User
      * @return bool
      *  Return true if the username is deleted otherwise false
      */
-    public function deleteUser($username)
+    public function delete($username)
     {
         $sql = sprintf("DELETE FROM users WHERE %s = :find_by", $this->findBy($username));
 
@@ -223,7 +223,7 @@ class User
      * @return string
      *  Return the username from the database
      */
-    public function getUsernameByUserId($user_id)
+    public function getByUserId($user_id)
     {
         $sql = "SELECT username FROM users WHERE user_id = :user_id";
 
@@ -242,7 +242,7 @@ class User
         }
     }
 
-    public function activateAccount($token)
+    public function activate($token)
     {
         $sql = 'SELECT * FROM users WHERE activation_hash = :hash';
 

@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($data->id == $id) {
                 $utils->redirect($utils->siteUrl('/admin/users/view.php?msg=forbidden'));
             }
-            $user->deleteUser((int) $id);
+            $user->delete((int) $id);
         }
 
         $utils->redirect($utils->siteUrl('/admin/users/view.php?msg=ok'));

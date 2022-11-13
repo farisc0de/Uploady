@@ -7,9 +7,8 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Uploady\\' => array($baseDir . '/src/Uploady'),
-    'Sonata\\GoogleAuthenticator\\' => array($vendorDir . '/sonata-project/google-authenticator/src'),
+    'RobThree\\Auth\\' => array($vendorDir . '/robthree/twofactorauth/lib'),
     'ReCaptcha\\' => array($vendorDir . '/google/recaptcha/src/ReCaptcha'),
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
-    'Google\\Authenticator\\' => array($vendorDir . '/sonata-project/google-authenticator/src'),
     'Farisc0de\\PhpFileUploading\\' => array($vendorDir . '/farisc0de/phpfileuploading/src'),
 );

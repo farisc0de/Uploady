@@ -13,7 +13,7 @@ if (isset($_SESSION)) {
 
     if ($username != null) {
         if (isset($_SESSION['loggedin'])) {
-            $data = $user->getUserData($username);
+            $data = $user->get($username);
 
             if (!isset($_SESSION['user_id'])) {
                 $_SESSION["user_id"] = hash("sha1", $data->user_id);

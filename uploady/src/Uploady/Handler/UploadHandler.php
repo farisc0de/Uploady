@@ -138,6 +138,39 @@ class UploadHandler
         }
     }
 
+    public function addDownload($file_id)
+    {
+        $this->db->query("UPDATE files SET downloads = (downloads + 1) WHERE file_id = :file_id");
+
+        $this->db->bind(":file_id", $file_id, \PDO::PARAM_STR);
+
+        return $this->db->execute();
+    }
+
+    public function getDownloadsTotal()
+    {
+        $this->db->query("SELECT downloads FROM files");
+
+        $this->db->execute();
+
+        $total = 0;
+
+        foreach ($this->db->resultset() as $download) {
+            $total += $download->downloads;
+        }
+
+        return $total;
+    }
+
+    public function getLatestFiles()
+    {
+        $this->db->query("SELECT * FROM files ORDER BY uploaded_at DESC LIMIT 10");
+
+        $this->db->execute();
+
+        return $this->db->resultset();
+    }
+
     /**
      * Function to know how many files
      *

@@ -57,9 +57,7 @@ include_once APP_PATH . 'logic/supportedLogic.php';
 
   <?php include_once 'components/js.php'; ?>
 
-  <?php $utils->script(
-    'https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js'
-  ); ?>
+  <?php $utils->script('https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js'); ?>
   <?php $utils->script(
     'https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.js'
   ); ?>

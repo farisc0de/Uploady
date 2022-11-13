@@ -278,11 +278,7 @@ class Utils
     public function deleteCookie($name)
     {
         if (isset($_COOKIE[$name])) {
-            if (setcookie($name, "", time() - 3600, "/")) {
-                return true;
-            } else {
-                return false;
-            }
+            return setcookie($name, "", time() - 3600, "/");
         }
     }
 
@@ -295,11 +291,10 @@ class Utils
      */
     public function style($style_path, $assets = "assets")
     {
-        if (filter_var($style_path, FILTER_VALIDATE_URL)) {
-            $site_url = $style_path;
-        } else {
-            $site_url = $this->siteUrl("/{$assets}/{$style_path}");
-        }
+        $site_url = filter_var($style_path, FILTER_VALIDATE_URL) ?
+            $style_path :
+            $this->siteUrl("/{$assets}/{$style_path}");
+
         echo "<link href=\"{$site_url}\" rel=\"stylesheet\" />" . "\n";
         return true;
     }
@@ -311,14 +306,15 @@ class Utils
      *  The fulll path for the javascript file
      * @return bool
      */
-    public function script($script_path, $assets = "assets")
+    public function script($script_path, $assets = "assets", $async = false)
     {
-        if (filter_var($script_path, FILTER_VALIDATE_URL)) {
-            $site_url = $script_path;
-        } else {
-            $site_url = $this->siteUrl("/{$assets}/{$script_path}");
-        }
-        echo "<script src=\"{$site_url}\"></script>" . "\n";
+        $site_url = filter_var($script_path, FILTER_VALIDATE_URL) ?
+            $script_path :
+            $this->siteUrl("/{$assets}/{$script_path}");
+
+        $async = ($async == true) ? "async" : "";
+
+        echo "<script {$async} src=\"{$site_url}\"></script>" . "\n";
         return true;
     }
 

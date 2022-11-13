@@ -15,11 +15,23 @@
                     </div>
                     Manage Users
                 </a>
+                <a class="nav-link" href="<?= $utils->siteUrl('/admin/roles/view.php'); ?>">
+                    <div class="sb-nav-link-icon">
+                        <i class="fas fa-user-tag"></i>
+                    </div>
+                    Manage Roles
+                </a>
                 <a class="nav-link" href="<?= $utils->siteUrl('/admin/files/view.php'); ?>">
                     <div class="sb-nav-link-icon">
                         <i class="fas fa-folder"></i>
                     </div>
                     Manage Files
+                </a>
+                <a class="nav-link" href="<?= $utils->siteUrl('/admin/pages/view.php'); ?>">
+                    <div class="sb-nav-link-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    Manage Pages
                 </a>
                 <a class="nav-link" href="<?= $utils->siteUrl('/admin/settings/view.php'); ?>">
                     <div class="sb-nav-link-icon">

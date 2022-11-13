@@ -62,7 +62,7 @@ include_once APP_PATH . 'logic/indexLogic.php';
                     <div class="form-check m-3">
                       <input type="checkbox" class="form-check-input" id="tos">
                       <label class="form-check-label" for="tos">
-                        I agree to the <a href="terms.php">Terms and Conditions</a>
+                        I agree to the <a href="page.php?s=terms">Terms and Conditions</a>
                       </label>
                     </div>
                   </div>

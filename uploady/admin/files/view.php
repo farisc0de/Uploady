@@ -62,7 +62,7 @@ include_once 'logic/viewLogic.php';
                                                     </td>
                                                     <td><?= $file['filename']; ?></td>
                                                     <td>
-                                                        <?= $user->getUsernameByUserId($file['user_id']); ?>
+                                                        <?= $user->getByUserId($file['user_id']); ?>
                                                     </td>
                                                     <td><?= $file['uploaddate']; ?></td>
                                                 </tr>

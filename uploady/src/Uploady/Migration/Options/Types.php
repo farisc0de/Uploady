@@ -21,6 +21,11 @@ class Types
 
     public static function Text()
     {
+        return "text";
+    }
+
+    public static function LongText()
+    {
         return "longtext";
     }
 

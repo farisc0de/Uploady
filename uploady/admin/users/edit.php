@@ -72,18 +72,18 @@ include_once 'logic/editLogic.php';
                                 </div>
                                 <?php if ($_SESSION['username'] != $user_data->username) : ?>
                                     <div class="form-group">
-                                        <input hidden name="is_admin" value="0" />
-                                        <div class="custom-control custom-switch custom-control-right">
-                                            <input class="custom-control-input" id="is_admin" name="is_admin" value="1" type="checkbox" <?= $user_data->is_admin ? 'checked' : ''; ?>>
-                                            <label class="custom-control-label" for="is_admin">Admin</label>
-                                        </div>
+                                        <select class="form-control" name="role">
+                                            <option value="2">User</option>
+                                            <option value="3">Admin</option>
+                                        </select>
                                     </div>
                                 <?php else : ?>
                                     <div class="form-group">
-                                        <input hidden name="is_admin" value="0" />
-                                        <div class="custom-control custom-switch custom-control-right">
-                                            <input class="custom-control-input" id="is_admin" name="is_admin" value="1" type="checkbox" <?= $user_data->is_admin ? 'checked' : ''; ?> disabled>
-                                            <label class="custom-control-label" for="is_admin">Admin</label>
+                                        <div class="form-group">
+                                            <select class="form-control" name="role">
+                                                <option value="2">User</option>
+                                                <option value="3">Admin</option>
+                                            </select>
                                         </div>
                                     </div>
                                 <?php endif; ?>

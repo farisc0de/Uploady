@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ea4cf51acd0ac1f2086f905ecfd6869c",
+    "content-hash": "1523f279cdf89bacfc00fb2f1de1be59",
     "packages": [
         {
             "name": "farisc0de/phpfileuploading",
@@ -174,35 +174,34 @@
             "time": "2022-02-28T15:31:21+00:00"
         },
         {
-            "name": "sonata-project/google-authenticator",
-            "version": "2.3.1",
+            "name": "robthree/twofactorauth",
+            "version": "1.8.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/sonata-project/GoogleAuthenticator.git",
-                "reference": "71a4189228f93a9662574dc8c65e77ef55061b59"
+                "url": "https://github.com/RobThree/TwoFactorAuth.git",
+                "reference": "65681de5a324eae05140ac58b08648a60212afc0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/GoogleAuthenticator/zipball/71a4189228f93a9662574dc8c65e77ef55061b59",
-                "reference": "71a4189228f93a9662574dc8c65e77ef55061b59",
+                "url": "https://api.github.com/repos/RobThree/TwoFactorAuth/zipball/65681de5a324eae05140ac58b08648a60212afc0",
+                "reference": "65681de5a324eae05140ac58b08648a60212afc0",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.3 || ^8.0"
+                "php": ">=5.6.0"
             },
             "require-dev": {
-                "symfony/phpunit-bridge": "^5.1.8"
+                "php-parallel-lint/php-parallel-lint": "^1.2",
+                "phpunit/phpunit": "@stable"
+            },
+            "suggest": {
+                "bacon/bacon-qr-code": "Needed for BaconQrCodeProvider provider",
+                "endroid/qr-code": "Needed for EndroidQrCodeProvider"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
-                    "Google\\Authenticator\\": "src/",
-                    "Sonata\\GoogleAuthenticator\\": "src/"
+                    "RobThree\\Auth\\": "lib"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -211,47 +210,38 @@
             ],
             "authors": [
                 {
-                    "name": "Thomas Rabaix",
-                    "email": "thomas.rabaix@gmail.com"
-                },
-                {
-                    "name": "Christian Stocker",
-                    "email": "me@chregu.tv"
-                },
-                {
-                    "name": "Andre DeMarre",
-                    "homepage": "http://www.devnetwork.net/viewtopic.php?f=50&t=94989"
+                    "name": "Rob Janssen",
+                    "homepage": "http://robiii.me",
+                    "role": "Developer"
                 }
             ],
-            "description": "Library to integrate Google Authenticator into a PHP project",
-            "homepage": "https://github.com/sonata-project/GoogleAuthenticator",
+            "description": "Two Factor Authentication",
+            "homepage": "https://github.com/RobThree/TwoFactorAuth",
             "keywords": [
-                "google authenticator"
+                "Authentication",
+                "MFA",
+                "Multi Factor Authentication",
+                "Two Factor Authentication",
+                "authenticator",
+                "authy",
+                "php",
+                "tfa"
             ],
             "support": {
-                "issues": "https://github.com/sonata-project/GoogleAuthenticator/issues",
-                "source": "https://github.com/sonata-project/GoogleAuthenticator/tree/2.3.1"
+                "issues": "https://github.com/RobThree/TwoFactorAuth/issues",
+                "source": "https://github.com/RobThree/TwoFactorAuth"
             },
             "funding": [
                 {
-                    "url": "https://github.com/OskarStark",
-                    "type": "github"
+                    "url": "https://paypal.me/robiii",
+                    "type": "custom"
                 },
                 {
-                    "url": "https://github.com/VincentLanglet",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/core23",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/wbloszyk",
+                    "url": "https://github.com/RobThree",
                     "type": "github"
                 }
             ],
-            "abandoned": true,
-            "time": "2021-02-15T19:23:18+00:00"
+            "time": "2022-03-22T16:11:07+00:00"
         }
     ],
     "packages-dev": [],

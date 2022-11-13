@@ -2,8 +2,8 @@
   "require": {
     "phpmailer/phpmailer": "^6.2",
     "google/recaptcha": "^1.2",
-    "sonata-project/google-authenticator": "^2.3",
-    "farisc0de/phpfileuploading": "^1.0"
+    "farisc0de/phpfileuploading": "^1.0",
+    "robthree/twofactorauth": "^1.8"
   },
   "autoload": {
     "psr-4": {

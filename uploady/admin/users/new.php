@@ -71,10 +71,12 @@ include_once 'logic/addLogic.php';
                                 </div>
                                 <?= $utils->input('user_id', $user_id); ?>
                                 <div class="form-group">
-                                    <input hidden name="is_admin" value="0" />
-                                    <div class="custom-control custom-switch custom-control-right">
-                                        <input class="custom-control-input" id="is_admin" name="is_admin" value="1" type="checkbox">
-                                        <label class="custom-control-label" for="is_admin">Admin</label>
+                                    <input hidden name="role" value="1" />
+                                    <div class="form-group">
+                                        <select class="form-control">
+                                            <option value="1">User</option>
+                                            <option value="2">Admin</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group">

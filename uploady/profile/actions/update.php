@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $user_array['password'] = password_hash($password, PASSWORD_BCRYPT);
             }
 
-            if ($user->updateUser($id, $user_array)) {
+            if ($user->update($id, $user_array)) {
                 $_SESSION['username'] = $user_array['username'];
                 $msg_code = "yes";
             } else {

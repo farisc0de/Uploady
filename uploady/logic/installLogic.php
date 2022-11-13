@@ -7,7 +7,7 @@ $utils = new Uploady\Utils();
 
 $database = new Uploady\Database();
 
-$install = new \Uploady\Migration\Migration($database, $utils);
+$install = new Uploady\Migration\Migration($database, $utils);
 
 $upload = new Farisc0de\PhpFileUploading\Upload();
 
@@ -68,6 +68,8 @@ if (
     $disabled = "disabled";
 }
 
+$upload->generateUserID();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         $users = [
@@ -97,8 +99,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 Options::NotNull()
             ],
             [
-                'is_admin',
-                Types::Boolean(),
+                'role',
+                Types::Integer(),
                 Options::NotNull(),
                 Options::DefaultValue("0")
             ],
@@ -139,10 +141,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ];
 
         $files = [
-            ['id', Types::Integer(), Options::NotNull()],
+            ['id', Types::Integer(), Options::UnSigned(), Options::NotNull()],
             ['file_id', Types::String(100), Options::NotNull()],
             ['user_id', Types::String(100), Options::NotNull()],
-            ['file_data', 'text', Options::NotNull()],
+            ['file_data', Types::LongText(), Options::NotNull()],
             ['uploaded_at', Types::TimeStamp(), Options::NotNull()]
         ];
 
@@ -152,19 +154,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ["setting_value", Types::String(225), Options::NotNull()],
         ];
 
+        $pages = [
+            ["id", Types::Integer(), Options::UnSigned(), Options::NotNull()],
+            ["slug", Types::Text(), Options::NotNull()],
+            ["title", Types::Text(), Options::NotNull()],
+            ["content", Types::Integer(), Options::NotNull()],
+            ["deletable", Types::Boolean(), Options::DefaultValue(0), Options::NotNull()],
+            ["created_at", Types::TimeStamp(), Options::CurrentTimeStamp(), Options::NotNull()]
+        ];
+
         $install->createTable("users", $users);
 
         $install->createTable("files", $files);
 
         $install->createTable("settings", $settings);
 
+        $install->createTable("pages", $pages);
+
         $install->insertValue("users", [
             "id" => 1,
             "username" => $utils->sanitize($_POST["username"]),
             "email" => $utils->sanitize($_POST["email"]),
             "password" => password_hash($utils->sanitize($_POST["password"]), PASSWORD_BCRYPT),
-            "user_id" => $upload->generateUserID(),
-            "is_admin" => 1,
+            "user_id" => $upload->getUserID(),
+            "role" => 3,
             "is_active" => 1
         ]);
 
@@ -296,6 +309,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->setUnique("users", "user_id");
 
         $install->setUnique("users", "activation_hash");
+
+        $install->setPrimary("pages", "id");
 
         $install->setAutoinc("users", [
             "id",

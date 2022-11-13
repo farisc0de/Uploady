@@ -83,7 +83,7 @@ include_once 'logic/myFilesLogic.php';
                                                         <td><?= $file['filename']; ?></td>
                                                         <td><?= $file['uploaddate']; ?></td>
                                                         <td>
-                                                            <a href="<?= $file['downloadurl']  ?>">
+                                                            <a href="<?= $file['downloadlink']  ?>">
                                                                 <i class="fa fa-download" aria-hidden="true"></i>
                                                             </a>
                                                             <a href="<?= $file['deletelink']  ?>">

@@ -48,7 +48,7 @@ include_once APP_PATH . 'logic/signupLogic.php';
                                     <div class="form-check m-3 text-start">
                                         <input type="checkbox" class="form-check-input" id="tos" required>
                                         <label class="form-check-label" for="tos">
-                                            I agree to the <a href="terms.php">TOS</a>
+                                            I agree to the <a href="page.php?s=terms">TOS</a>
                                         </label>
                                     </div>
                                     <div class="text-center">

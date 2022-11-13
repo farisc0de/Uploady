@@ -11,21 +11,14 @@ class ComposerStaticInit5945ad3276d7348e01910cc39dd50b7b
         array (
             'Uploady\\' => 8,
         ),
-        'S' => 
-        array (
-            'Sonata\\GoogleAuthenticator\\' => 27,
-        ),
         'R' => 
         array (
+            'RobThree\\Auth\\' => 14,
             'ReCaptcha\\' => 10,
         ),
         'P' => 
         array (
             'PHPMailer\\PHPMailer\\' => 20,
-        ),
-        'G' => 
-        array (
-            'Google\\Authenticator\\' => 21,
         ),
         'F' => 
         array (
@@ -38,9 +31,9 @@ class ComposerStaticInit5945ad3276d7348e01910cc39dd50b7b
         array (
             0 => __DIR__ . '/../..' . '/src/Uploady',
         ),
-        'Sonata\\GoogleAuthenticator\\' => 
+        'RobThree\\Auth\\' => 
         array (
-            0 => __DIR__ . '/..' . '/sonata-project/google-authenticator/src',
+            0 => __DIR__ . '/..' . '/robthree/twofactorauth/lib',
         ),
         'ReCaptcha\\' => 
         array (
@@ -49,10 +42,6 @@ class ComposerStaticInit5945ad3276d7348e01910cc39dd50b7b
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
-        ),
-        'Google\\Authenticator\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/sonata-project/google-authenticator/src',
         ),
         'Farisc0de\\PhpFileUploading\\' => 
         array (

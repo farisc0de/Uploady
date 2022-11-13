@@ -88,12 +88,12 @@ class ResetPassword
     {
         $sendmail = new Mailer($this->db);
 
-        if ($this->user->checkUser($username) != true) {
+        if ($this->user->isExist($username) != true) {
             return false;
         } else {
             $token = $this->generateToken();
 
-            $rows = $this->user->getUserData($username);
+            $rows = $this->user->get($username);
 
             $email = $rows->email;
 

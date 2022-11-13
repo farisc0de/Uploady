@@ -158,6 +158,24 @@ include_once '../logic/settingsLogic.php';
                                                 <label for="smtp_port">SMTP Port</label>
                                             </div>
                                         </div>
+
+                                        <hr>
+
+                                        <div class="form-group">
+                                            <input hidden name="adsense_status" value="0" />
+                                            <div class="custom-control custom-switch custom-control-right">
+                                                <input class="custom-control-input" id="adsense_status" name="adsense_status" value="1" type="checkbox" <?= ($settings->getSettingValue('adsense_status') == true) ? 'checked' : null; ?>>
+                                                <label class="custom-control-label" for="adsense_status">Enable Adsense</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-label-group">
+                                                <input class="form-control" type="text" id="adsense_client_code" name="adsense_client_code" placeholder="SMTP Password" value="<?= $settings->getSettingValue('adsense_client_code'); ?>">
+                                                <label for="adsense_client_code">Adsense Client Code</label>
+                                            </div>
+                                        </div>
+
                                         <button class="btn btn-primary btn-block">
                                             Update Settings
                                         </button>

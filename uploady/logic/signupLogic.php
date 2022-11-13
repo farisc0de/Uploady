@@ -10,14 +10,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $utils->sanitize($_POST['email']);
     $password = $utils->sanitize($_POST['password']);
 
-    if (!$user->checkUser($email) && !$user->checkUser($username)) {
+    if (!$user->isExist($email) && !$user->isExist($username)) {
         $token = bin2hex(random_bytes(16));
 
         $hash = sha1($token);
 
         $upload->generateUserID();
 
-        $user->createUser([
+        $user->add([
             'username' => $username,
             'email' => $email,
             'password' => password_hash($password, PASSWORD_BCRYPT),

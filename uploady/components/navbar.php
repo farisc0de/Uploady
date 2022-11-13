@@ -16,12 +16,12 @@
                       </a>
                   </li>
                   <li class="nav-item <?= $utils->linkActive($page, 'tos'); ?>">
-                      <a class="nav-link" href="<?= $utils->siteUrl('/terms.php') ?>">
+                      <a class="nav-link" href="<?= $utils->siteUrl('/page.php?s=terms') ?>">
                           <span class="fa fa-file-text"></span> Terms of Services
                       </a>
                   </li>
                   <li class="nav-item <?= $utils->linkActive($page, 'about'); ?>">
-                      <a class="nav-link" href="<?= $utils->siteUrl('/about.php') ?>">
+                      <a class="nav-link" href="<?= $utils->siteUrl('/page.php?s=about') ?>">
                           <span class="fa fa-user"></span> About Us
                       </a>
                   </li>
@@ -38,7 +38,7 @@
                                   Settings
                               </a>
                               <a class="dropdown-item" href="<?= $utils->siteUrl('/profile/my_files.php'); ?>">My files</a>
-                              <?php if ($data->is_admin) : ?>
+                              <?php if ($data->role == 3) : ?>
                                   <a class="dropdown-item" href="<?= $utils->siteUrl('/admin/index.php'); ?>">Dashboard</a>
                               <?php endif; ?>
                               <div class="dropdown-divider"></div>

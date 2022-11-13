@@ -27,6 +27,82 @@ include_once 'logic/homeLogic.php';
                         <li class="breadcrumb-item active">Dashboard</li>
                     </ol>
                     <?php include_once 'components/charts.php'; ?>
+
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-folder mr-1"></i>
+                            Latest Files
+                        </div>
+                        <div class="card-body">
+
+                            <div class="table-responsive border pl-2 pb-2 pt-2 pr-2 pb-2 rounded">
+                                <table class="table nowrap table-bordered" width="100%" id="filesTable" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Filename</th>
+                                            <th>Uploaded by</th>
+                                            <th>Uploaded at</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($files_info as $file) : ?>
+                                            <tr>
+                                                <td><?= $file['filename']; ?></td>
+                                                <td>
+                                                    <?= $user->getByUserId($file['user_id']); ?>
+                                                </td>
+                                                <td><?= $file['uploaddate']; ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+
+                        </div>
+
+                    </div>
+
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-user mr-1"></i>
+                            Latest Users
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive border pl-2 pb-2 pt-2 pr-2 pb-2 rounded">
+                                <table class="table nowrap table-bordered" width="100%" id="usersTable" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Username</th>
+                                            <th>Email Address</th>
+                                            <th>Active</th>
+                                            <th>Settings</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($users as $u) : ?>
+                                            <tr>
+                                                <td><?= $u->username; ?></td>
+                                                <td><?= $u->email; ?></td>
+                                                <td><?= $u->is_active ? 'yes' : 'no'; ?></td>
+                                                <td>
+                                                    <a type="button" class="btn btn-primary" href="<?= $utils->siteUrl('/admin/users/edit.php?username=' . $u->username); ?>">
+                                                        Edit User
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+
+                        </div>
+
+                    </div>
+
                 </div>
             </main>
             <?php include_once 'components/footer.php'; ?>
@@ -36,7 +112,6 @@ include_once 'logic/homeLogic.php';
     <?php $utils->script(
         'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js'
     ); ?>
-    <?php $utils->script('chart-area-demo.js', 'admin/assets/demo'); ?>
     <?php $utils->script('chart-bar-demo.js', 'admin/assets/demo'); ?>
     <?php $utils->script(
         'https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"'

@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $_POST['password'] = password_hash($password, PASSWORD_BCRYPT);
         }
 
-        $msg_code = $user->updateUser($id, $utils->esc($_POST)) ? "yes" : "error";
+        $msg_code = $user->update($id, $utils->esc($_POST)) ? "yes" : "error";
     }
 
     $utils->redirect($utils->siteUrl(
