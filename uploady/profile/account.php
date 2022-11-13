@@ -81,6 +81,8 @@ include_once 'logic/accountLogic.php';
                                         <input type="password" class="form-control" name="password" placeholder="Enter Password">
                                         <small>Keep it empty if you don't want to change the password.</small>
                                     </div>
+                                    <a href="auth.php">Enable 2FA</a>
+                                    |
                                     <a href="#" onclick="deleteAccount()">Delete Account</a>
                                 </div>
                                 <div class="card-footer mb-0">

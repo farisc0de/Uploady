@@ -34,7 +34,12 @@ include_once  APP_PATH . 'logic/authLogic.php';
                                 <?php endif; ?>
                                 <form method="POST" id="login_form">
                                     <div class="mb-3">
-                                        <input type="text" maxlength="6" max="6" class="form-control" name="code" placeholder="123456">
+                                        <input type="text" maxlength="6" max="6" class="form-control" name="otp_code" placeholder="Please enter the code from the app">
+                                    </div>
+
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="remberme" name="remberme">
+                                        <label class="custom-control-label" for="remberme">Trust Device for 30 days</label>
                                     </div>
 
                                     <div class="text-center">

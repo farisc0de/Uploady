@@ -43,7 +43,11 @@ class Page
 
     public function getAll()
     {
-        # code...
+        $this->db->query("SELECT * FROM pages");
+
+        $this->db->execute();
+
+        return $this->db->resultset();
     }
 
     public function add()
@@ -53,7 +57,11 @@ class Page
 
     public function delete($slug)
     {
-        # code...
+        $this->db->query("DELETE * FROM pages WHERE slug = :slug");
+
+        $this->db->bind(":slug", $slug, \PDO::PARAM_STR);
+
+        return $this->db->execute();
     }
 
     public function isExist($slug)

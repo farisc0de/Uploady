@@ -1,10 +1,14 @@
 <?php
 session_start();
 include_once 'config/config.php';
-include_once APP_PATH . 'loadSettings.php';
 
+$db = new Uploady\Database();
+$utils = new Uploady\Utils();
 $user = new Uploady\User($db, $utils);
 $auth = new Uploady\Auth($db, $utils);
+$settings = new Uploady\Settings($db);
+
+$st = $settings->getSettings();
 
 $current_url = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
@@ -26,6 +30,14 @@ if (isset($_SESSION)) {
 
         if (!(isset($_SESSION['csrf']))) {
             $auth->generateSessionToken();
+        }
+
+        if ($user->isTwoFAEnabled($username) == true) {
+            if (!isset($_SESSION['OTP']) || $_SESSION['OTP'] != true) {
+                if (!strpos($current_url, "auth.php")) {
+                    $utils->redirect($utils->siteUrl("/auth.php"));
+                }
+            }
         }
 
         if (isset($_SESSION['isHuman'])) {

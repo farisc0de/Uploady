@@ -2,12 +2,12 @@
 
 // Database Settings
 define("DB_HOST", "localhost");
-define("DB_USER", "");
+define("DB_USER", "root");
 define("DB_PASS", "");
-define("DB_NAME", "");
+define("DB_NAME", "uploady");
 
 // Application Settings
-define("SITE_URL", "http://localhost/uploady"); // Example: http://localhost/uploady
+define("SITE_URL", "http://localhost/upload/uploady"); // Example: http://localhost/uploady
 define("APP_PATH", dirname(__FILE__, 2) . DIRECTORY_SEPARATOR); // ( Don't Change );
 define("LOGS_PATH", APP_PATH . "php_logs.log"); // ( Don't Change );
 

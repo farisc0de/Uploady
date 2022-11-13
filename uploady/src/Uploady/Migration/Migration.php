@@ -339,6 +339,17 @@ class Migration
         return $this->db->execute();
     }
 
+
+    /**
+     * Add INDEX to a column
+     * 
+     * @param string $table_name
+     *  The table name that you want to add the index to it
+     * @param string $column
+     *  the column inside the table you want add index to it
+     * @return bool
+     *  return true if the operation is a success of false otherwise
+     */
     public function createIndex($table, $column)
     {
         $sql = sprintf("ALTER TABLE %s ADD INDEX(%s);", $table, $column);

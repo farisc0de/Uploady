@@ -293,4 +293,23 @@ class User
 
         return $find_by;
     }
+
+    public function isTwoFAEnabled($username)
+    {
+        $data = $this->get($username);
+        return (int) $data->otp_status;
+    }
+
+    public function getSecret($username)
+    {
+        $data = $this->get($username);
+        return $data->otp_secret;
+    }
+
+    public function regenareSession()
+    {
+        session_regenerate_id();
+        $_SESSION['OTP'] = true;
+        $this->utils->redirect($this->utils->siteUrl("/index.php"));
+    }
 }

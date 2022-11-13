@@ -105,6 +105,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 Options::DefaultValue("0")
             ],
             [
+                'otp_status',
+                Types::Boolean(),
+                Options::NotNull(),
+                Options::DefaultValue(false)
+            ],
+            [
+                'otp_secret',
+                Types::String(255),
+                Options::Null(),
+                Options::DefaultValue("")
+            ],
+            [
                 'failed_login',
                 Types::Integer(),
                 Options::NotNull(),
@@ -145,6 +157,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ['file_id', Types::String(100), Options::NotNull()],
             ['user_id', Types::String(100), Options::NotNull()],
             ['file_data', Types::LongText(), Options::NotNull()],
+            ['users_data', Types::LongText(), Options::NotNull()],
+            ['downloads', Types::Integer(), Options::NotNull()],
             ['uploaded_at', Types::TimeStamp(), Options::NotNull()]
         ];
 
@@ -158,7 +172,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ["id", Types::Integer(), Options::UnSigned(), Options::NotNull()],
             ["slug", Types::Text(), Options::NotNull()],
             ["title", Types::Text(), Options::NotNull()],
-            ["content", Types::Integer(), Options::NotNull()],
+            ["content", Types::LongText(), Options::NotNull()],
             ["deletable", Types::Boolean(), Options::DefaultValue(0), Options::NotNull()],
             ["created_at", Types::TimeStamp(), Options::CurrentTimeStamp(), Options::NotNull()]
         ];
@@ -189,6 +203,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'setting_value' => 'Uploady'
             ]
         );
+
         $install->insertValue(
             "settings",
             [
@@ -197,6 +212,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'setting_value' => 'this is uploading service website'
             ]
         );
+
         $install->insertValue(
             "settings",
             [
@@ -302,6 +318,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ]
         );
 
+        $install->insertValue(
+            "settings",
+            [
+                'id' => 16,
+                'setting_key' => 'adsense_status',
+                'setting_value' =>  0
+            ]
+        );
+
+        $install->insertValue(
+            "settings",
+            [
+                'id' => 17,
+                'setting_key' => 'adsense_client_code',
+                'setting_value' =>  ''
+            ]
+        );
+
+
+        $install->insertValue("pages", [
+            'id' => 1,
+            'slug' => 'about',
+            'title' => 'About us',
+            'content' => file_get_contents(realpath(APP_PATH . 'pages/about.html')),
+            'deletable' => false
+        ]);
+
+        $install->insertValue("pages", [
+            'id' => 2,
+            'slug' => 'terms',
+            'title' => 'Terms of services',
+            'content' => file_get_contents(realpath(APP_PATH . 'pages/terms.html')),
+            'deletable' => false
+        ]);
+
+        $install->insertValue("pages", [
+            'id' => 3,
+            'slug' => 'privacy',
+            'title' => 'Privacy Policy',
+            'content' => file_get_contents(realpath(APP_PATH . 'pages/privacy.html')),
+            'deletable' => false
+        ]);
+
         $install->setPrimary("users", "id");
 
         $install->setUnique("users", "email");
@@ -350,6 +409,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         file_put_contents($env_file, $env_file_content);
         /* -------------------------- */
 
+        // Remove pages content
+        unlink(APP_PATH . 'pages/about.html');
+        unlink(APP_PATH . 'pages/privacy.html');
+        unlink(APP_PATH . 'pages/terms.html');
+        unlink(APP_PATH . 'pages/');
         $msg = true;
     } catch (PDOException $ex) {
         $error = $ex->getMessage();

@@ -171,7 +171,7 @@ include_once '../logic/settingsLogic.php';
 
                                         <div class="form-group">
                                             <div class="form-label-group">
-                                                <input class="form-control" type="text" id="adsense_client_code" name="adsense_client_code" placeholder="SMTP Password" value="<?= $settings->getSettingValue('adsense_client_code'); ?>">
+                                                <input class="form-control" type="text" id="adsense_client_code" name="adsense_client_code" placeholder="Adsense Client Code" value="<?= $settings->getSettingValue('adsense_client_code'); ?>">
                                                 <label for="adsense_client_code">Adsense Client Code</label>
                                             </div>
                                         </div>

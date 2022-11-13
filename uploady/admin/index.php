@@ -13,6 +13,7 @@ include_once 'logic/homeLogic.php';
     <?php $utils->style(
         'https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css'
     ); ?>
+    <?php $utils->style("https://cdnjs.cloudflare.com/ajax/libs/jvectormap/2.0.5/jquery-jvectormap.min.css"); ?>
 </head>
 
 <body class="sb-nav-fixed">
@@ -85,7 +86,7 @@ include_once 'logic/homeLogic.php';
                                             <tr>
                                                 <td><?= $u->username; ?></td>
                                                 <td><?= $u->email; ?></td>
-                                                <td><?= $u->is_active ? 'yes' : 'no'; ?></td>
+                                                <td><?= $u->is_active ? 'Yes' : 'No'; ?></td>
                                                 <td>
                                                     <a type="button" class="btn btn-primary" href="<?= $utils->siteUrl('/admin/users/edit.php?username=' . $u->username); ?>">
                                                         Edit User
@@ -120,6 +121,30 @@ include_once 'logic/homeLogic.php';
         'https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js'
     ); ?>
     <?php $utils->script('datatables-demo.js', 'admin/assets/demo'); ?>
+    <?php $utils->script("https://jvectormap.com/js/jquery-jvectormap-2.0.5.min.js") ?>
+    <?php $utils->script("https://jvectormap.com/js/jquery-jvectormap-world-mill.js") ?>
+    <script>
+        $('#world-map').vectorMap({
+            map: 'world_mill',
+            backgroundColor: "#ffffff",
+            series: {
+                regions: [{
+                    values: [0],
+                    scale: ["#e6e6e6", "#375a7f"],
+                    normalizeFunction: 'polynomial'
+                }],
+                regionStyle: {
+                    hover: {
+                        fill: "#2b4764",
+                        cursor: "pointer",
+                    },
+                },
+            },
+            onRegionTipShow: function(e, el, code) {
+                el.html(el.html() + ' (Downloads - ' + 0 + ')');
+            }
+        });
+    </script>
 </body>
 
 </html>

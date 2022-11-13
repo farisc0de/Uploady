@@ -33,6 +33,14 @@ if (isset($_SESSION)) {
             $auth->generateSessionToken();
         }
 
+        if ($user->isTwoFAEnabled($username) == true) {
+            if (!isset($_SESSION['OTP']) || $_SESSION['OTP'] != true) {
+                if (!strpos($current_url, "auth.php")) {
+                    $utils->redirect($utils->siteUrl("/auth.php"));
+                }
+            }
+        }
+
         if (isset($_SESSION['isHuman'])) {
             if ($_SESSION['isHuman'] == false) {
                 $utils->redirect($utils->siteUrl('/logout.php'));

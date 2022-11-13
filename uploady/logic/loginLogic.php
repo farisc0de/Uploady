@@ -1,6 +1,5 @@
 <?php
 $auth = new Uploady\Auth($db, $utils);
-
 $user = new Uploady\User($db, $utils);
 
 /** Lock out time used for brute force protection */
@@ -42,7 +41,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $_SESSION['loggedin'] = true;
             $_SESSION['username'] = $username;
 
-            $utils->redirect($utils->siteUrl("/index.php"));
+            if ($user->isTwoFAEnabled($username) == true) {
+                $utils->redirect($utils->siteUrl("/auth.php"));
+            } else {
+                $_SESSION['OTP'] = true;
+                $utils->redirect($utils->siteUrl("/index.php"));
+            }
         }
     } elseif ($loginstatus == 401) {
         $error = "Username or Password is incorrect.";

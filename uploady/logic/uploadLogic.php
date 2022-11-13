@@ -6,6 +6,10 @@ $utilty = new Farisc0de\PhpFileUploading\Utility();
 
 $upload = new Farisc0de\PhpFileUploading\Upload();
 
+$dataCollection = new Uploady\DataCollection();
+
+$dataCollection->collectIP();
+
 $handler = new UploadHandler($db);
 
 $upload->setController("vendor/farisc0de/phpfileuploading/src/");
@@ -52,7 +56,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         $handler->addFile(
                             $upload->getFileID(),
                             $upload->getUserID(),
-                            $upload->getJSON()
+                            $upload->getJSON(),
+                            json_encode(
+                                [
+                                    "ip_address" => $dataCollection->collectIP(),
+                                    "country" => $dataCollection->idendifyCountry(),
+                                    "browser" => $dataCollection->getBrowser(),
+                                    "os" => $dataCollection->getOS()
+                                ]
+                            )
                         );
                     }
                 }

@@ -233,6 +233,16 @@ class Database
     }
 
     /**
+     * Return the Database Name
+     *
+     * @return void
+     */
+    public function returnDbName()
+    {
+        return $this->dbname;
+    }
+
+    /**
      * Close the database connection
      *
      * @return void
