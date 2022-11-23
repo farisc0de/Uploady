@@ -108,13 +108,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'otp_status',
                 Types::Boolean(),
                 Options::NotNull(),
-                Options::DefaultValue(false)
+                Options::DefaultValue("0")
             ],
             [
                 'otp_secret',
                 Types::String(255),
                 Options::Null(),
-                Options::DefaultValue("NULL")
             ],
             [
                 'failed_login',
@@ -408,7 +407,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         file_put_contents($env_file, $env_file_content);
         /* -------------------------- */
-
         // Remove pages content
         unlink(APP_PATH . 'pages/about.html');
         unlink(APP_PATH . 'pages/privacy.html');
