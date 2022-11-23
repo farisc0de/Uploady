@@ -114,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'otp_secret',
                 Types::String(255),
                 Options::Null(),
-                Options::DefaultValue("")
+                Options::DefaultValue("NULL")
             ],
             [
                 'failed_login',
