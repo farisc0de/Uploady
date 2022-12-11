@@ -10,7 +10,7 @@ include_once  APP_PATH . 'logic/loginLogic.php';
     <meta charset="UTF-8" />
     <?php include_once 'components/header.php'; ?>
     <title>
-        <?= $st['website_name'] ?> - Login
+        <?= $st['website_name'] ?> - <?= $lang['login_title']; ?>
     </title>
     <?php include_once 'components/css.php'; ?>
 </head>
@@ -26,7 +26,7 @@ include_once  APP_PATH . 'logic/loginLogic.php';
                     <div class="col-sm-12 col-md-8 col-lg-4">
                         <div class="card">
                             <div class="card-header">
-                                <b>Login</b>
+                                <b><?= $lang['login_title'] ?></b>
                             </div>
                             <div class="card-body container text-left">
                                 <?php if (isset($error)) : ?>
@@ -34,23 +34,25 @@ include_once  APP_PATH . 'logic/loginLogic.php';
                                 <?php endif; ?>
                                 <form method="POST" id="login_form">
                                     <div class="mb-3">
-                                        <input type="text" class="form-control" name="username" placeholder="Enter Username">
+                                        <input type="text" class="form-control" name="username" placeholder="<?= $lang['enter_username']; ?>">
                                     </div>
                                     <div class="mb-3">
-                                        <input type="password" class="form-control" name="password" placeholder="Password">
+                                        <input type="password" class="form-control" name="password" placeholder="<?= $lang['enter_password']; ?>">
                                     </div>
                                     <?php if ($settings->getSettingValue('recaptcha_status') == true) : ?>
                                         <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
                                     <?php endif; ?>
-                                    <a class="d-block small m-3" href="forgot-password.php">Forgot Password?</a>
+                                    <a class="d-block small m-3" href="forgot-password.php"><?= $lang['forget_password']; ?></a>
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-primary">Login</button>
+                                        <button type="submit" class="btn btn-primary">
+                                            <?= $lang['login_button']; ?>
+                                        </button>
                                     </div>
                                 </form>
                             </div>
                             <div class="card-footer mb-0">
                                 <a href="<?= $utils->siteUrl('/signup.php'); ?>">
-                                    Need an account? Sign up!
+                                    <?= $lang['signup_cta_msg']; ?>
                                 </a>
                             </div>
                         </div>

@@ -10,7 +10,7 @@ include_once 'logic/myFilesLogic.php';
     <meta charset="UTF-8" />
     <?php include_once '../components/header.php'; ?>
     <title>
-        <?= $st['website_name'] ?> - My Files
+        <?= $st['website_name'] ?> - <?= $lang['my_files_title']; ?>
     </title>
     <?php include_once '../components/css.php'; ?>
 
@@ -30,7 +30,7 @@ include_once 'logic/myFilesLogic.php';
                     <div class="col-sm-12 col-md-8 col-lg-8">
                         <div class="card">
                             <div class="card-header">
-                                <b>My Files</b>
+                                <b><?= $lang['my_files_title']; ?></b>
                             </div>
                             <form method="POST" action="actions/delete.php">
                                 <?= $utils->input('csrf', $_SESSION['csrf']); ?>
@@ -40,7 +40,7 @@ include_once 'logic/myFilesLogic.php';
                                         <?php if ($_GET['msg'] == "yes") : ?>
 
                                             <?php echo $utils->alert(
-                                                "File has been deleted",
+                                                $lang['delete_files_success'],
                                                 "success",
                                                 "check-circle"
                                             ); ?>
@@ -48,7 +48,7 @@ include_once 'logic/myFilesLogic.php';
                                         <?php elseif ($_GET['msg'] == "csrf") : ?>
 
                                             <?php echo $utils->alert(
-                                                "CSRF token is invalid.",
+                                                $lang['csrf_error'],
                                                 "danger",
                                                 "times-circle"
                                             ); ?>
@@ -66,9 +66,9 @@ include_once 'logic/myFilesLogic.php';
                                                             <label class="custom-control-label" for="select-all"></label>
                                                         </div>
                                                     </th>
-                                                    <th>Filename</th>
-                                                    <th>Uploaded at</th>
-                                                    <th>Settings</th>
+                                                    <th><?= $lang['file_name']; ?></th>
+                                                    <th><?= $lang['uploaded_at'] ?></th>
+                                                    <th><?= $lang['settings_title']; ?></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -98,7 +98,7 @@ include_once 'logic/myFilesLogic.php';
                                 </div>
                                 <div class="card-footer mb-0 text-left">
                                     <button class="btn btn-primary">
-                                        Delete Files
+                                        <?= $lang['delete_selected_btn']; ?>
                                     </button>
                                 </div>
                             </form>

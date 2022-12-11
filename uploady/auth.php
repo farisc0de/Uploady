@@ -10,7 +10,7 @@ include_once  APP_PATH . 'logic/authLogic.php';
     <meta charset="UTF-8" />
     <?php include_once 'components/header.php'; ?>
     <title>
-        <?= $st['website_name'] ?> - 2 Factor Authentication
+        <?= $st['website_name'] ?> - <?= $lang['two_factor_title']; ?>
     </title>
     <?php include_once 'components/css.php'; ?>
 </head>
@@ -26,7 +26,7 @@ include_once  APP_PATH . 'logic/authLogic.php';
                     <div class="col-sm-12 col-md-8 col-lg-4">
                         <div class="card">
                             <div class="card-header">
-                                <b>2 Factor Authentication</b>
+                                <b><?= $lang['two_factor_title']; ?></b>
                             </div>
                             <div class="card-body container text-left">
                                 <?php if (isset($error)) : ?>
@@ -39,11 +39,13 @@ include_once  APP_PATH . 'logic/authLogic.php';
 
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="remberme" name="remberme">
-                                        <label class="custom-control-label" for="remberme">Trust Device for 30 days</label>
+                                        <label class="custom-control-label" for="remberme"><?= $lang['trust_device']; ?></label>
                                     </div>
 
                                     <div class="text-center">
-                                        <button type="submit" class="btn btn-primary">Login</button>
+                                        <button type="submit" class="btn btn-primary">
+                                            <?= $lang['login_button']; ?>
+                                        </button>
                                     </div>
                                 </form>
                             </div>

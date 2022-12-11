@@ -10,7 +10,7 @@ include_once 'logic/authLogic.php';
     <meta charset="UTF-8" />
     <?php include_once '../components/header.php'; ?>
     <title>
-        <?= $st['website_name'] ?> - Enable 2FA
+        <?= $st['website_name'] ?> - <?= $lang['"enable_two_factor_title"'] ?>
     </title>
     <?php include_once '../components/css.php'; ?>
 </head>
@@ -26,7 +26,7 @@ include_once 'logic/authLogic.php';
                     <div class="col-sm-12 col-md-8 col-lg-5">
                         <div class="card">
                             <div class="card-header">
-                                <b>Manage 2FA</b>
+                                <b><?= $lang['manage_two_factor_title']; ?></b>
                             </div>
                             <form method="POST" action="actions/auth.php">
                                 <div class="card-body">
@@ -35,26 +35,26 @@ include_once 'logic/authLogic.php';
                                     <?php if (isset($_GET['msg'])) : ?>
                                         <?php if ($_GET['msg'] == "yes") : ?>
                                             <?php echo $utils->alert(
-                                                "User settings has been updated",
+                                                $lang["enable_two_factor_success"],
                                                 "success",
                                                 "check-circle"
                                             ); ?>
                                         <?php elseif ($_GET['msg'] == "csrf") : ?>
 
                                             <?php echo $utils->alert(
-                                                "CSRF token is invalid.",
+                                                $lang["csrf_error"],
                                                 "danger",
                                                 "times-circle"
                                             ); ?>
                                         <?php elseif ($_GET['msg'] == "error") : ?>
                                             <?php echo $utils->alert(
-                                                "An unexpected error has occurred",
+                                                $lang['unexpected_error'],
                                                 "danger",
                                                 "times-circle"
                                             ); ?>
                                         <?php elseif ($_GET['msg'] == "attack") : ?>
                                             <?php echo $utils->alert(
-                                                "You are trying to access another account",
+                                                $lang['attack_error'],
                                                 "danger",
                                                 "times-circle"
                                             ); ?>
@@ -74,15 +74,17 @@ include_once 'logic/authLogic.php';
                                             <input type="text" class="form-control" name="otp_secret" readonly value="<?= $secret ?>">
                                         </div>
                                         <div class="mb-3">
-                                            <input type="text" class="form-control" name="otp_code" placeholder="Authentication Code">
-                                            <small for="otp_code" class="small">Get the code from the app</small>
+                                            <input type="text" class="form-control" name="otp_code" placeholder="<?= $lang['two_factor_code']; ?>">
+                                            <small for="otp_code" class="small">
+                                                <?= $lang['get_code']; ?>
+                                            </small>
                                         </div>
                                         <button name="enable" class="btn btn-primary">
-                                            Enable 2FA
+                                            <?= $lang['enable_two_factor_btn'] ?>
                                         </button>
                                     <?php else : ?>
                                         <button name="disable" class="btn btn-danger">
-                                            Disable 2FA
+                                            <?= $lang['disable_two_factor_btn'] ?>
                                         </button>
                                     <?php endif; ?>
                                 </div>

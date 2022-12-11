@@ -7,7 +7,7 @@ include_once 'logic/addLogic.php';
 
 <head>
     <?php include_once '../components/meta.php'; ?>
-    <title>Dashboard - <?= $st['website_name'] ?></title>
+    <title>Add user - <?= $st['website_name'] ?></title>
     <?php include_once '../components/css.php'; ?>
 </head>
 

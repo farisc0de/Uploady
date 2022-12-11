@@ -13,7 +13,6 @@ namespace Uploady;
  */
 class Auth
 {
-
     /**
      * Database Connection
      *
@@ -71,7 +70,7 @@ class Auth
         $lockout_time = 10;
         $account_locked = false;
 
-        $this->db->query('SELECT * FROM users WHERE username = (:user) LIMIT 1;');
+        $this->db->prepare('SELECT * FROM users WHERE username = (:user) LIMIT 1;');
 
         $this->db->bind(':user', $username, \PDO::PARAM_STR);
 
@@ -97,7 +96,7 @@ class Auth
         ) {
             $last_login = $row->last_login;
 
-            $this->db->query('UPDATE users SET failed_login = 0 WHERE username = (:user) LIMIT 1;');
+            $this->db->prepare('UPDATE users SET failed_login = 0 WHERE username = (:user) LIMIT 1;');
 
             $this->db->bind(':user', $username, \PDO::PARAM_STR);
 
@@ -107,7 +106,7 @@ class Auth
         } else {
             sleep(rand(2, 4));
 
-            $this->db->query(
+            $this->db->prepare(
                 'UPDATE users SET failed_login = (failed_login + 1) WHERE username = (:user) LIMIT 1;'
             );
 
@@ -118,7 +117,7 @@ class Auth
             return 401;
         }
 
-        $this->db->query('UPDATE users SET last_login = now() WHERE username = (:user) LIMIT 1;');
+        $this->db->prepare('UPDATE users SET last_login = now() WHERE username = (:user) LIMIT 1;');
 
         $this->db->bind(':user', $username, \PDO::PARAM_STR);
 
@@ -137,11 +136,7 @@ class Auth
     {
         if (isset($_COOKIE['2fa'])) {
             if (isset($_COOKIE['device_id'])) {
-                if ($_COOKIE['device_id'] == $uniqueid) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return ($_COOKIE['2fa'] == $uniqueid);
             }
         }
     }
@@ -171,6 +166,7 @@ class Auth
         if ($distroyToken == true) {
             $this->destroySessionToken();
         }
+
         $_SESSION['csrf'] = hash("sha256", uniqid() . $_SESSION['current_ip'] . session_id());
     }
 

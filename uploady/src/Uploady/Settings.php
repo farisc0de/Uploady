@@ -42,7 +42,7 @@ class Settings
      */
     public function getSettings()
     {
-        $this->db->query("SELECT setting_key,setting_value FROM settings");
+        $this->db->prepare("SELECT setting_key,setting_value FROM settings");
 
         if ($this->db->execute()) {
             $settings = $this->db->resultset();
@@ -67,7 +67,7 @@ class Settings
         $res = [];
 
         foreach ($settings_array as $setting_key => $setting_value) {
-            $this->db->query("UPDATE settings SET setting_value = :value WHERE setting_key = :key");
+            $this->db->prepare("UPDATE settings SET setting_value = :value WHERE setting_key = :key");
 
             $this->db->bind(":key", $setting_key, \PDO::PARAM_STR);
             $this->db->bind(":value", $setting_value, \PDO::PARAM_STR);
@@ -93,7 +93,7 @@ class Settings
     {
         $sql = "SELECT setting_value FROM settings WHERE setting_key = :key";
 
-        $this->db->query($sql);
+        $this->db->prepare($sql);
 
         $this->db->bind(":key", $setting_key);
 
@@ -104,13 +104,21 @@ class Settings
         return $setting_value;
     }
 
+    /**
+     * Return an array contains the settings that match the pattern
+     *
+     * @param string $pattern
+     *  The pattern you want to match the settings with
+     * @return array
+     *  Return an array contains the settings that match the pattern
+     */
     public function getSettingsWithPattern($pattern)
     {
         $settings_array = array();
 
         $sql = "SELECT * FROM settings WHERE setting_key LIKE (:pattern)";
 
-        $this->db->query($sql);
+        $this->db->prepare($sql);
 
         $this->db->bind(":pattern", $pattern);
 
@@ -129,6 +137,7 @@ class Settings
      * Function that returns an array contains the predefined security questions
      *
      * @return array
+     *  Return an array contains the predefined security questions
      */
     public function getPreDefinedQuestions()
     {

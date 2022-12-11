@@ -20,14 +20,24 @@ class Page
      */
     private $db;
 
+    /**
+     * Page class constructor
+     **/
     public function __construct($db)
     {
         $this->db = $db;
     }
 
+    /**
+     * Get a page from the database
+     *
+     * @param string $slug
+     *  The page slug
+     * @return array|bool
+     */
     public function get($slug)
     {
-        $this->db->query("SELECT * FROM pages WHERE slug = :slug");
+        $this->db->prepare("SELECT * FROM pages WHERE slug = :slug");
 
         $this->db->bind(":slug", $slug, \PDO::PARAM_STR);
 
@@ -36,37 +46,68 @@ class Page
         return $this->db->single();
     }
 
+    /**
+     * Update a page in the database
+     *
+     * @param string $slug
+     *  The page slug
+     * @return bool
+     */
     public function update($slug)
     {
         # code...
     }
 
+    /**
+     * Get all pages from the database
+     *
+     * @return array
+     */
     public function getAll()
     {
-        $this->db->query("SELECT * FROM pages");
+        $this->db->prepare("SELECT * FROM pages");
 
         $this->db->execute();
 
         return $this->db->resultset();
     }
 
+    /**
+     * Add a new page to the database
+     *
+     * @return bool
+     */
     public function add()
     {
         # code...
     }
 
+    /**
+     * Delete a page from the database
+     *
+     * @param string $slug
+     *  The page slug
+     * @return bool
+     */
     public function delete($slug)
     {
-        $this->db->query("DELETE * FROM pages WHERE slug = :slug");
+        $this->db->prepare("DELETE * FROM pages WHERE slug = :slug");
 
         $this->db->bind(":slug", $slug, \PDO::PARAM_STR);
 
         return $this->db->execute();
     }
 
+    /**
+     * Check if a page exists in the database
+     *
+     * @param string $slug
+     *  The page slug
+     * @return bool
+     */
     public function isExist($slug)
     {
-        $this->db->query("SELECT * FROM pages WHERE slug = :slug;");
+        $this->db->prepare("SELECT * FROM pages WHERE slug = :slug;");
 
         $this->db->bind(":slug", $slug, \PDO::PARAM_STR);
 

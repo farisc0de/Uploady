@@ -43,7 +43,7 @@ class Mailer
      */
     public function getSettingWithPattern($pattern)
     {
-        $this->db->query(
+        $this->db->prepare(
             "SELECT setting_key,setting_value FROM settings WHERE setting_key LIKE :like"
         );
 

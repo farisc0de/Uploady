@@ -2,6 +2,8 @@
 
 namespace Uploady\Handler;
 
+use PDOException;
+
 /**
  * Class to Handle adding files to the database
  *
@@ -20,11 +22,28 @@ class UploadHandler
      */
     private $db;
 
+    /**
+     * UploadHandler class constructor
+     **/
     public function __construct($db)
     {
         $this->db = $db;
     }
 
+    /**
+     * Add a file to the database
+     * 
+     * @param string $file_id
+     *  The file id
+     * @param string $user_id
+     *  The user id
+     * @param string $file_data
+     *  The file data
+     * @param string $user_data
+     *  The user data
+     * @return bool
+     *  True if the file was added successfully
+     */
     public function addFile($file_id, $user_id, $file_data, $user_data)
     {
         $this->db->query(
@@ -45,6 +64,14 @@ class UploadHandler
         return $this->db->execute();
     }
 
+    /**
+     * Check if a file exists in the database
+     * 
+     * @param string $file_id
+     *  The file id
+     * @return bool
+     *  True if the file exists
+     */
     public function fileExist($file_id)
     {
         $this->db->query("SELECT * FROM files WHERE file_id = :id");
@@ -60,6 +87,14 @@ class UploadHandler
         }
     }
 
+    /**
+     * Check if a user exists in the database
+     * 
+     * @param string $user_id
+     *  The user id
+     * @return bool
+     *  True if the user exists
+     */
     public function userExist($user_id)
     {
         $this->db->query("SELECT * FROM files WHERE user_id = :id");
@@ -74,6 +109,15 @@ class UploadHandler
             }
         }
     }
+
+    /**
+     * Get a file from the database
+     * 
+     * @param string $file_id
+     *  The file id
+     * @return array
+     *  The file data
+     */
     public function getFile($file_id)
     {
         $this->db->query("SELECT file_data FROM files WHERE file_id = :id");
@@ -85,6 +129,18 @@ class UploadHandler
         }
     }
 
+    /**
+     * Update a file in the database
+     * 
+     * @param string $file_id
+     *  The file id
+     * @param string $user_id
+     *  The user id
+     * @param string $file_data
+     *  The file data
+     * @return bool
+     *  True if the file was updated successfully
+     */
     public function updateFile($file_id, $user_id, $file_data)
     {
         $this->db->query(
@@ -100,6 +156,16 @@ class UploadHandler
         }
     }
 
+    /**
+     * Delete a file from the database
+     * 
+     * @param string $file_id
+     *  The file id
+     * @param string $user_id
+     *  The user id
+     * @return bool
+     *  True if the file was deleted successfully
+     */
     public function deleteFile($file_id, $user_id)
     {
         $this->db->query("DELETE FROM files WHERE file_id = :id AND user_id = :uid");
@@ -110,6 +176,14 @@ class UploadHandler
         return $this->db->execute();
     }
 
+    /**
+     * Delete a file from the database as admin
+     * 
+     * @param string $file_id
+     *  The file id
+     * @return bool
+     *  True if the file was deleted successfully
+     */
     public function deleteFileAsAdmin($file_id)
     {
         $this->db->query("DELETE FROM files WHERE file_id = :id");
@@ -119,6 +193,12 @@ class UploadHandler
         return $this->db->execute();
     }
 
+    /**
+     * Get all files from the database
+     * 
+     * @return array
+     *  The files data
+     */
     public function getFiles()
     {
         $this->db->query('SELECT * FROM files');
@@ -128,6 +208,14 @@ class UploadHandler
         }
     }
 
+    /**
+     * Get all files from the database by user id
+     * 
+     * @param string $user_id
+     *  The user id
+     * @return array
+     *  The files data
+     */
     public function getFilesById($user_id)
     {
         $this->db->query('SELECT * FROM files WHERE user_id = :uid');
@@ -139,6 +227,14 @@ class UploadHandler
         }
     }
 
+    /**
+     * Get all files from the database by user id
+     * 
+     * @param string $user_id
+     *  The user id
+     * @return array
+     *  The files data
+     */
     public function addDownload($file_id)
     {
         $this->db->query("UPDATE files SET downloads = (downloads + 1) WHERE file_id = :file_id");
@@ -148,6 +244,14 @@ class UploadHandler
         return $this->db->execute();
     }
 
+    /**
+     * Get the number of downloads from the database
+     * 
+     * @return int
+     *  The number of downloads
+     * @throws PDOException
+     *  If the query fails
+     */
     public function getDownloadsTotal()
     {
         $this->db->query("SELECT downloads FROM files");
@@ -163,6 +267,14 @@ class UploadHandler
         return $total;
     }
 
+    /**
+     * Get the latest files from the database
+     * 
+     * @return array
+     *  The files data
+     * @throws PDOException
+     *  If the query fails
+     */
     public function getLatestFiles()
     {
         $this->db->query("SELECT * FROM files ORDER BY uploaded_at DESC LIMIT 10");

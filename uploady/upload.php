@@ -8,7 +8,7 @@ include_once APP_PATH . "logic/uploadLogic.php";
 <head>
   <meta charset="UTF-8" />
   <?php include_once 'components/header.php' ?>
-  <title><?= $st['website_name'] ?> - Your Files</title>
+  <title><?= $st['website_name'] ?> - <?= $lang['your_uploaded_files']; ?></title>
   <?php include_once 'components/css.php' ?>
 </head>
 
@@ -22,10 +22,10 @@ include_once APP_PATH . "logic/uploadLogic.php";
           <div class="col-sm-12 col-md-9 col-lg-9">
             <div class="card">
               <div class="card-header">
-                Your Uploaded Files
+                <?= $lang['your_uploaded_files']; ?>
               </div>
               <div class="card-body">
-                <h4 class="card-title">Your Files</h4>
+                <h4 class="card-title"><?= $lang['your_uploaded_files']; ?></h4>
                 <hr />
                 <div class="container">
                   <?php foreach ($resp as $msg) : ?>
@@ -45,10 +45,10 @@ include_once APP_PATH . "logic/uploadLogic.php";
                     <?= $file['filename']; ?>
                     <br />
                     <a class="btn btn-primary" href="<?= $file['downloadlink'] ?>">
-                      Click Here to Download
+                      <?= $lang['download_cta_btn']; ?>
                     </a>
                     <a class="btn btn-danger" href="<?= $file['deletelink'] ?>">
-                      Click Here to Delete
+                      <?= $lang['delete_cta_btn']; ?>
                     </a>
                   <?php endforeach; ?>
                 </div>

@@ -2,6 +2,8 @@
 
 namespace Uploady;
 
+use PDOException;
+
 /**
  * a class that handles the database and PDO functions
  *
@@ -116,9 +118,21 @@ class Database
      *  The SQL query you want to execute
      * @return void
      */
-    public function query($query)
+    public function prepare($query)
     {
         $this->stmt = $this->connection->prepare($query);
+    }
+
+    /**
+     * Prepare the statement with SQL query
+     *
+     * @param string $query
+     *  The SQL query you want to execute
+     * @return void
+     */
+    public function query($query)
+    {
+        $this->stmt = $this->connection->query($query);
     }
 
     /**
@@ -230,6 +244,39 @@ class Database
             }
         }
         $this->stmt->bindValue($param, $value, $type);
+    }
+
+    /**
+     * Begin a transaction
+     * 
+     * @return bool 
+     * @throws PDOException 
+     */
+    public function beginTransaction()
+    {
+        return $this->connection->beginTransaction();
+    }
+
+    /**
+     * Commit a successfull transaction
+     * 
+     * @return bool 
+     * @throws PDOException 
+     */
+    public function commit()
+    {
+        return $this->connection->commit();
+    }
+
+    /**
+     * Rollback a failed transaction
+     * 
+     * @return bool 
+     * @throws PDOException 
+     */
+    public function rollback()
+    {
+        return $this->connection->rollBack();
     }
 
     /**

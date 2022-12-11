@@ -8,7 +8,7 @@ include_once APP_PATH . 'logic/downloadLogic.php';
 <head>
   <meta charset="UTF-8" />
   <?php include_once 'components/header.php'; ?>
-  <title><?= $st['website_name'] ?> - Download File</title>
+  <title><?= $st['website_name'] ?> - <?= $lang['download_file_title'] ?></title>
   <?php include_once 'components/css.php'; ?>
 </head>
 
@@ -22,7 +22,7 @@ include_once APP_PATH . 'logic/downloadLogic.php';
           <div class="col-9">
             <div class="card">
               <div class="card-header">
-                Download File
+                <?= $lang['download_file_title'] ?>
               </div>
 
               <div class="card-body">
@@ -37,35 +37,37 @@ include_once APP_PATH . 'logic/downloadLogic.php';
                         <div class="col-sm-12 col-md-12 col-lg-8 pt-2 text-start bg-light" id="upload_info">
                           <div class="col-12 text-dark mb-3 mr-3 ml-3 text-underline">
                             <p>
-                              <u>File Name:
+                              <u><?= $lang['file_name']; ?>:
                                 <?= $file_data->filename ?></u>
                             </p>
                           </div>
 
                           <div class="col-sm-auto text-dark mt-3 mb-3 mr-3 ml-3">
                             <p>
-                              <u>SHA1 Hash:
+                              <u><?= $lang['file_hash']; ?>:
                                 <?= $file_data->filehash ?></u>
                             </p>
                           </div>
 
                           <div class="col-12 text-dark mt-3 mb-3 mr-3 ml-3">
                             <p>
-                              <u>File Size:
+                              <u><?= $lang['file_size']; ?>:
                                 <?= $file_data->filesize ?></u>
                             </p>
                           </div>
 
                           <div class="col-12 text-dark mt-3 mr-3 ml-3 mb-4">
                             <p>
-                              <u>Upload Date:
+                              <u><?= $lang['upload_date']; ?>:
                                 <?= $file_data->uploaddate ?></u>
                             </p>
                           </div>
                         </div>
                       </div>
                       <div class="pt-3">
-                        <a href="<?= $file_data->directlink ?>" class="btn btn-primary text-decoration-none" download>Download</a>
+                        <a href="<?= $file_data->directlink ?>" class="btn btn-primary text-decoration-none" download>
+                          <?= $lang['download_button']; ?>
+                        </a>
                       </div>
                     </div>
                   </div>

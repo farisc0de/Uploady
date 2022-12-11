@@ -8,7 +8,7 @@ include_once APP_PATH . 'logic/deleteLogic.php';
 <head>
   <meta charset="UTF-8" />
   <?php include_once 'components/header.php'; ?>
-  <title><?= $st['website_name'] ?> - Delete File</title>
+  <title><?= $st['website_name'] ?> - <?= $lang['delete_file_title'] ?></title>
   <?php include_once 'components/css.php'; ?>
 </head>
 
@@ -22,7 +22,7 @@ include_once APP_PATH . 'logic/deleteLogic.php';
         <div class="col-9">
           <div class="card">
             <div class="card-header">
-              Delete File
+              <?= $lang['delete_file_title'] ?>
             </div>
 
             <div class="card-body">

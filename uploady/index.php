@@ -10,7 +10,7 @@ include_once APP_PATH . 'logic/indexLogic.php';
   <meta charset="UTF-8" />
   <?php include_once 'components/header.php'; ?>
   <title>
-    <?= $st['website_name'] ?> - File Uploading Service
+    <?= $st['website_name'] ?> - <?= $st['website_headline'] ?>
   </title>
   <?php include_once 'components/css.php'; ?>
 </head>
@@ -26,20 +26,20 @@ include_once APP_PATH . 'logic/indexLogic.php';
           <div class="col-sm-12 col-md-8 col-lg-8">
             <div class="card">
               <div class="card-header">
-                <b>Upload Your Files</b>
+                <b><?= $lang['upload_form_card_title']; ?></b>
               </div>
               <div class="card-body">
                 <div id="upload_alert"></div>
                 <div id="upload_alert">
                   <?php if (isset($_GET['error'])) : ?>
                     <?= $utils->alert(
-                      'You are trying to bypass the security measures',
+                      $lang['upload_bypass_message'],
                       'danger'
                     ); ?>
                   <?php endif; ?>
                 </div>
                 <p class="card-title lead font-weight-bold text-dark">
-                  Select Files
+                  <?= $lang['upload_select_title']; ?>
                 </p>
 
                 <form enctype="multipart/form-data" role="form" method="POST" action="upload.php">
@@ -68,10 +68,10 @@ include_once APP_PATH . 'logic/indexLogic.php';
                   </div>
 
                   <button id="submit" name="submit" type="submit" class="btn btn-primary" disabled>
-                    <span class="fa fa-upload"></span> Upload Files
+                    <span class="fa fa-upload"></span> <?= $lang['upload_button_text'] ?>
                   </button>
                   <button type="button" id="add_more" class="btn btn-primary text-white">
-                    <span class="fa fa-plus"></span> Add a File
+                    <span class="fa fa-plus"></span> <?= $lang['upload_add_more'] ?>
                   </button>
                 </form>
               </div>

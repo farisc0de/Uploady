@@ -4,23 +4,47 @@ namespace Uploady;
 
 class DataCollection
 {
+    /** 
+     * Function to collect the user IP
+     *
+     * @return string|false
+     *  The user IP or false if failed
+     **/
     public function collectIP()
     {
         return file_get_contents("https://api.ipify.org/");
     }
 
+    /** 
+     * Function to identify the user country
+     *
+     * @return mixed
+     *  The user country
+     **/
     public function idendifyCountry()
     {
         $obj = json_decode(file_get_contents("https://api.country.is/{$this->collectIP()}"));
         return $obj->country;
     }
 
+    /** 
+     * Function to identify the user browser
+     * 
+     * @return mixed
+     *  The user browser
+     **/
     public function getBrowser()
     {
         $browser = get_browser(null, true);
         return $browser['browser'];
     }
 
+    /**
+     * Function to identify the user operating system
+     *
+     * @return string
+     *  The user operating system
+     **/
     public function getOS()
     {
 

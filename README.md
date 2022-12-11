@@ -31,7 +31,7 @@ It comes with more than 20 features and you can set up it in less than 5 minutes
 
 Make Uploads Folder Writeble `chmod 777 uploads`
 
-## How to Use
+## How to Install
 
 1. Upload all files to your server
 2. Modify config/config.php with your custom info
@@ -39,7 +39,7 @@ Make Uploads Folder Writeble `chmod 777 uploads`
 4. Run install.php
 5. Enjoy (:
 
-## TODO
+## TODO (v3.0.0)
 
 - [x] Role-based User Managment with size limit for each role
 - [x] More charts and stats for admin
@@ -47,6 +47,9 @@ Make Uploads Folder Writeble `chmod 777 uploads`
 - [ ] Image Manipulation
 - [x] Adding AdSense Support
 - [x] Adding 2FA for users
+- [ ] Adding pages with pages template and editor
+- [ ] Adding Languges support
+- [ ] Adding database updater
 - [x] Overall Bug Fixing
 
 ## License

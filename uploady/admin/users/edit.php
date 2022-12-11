@@ -7,7 +7,7 @@ include_once 'logic/editLogic.php';
 
 <head>
     <?php include_once '../components/meta.php'; ?>
-    <title>Dashboard - <?= $st['website_name'] ?></title>
+    <title>Edit user - <?= $st['website_name'] ?></title>
     <?php include_once '../components/css.php'; ?>
 </head>
 

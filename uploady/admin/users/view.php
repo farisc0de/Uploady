@@ -7,7 +7,7 @@ include_once 'logic/viewLogic.php';
 
 <head>
     <?php include_once '../components/meta.php'; ?>
-    <title>Dashboard - <?= $st['website_name'] ?></title>
+    <title>View users - <?= $st['website_name'] ?></title>
     <?php include_once '../components/css.php'; ?>
     <?php $utils->style(
         'https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css'

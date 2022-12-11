@@ -8,7 +8,7 @@ include_once APP_PATH . 'logic/supportedLogic.php';
 <head>
   <meta charset="UTF-8" />
   <?php include_once 'components/header.php'; ?>
-  <title><?= $st['website_name'] ?> - Supported Formats</title>
+  <title><?= $st['website_name'] ?> - <?= $lang['supported_formats'] ?></title>
   <?php include_once 'components/css.php'; ?>
   <?php $utils->style(
     'https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.css'
@@ -23,16 +23,16 @@ include_once APP_PATH . 'logic/supportedLogic.php';
       <div class="container pb-5 pt-5">
         <div class="card">
           <div class="card-header">
-            Supported Formats
+            <?= $lang['supported_formats'] ?>
           </div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
-                    <th>Format</th>
-                    <th>Maximum Size</th>
-                    <th>Status</th>
+                    <th><?= $lang['format']; ?></th>
+                    <th><?= $lang['max_size']; ?></th>
+                    <th><?= $lang['status'] ?></th>
                   </tr>
                 </thead>
 
@@ -41,7 +41,7 @@ include_once APP_PATH . 'logic/supportedLogic.php';
                     <tr>
                       <td class="font-weight-bold"><?= $key ?></td>
                       <td class="font-weight-bold"><?= MAX_SIZE; ?></td>
-                      <td class="font-weight-bold">Allowed</td>
+                      <td class="font-weight-bold"><?= $lang['allowed'] ?></td>
                     </tr>
                   <?php endforeach; ?>
                 </tbody>

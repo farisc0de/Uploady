@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 include_once 'config/config.php';
 
@@ -7,6 +8,7 @@ $utils = new Uploady\Utils();
 $user = new Uploady\User($db, $utils);
 $auth = new Uploady\Auth($db, $utils);
 $settings = new Uploady\Settings($db);
+$localization = new Uploady\Localization();
 
 $st = $settings->getSettings();
 
@@ -53,5 +55,7 @@ if (isset($_SESSION)) {
         }
     }
 }
+
+$lang = $localization->loadLangauge("en");
 
 $page = 'session';

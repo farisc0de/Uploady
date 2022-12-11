@@ -9,7 +9,7 @@ include_once APP_PATH . 'logic/activationLogic.php';
     <meta charset="UTF-8" />
     <?php include_once 'components/header.php'; ?>
     <title>
-        <?= $st['website_name'] ?> - Account Activation
+        <?= $st['website_name'] ?> - <?= $lang['activation_title'] ?>
     </title>
     <?php include_once 'components/css.php'; ?>
 </head>
@@ -25,16 +25,18 @@ include_once APP_PATH . 'logic/activationLogic.php';
                     <div class="col-sm-12 col-md-8 col-lg-8">
                         <div class="card">
                             <div class="card-header">
-                                <b>Account Activation</b>
+                                <b><?= $lang['activation_title'] ?></b>
                             </div>
                             <div class="card-body">
                                 <div class="border border-primary bg-primary rounded">
-                                    <p class="pt-3 text-light"><?= $msg; ?></p>
+                                    <p class="pt-3 text-light">
+                                        <?= $msg; ?>
+                                    </p>
                                 </div>
                             </div>
                             <div class="card-footer mb-0">
                                 <a class="btn btn-primary" href="<?= $utils->siteUrl('/login.php'); ?>">
-                                    Go to Login
+                                    <?= $lang['go_to_login']; ?>
                                 </a>
                             </div>
                         </div>

@@ -6,10 +6,10 @@ $page = "resetPasswordPage";
 
 $token = $utils->sanitize($_GET['token']);
 
-$updatePassword = new Uploady\ResetPassword($database, $user, $utils, $tpl);
+$updatePassword = new Uploady\ResetPassword($db, $user, $utils, $tpl);
 
 if ($updatePassword->isExist($token) == true) {
-    $data = $updatePassword->getUserAssignToToken($token);
+    $data = $updatePassword->getUserAssignedToToken($token);
     $answered = isset($_GET['answered']) ? $utils->sanitize($_GET['answered']) : "false";
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $Password = $utils->sanitize($_POST['password']);
@@ -18,7 +18,7 @@ if ($updatePassword->isExist($token) == true) {
             if ($updatePassword->updatePassword($token, $data->username, $_POST['password'])) {
                 $msg = "Password has been updated";
             } else {
-                $err = "Please enter more then 8 characters";
+                $err = "Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.";
             }
         } else {
             $err = "Password confirm is incorrect";

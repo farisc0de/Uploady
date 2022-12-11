@@ -13,7 +13,6 @@ namespace Uploady;
  */
 class Utils
 {
-
     /**
      * Sanitize value
      *
@@ -143,10 +142,10 @@ class Utils
     public function linkActive($page, $page_name)
     {
         if (isset($page) && $page != null) {
-            return ($page == $page_name) ? "active" : "";
-        } else {
             return "";
         }
+
+        return ($page == $page_name) ? "active" : "";
     }
 
     /**
@@ -240,9 +239,9 @@ class Utils
         if (defined("SITE_URL") && SITE_URL != null) {
             if ($file != null) {
                 return rtrim(SITE_URL, "/") . $file;
-            } else {
-                return rtrim(SITE_URL, "/");
             }
+
+            return rtrim(SITE_URL, "/");
         }
     }
 
@@ -259,11 +258,7 @@ class Utils
     public function createCookie($name, $value)
     {
         if (!isset($_COOKIE[$name])) {
-            if (setcookie($name, $value, time() + 60 * 60 * 24 * 30, "/")) {
-                return true;
-            } else {
-                return false;
-            }
+            return setcookie($name, $value, time() + 60 * 60 * 24 * 30, "/");
         }
     }
 

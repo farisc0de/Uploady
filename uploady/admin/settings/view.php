@@ -1,13 +1,13 @@
 <?php
 include_once '../session.php';
-include_once '../logic/settingsLogic.php';
+include_once 'logic/settings.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <?php include_once '../components/meta.php'; ?>
-    <title>Dashboard - <?= $st['website_name'] ?></title>
+    <title>Edit Settings - <?= $st['website_name'] ?></title>
     <?php include_once '../components/css.php'; ?>
     <?php $utils->style('css/tagsinput.css', 'admin/assets') ?>
 </head>

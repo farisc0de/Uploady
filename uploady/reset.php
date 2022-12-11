@@ -10,7 +10,7 @@ include_once APP_PATH . 'logic/resetPasswordLogic.php';
     <meta charset="UTF-8" />
     <?php include_once 'components/header.php'; ?>
     <title>
-        <?= $st['website_name'] ?> - Reset Password
+        <?= $st['website_name'] ?> - <?= $lang['reset_password_title']; ?>
     </title>
     <?php include_once 'components/css.php'; ?>
 </head>
@@ -26,7 +26,7 @@ include_once APP_PATH . 'logic/resetPasswordLogic.php';
                     <div class="col-sm-12 col-md-8 col-lg-4">
                         <div class="card">
                             <div class="card-header">
-                                <b>Reset Password</b>
+                                <b><?= $lang['reset_password_title']; ?></b>
                             </div>
                             <div class="card-body">
                                 <?php if (isset($msg)) : ?>
@@ -40,22 +40,24 @@ include_once APP_PATH . 'logic/resetPasswordLogic.php';
                                     <?php echo $utils->alert($err, "danger", "times-circle"); ?>
 
                                 <?php endif; ?>
-                                <h4>Reset Password</h4>
-                                <p>Please enter a strong password that contains 8 characters and at least one special character</p>
+                                <h4><?= $lang['reset_password_header']; ?></h4>
+                                <p><?= $lang['reset_password_msg']; ?></p>
                                 <form method="POST" action="">
 
-                                    <div class="form-group">
+                                    <div class="mb-3">
                                         <div class="form-label-group">
-                                            <input type="password" name="password" id="password" class="form-control" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="Must contain at least one number, one uppercase letter, lowercase letter, one character, and at least 8 or more characters" placeholder="New Password" required="required" autofocus="autofocus">
+                                            <input type="password" name="password" id="password" class="form-control" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="<?= $lang['password_pattern_msg'] ?>" placeholder="<?= $lang['new_password'] ?>" required="required" autofocus="autofocus">
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
+                                    <div class="mb-3">
                                         <div class="form-label-group">
-                                            <input type="password" name="confirmPassword" id="confirmPassword" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="Must contain at least one number, one uppercase letter, lowercase letter, one special character, and at least 8 or more characters" class="form-control" placeholder="Confirm Password" required="required" autofocus="autofocus">
+                                            <input type="password" name="confirmPassword" id="confirmPassword" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="<?= $lang['password_pattern_msg'] ?>" class="form-control" placeholder="<?= $lang['confirm_password']; ?>" required="required" autofocus="autofocus">
                                         </div>
                                     </div>
-                                    <button class="btn btn-primary btn-block" type="submit">Reset Password</button>
+                                    <button class="btn btn-primary btn-block" type="submit">
+                                        <?= $lang['reset_password_button']; ?>
+                                    </button>
                                 </form>
                             </div>
                         </div>

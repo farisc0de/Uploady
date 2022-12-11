@@ -2,6 +2,8 @@
 
 namespace Uploady;
 
+use PDOException;
+
 /**
  *  A Class to Handle User Data
  *
@@ -50,7 +52,7 @@ class User
     {
         $sql = $this->utils->escape("SELECT * FROM users;");
 
-        $this->db->query($sql);
+        $this->db->prepare($sql);
 
         if ($this->db->execute()) {
             return $this->db->resultset();
@@ -77,7 +79,7 @@ class User
             ":" . $find_by
         );
 
-        $this->db->query($sql);
+        $this->db->prepare($sql);
 
         $this->db->bind(":" . $find_by, $username, \PDO::PARAM_STR);
 
@@ -98,7 +100,7 @@ class User
     {
         $query = $this->utils->escape("SELECT * FROM users;");
 
-        $this->db->query($query);
+        $this->db->prepare($query);
 
         if ($this->db->execute()) {
             return $this->db->rowCount();
@@ -117,7 +119,7 @@ class User
     {
         $find_by = $this->findBy($username);
 
-        $this->db->query(sprintf(
+        $this->db->prepare(sprintf(
             $this->utils->escape("SELECT * FROM users WHERE %s = %s;"),
             $find_by,
             ":" . $find_by
@@ -148,7 +150,7 @@ class User
             ":" . implode(",:", array_keys($user_array))
         );
 
-        $this->db->query($sql);
+        $this->db->prepare($sql);
 
         foreach ($user_array as $key => $value) {
             $this->db->bind(":" . $key, $value);
@@ -182,7 +184,7 @@ class User
 
         $sql_values = rtrim($sql_values, ",");
 
-        $this->db->query(sprintf(
+        $this->db->prepare(sprintf(
             $upate_user_syntax,
             $sql_values
         ));
@@ -208,7 +210,7 @@ class User
     {
         $sql = sprintf("DELETE FROM users WHERE %s = :find_by", $this->findBy($username));
 
-        $this->db->query($sql);
+        $this->db->prepare($sql);
 
         $this->db->bind(":find_by", $username);
 
@@ -227,7 +229,7 @@ class User
     {
         $sql = "SELECT username FROM users WHERE user_id = :user_id";
 
-        $this->db->query($sql);
+        $this->db->prepare($sql);
 
         $this->db->bind(':user_id', trim($user_id), \PDO::PARAM_STR);
 
@@ -242,13 +244,23 @@ class User
         }
     }
 
+    /**
+     * Activate the user account
+     *
+     * @param mixed $token
+     *  The token generated from the email
+     * @return bool|void
+     *  Return true if the user is activated otherwise false
+     * @throws PDOException
+     *  Throw PDOException if the query fails
+     */
     public function activate($token)
     {
         $sql = 'SELECT * FROM users WHERE activation_hash = :hash';
 
         $hash = sha1($token);
 
-        $this->db->query($sql);
+        $this->db->prepare($sql);
 
         $this->db->bind(':hash', $hash, \PDO::PARAM_STR);
 
@@ -258,7 +270,7 @@ class User
             if ($obj != false) {
                 $sql = "UPDATE users SET is_active = :bool, activation_hash = :hash WHERE activation_hash = :old";
 
-                $this->db->query($sql);
+                $this->db->prepare($sql);
 
                 $this->db->bind(':bool', 1, \PDO::PARAM_INT);
                 $this->db->bind(":hash", null, \PDO::PARAM_NULL);
@@ -294,18 +306,43 @@ class User
         return $find_by;
     }
 
+    /**
+     * Check if the user has enabled the two factor authentication
+     * @param mixed $username
+     *  The username you want to check if the two factor authentication is enabled
+     * @return int
+     *  Return 1 if the two factor authentication is enabled otherwise 0
+     * @throws PDOException
+     *  Throw PDOException if the query fails
+     */
     public function isTwoFAEnabled($username)
     {
         $data = $this->get($username);
         return (int) $data->otp_status;
     }
 
+    /**
+     * Get the secret key from the database
+     *
+     * @param mixed $username
+     *  The username you want to get the secret key
+     * @return mixed
+     *  Return the secret key from the database
+     * @throws PDOException
+     *  Throw PDOException if the query fails
+     */
     public function getSecret($username)
     {
         $data = $this->get($username);
         return $data->otp_secret;
     }
 
+    /**
+     * Regenare the session id and set the OTP session to true
+     *
+     * @return void
+     *  Redirect the user to the index page
+     */
     public function regenareSession()
     {
         session_regenerate_id();

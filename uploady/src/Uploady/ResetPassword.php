@@ -88,39 +88,42 @@ class ResetPassword
     {
         $sendmail = new Mailer($this->db);
 
-        if ($this->user->isExist($username) != true) {
+        if (!$this->user->isExist($username)) {
             return false;
-        } else {
-            $token = $this->generateToken();
+        }
 
-            $rows = $this->user->get($username);
+        $token = $this->generateToken();
 
-            $email = $rows->email;
+        echo $token;
 
-            $created_at = date("Y-m-d h:i:s", time());
+        $rows = $this->user->get($username);
 
-            $this->db->query("UPDATE users SET
+        $email = $rows->email;
+
+        $created_at = date("Y-m-d h:i:s", time());
+
+        $this->db->prepare("UPDATE users SET
              reset_hash = :hash,
              created_at = :ct
              WHERE username = :user");
 
-            $this->db->bind(":user", $rows->username, \PDO::PARAM_STR);
-            $this->db->bind(":hash", sha1($token), \PDO::PARAM_STR);
-            $this->db->bind(":ct", $created_at, \PDO::PARAM_STR);
+        $this->db->bind(":user", $rows->username, \PDO::PARAM_STR);
+        $this->db->bind(":hash", sha1($token), \PDO::PARAM_STR);
+        $this->db->bind(":ct", $created_at, \PDO::PARAM_STR);
 
-            if ($this->db->execute()) {
-                $sendmail->sendMessage(
-                    $email,
-                    "Reset password instructions",
-                    $this->tpl->loadTemplate("forget_password_email", [
-                        'username' => $rows->username,
-                        'actual_link' => $this->utils->siteUrl(),
-                        'token' => $token
-                    ])
-                );
-            }
-            return true;
+        if ($this->db->execute()) {
+            $sendmail->sendMessage(
+                $email,
+                "Reset password instructions",
+                $this->tpl->loadTemplate("forget_password_email", [
+                    'username' => $rows->username,
+                    'actual_link' => $this->utils->siteUrl(),
+                    'token' => $token
+                ])
+            );
         }
+
+        return true;
     }
 
     /**
@@ -137,17 +140,25 @@ class ResetPassword
      */
     public function updatePassword($key, $username, $password)
     {
-        if (strlen($password) >= 8) {
-            $this->db->query("UPDATE users SET password = :password WHERE username = :username");
+        $validations = [
+            "uppercase" => preg_match('@[A-Z]@', $password),
+            "lowercase" => preg_match('@[a-z]@', $password),
+            "number" => preg_match('@[0-9]@', $password),
+            "specialChars" => preg_match('@[^\w]@', $password),
+            "length" => strlen($password) >= 8
+        ];
 
-            $this->db->bind(":password", password_hash($password, PASSWORD_BCRYPT), \PDO::PARAM_STR);
-            $this->db->bind(":username", $username, \PDO::PARAM_STR);
-
-            if ($this->db->execute()) {
-                return $this->deleteToken($key);
-            }
-        } else {
+        if (in_array(false, $validations, true)) {
             return false;
+        }
+
+        $this->db->prepare("UPDATE users SET password = :password WHERE username = :username");
+
+        $this->db->bind(":password", password_hash($password, PASSWORD_BCRYPT), \PDO::PARAM_STR);
+        $this->db->bind(":username", $username, \PDO::PARAM_STR);
+
+        if ($this->db->execute()) {
+            return $this->deleteToken($key);
         }
     }
 
@@ -159,9 +170,9 @@ class ResetPassword
      * @return object|bool
      *  An object contains the username or false
      */
-    public function getUserAssignToToken($token)
+    public function getUserAssignedToToken($token)
     {
-        $this->db->query("SELECT username FROM users WHERE reset_hash = :token limit 1");
+        $this->db->prepare("SELECT username FROM users WHERE reset_hash = :token limit 1");
 
         $this->db->bind(":token", sha1($token), \PDO::PARAM_STR);
 
@@ -182,7 +193,7 @@ class ResetPassword
      */
     public function deleteToken($token)
     {
-        $this->db->query(
+        $this->db->prepare(
             "UPDATE users SET
          reset_hash = :null,
          created_at = :nullct WHERE
@@ -206,7 +217,7 @@ class ResetPassword
      */
     public function isExist($token)
     {
-        $this->db->query("SELECT * FROM users WHERE reset_hash = :token");
+        $this->db->prepare("SELECT * FROM users WHERE reset_hash = :token");
 
         $this->db->bind(":token", sha1($token), \PDO::PARAM_STR);
 
@@ -233,7 +244,7 @@ class ResetPassword
      */
     public function isExpired($key)
     {
-        $this->db->query("SELECT created_at FROM users WHERE reset_hash = :token");
+        $this->db->prepare("SELECT created_at FROM users WHERE reset_hash = :token");
 
         $this->db->bind(":token", sha1($key), \PDO::PARAM_STR);
 

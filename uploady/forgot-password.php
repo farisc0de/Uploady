@@ -10,7 +10,7 @@ include_once APP_PATH . 'logic/forgetPasswordLogic.php';
     <?php include_once 'components/header.php'; ?>
     <meta charset="UTF-8" />
     <title>
-        <?= $st['website_name'] ?> - Forget Password
+        <?= $st['website_name'] ?> - <?= $lang['forget_password_title']; ?>
     </title>
     <?php include_once 'components/css.php'; ?>
 </head>
@@ -26,7 +26,7 @@ include_once APP_PATH . 'logic/forgetPasswordLogic.php';
                     <div class="col-sm-12 col-md-8 col-lg-4">
                         <div class="card">
                             <div class="card-header">
-                                <b>Password Recovery</b>
+                                <b><?= $lang['forget_password_header']; ?></b>
                             </div>
                             <div class="card-body">
                                 <?php if (isset($error)) : ?>
@@ -36,17 +36,17 @@ include_once APP_PATH . 'logic/forgetPasswordLogic.php';
                                     <?= $utils->alert($msg); ?>
                                 <?php endif; ?>
                                 <div class="text-center mb-4">
-                                    <h4>Forgot your password?</h4>
-                                    <p>Enter your email address and we will send you instructions on how to reset your password.</p>
+                                    <h4><?= $lang['forget_password_h4'] ?></h4>
+                                    <p><?= $lang['forget_password_msg']; ?></p>
                                 </div>
                                 <form method="POST" id="login_form">
                                     <div class="mb-3">
-                                        <input type="text" class="form-control" name="email" placeholder="Enter Email">
+                                        <input type="text" class="form-control" name="email" placeholder="<?= $lang['enter_your_email']; ?>">
                                     </div>
 
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-primary">
-                                            Reset Password
+                                            <?= $lang['reset_password_button']; ?>
                                         </button>
                                     </div>
                                 </form>
