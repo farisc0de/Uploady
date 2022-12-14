@@ -53,9 +53,15 @@ class Page
      *  The page slug
      * @return bool
      */
-    public function update($slug)
+    public function update($slug, $title, $content)
     {
-        # code...
+        $this->db->prepare("UPDATE pages SET title = :title, content = :content WHERE slug = :slug");
+
+        $this->db->bind(":title", $title, \PDO::PARAM_STR);
+        $this->db->bind(":content", $content, \PDO::PARAM_STR);
+        $this->db->bind(":slug", $slug, \PDO::PARAM_STR);
+
+        return $this->db->execute();
     }
 
     /**
@@ -77,9 +83,15 @@ class Page
      *
      * @return bool
      */
-    public function add()
+    public function add($slug, $title, $content)
     {
-        # code...
+        $this->db->prepare("INSERT INTO pages (slug, title, content) VALUES (:slug, :title, :content)");
+
+        $this->db->bind(":slug", $slug, \PDO::PARAM_STR);
+        $this->db->bind(":title", $title, \PDO::PARAM_STR);
+        $this->db->bind(":content", $content, \PDO::PARAM_STR);
+
+        return $this->db->execute();
     }
 
     /**
