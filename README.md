@@ -12,10 +12,10 @@ It comes with more than 20 features and you can set up it in less than 5 minutes
 
 1. Simple to use and implement
 2. 4 Protection levels
-   + Mime Type
-   + Extensions
-   + Size
-   + Forbidden names
+   - Mime Type
+   - Extensions
+   - Size
+   - Forbidden names
 3. Out Of The Box Functions
 4. Bootstrap and jQuery over CDN
 5. Multi-File Upload Support
@@ -28,9 +28,11 @@ It comes with more than 20 features and you can set up it in less than 5 minutes
 ![](https://i.ibb.co/M2Rs0vF/screencapture-localhost-Uploady-uploady-admin-index-php-2022-07-27-16-24-09.png)
 
 ## Note
-Make Uploads Folder Writeble ``` chmod 777 uploads ```
 
-## How to Use
+Make Uploads Folder Writeble `chmod 777 uploads`
+
+## How to Install
+
 1. Upload all files to your server
 2. Modify config/config.php with your custom info
 3. Make uploads folder writeable
@@ -44,12 +46,16 @@ Make Uploads Folder Writeble ``` chmod 777 uploads ```
 - [x] Implementing data collection [IP Address, Browser Information, OS, Country]
 - [ ] Image Manipulation
 - [x] Adding AdSense Support
-- [ ] Adding 2FA for users
-- [ ] Overall Bug Fixing
+- [x] Adding 2FA for users
+- [ ] Adding pages with pages template and editor
+- [ ] Adding Languges support
+- [ ] Adding database updater
+- [x] Overall Bug Fixing
 
 ## License
 
 MIT
 
 ## Copyright
+
 Developed by Faris AL-Otaibi - 2022
