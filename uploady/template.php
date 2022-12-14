@@ -1,15 +1,10 @@
 <?php include_once 'session.php'; ?>
-<!DOCTYPE html>
-<html lang="en">
-<html>
 
-<head>
-    <meta charset="UTF-8" />
-    <?php include_once 'components/header.php'; ?>
-    <title>
-        <?= $st['website_name'] ?> - Simple Template
-    </title>
-    <?php include_once 'components/css.php'; ?>
+<?php include_once 'components/header.php'; ?>
+<title>
+    <?= $st['website_name'] ?> - Simple Template
+</title>
+<?php include_once 'components/css.php'; ?>
 </head>
 
 <body>
@@ -44,7 +39,5 @@
 
     <?php include_once 'components/js.php'; ?>
 </body>
-
-</html>
 
 </html>

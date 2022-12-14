@@ -3,6 +3,8 @@
   "upload_select_title": "تحديد ملف",
   "upload_button_text": "رفع",
   "upload_add_more": "إضافة المزيد",
+  "note_supported_formats": "ملاحظة: يتم دعم الصيغ التالية",
+  "see_here": "انظر هنا...",
   "upload_bypass_message": "أنت تحاول أن تتخطى الحد الأقصى لعدد الملفات. يرجى الاتصال بالمسؤول لتفعيل هذه الميزة.",
   "activation_title": "تفعيل الحساب",
   "go_to_login": "الذهاب إلى تسجيل الدخول",
@@ -70,5 +72,19 @@
   "deleted_file_success": "تم حذف الملف بنجاح",
   "delete_selected_btn": "حذف المحدد",
   "uploaded_at": "تم التحميل في",
-  "settings_title": "الإعدادات"
+  "settings_title": "الإعدادات",
+  "i_agree": "أوافق على",
+  "tos": "شروط الخدمة",
+  "copyright_text": "حقوق الطبع والنشر",
+  "navbar": {
+    "home": "الصفحة الرئيسية",
+    "login": "تسجيل الدخول",
+    "signup": "تسجيل",
+    "my_files": "ملفاتي",
+    "about": "من نحن",
+    "tos": "شروط الخدمة",
+    "dashboard": "لوحة التحكم",
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج"
+  }
 }

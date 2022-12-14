@@ -2,17 +2,12 @@
 include_once 'session.php';
 include_once APP_PATH . 'logic/indexLogic.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<html>
 
-<head>
-  <meta charset="UTF-8" />
-  <?php include_once 'components/header.php'; ?>
-  <title>
-    <?= $st['website_name'] ?> - <?= $st['website_headline'] ?>
-  </title>
-  <?php include_once 'components/css.php'; ?>
+<?php include_once 'components/header.php'; ?>
+<title>
+  <?= $st['website_name'] ?> - <?= $st['website_headline'] ?>
+</title>
+<?php include_once 'components/css.php'; ?>
 </head>
 
 <body>
@@ -62,7 +57,7 @@ include_once APP_PATH . 'logic/indexLogic.php';
                     <div class="form-check m-3">
                       <input type="checkbox" class="form-check-input" id="tos">
                       <label class="form-check-label" for="tos">
-                        I agree to the <a href="page.php?s=terms">Terms and Conditions</a>
+                        <?= $lang['i_agree'] ?> <a href="page.php?s=terms"><?= $lang['tos'] ?></a>
                       </label>
                     </div>
                   </div>
@@ -78,8 +73,8 @@ include_once APP_PATH . 'logic/indexLogic.php';
 
               <div class="card-footer mb-0">
                 <p class="mb-0">
-                  Note: Supported formats:
-                  <a href="supported.php">See Here...</a>
+                  <b><?= $lang['note_supported_formats']; ?></b>
+                  <a href="supported.php"><?= $lang['see_here']; ?></a>
                 </p>
               </div>
             </div>
@@ -93,7 +88,5 @@ include_once APP_PATH . 'logic/indexLogic.php';
 
   <?php include_once 'components/js.php'; ?>
 </body>
-
-</html>
 
 </html>

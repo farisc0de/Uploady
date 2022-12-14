@@ -1,4 +1,4 @@
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
           <a class="navbar-brand" href="<?= $utils->siteUrl(); ?>">
               <?= $st['website_name'] ?>
@@ -12,17 +12,17 @@
               <ul class="navbar-nav me-auto">
                   <li class="nav-item <?= $utils->linkActive($page, 'index'); ?>">
                       <a class="nav-link" href="<?= $utils->siteUrl('/index.php') ?>">
-                          <span class="fa fa-home"></span> Home
+                          <span class="fa fa-home"></span> <?= $lang['navbar']['home'] ?>
                       </a>
                   </li>
                   <li class="nav-item <?= $utils->linkActive($page, 'tos'); ?>">
                       <a class="nav-link" href="<?= $utils->siteUrl('/page.php?s=terms') ?>">
-                          <span class="fa fa-file-text"></span> Terms of Services
+                          <span class="fa fa-file-text"></span> <?= $lang['navbar']['tos'] ?>
                       </a>
                   </li>
                   <li class="nav-item <?= $utils->linkActive($page, 'about'); ?>">
                       <a class="nav-link" href="<?= $utils->siteUrl('/page.php?s=about') ?>">
-                          <span class="fa fa-user"></span> About Us
+                          <span class="fa fa-user"></span> <?= $lang['navbar']['about'] ?>
                       </a>
                   </li>
               </ul>
@@ -34,7 +34,7 @@
 
                       <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                           <a class="dropdown-item" href="?lang=en">English</a>
-                          <a class="dropdown-item" href="?lang=ar">Arabic</a>
+                          <a class="dropdown-item" href="?lang=ar">عربي</a>
                       </div>
                   </li>
                   <?php if (isset($_SESSION['loggedin'])) : ?>
@@ -45,27 +45,27 @@
 
                           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                               <a class="dropdown-item" href="<?= $utils->siteUrl('/profile/account.php'); ?>">
-                                  Settings
+                                  <?= $lang['navbar']['settings'] ?>
                               </a>
-                              <a class="dropdown-item" href="<?= $utils->siteUrl('/profile/my_files.php'); ?>">My files</a>
+                              <a class="dropdown-item" href="<?= $utils->siteUrl('/profile/my_files.php'); ?>"><?= $lang['navbar']['my_files'] ?></a>
                               <?php if ($data->role == 3) : ?>
-                                  <a class="dropdown-item" href="<?= $utils->siteUrl('/admin/index.php'); ?>">Dashboard</a>
+                                  <a class="dropdown-item" href="<?= $utils->siteUrl('/admin/index.php'); ?>"><?= $lang['navbar']['dashboard'] ?></a>
                               <?php endif; ?>
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item" href="<?= $utils->siteUrl('/logout.php'); ?>">
-                                  Logout
+                                  <?= $lang['navbar']['logout'] ?>
                               </a>
                           </div>
                       </li>
                   <?php else : ?>
                       <li class="nav-item <?= $utils->linkActive($page, 'signupPage'); ?>">
                           <a class="nav-link" href="<?= $utils->siteUrl('/signup.php') ?>">
-                              Sign up
+                              <?= $lang['navbar']['signup'] ?>
                           </a>
                       </li>
                       <li class="nav-item <?= $utils->linkActive($page, 'loginPage'); ?>">
                           <a class="nav-link" href="<?= $utils->siteUrl('/login.php') ?>">
-                              Login
+                              <?= $lang['navbar']['login'] ?>
                           </a>
                       </li>
                   <?php endif; ?>

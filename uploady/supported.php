@@ -2,17 +2,13 @@
 include_once 'session.php';
 include_once APP_PATH . 'logic/supportedLogic.php';
 ?>
-<!DOCTYPE html>
-<html>
 
-<head>
-  <meta charset="UTF-8" />
-  <?php include_once 'components/header.php'; ?>
-  <title><?= $st['website_name'] ?> - <?= $lang['supported_formats'] ?></title>
-  <?php include_once 'components/css.php'; ?>
-  <?php $utils->style(
-    'https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.css'
-  ) ?>
+<?php include_once 'components/header.php'; ?>
+<title><?= $st['website_name'] ?> - <?= $lang['supported_formats'] ?></title>
+<?php include_once 'components/css.php'; ?>
+<?php $utils->style(
+  'https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.css'
+) ?>
 </head>
 
 <body>

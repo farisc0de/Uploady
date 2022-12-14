@@ -2,14 +2,10 @@
 include_once 'session.php';
 include_once APP_PATH . 'logic/deleteLogic.php';
 ?>
-<!DOCTYPE html>
-<html>
 
-<head>
-  <meta charset="UTF-8" />
-  <?php include_once 'components/header.php'; ?>
-  <title><?= $st['website_name'] ?> - <?= $lang['delete_file_title'] ?></title>
-  <?php include_once 'components/css.php'; ?>
+<?php include_once 'components/header.php'; ?>
+<title><?= $st['website_name'] ?> - <?= $lang['delete_file_title'] ?></title>
+<?php include_once 'components/css.php'; ?>
 </head>
 
 <body class="d-flex flex-column h-100">

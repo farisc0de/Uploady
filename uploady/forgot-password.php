@@ -2,17 +2,13 @@
 include_once 'session.php';
 include_once APP_PATH . 'logic/forgetPasswordLogic.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<html>
 
-<head>
-    <?php include_once 'components/header.php'; ?>
-    <meta charset="UTF-8" />
-    <title>
-        <?= $st['website_name'] ?> - <?= $lang['forget_password_title']; ?>
-    </title>
-    <?php include_once 'components/css.php'; ?>
+<?php include_once 'components/header.php'; ?>
+<meta charset="UTF-8" />
+<title>
+    <?= $st['website_name'] ?> - <?= $lang['forget_password_title']; ?>
+</title>
+<?php include_once 'components/css.php'; ?>
 </head>
 
 <body>
@@ -62,7 +58,5 @@ include_once APP_PATH . 'logic/forgetPasswordLogic.php';
 
     <?php include_once 'components/js.php'; ?>
 </body>
-
-</html>
 
 </html>

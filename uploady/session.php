@@ -56,11 +56,15 @@ if (isset($_SESSION)) {
     }
 }
 
-if (isset($_GET['lang'])) {
-    $lang = $utils->sanitize($_GET['lang']);
-    $localization->setLanguage($lang);
+$lang = $_GET['lang'] ?? $_SESSION['language'];
+
+if ($lang == 'ar') {
+    $dir = 'dir="rtl" lang="ar"';
+} else {
+    $dir = 'dir="ltr" lang="en"';
 }
 
+$localization->setLanguage($lang);
 $lang = $localization->loadLangauge($localization->getLanguage());
 
 $page = 'session';

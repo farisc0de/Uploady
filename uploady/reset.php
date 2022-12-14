@@ -2,17 +2,12 @@
 include_once 'session.php';
 include_once APP_PATH . 'logic/resetPasswordLogic.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<html>
 
-<head>
-    <meta charset="UTF-8" />
-    <?php include_once 'components/header.php'; ?>
-    <title>
-        <?= $st['website_name'] ?> - <?= $lang['reset_password_title']; ?>
-    </title>
-    <?php include_once 'components/css.php'; ?>
+<?php include_once 'components/header.php'; ?>
+<title>
+    <?= $st['website_name'] ?> - <?= $lang['reset_password_title']; ?>
+</title>
+<?php include_once 'components/css.php'; ?>
 </head>
 
 <body>
@@ -71,7 +66,5 @@ include_once APP_PATH . 'logic/resetPasswordLogic.php';
 
     <?php include_once 'components/js.php'; ?>
 </body>
-
-</html>
 
 </html>

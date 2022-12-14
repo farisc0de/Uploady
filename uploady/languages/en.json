@@ -3,6 +3,8 @@
   "upload_select_title": "Select a File",
   "upload_button_text": "Upload File",
   "upload_add_more": "Add More Files",
+  "note_supported_formats": "Note: Supported formats",
+  "see_here": "See Here...",
   "upload_bypass_message": "You are trying to bypass the security measures",
   "activation_title": "Account Activation",
   "go_to_login": "Go to Login",
@@ -70,5 +72,19 @@
   "deleted_file_success": "File has been deleted successfully",
   "delete_selected_btn": "Delete Files",
   "uploaded_at": "Uploaded At",
-  "settings_title": "Settings"
+  "settings_title": "Settings",
+  "i_agree": "I agree to the",
+  "tos": "Terms of Service",
+  "copyright_text": "Copyright",
+  "navbar": {
+    "home": "Home",
+    "login": "Login",
+    "signup": "Sign Up",
+    "my_files": "My Files",
+    "settings": "Settings",
+    "dashboard": "Dashboard",
+    "about": "About Us",
+    "tos": "Terms of Service",
+    "logout": "Logout"
+  }
 }

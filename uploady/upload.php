@@ -2,14 +2,10 @@
 include_once 'session.php';
 include_once APP_PATH . "logic/uploadLogic.php";
 ?>
-<!DOCTYPE html>
-<html>
 
-<head>
-  <meta charset="UTF-8" />
-  <?php include_once 'components/header.php' ?>
-  <title><?= $st['website_name'] ?> - <?= $lang['your_uploaded_files']; ?></title>
-  <?php include_once 'components/css.php' ?>
+<?php include_once 'components/header.php' ?>
+<title><?= $st['website_name'] ?> - <?= $lang['your_uploaded_files']; ?></title>
+<?php include_once 'components/css.php' ?>
 </head>
 
 <body>
