@@ -15,12 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if (isset($username)) {
         if ($rp->sendMessage($username)) {
-            $msg = "Instructions has been send to your email";
+            $msg = $lang["forget_password_success"];
         } else {
-            $err = "Username does not exist!";
+            $err = $lang["forget_password_failed"];
         }
     } else {
-        $err = "Please enter a valid email";
+        $err = $lang["no_valid_email"];
     }
 }
 

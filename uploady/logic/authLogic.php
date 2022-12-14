@@ -38,6 +38,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $user->regenareSession();
     } else {
-        $error = "Verification code is incorrect!!";
+        $error = $lang["two_factor_auth_failed"];
     }
 }

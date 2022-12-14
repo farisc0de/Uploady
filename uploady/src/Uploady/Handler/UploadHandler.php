@@ -115,7 +115,7 @@ class UploadHandler
      * 
      * @param string $file_id
      *  The file id
-     * @return array
+     * @return object
      *  The file data
      */
     public function getFile($file_id)

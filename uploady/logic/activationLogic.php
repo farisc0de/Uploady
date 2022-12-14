@@ -4,9 +4,9 @@ $token = $utils->sanitize($_GET['token']);
 
 if ($token) {
     if ($user->activate($token)) {
-        $msg = 'Account Activated';
+        $msg = $lang["account_activation_success"];
     } else {
-        $msg = 'Token does not exist';
+        $msg = $lang["account_activation_failed"];
     }
 }
 

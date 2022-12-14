@@ -94,8 +94,6 @@ class ResetPassword
 
         $token = $this->generateToken();
 
-        echo $token;
-
         $rows = $this->user->get($username);
 
         $email = $rows->email;

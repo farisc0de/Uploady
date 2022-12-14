@@ -6,15 +6,15 @@ if (isset($_GET['file_id']) && isset($_GET['user_id'])) {
         $file = json_decode($handler->getFile($_GET['file_id'])->file_data);
         if ($handler->deleteFile($_GET['file_id'], $_GET['user_id'])) {
             unlink(realpath("uploads/{$_GET['user_id']}/{$file->filename}"));
-            $msg = "File has been deleted (:";
+            $msg = $lang['file_deleted_success'];
         } else {
-            $msg = "The delete process failed";
+            $msg = $lang['file_deleted_failed'] . " ):";
         }
     } else {
-        $msg = "File does not exist or User ID is incorrect ):";
+        $msg = $lang["file_or_user_not_found"];
     }
 } else {
-    $msg = "User ID or File ID is missing";
+    $msg = $lang['file_id_missing'];
 }
 
 $page = 'delete_file';

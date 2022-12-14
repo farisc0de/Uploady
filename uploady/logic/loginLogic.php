@@ -4,7 +4,7 @@ $user = new Uploady\User($db, $utils);
 
 /** Lock out time used for brute force protection */
 
-$lockout_time = 10;
+$lockout_time = 15;
 
 /** Check if user is already log in */
 
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $_SESSION['isHuman'] = true;
             } else {
                 $_SESSION['isHuman'] = false;
-                $error = "Robot verification failed, please try again.";
+                $error = $lang["recaptcha_failed"];
             }
         }
 
@@ -49,12 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             }
         }
     } elseif ($loginstatus == 401) {
-        $error = "Username or Password is incorrect.";
+        $error = $lang["incorrect_creds"];
     } elseif ($loginstatus == 403) {
-        $error = "This account has been locked because of too many failed logins.
-        \nIf this is the case, please try again in $lockout_time minutes.";
+        $error = $lang['account_locked'];
     } else {
-        $error = "Unexpected error occurred !";
+        $error = $lang['unxpected_error'];
     }
 }
 

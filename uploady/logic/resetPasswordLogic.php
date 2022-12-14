@@ -16,12 +16,12 @@ if ($updatePassword->isExist($token) == true) {
         $confirmPassword = $utils->sanitize($_POST['confirmPassword']);
         if ($Password == $confirmPassword) {
             if ($updatePassword->updatePassword($token, $data->username, $_POST['password'])) {
-                $msg = "Password has been updated";
+                $msg = $lang["password_reset_success"];
             } else {
-                $err = "Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.";
+                $err = $lang['password_reset_failed'];
             }
         } else {
-            $err = "Password confirm is incorrect";
+            $err = $lang['password_not_match'];
         }
     }
 } else {
