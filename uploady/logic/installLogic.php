@@ -207,6 +207,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "settings",
             [
                 'id' => 2,
+                'setting_key' => 'website_headline',
+                'setting_value' => 'Simple File Uploading Software'
+            ]
+        );
+
+        $install->insertValue(
+            "settings",
+            [
+                'id' => 3,
                 'setting_key' => 'description',
                 'setting_value' => 'this is uploading service website'
             ]
@@ -215,7 +224,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->insertValue(
             "settings",
             [
-                'id' => 3,
+                'id' => 4,
                 'setting_key' => 'keywords',
                 'setting_value' => 'upload,file upload,file uploading,file sharing'
             ]
@@ -223,7 +232,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->insertValue(
             "settings",
             [
-                'id' => 4,
+                'id' => 5,
                 'setting_key' => 'owner_name',
                 'setting_value' => $utils->sanitize($_POST['username'])
             ]
@@ -231,17 +240,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->insertValue(
             "settings",
             [
-                'id' => 5,
+                'id' => 6,
                 'setting_key' => 'owner_email',
                 'setting_value' => $utils->sanitize($_POST['email'])
-            ]
-        );
-        $install->insertValue(
-            "settings",
-            [
-                'id' => 6,
-                'setting_key' => 'theme_name',
-                'setting_value' => 'litera'
             ]
         );
         $install->insertValue(
@@ -368,8 +369,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $install->setUnique("users", "activation_hash");
 
-        $install->setPrimary("pages", "id");
-
         $install->setAutoinc("users", [
             "id",
             Types::Integer(),
@@ -391,6 +390,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->setPrimary("settings", "id");
 
         $install->setAutoinc("settings", [
+            "id",
+            Types::Integer(),
+            Options::UnSigned(),
+            Options::NotNull()
+        ]);
+
+        $install->setPrimary("pages", "id");
+
+        $install->setAutoinc("pages", [
             "id",
             Types::Integer(),
             Options::UnSigned(),

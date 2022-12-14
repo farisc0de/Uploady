@@ -280,6 +280,33 @@ class Migration
     }
 
     /**
+     * Delete a value from a column in a table
+     *
+     * @param string $table_name
+     *  The table name you want to modify
+     * @param string $column_name
+     *  The column name you want to delete its value
+     * @param mixed $value
+     *  The value you want to delete
+     * @return bool
+     *  Return true if the value is deleted or false otherwise
+     */
+    public function deleteValue($table_name, $column_name, $value)
+    {
+        $sql = sprintf(
+            "DELETE FROM %s WHERE %s = :value",
+            $this->utils->sanitize($table_name),
+            $this->utils->sanitize($column_name)
+        );
+
+        $this->db->prepare($sql);
+
+        $this->db->bind(":value", $value);
+
+        return $this->db->execute();
+    }
+
+    /**
      * Drop and remove a table from the database when needed
      *
      * @param string $table_name
