@@ -10,4 +10,6 @@ if (!$pages->isExist($_GET['s'])) {
     $utils->redirect($utils->siteUrl("/"));
 }
 
-$page = $pages->get($_GET['s']);
+$page_content = $pages->get($_GET['s']);
+
+$page = $_GET['s'];

@@ -33,7 +33,7 @@ class Page
      *
      * @param string $slug
      *  The page slug
-     * @return array|bool
+     * @return object|bool
      */
     public function get($slug)
     {

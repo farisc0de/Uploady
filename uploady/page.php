@@ -1,6 +1,6 @@
 <?php
 include_once 'session.php';
-include_once APP_PATH . 'logic/page.php';
+include_once APP_PATH . 'logic/pageLogic.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -8,7 +8,7 @@ include_once APP_PATH . 'logic/page.php';
 <head>
   <meta charset="UTF-8" />
   <?php include_once 'components/header.php'; ?>
-  <title> <?= $st['website_name'] ?> - <?= $page->title; ?></title>
+  <title> <?= $st['website_name'] ?> - <?= $page_content->title; ?></title>
   <?php include_once 'components/css.php'; ?>
 </head>
 
@@ -20,11 +20,11 @@ include_once APP_PATH . 'logic/page.php';
       <div class="container pb-5 pt-5">
         <div class="card">
           <div class="card-header">
-            <?= $page->title; ?>
+            <?= $page_content->title; ?>
           </div>
           <div class="card-body">
-            <h3 class="card-title"><?= $page->title; ?></h3>
-            <?= $page->content; ?>
+            <h3 class="card-title"><?= $page_content->title; ?></h3>
+            <?= $page_content->content; ?>
           </div>
         </div>
       </div>

@@ -10,18 +10,18 @@
 
           <div class="collapse navbar-collapse" id="navbarColor01">
               <ul class="navbar-nav me-auto">
-                  <li class="nav-item <?= $utils->linkActive($page, 'index'); ?>">
-                      <a class="nav-link" href="<?= $utils->siteUrl('/index.php') ?>">
+                  <li class="nav-item">
+                      <a class="nav-link <?= $utils->linkActive($page, 'index'); ?>" href="<?= $utils->siteUrl('/index.php') ?>">
                           <span class="fa fa-home"></span> <?= $lang['navbar']['home'] ?>
                       </a>
                   </li>
-                  <li class="nav-item <?= $utils->linkActive($page, 'tos'); ?>">
-                      <a class="nav-link" href="<?= $utils->siteUrl('/page.php?s=terms') ?>">
+                  <li class="nav-item">
+                      <a class="nav-link <?= $utils->linkActive($page, 'terms'); ?>" href="<?= $utils->siteUrl('/page.php?s=terms') ?>">
                           <span class="fa fa-file-text"></span> <?= $lang['navbar']['tos'] ?>
                       </a>
                   </li>
-                  <li class="nav-item <?= $utils->linkActive($page, 'about'); ?>">
-                      <a class="nav-link" href="<?= $utils->siteUrl('/page.php?s=about') ?>">
+                  <li class="nav-item">
+                      <a class="nav-link <?= $utils->linkActive($page, 'about'); ?>" href="<?= $utils->siteUrl('/page.php?s=about') ?>">
                           <span class="fa fa-user"></span> <?= $lang['navbar']['about'] ?>
                       </a>
                   </li>
@@ -58,13 +58,13 @@
                           </div>
                       </li>
                   <?php else : ?>
-                      <li class="nav-item <?= $utils->linkActive($page, 'signupPage'); ?>">
-                          <a class="nav-link" href="<?= $utils->siteUrl('/signup.php') ?>">
+                      <li class="nav-item">
+                          <a class="nav-link <?= $utils->linkActive($page, 'signupPage'); ?>" href="<?= $utils->siteUrl('/signup.php') ?>">
                               <?= $lang['navbar']['signup'] ?>
                           </a>
                       </li>
-                      <li class="nav-item <?= $utils->linkActive($page, 'loginPage'); ?>">
-                          <a class="nav-link" href="<?= $utils->siteUrl('/login.php') ?>">
+                      <li class="nav-item">
+                          <a class="nav-link <?= $utils->linkActive($page, 'loginPage'); ?>" href="<?= $utils->siteUrl('/login.php') ?>">
                               <?= $lang['navbar']['login'] ?>
                           </a>
                       </li>

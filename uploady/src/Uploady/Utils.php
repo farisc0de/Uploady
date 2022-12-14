@@ -142,10 +142,10 @@ class Utils
     public function linkActive($page, $page_name)
     {
         if (isset($page) && $page != null) {
-            return "";
+            return ($page == $page_name) ? "active" : "";
         }
 
-        return ($page == $page_name) ? "active" : "";
+        return "";
     }
 
     /**
