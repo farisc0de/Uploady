@@ -19,7 +19,7 @@ class Localization
      * @param mixed $language
      *  The language file name
      * @return mixed 
-     *  An array contains the language file
+     *  An array contains the language file data
      */
     public function loadLangauge($language)
     {

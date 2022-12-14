@@ -2,21 +2,16 @@
 include_once '../session.php';
 include_once 'logic/myFilesLogic.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<html>
 
-<head>
-    <meta charset="UTF-8" />
-    <?php include_once '../components/header.php'; ?>
-    <title>
-        <?= $st['website_name'] ?> - <?= $lang['my_files_title']; ?>
-    </title>
-    <?php include_once '../components/css.php'; ?>
+<?php include_once '../components/header.php'; ?>
+<title>
+    <?= $st['website_name'] ?> - <?= $lang['my_files_title']; ?>
+</title>
+<?php include_once '../components/css.php'; ?>
 
-    <?php $utils->style(
-        'https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.css'
-    ) ?>
+<?php $utils->style(
+    'https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.css'
+) ?>
 </head>
 
 <body>
@@ -150,7 +145,5 @@ include_once 'logic/myFilesLogic.php';
         });
     </script>
 </body>
-
-</html>
 
 </html>

@@ -37,9 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ])
         );
 
-        $msg = "Account created";
+        $msg = $lang['signup_success'];
     } else {
-        $error = "User already exist";
+        $error = $lang['user_already_exist'];
     }
 }
 

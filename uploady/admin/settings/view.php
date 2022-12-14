@@ -53,7 +53,7 @@ include_once 'logic/settings.php';
 
                                         <div class="form-group">
                                             <div class="form-label-group">
-                                                <input class="form-control" id="website_headline" type="text" name="website_name" placeholder="Website Headline" value="<?= $settings->getSettingValue('website_headline'); ?>">
+                                                <input class="form-control" id="website_headline" type="text" name="website_headline" placeholder="Website Headline" value="<?= $settings->getSettingValue('website_headline'); ?>">
                                                 <label for="website_headline">Website Headline</label>
                                             </div>
                                         </div>
@@ -81,15 +81,6 @@ include_once 'logic/settings.php';
                                                 <input class="form-control" id="email" type="text" name="email" placeholder="Owner Email" value="<?= $settings->getSettingValue('owner_email'); ?>">
                                                 <label for="email">Owner Email</label>
                                             </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <select label="Select a Theme" name="theme_name" id="theme_name" class="form-control custom-select">
-                                                <option>Select a Theme</option>
-                                                <?php foreach ($bootswatch_themes as $key => $value) : ?>
-                                                    <option value="<?= $key; ?>" <?= ($settings->getSettingValue('theme_name') == $key) ? "selected" : null; ?>><?= $value ?></option>
-                                                <?php endforeach; ?>
-                                            </select>
                                         </div>
 
                                         <hr />

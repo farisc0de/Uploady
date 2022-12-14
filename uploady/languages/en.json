@@ -32,6 +32,8 @@
   "enter_username": "Enter Username",
   "enter_password": "Enter Password",
   "forget_password": "Forgot Password?",
+  "signup_success": "Your account has been created successfully. Please check your email to activate your account.",
+  "user_already_exist": "User already exists",
   "reset_password_title": "Reset Password",
   "reset_password_header": "Reset Password",
   "reset_password_msg": "Please enter a strong password that contains 8 characters and at least one special character",
@@ -75,6 +77,7 @@
   "settings_title": "Settings",
   "i_agree": "I agree to the",
   "tos": "Terms of Service",
+  "tos_short": "TOS",
   "copyright_text": "Copyright",
   "navbar": {
     "home": "Home",

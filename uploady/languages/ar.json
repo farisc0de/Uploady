@@ -31,6 +31,8 @@
   "signup_cta_msg": "ليس لديك حساب؟ سجل الآن!",
   "enter_username": "أدخل اسم المستخدم",
   "enter_password": "أدخل كلمة المرور",
+  "signup_success": "تم تسجيلك بنجاح. يرجى التحقق من بريدك الإلكتروني لتفعيل حسابك.",
+  "user_already_exist": "اسم المستخدم موجود بالفعل. يرجى تسجيل الدخول.",
   "forget_password": "نسيت كلمة المرور؟",
   "reset_password_title": "إعادة تعيين كلمة المرور",
   "reset_password_header": "إعادة تعيين كلمة المرور",
@@ -75,6 +77,7 @@
   "settings_title": "الإعدادات",
   "i_agree": "أوافق على",
   "tos": "شروط الخدمة",
+  "tos_short": "الشروط",
   "copyright_text": "حقوق الطبع والنشر",
   "navbar": {
     "home": "الصفحة الرئيسية",
