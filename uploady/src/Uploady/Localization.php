@@ -77,4 +77,30 @@ class Localization
     {
         unlink(APP_PATH . "/languages/{$language}.json");
     }
+
+    /**
+     * Function to change the current language
+     *
+     * @return mixed 
+     *  The current language
+     */
+    public function setLanguage($language)
+    {
+        $_SESSION['language'] = $language;
+    }
+
+    /**
+     * Function to get the current language
+     *
+     * @return mixed 
+     *  The current language
+     */
+    public function getLanguage()
+    {
+        if (isset($_SESSION['language'])) {
+            return $_SESSION['language'];
+        } else {
+            return "en";
+        }
+    }
 }

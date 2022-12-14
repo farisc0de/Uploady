@@ -53,6 +53,13 @@ include_once 'logic/settings.php';
 
                                         <div class="form-group">
                                             <div class="form-label-group">
+                                                <input class="form-control" id="website_headline" type="text" name="website_name" placeholder="Website Headline" value="<?= $settings->getSettingValue('website_headline'); ?>">
+                                                <label for="website_headline">Website Headline</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-label-group">
                                                 <input class="form-control" id="description" type="text" name="description" placeholder="Website Name" value="<?= $settings->getSettingValue('description'); ?>">
                                                 <label for="website_name">Website Description</label>
                                             </div>

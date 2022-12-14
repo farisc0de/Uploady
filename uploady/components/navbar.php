@@ -26,8 +26,18 @@
                       </a>
                   </li>
               </ul>
-              <?php if (isset($_SESSION['loggedin'])) : ?>
-                  <ul class="navbar-nav ml-auto">
+              <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="fa-solid fa-globe"></i>
+                      </a>
+
+                      <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item" href="?lang=en">English</a>
+                          <a class="dropdown-item" href="?lang=ar">Arabic</a>
+                      </div>
+                  </li>
+                  <?php if (isset($_SESSION['loggedin'])) : ?>
                       <li class="nav-item">
                           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                               <i class="fa fa-user fa-fw"></i>
@@ -47,9 +57,7 @@
                               </a>
                           </div>
                       </li>
-                  </ul>
-              <?php else : ?>
-                  <ul class="navbar-nav ml-auto">
+                  <?php else : ?>
                       <li class="nav-item <?= $utils->linkActive($page, 'signupPage'); ?>">
                           <a class="nav-link" href="<?= $utils->siteUrl('/signup.php') ?>">
                               Sign up
@@ -60,8 +68,8 @@
                               Login
                           </a>
                       </li>
-                  </ul>
-              <?php endif; ?>
+                  <?php endif; ?>
+              </ul>
           </div>
       </div>
   </nav>

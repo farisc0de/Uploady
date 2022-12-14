@@ -46,7 +46,7 @@ class UploadHandler
      */
     public function addFile($file_id, $user_id, $file_data, $user_data)
     {
-        $this->db->query(
+        $this->db->prepare(
             "INSERT INTO files (
                 file_id,user_id,file_data,user_data,uploaded_at) 
                 VALUES
@@ -74,7 +74,7 @@ class UploadHandler
      */
     public function fileExist($file_id)
     {
-        $this->db->query("SELECT * FROM files WHERE file_id = :id");
+        $this->db->prepare("SELECT * FROM files WHERE file_id = :id");
 
         $this->db->bind(":id", $file_id, \PDO::PARAM_STR);
 
@@ -97,7 +97,7 @@ class UploadHandler
      */
     public function userExist($user_id)
     {
-        $this->db->query("SELECT * FROM files WHERE user_id = :id");
+        $this->db->prepare("SELECT * FROM files WHERE user_id = :id");
 
         $this->db->bind(":id", $user_id, \PDO::PARAM_STR);
 
@@ -120,7 +120,7 @@ class UploadHandler
      */
     public function getFile($file_id)
     {
-        $this->db->query("SELECT file_data FROM files WHERE file_id = :id");
+        $this->db->prepare("SELECT file_data FROM files WHERE file_id = :id");
 
         $this->db->bind(":id", $file_id, \PDO::PARAM_STR);
 
@@ -143,7 +143,7 @@ class UploadHandler
      */
     public function updateFile($file_id, $user_id, $file_data)
     {
-        $this->db->query(
+        $this->db->prepare(
             "UPDATE files SET user_id = :user_id, file_data = :file_data WHERE file_id = :file_id"
         );
 
@@ -168,7 +168,7 @@ class UploadHandler
      */
     public function deleteFile($file_id, $user_id)
     {
-        $this->db->query("DELETE FROM files WHERE file_id = :id AND user_id = :uid");
+        $this->db->prepare("DELETE FROM files WHERE file_id = :id AND user_id = :uid");
 
         $this->db->bind(":id", $file_id, \PDO::PARAM_STR);
         $this->db->bind(":uid", $user_id, \PDO::PARAM_STR);
@@ -186,7 +186,7 @@ class UploadHandler
      */
     public function deleteFileAsAdmin($file_id)
     {
-        $this->db->query("DELETE FROM files WHERE file_id = :id");
+        $this->db->prepare("DELETE FROM files WHERE file_id = :id");
 
         $this->db->bind(":id", $file_id, \PDO::PARAM_STR);
 
@@ -201,7 +201,7 @@ class UploadHandler
      */
     public function getFiles()
     {
-        $this->db->query('SELECT * FROM files');
+        $this->db->prepare('SELECT * FROM files');
 
         if ($this->db->execute()) {
             return $this->db->resultset();
@@ -218,7 +218,7 @@ class UploadHandler
      */
     public function getFilesById($user_id)
     {
-        $this->db->query('SELECT * FROM files WHERE user_id = :uid');
+        $this->db->prepare('SELECT * FROM files WHERE user_id = :uid');
 
         $this->db->bind(':uid', $user_id, \PDO::PARAM_STR);
 
@@ -237,7 +237,7 @@ class UploadHandler
      */
     public function addDownload($file_id)
     {
-        $this->db->query("UPDATE files SET downloads = (downloads + 1) WHERE file_id = :file_id");
+        $this->db->prepare("UPDATE files SET downloads = (downloads + 1) WHERE file_id = :file_id");
 
         $this->db->bind(":file_id", $file_id, \PDO::PARAM_STR);
 
@@ -250,11 +250,11 @@ class UploadHandler
      * @return int
      *  The number of downloads
      * @throws PDOException
-     *  If the query fails
+     *  If the prepare fails
      */
     public function getDownloadsTotal()
     {
-        $this->db->query("SELECT downloads FROM files");
+        $this->db->prepare("SELECT downloads FROM files");
 
         $this->db->execute();
 
@@ -273,11 +273,11 @@ class UploadHandler
      * @return array
      *  The files data
      * @throws PDOException
-     *  If the query fails
+     *  If the prepare fails
      */
     public function getLatestFiles()
     {
-        $this->db->query("SELECT * FROM files ORDER BY uploaded_at DESC LIMIT 10");
+        $this->db->prepare("SELECT * FROM files ORDER BY uploaded_at DESC LIMIT 10");
 
         $this->db->execute();
 
@@ -292,7 +292,7 @@ class UploadHandler
      */
     public function countFiles()
     {
-        $this->db->query("SELECT * FROM files;");
+        $this->db->prepare("SELECT * FROM files;");
 
         if ($this->db->execute()) {
             return $this->db->rowCount();

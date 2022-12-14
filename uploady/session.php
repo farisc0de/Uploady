@@ -56,6 +56,11 @@ if (isset($_SESSION)) {
     }
 }
 
-$lang = $localization->loadLangauge("en");
+if (isset($_GET['lang'])) {
+    $lang = $utils->sanitize($_GET['lang']);
+    $localization->setLanguage($lang);
+}
+
+$lang = $localization->loadLangauge($localization->getLanguage());
 
 $page = 'session';
