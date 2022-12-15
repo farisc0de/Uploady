@@ -58,9 +58,11 @@ class Localization
     {
         $file = file_get_contents(APP_PATH . "/languages/{$language}.json");
         $file = json_decode($file, true);
+
         foreach ($data as $key => $value) {
             $file[$key] = $value;
         }
+
         $file = json_encode($file, JSON_PRETTY_PRINT);
         file_put_contents(APP_PATH . "/languages/{$language}.json", $file);
     }

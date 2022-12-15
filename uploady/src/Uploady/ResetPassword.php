@@ -174,11 +174,7 @@ class ResetPassword
 
         $this->db->bind(":token", sha1($token), \PDO::PARAM_STR);
 
-        if ($this->db->execute()) {
-            return $this->db->single();
-        } else {
-            return false;
-        }
+        return $this->db->execute() ? $this->db->single() : false;
     }
 
     /**
@@ -221,14 +217,10 @@ class ResetPassword
 
         if ($this->db->execute()) {
             if ($this->db->rowCount()) {
-                if ($this->isExpired($token) != false) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
+                return $this->isExpired($token) ? false : true;
             }
+
+            return false;
         }
     }
 
@@ -254,9 +246,9 @@ class ResetPassword
             if (round($diff / 3600) >= 24) {
                 $this->deleteToken($key);
                 return false;
-            } else {
-                return true;
             }
+
+            return true;
         }
     }
 }

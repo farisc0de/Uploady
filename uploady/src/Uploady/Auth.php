@@ -67,7 +67,7 @@ class Auth
     public function newLogin($username, $password)
     {
         $total_failed_login = 5;
-        $lockout_time = 10;
+        $lockout_time = 15;
         $account_locked = false;
 
         $this->db->prepare('SELECT * FROM users WHERE username = (:user) LIMIT 1;');

@@ -168,9 +168,7 @@ class Database
     public function resultset()
     {
         $data = $this->stmt->fetchAll(\PDO::FETCH_OBJ);
-        if (is_array($data)) {
-            return $data;
-        }
+        return is_array($data) ? $data : array();
     }
 
     /**
@@ -182,9 +180,7 @@ class Database
     public function rowCount()
     {
         $data = $this->stmt->rowCount();
-        if (is_int($data)) {
-            return $data;
-        }
+        return is_int($data) ? $data : 0;
     }
 
     /**
@@ -196,12 +192,7 @@ class Database
     public function single()
     {
         $data = $this->stmt->fetch(\PDO::FETCH_OBJ);
-
-        if (is_object($data)) {
-            return $data;
-        } else {
-            return false;
-        }
+        return is_object($data) ? $data : false;
     }
 
     /**
@@ -243,6 +234,7 @@ class Database
                     $type = \PDO::PARAM_STR;
             }
         }
+
         $this->stmt->bindValue($param, $value, $type);
     }
 

@@ -82,6 +82,7 @@ class DataCollection
                 $os_platform = $value;
             }
         }
+
         return $os_platform;
     }
 }

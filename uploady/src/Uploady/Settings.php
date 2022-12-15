@@ -47,9 +47,11 @@ class Settings
         if ($this->db->execute()) {
             $settings = $this->db->resultset();
             $settings_array = array();
+
             foreach ($settings as $setting) {
                 $settings_array[$setting->setting_key] = $setting->setting_value;
             }
+
             return $settings_array;
         }
     }
@@ -75,11 +77,7 @@ class Settings
             array_push($res, $this->db->execute());
         }
 
-        if (in_array(false, $res)) {
-            return false;
-        } else {
-            return true;
-        }
+        return in_array(false, $res) ? false : true;
     }
 
     /**

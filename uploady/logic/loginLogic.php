@@ -1,10 +1,7 @@
 <?php
+
 $auth = new Uploady\Auth($db, $utils);
 $user = new Uploady\User($db, $utils);
-
-/** Lock out time used for brute force protection */
-
-$lockout_time = 15;
 
 /** Check if user is already log in */
 

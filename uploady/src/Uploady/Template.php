@@ -108,9 +108,9 @@ class Template
             }
 
             return $template;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -123,9 +123,9 @@ class Template
     {
         if (is_array($this->args) && !(empty($this->args))) {
             return $this->loadTemplate($this->layout_name, $this->args);
-        } else {
-            return $this->loadTemplate($this->layout_name);
         }
+
+        return $this->loadTemplate($this->layout_name);
     }
 
     /**
@@ -147,6 +147,7 @@ class Template
         if (empty($args) || !is_array($args)) {
             $args = $this->args;
         }
+
         extract($args);
         require_once $layout_name;
         return true;

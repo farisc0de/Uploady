@@ -54,11 +54,7 @@ class User
 
         $this->db->prepare($sql);
 
-        if ($this->db->execute()) {
-            return $this->db->resultset();
-        } else {
-            return false;
-        }
+        return $this->db->execute() ? $this->db->resultset() : false;
     }
 
     /**
@@ -83,11 +79,7 @@ class User
 
         $this->db->bind(":" . $find_by, $username, \PDO::PARAM_STR);
 
-        if ($this->db->execute()) {
-            return $this->db->single();
-        } else {
-            return false;
-        }
+        return $this->db->execute() ? $this->db->single() : false;
     }
 
     /**
@@ -128,11 +120,7 @@ class User
         $this->db->bind(":" . $find_by, $username, \PDO::PARAM_STR);
 
         if ($this->db->execute()) {
-            if ($this->db->rowCount()) {
-                return true;
-            } else {
-                return false;
-            }
+            return $this->db->rowCount() > 0;
         }
     }
 
@@ -235,12 +223,7 @@ class User
 
         if ($this->db->execute()) {
             $obj =  $this->db->single();
-
-            if ($obj != false) {
-                return $obj->username;
-            } else {
-                return $user_id;
-            }
+            return ($obj != false) ? $obj->username : $user_id;
         }
     }
 
@@ -279,9 +262,9 @@ class User
                 if ($this->db->execute()) {
                     return true;
                 }
-            } else {
-                return false;
             }
+
+            return false;
         }
     }
 
