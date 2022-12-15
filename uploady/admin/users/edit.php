@@ -73,18 +73,10 @@ include_once 'logic/editLogic.php';
                                 <?php if ($_SESSION['username'] != $user_data->username) : ?>
                                     <div class="form-group">
                                         <select class="form-control" name="role">
-                                            <option value="2">User</option>
-                                            <option value="3">Admin</option>
+                                            <?php foreach ($roles as $role) : ?>
+                                                <option value="<?= $role->id; ?>" <?= $user_data->role == $role->id ? 'selected' : ''; ?>><?= $role->role; ?></option>
+                                            <?php endforeach; ?>
                                         </select>
-                                    </div>
-                                <?php else : ?>
-                                    <div class="form-group">
-                                        <div class="form-group">
-                                            <select class="form-control" name="role">
-                                                <option value="2">User</option>
-                                                <option value="3">Admin</option>
-                                            </select>
-                                        </div>
                                     </div>
                                 <?php endif; ?>
                                 <?php if ($_SESSION['username'] != $user_data->username) : ?>

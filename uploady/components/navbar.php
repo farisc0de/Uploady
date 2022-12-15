@@ -48,7 +48,7 @@
                                   <?= $lang['navbar']['settings'] ?>
                               </a>
                               <a class="dropdown-item" href="<?= $utils->siteUrl('/profile/my_files.php'); ?>"><?= $lang['navbar']['my_files'] ?></a>
-                              <?php if ($data->role == 3) : ?>
+                              <?php if ($data->role == 4) : ?>
                                   <a class="dropdown-item" href="<?= $utils->siteUrl('/admin/index.php'); ?>"><?= $lang['navbar']['dashboard'] ?></a>
                               <?php endif; ?>
                               <div class="dropdown-divider"></div>

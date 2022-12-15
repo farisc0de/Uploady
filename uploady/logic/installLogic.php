@@ -102,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'role',
                 Types::Integer(),
                 Options::NotNull(),
-                Options::DefaultValue("0")
+                Options::DefaultValue("1")
             ],
             [
                 'otp_status',
@@ -176,6 +176,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ["created_at", Types::TimeStamp(), Options::CurrentTimeStamp(), Options::NotNull()]
         ];
 
+        $role = [
+            ["id", Types::Integer(), Options::UnSigned(), Options::NotNull()],
+            ["role", Types::String(75), Options::NotNull()],
+            ["size_limit", Types::String(150), Options::NotNull()],
+            ["created_at", Types::TimeStamp(), Options::CurrentTimeStamp(), Options::NotNull()]
+        ];
+
         $install->createTable("users", $users);
 
         $install->createTable("files", $files);
@@ -183,6 +190,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->createTable("settings", $settings);
 
         $install->createTable("pages", $pages);
+
+        $install->createTable("role", $role);
 
         $install->insertValue("users", [
             "id" => 1,
@@ -361,6 +370,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'deletable' => false
         ]);
 
+        $install->insertValue("roles", [
+            'id' => 2,
+            'role' => 'User',
+            'size_limit' => '150 MB',
+        ]);
+
+
+        $install->insertValue("roles", [
+            'id' => 3,
+            'role' => 'Guest',
+            'size_limit' => '50 MB',
+        ]);
+
+        $install->insertValue("roles", [
+            'id' => 4,
+            'role' => 'Admin',
+            'size_limit' => '500 MB',
+        ]);
+
         $install->setPrimary("users", "id");
 
         $install->setUnique("users", "email");
@@ -399,6 +427,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->setPrimary("pages", "id");
 
         $install->setAutoinc("pages", [
+            "id",
+            Types::Integer(),
+            Options::UnSigned(),
+            Options::NotNull()
+        ]);
+
+        $install->setPrimary("roles", "id");
+
+        $install->setAutoinc("roles", [
             "id",
             Types::Integer(),
             Options::UnSigned(),

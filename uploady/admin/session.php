@@ -47,7 +47,7 @@ if (isset($_SESSION)) {
             }
         }
 
-        if ($data->role != 3) {
+        if ($data->role != 4) {
             $utils->redirect($utils->siteUrl('/index.php'));
         }
     } else {

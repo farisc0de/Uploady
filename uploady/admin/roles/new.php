@@ -1,13 +1,13 @@
 <?php
 include_once '../session.php';
-include_once 'logic/editLogic.php';
+include_once 'logic/addLogic.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <?php include_once '../components/meta.php'; ?>
-    <title>Edit role - <?= $st['website_name'] ?></title>
+    <title>Add role - <?= $st['website_name'] ?></title>
     <?php include_once '../components/css.php'; ?>
 </head>
 
@@ -28,13 +28,13 @@ include_once 'logic/editLogic.php';
                             Edit Role
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="<?= $utils->siteUrl('/admin/roles/actions/update.php'); ?>">
+                            <form method="POST">
                                 <?php if (isset($msg)) : ?>
 
                                     <?php if ($msg == "yes") : ?>
 
                                         <?php echo $utils->alert(
-                                            "Role has been updated",
+                                            "Role has been created",
                                             "success",
                                             "check-circle"
                                         ); ?>
@@ -59,12 +59,11 @@ include_once 'logic/editLogic.php';
 
                                 <?php endif; ?>
                                 <?= $utils->input('csrf', $_SESSION['csrf']); ?>
-                                <?= $utils->input('id', $role_data->id); ?>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="role_name" placeholder="Enter Role Name" value="<?= $role_data->role; ?>">
+                                    <input type="text" class="form-control" name="role_name" placeholder="Enter Role Name">
                                 </div>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="size_limit" placeholder="Enter Size Limit" value="<?= $role_data->size_limit; ?>">
+                                    <input type="text" class="form-control" name="size_limit" placeholder="Enter Size Limit">
                                 </div>
 
                                 <button type="submit" class="btn btn-primary">

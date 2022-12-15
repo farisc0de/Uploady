@@ -46,14 +46,14 @@ class Role
      *
      * @param string $role
      *  The role name
-     * @return array|bool
+     * @return object|bool
      */
 
     public function get($role)
     {
-        $this->db->prepare("SELECT * FROM roles WHERE name = :role");
+        $this->db->prepare("SELECT * FROM roles WHERE id = :id");
 
-        $this->db->bind(":role", $role, \PDO::PARAM_STR);
+        $this->db->bind(":id", $role, \PDO::PARAM_INT);
 
         $this->db->execute();
 
@@ -72,11 +72,7 @@ class Role
         $user = $this->user->get($username);
 
         if ($user) {
-            $role = $this->get($user->role);
-
-            if ($role) {
-                return $role;
-            }
+            return $user->role;
         }
 
         return false;
@@ -90,11 +86,12 @@ class Role
      * @return bool
      *  No return value
      */
-    public function createRole($role)
+    public function createRole($role, $size_limit)
     {
-        $this->db->prepare("INSERT INTO roles (name) VALUES (:role)");
+        $this->db->prepare("INSERT INTO roles (role, size_limit) VALUES (:role, :limit)");
 
         $this->db->bind(":role", $role, \PDO::PARAM_STR);
+        $this->db->bind(":limit", $size_limit, \PDO::PARAM_STR);
 
         return $this->db->execute();
     }
@@ -109,11 +106,12 @@ class Role
      * @return void
      *  No return value
      */
-    public function updateRole($role, $id)
+    public function updateRole($role, $size_limit, $id)
     {
-        $this->db->prepare("UPDATE roles SET name = :role WHERE id = :id");
+        $this->db->prepare("UPDATE roles SET role = :role, size_limit = :limit WHERE id = :id");
 
         $this->db->bind(":role", $role, \PDO::PARAM_STR);
+        $this->db->bind(":limit", $size_limit, \PDO::PARAM_STR);
         $this->db->bind(":id", $id, \PDO::PARAM_INT);
 
         return $this->db->execute();

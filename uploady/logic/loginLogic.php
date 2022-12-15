@@ -37,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
             $_SESSION['loggedin'] = true;
             $_SESSION['username'] = $username;
+            $_SESSION['user_role'] = $role->getUserRole($username);
 
             if ($user->isTwoFAEnabled($username) == true) {
                 $utils->redirect($utils->siteUrl("/auth.php"));

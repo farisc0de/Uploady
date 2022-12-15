@@ -8,6 +8,8 @@ $upload = new Farisc0de\PhpFileUploading\Upload();
 
 $dataCollection = new Uploady\DataCollection();
 
+$role = new Uploady\Role($db, $user);
+
 $dataCollection->collectIP();
 
 $handler = new UploadHandler($db);
@@ -34,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $upload->enableProtection();
 
-    $upload->setSizeLimit(MAX_SIZE);
+    $upload->setSizeLimit($role->get($_SESSION['user_role'])->size_limit);
 
     foreach ($inputs as $file) {
 

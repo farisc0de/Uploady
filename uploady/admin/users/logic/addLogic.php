@@ -18,3 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $msg = 'csrf';
     }
 }
+
+$roleobj = new \Uploady\Role($db, $user);
+$roles = $roleobj->getAll();

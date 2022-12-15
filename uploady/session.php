@@ -9,6 +9,7 @@ $user = new Uploady\User($db, $utils);
 $auth = new Uploady\Auth($db, $utils);
 $settings = new Uploady\Settings($db);
 $localization = new Uploady\Localization();
+$role = new Uploady\Role($db, $user);
 
 $st = $settings->getSettings();
 
@@ -16,6 +17,10 @@ $current_url = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
 if (isset($_SESSION)) {
     $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+
+    if (!isset($_SESSION['user_role'])) {
+        $_SESSION['user_role'] = 2;
+    }
 
     if ($username != null) {
         if (isset($_SESSION['loggedin'])) {
