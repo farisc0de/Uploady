@@ -61,7 +61,7 @@ include_once 'logic/editLogic.php';
                                 <?= $utils->input('csrf', $_SESSION['csrf']); ?>
                                 <?= $utils->input('id', $role_data->id); ?>
                                 <div class="form-group">
-                                    <input type="text" class="form-control" name="role_name" placeholder="Enter Role Name" value="<?= $role_data->role; ?>">
+                                    <input type="text" class="form-control" name="role_name" placeholder="Enter Role Name" value="<?= $role_data->title; ?>">
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control" name="size_limit" placeholder="Enter Size Limit" value="<?= $role_data->size_limit; ?>">

@@ -33,8 +33,9 @@
                       </a>
 
                       <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" href="?lang=en">English</a>
-                          <a class="dropdown-item" href="?lang=ar">عربي</a>
+                          <?php foreach ($localization->getLanguages() as $language) : ?>
+                              <a class="dropdown-item" href="?lang=<?= $language->language_code ?>"><?= $language->language ?></a>
+                          <?php endforeach; ?>
                       </div>
                   </li>
                   <?php if (isset($_SESSION['loggedin'])) : ?>
@@ -48,7 +49,7 @@
                                   <?= $lang['navbar']['settings'] ?>
                               </a>
                               <a class="dropdown-item" href="<?= $utils->siteUrl('/profile/my_files.php'); ?>"><?= $lang['navbar']['my_files'] ?></a>
-                              <?php if ($data->role == 4) : ?>
+                              <?php if ($data->role == 3) : ?>
                                   <a class="dropdown-item" href="<?= $utils->siteUrl('/admin/index.php'); ?>"><?= $lang['navbar']['dashboard'] ?></a>
                               <?php endif; ?>
                               <div class="dropdown-divider"></div>

@@ -99,7 +99,7 @@ include_once 'logic/viewLogic.php';
                                                     <td><?= $u->username; ?>
                                                     </td>
                                                     <td><?= $u->email; ?></td>
-                                                    <td><?= $role->get($u->role)->role ?></td>
+                                                    <td><?= $role->get($u->role)->title ?></td>
                                                     <td><?= $u->is_active ? 'yes' : 'no'; ?></td>
                                                     <td>
                                                         <a type="button" class="btn btn-primary" href="<?= $utils->siteUrl('/admin/users/edit.php?username=' . $u->username); ?>">

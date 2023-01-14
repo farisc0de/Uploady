@@ -93,7 +93,7 @@ include_once 'logic/viewLogic.php';
                                                         <label class="custom-control-label" for="role_<?= $r->id; ?>" </label>
                                                     </div>
                                                 </td>
-                                                <td><?= $r->role; ?>
+                                                <td><?= $r->title; ?>
                                                 </td>
                                                 <td><?= $r->size_limit; ?></td>
                                                 <td>

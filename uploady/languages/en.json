@@ -96,6 +96,8 @@
   "tos": "Terms of Service",
   "tos_short": "TOS",
   "copyright_text": "Copyright",
+  "page_not_found": "Page Not Found",
+  "page_not_found_content": "The page you are looking for does not exist.",
   "navbar": {
     "home": "Home",
     "login": "Login",

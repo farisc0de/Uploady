@@ -13,6 +13,26 @@ namespace Uploady;
  */
 class Localization
 {
+
+    /**
+     * The database connection
+     *
+     * @var Database
+     */
+
+    private $db;
+
+    /**
+     * The constructor
+     *
+     * @param Database $db
+     *  The database connection
+     */
+    public function __construct($db)
+    {
+        $this->db = $db;
+    }
+
     /**
      * Function to load language file in array
      *
@@ -104,5 +124,16 @@ class Localization
         } else {
             return "en";
         }
+    }
+
+    public function getLanguages()
+    {
+        $languages = "SELECT * FROM languages";
+
+        $this->db->prepare($languages);
+
+        $this->db->execute();
+
+        return $this->db->resultset();
     }
 }

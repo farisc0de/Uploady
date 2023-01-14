@@ -170,15 +170,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pages = [
             ["id", Types::Integer(), Options::UnSigned(), Options::NotNull()],
             ["slug", Types::Text(), Options::NotNull()],
-            ["title", Types::Text(), Options::NotNull()],
-            ["content", Types::LongText(), Options::NotNull()],
             ["deletable", Types::Boolean(), Options::DefaultValue(0), Options::NotNull()],
             ["created_at", Types::TimeStamp(), Options::CurrentTimeStamp(), Options::NotNull()]
         ];
 
-        $role = [
+        $languages = [
             ["id", Types::Integer(), Options::UnSigned(), Options::NotNull()],
-            ["role", Types::String(75), Options::NotNull()],
+            ["language", Types::String(50), Options::NotNull()],
+            ["language_code", Types::String(50), Options::NotNull()],
+            ["created_at", Types::TimeStamp(), Options::CurrentTimeStamp(), Options::NotNull()]
+        ];
+
+        $pages_translation = [
+            ["id", Types::Integer(), Options::UnSigned(), Options::NotNull()],
+            ["page_id", Types::Integer(), Options::NotNull()],
+            ["language_id", Types::Integer(), Options::NotNull()],
+            ["title", Types::Text(), Options::NotNull()],
+            ["content", Types::LongText(), Options::NotNull()],
+            ["created_at", Types::TimeStamp(), Options::CurrentTimeStamp(), Options::NotNull()]
+        ];
+
+        $roles = [
+            ["id", Types::Integer(), Options::UnSigned(), Options::NotNull()],
+            ["title", Types::String(75), Options::NotNull()],
             ["size_limit", Types::String(150), Options::NotNull()],
             ["created_at", Types::TimeStamp(), Options::CurrentTimeStamp(), Options::NotNull()]
         ];
@@ -191,7 +205,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $install->createTable("pages", $pages);
 
-        $install->createTable("role", $role);
+        $install->createTable("pages_translation", $pages_translation);
+
+        $install->createTable("roles", $roles);
+
+        $install->createTable("languages", $languages);
 
         $install->insertValue("users", [
             "id" => 1,
@@ -349,43 +367,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->insertValue("pages", [
             'id' => 1,
             'slug' => 'about',
-            'title' => 'About us',
-            'content' => file_get_contents(realpath(APP_PATH . 'pages/about.html')),
             'deletable' => false
         ]);
 
         $install->insertValue("pages", [
             'id' => 2,
             'slug' => 'terms',
-            'title' => 'Terms of services',
-            'content' => file_get_contents(realpath(APP_PATH . 'pages/terms.html')),
             'deletable' => false
         ]);
 
         $install->insertValue("pages", [
             'id' => 3,
             'slug' => 'privacy',
-            'title' => 'Privacy Policy',
-            'content' => file_get_contents(realpath(APP_PATH . 'pages/privacy.html')),
             'deletable' => false
         ]);
 
         $install->insertValue("roles", [
-            'id' => 2,
-            'role' => 'User',
+            'id' => 1,
+            'title' => 'User',
             'size_limit' => '150 MB',
         ]);
 
 
         $install->insertValue("roles", [
-            'id' => 3,
-            'role' => 'Guest',
+            'id' => 2,
+            'title' => 'Guest',
             'size_limit' => '50 MB',
         ]);
 
         $install->insertValue("roles", [
-            'id' => 4,
-            'role' => 'Admin',
+            'id' => 3,
+            'title' => 'Admin',
             'size_limit' => '500 MB',
         ]);
 
@@ -442,6 +454,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             Options::NotNull()
         ]);
 
+        $install->setPrimary("languages", "id");
+
+        $install->setAutoinc("languages", [
+            "id",
+            Types::Integer(),
+            Options::UnSigned(),
+            Options::NotNull()
+        ]);
+
+        $install->setPrimary("pages_translations", "id");
+
+        $install->setAutoinc("pages_translations", [
+            "id",
+            Types::Integer(),
+            Options::UnSigned(),
+            Options::NotNull()
+        ]);
+
         // Enable Production Mode
         /* -------------------------- */
         $env_file = APP_PATH . "config/environment.php";
@@ -452,11 +482,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         file_put_contents($env_file, $env_file_content);
         /* -------------------------- */
-        // Remove pages content
-        unlink(APP_PATH . 'pages/about.html');
-        unlink(APP_PATH . 'pages/privacy.html');
-        unlink(APP_PATH . 'pages/terms.html');
-        unlink(APP_PATH . 'pages/');
         $msg = true;
     } catch (PDOException $ex) {
         $error = $ex->getMessage();

@@ -8,7 +8,7 @@ $utils = new Uploady\Utils();
 $user = new Uploady\User($db, $utils);
 $auth = new Uploady\Auth($db, $utils);
 $settings = new Uploady\Settings($db);
-$localization = new Uploady\Localization();
+$localization = new Uploady\Localization($db);
 $role = new Uploady\Role($db, $user);
 
 $st = $settings->getSettings();

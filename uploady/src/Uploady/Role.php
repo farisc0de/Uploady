@@ -81,16 +81,17 @@ class Role
     /**
      * Create a new role
      *
-     * @param mixed $role
+     * @param mixed $title
      *  The role name
      * @return bool
      *  No return value
      */
-    public function createRole($role, $size_limit)
+    public function createRole($title, $size_limit)
     {
-        $this->db->prepare("INSERT INTO roles (role, size_limit) VALUES (:role, :limit)");
+        $this->db->prepare("INSERT INTO roles 
+        (title, size_limit) VALUES (:title, :limit)");
 
-        $this->db->bind(":role", $role, \PDO::PARAM_STR);
+        $this->db->bind(":title", $title, \PDO::PARAM_STR);
         $this->db->bind(":limit", $size_limit, \PDO::PARAM_STR);
 
         return $this->db->execute();
@@ -99,18 +100,19 @@ class Role
     /**
      * Update a role
      *
-     * @param mixed $role
+     * @param mixed $title
      *  The role name
      * @param mixed $id
      *  The role id
      * @return void
      *  No return value
      */
-    public function updateRole($role, $size_limit, $id)
+    public function updateRole($title, $size_limit, $id)
     {
-        $this->db->prepare("UPDATE roles SET role = :role, size_limit = :limit WHERE id = :id");
+        $this->db->prepare("UPDATE roles SET
+         title = :title, size_limit = :limit WHERE id = :id");
 
-        $this->db->bind(":role", $role, \PDO::PARAM_STR);
+        $this->db->bind(":title", $title, \PDO::PARAM_STR);
         $this->db->bind(":limit", $size_limit, \PDO::PARAM_STR);
         $this->db->bind(":id", $id, \PDO::PARAM_INT);
 

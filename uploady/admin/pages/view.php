@@ -65,7 +65,7 @@ include_once 'logic/viewLogic.php';
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-users mr-1"></i>
-                            Manager Pages
+                            Manage Pages
                         </div>
                         <form method="POST" action="<?= $utils->siteUrl('/admin/pages/actions/delete.php') ?>">
                             <?= $utils->input('csrf', $_SESSION['csrf']); ?>
@@ -81,7 +81,7 @@ include_once 'logic/viewLogic.php';
                                                     </div>
                                                 </th>
                                                 <th>Page Slug</th>
-                                                <th>Page Title</th>
+                                                <th>Is Deletable</th>
                                                 <th>Created at</th>
                                                 <th>Settings</th>
                                             </tr>
@@ -91,18 +91,17 @@ include_once 'logic/viewLogic.php';
                                                 <tr>
                                                     <td>
                                                         <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="user_<?= $u->id ?>" name="userid[]" value="<?= $u->id; ?>" <?= ($u->id == $data->id) ? 'disabled' : '' ?> />
-                                                            <label class="custom-control-label" for="user_<?= $u->id; ?>" </label>
+                                                            <input type="checkbox" class="custom-control-input" id="page_<?= $p->id ?>" name="pageid[]" value="<?= $p->id; ?>" />
+                                                            <label class="custom-control-label" for="page_<?= $p->id; ?>" </label>
                                                         </div>
                                                     </td>
-                                                    <td><?= $u->username; ?>
+                                                    <td><?= $p->slug; ?>
                                                     </td>
-                                                    <td><?= $u->email; ?></td>
-                                                    <td><?= $u->role ?></td>
-                                                    <td><?= $u->is_active ? 'yes' : 'no'; ?></td>
+                                                    <td><?= $p->deletable ? "true" : "false"; ?></td>
+                                                    <td><?= $p->created_at ?></td>
                                                     <td>
-                                                        <a type="button" class="btn btn-primary" href="<?= $utils->siteUrl('/admin/users/edit.php?username=' . $u->username); ?>">
-                                                            Edit User
+                                                        <a type="button" class="btn btn-primary" href="<?= $utils->siteUrl('/admin/pages/edit.php?pageid=' . $p->id); ?>">
+                                                            Edit Page
                                                         </a>
                                                     </td>
                                                 </tr>
@@ -113,10 +112,10 @@ include_once 'logic/viewLogic.php';
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">
-                                    Delete Users
+                                    Delete Page
                                 </button>
-                                <a type="button" class="btn btn-primary" href="<?= $utils->siteUrl('/admin/users/new.php'); ?>">
-                                    Create User
+                                <a type="button" class="btn btn-primary" href="<?= $utils->siteUrl('/admin/pages/new.php'); ?>">
+                                    Create Page
                                 </a>
                             </div>
                         </form>

@@ -74,7 +74,7 @@ include_once 'logic/editLogic.php';
                                     <div class="form-group">
                                         <select class="form-control" name="role">
                                             <?php foreach ($roles as $role) : ?>
-                                                <option value="<?= $role->id; ?>" <?= $user_data->role == $role->id ? 'selected' : ''; ?>><?= $role->role; ?></option>
+                                                <option value="<?= $role->id; ?>" <?= $user_data->role == $role->id ? 'selected' : ''; ?>><?= $role->title; ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>

@@ -31,7 +31,7 @@ include_once 'logic/viewLogic.php';
                             <i class="fas fa-folder mr-1"></i>
                             View Files
                         </div>
-                        <form method="POST" action="delete.php">
+                        <form method="POST" action="<?= $utils->siteUrl('/admin/files/actions/delete.php') ?>">
                             <div class="card-body">
                                 <?php if (isset($_GET['msg'])) : ?>
                                     <?= $utils->alert('File has been deleted', 'success', 'check-circle'); ?>

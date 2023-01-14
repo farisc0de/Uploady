@@ -75,7 +75,7 @@ include_once 'logic/addLogic.php';
                                     <div class="form-group">
                                         <select class="form-control">
                                             <?php foreach ($roles as $role) : ?>
-                                                <option value="<?= $role->id ?>"><?= $role->role ?></option>
+                                                <option value="<?= $role->id ?>"><?= $role->title ?></option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>

@@ -21,11 +21,19 @@ class Page
     private $db;
 
     /**
+     * Localization
+     *
+     * @var Localization
+     */
+    private $localization;
+
+    /**
      * Page class constructor
      **/
-    public function __construct($db)
+    public function __construct($db, $localization)
     {
         $this->db = $db;
+        $this->localization = $localization;
     }
 
     /**
@@ -35,11 +43,30 @@ class Page
      *  The page slug
      * @return object|bool
      */
-    public function get($slug)
+    public function get($slug, $language)
     {
-        $this->db->prepare("SELECT * FROM pages WHERE slug = :slug");
+        $this->db->prepare("SELECT id FROM pages WHERE slug = :slug");
 
         $this->db->bind(":slug", $slug, \PDO::PARAM_STR);
+
+        $this->db->execute();
+
+        $page = $this->db->single();
+
+        $this->db->prepare("SELECT id FROM languages WHERE language_code = :code");
+
+        $this->db->bind(":code", $language, \PDO::PARAM_STR);
+
+        $this->db->execute();
+
+        $language = $this->db->single();
+
+        $this->db->prepare("SELECT * FROM 
+         pages_translations WHERE
+         page_id = :page_id AND language_id = :language_id");
+
+        $this->db->bind(":page_id", $page->id, \PDO::PARAM_INT);
+        $this->db->bind(":language_id", $language->id, \PDO::PARAM_INT);
 
         $this->db->execute();
 
