@@ -463,9 +463,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             Options::NotNull()
         ]);
 
-        $install->setPrimary("pages_translations", "id");
+        $install->setPrimary("pages_translation", "id");
 
-        $install->setAutoinc("pages_translations", [
+        $install->setAutoinc("pages_translation", [
             "id",
             Types::Integer(),
             Options::UnSigned(),

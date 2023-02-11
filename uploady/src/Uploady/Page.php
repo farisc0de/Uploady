@@ -62,7 +62,7 @@ class Page
         $language = $this->db->single();
 
         $this->db->prepare("SELECT * FROM 
-         pages_translations WHERE
+         pages_translation WHERE
          page_id = :page_id AND language_id = :language_id");
 
         $this->db->bind(":page_id", $page->id, \PDO::PARAM_INT);
