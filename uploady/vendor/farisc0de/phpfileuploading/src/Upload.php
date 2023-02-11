@@ -12,6 +12,8 @@ namespace Farisc0de\PhpFileUploading;
  * @license MIT
  * @link https://github.com/farisc0de/PhpFileUploading
  */
+
+#[AllowDynamicProperties]
 final class Upload
 {
     /**

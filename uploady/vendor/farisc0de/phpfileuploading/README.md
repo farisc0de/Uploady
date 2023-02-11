@@ -1,6 +1,6 @@
 # PhpFileUploading
 
-PHP library for uploading files to a server
+PHP Library to help you build your own file sharing website.
 
 ## Features
 
