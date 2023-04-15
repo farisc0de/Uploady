@@ -29,7 +29,7 @@ include_once  APP_PATH . 'logic/authLogic.php';
                                 <?php endif; ?>
                                 <form method="POST" id="login_form">
                                     <div class="mb-3">
-                                        <input type="text" maxlength="6" max="6" class="form-control" name="otp_code" placeholder="Please enter the code from the app">
+                                        <input type="text" maxlength="6" max="6" class="form-control" name="otp_code" placeholder="<?= $lang['please_enter_your_code']; ?>">
                                     </div>
 
                                     <div class="custom-control custom-checkbox">

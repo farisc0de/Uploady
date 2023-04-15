@@ -64,7 +64,7 @@ include_once 'logic/authLogic.php';
                                         You need to scan the code below with the app. You need to backup the QR code below by saving it and save the key somewhere safe in case you lose your phone. You will not be able to login if you can't provide the code. if you disable 2FA and re-enable it, you will need to scan a new code.
                                         </p>
 
-                                        <img src="<?php echo $auth->getQRCodeImageAsDataUri("Uploady", $secret); ?>" class="rounded" />
+                                        <img src="<?php echo $auth->getQRCodeImageAsDataUri("Uploady: " . $_SESSION['username'], $secret); ?>" class="rounded" />
                                         <div class="mb-3 mt-2">
                                             <input type="text" class="form-control" name="otp_secret" readonly value="<?= $secret ?>">
                                         </div>

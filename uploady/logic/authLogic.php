@@ -25,7 +25,7 @@ if ($auth->checkDeviceId($uniqueid) == true) {
 $g = new \RobThree\Auth\TwoFactorAuth("Uploady");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $code = $utils->sanitize($_POST['AuthCode']);
+    $code = $utils->sanitize($_POST['otp_code']);
     $secret = $user->getSecret($_SESSION['username']);
 
     if ($g->verifyCode($secret, $code)) {

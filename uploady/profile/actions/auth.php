@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($otpauth->verifyCode($_POST['otp_secret'], $_POST['otp_code'])) {
                 $user->update($_POST['id'], [
                     'otp_status' => true,
-                    'otp_secret' => $_POST['secret'],
+                    'otp_secret' => $_POST['otp_secret'],
                 ]);
                 $msg_code = "ok";
             } else {

@@ -12,8 +12,18 @@ include_once 'logic/editLogic.php';
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
 </head>
 
-<body>
+<body class="sb-nav-fixed">
+    <?php include_once '../components/navbar.php' ?>
 
+    <div id="layoutSidenav">
+        <?php include_once '../components/sidebar.php'; ?>
+        <div id="layoutSidenav_content">
+
+            <?php include_once '../components/footer.php'; ?>
+        </div>
+    </div>
+
+    <?php include_once '../components/js.php'; ?>
 </body>
 
 </html>

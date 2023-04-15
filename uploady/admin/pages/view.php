@@ -114,7 +114,7 @@ include_once 'logic/viewLogic.php';
                                 <button type="submit" class="btn btn-primary">
                                     Delete Page
                                 </button>
-                                <a type="button" class="btn btn-primary" href="<?= $utils->siteUrl('/admin/pages/new.php'); ?>">
+                                <a type="button" class="btn btn-primary" href="<?= $utils->siteUrl('/admin/pages/add.php'); ?>">
                                     Create Page
                                 </a>
                             </div>
