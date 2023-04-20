@@ -53,7 +53,7 @@
                 Uploads per Country
             </div>
             <div class="card-body">
-                <div id="world-map" style="width: 440px; height: 175px"></div>
+                <div id="world-map" style="width: 100%; height: 232px"></div>
             </div>
         </div>
     </div>

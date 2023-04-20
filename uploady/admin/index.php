@@ -124,25 +124,38 @@ include_once 'logic/homeLogic.php';
     <?php $utils->script("https://jvectormap.com/js/jquery-jvectormap-2.0.5.min.js") ?>
     <?php $utils->script("https://jvectormap.com/js/jquery-jvectormap-world-mill.js") ?>
     <script>
-        $('#world-map').vectorMap({
-            map: 'world_mill',
-            backgroundColor: "#ffffff",
-            series: {
-                regions: [{
-                    values: [0],
-                    scale: ["#e6e6e6", "#375a7f"],
-                    normalizeFunction: 'polynomial'
-                }],
-                regionStyle: {
-                    hover: {
-                        fill: "#2b4764",
-                        cursor: "pointer",
+        document.addEventListener("DOMContentLoaded", function() {
+            $.getJSON("logic/mapChart.php", {}, function(data) {
+                var dataC = eval(data);
+                var downloads = [];
+                $.each(dataC.countries, function() {
+                    downloads[this.id] = this.value;
+                });
+
+
+                $('#world-map').vectorMap({
+                    map: 'world_mill',
+                    backgroundColor: "#ffffff",
+                    series: {
+                        regions: [{
+                            values: downloads,
+                            scale: ["#e6e6e6", "#007bff"],
+                            normalizeFunction: 'polynomial'
+                        }],
+                        regionStyle: {
+                            hover: {
+                                fill: "#0056b3",
+                                cursor: "pointer",
+                            },
+                        },
                     },
-                },
-            },
-            onRegionTipShow: function(e, el, code) {
-                el.html(el.html() + ' (Downloads - ' + 0 + ')');
-            }
+                    onRegionTipShow: function(e, el, code) {
+                        if (typeof downloads[code] != "undefined") {
+                            el.html(el.html() + ' (Downloads - ' + downloads[code] + ')');
+                        }
+                    }
+                });
+            });
         });
     </script>
 </body>

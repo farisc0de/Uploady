@@ -9,28 +9,32 @@ $files = $counter->getFiles();
 $countries = $counter->getCountries();
 $arrays = [];
 
+$list = [];
+
 $uploaded_files = [];
-$count = [];
 
 foreach ($files as $file) {
-    $f = json_decode($file->user_data);
+    $f = json_decode($file->user_data, true);
     array_push($arrays, $f);
 }
 
-print_r($uploaded_files);
+foreach ($countries as $country_code => $country) {
+    array_push($list, [
+        "id" => $country_code,
+        "value" => 0,
+    ]);
+}
 
-foreach ($uploaded_files as $data => $value) {
-    if (array_key_exists($data, $count)) {
-        $count[$data] = $count[$data] + 1;
-    } else {
-        array_push(
-            $arrays,
-            [
-                "id" => $data['country'],
-                "value" => 1
-            ]
-        );
+foreach ($arrays as $array) {
+    foreach ($array as $key => $value) {
+        if ($key == "country") {
+            foreach ($list as $key => $country) {
+                if ($country["id"] == $value) {
+                    $list[$key]["value"]++;
+                }
+            }
+        }
     }
 }
 
-echo json_encode(["countries" => $arrays]);
+echo json_encode(["countries" => $list]);

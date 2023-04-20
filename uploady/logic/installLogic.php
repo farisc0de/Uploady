@@ -156,7 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ['file_id', Types::String(100), Options::NotNull()],
             ['user_id', Types::String(100), Options::NotNull()],
             ['file_data', Types::LongText(), Options::NotNull()],
-            ['users_data', Types::LongText(), Options::NotNull()],
+            ['user_data', Types::LongText(), Options::NotNull()],
             ['downloads', Types::Integer(), Options::NotNull()],
             ['uploaded_at', Types::TimeStamp(), Options::NotNull()]
         ];
