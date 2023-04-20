@@ -33,8 +33,8 @@
                       </a>
 
                       <div class="dropdown-menu dropdown-menu-end" aria-labelledby="themeswitcher">
-                          <a class="dropdown-item" href="?theme=light">Light</a>
-                          <a class="dropdown-item" href="?theme=dark">Dark</a>
+                          <a class="dropdown-item" href="?theme=light"><?= $lang['theme']['light'] ?></a>
+                          <a class="dropdown-item" href="?theme=dark"><?= $lang['theme']['dark'] ?></a>
                       </div>
                   </li>
                   <li class="nav-item">

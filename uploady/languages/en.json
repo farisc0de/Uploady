@@ -109,5 +109,9 @@
     "about": "About Us",
     "tos": "Terms of Service",
     "logout": "Logout"
+  },
+  "theme": {
+    "light": "Light",
+    "dark": "Dark"
   }
 }
