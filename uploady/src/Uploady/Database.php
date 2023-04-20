@@ -2,8 +2,6 @@
 
 namespace Uploady;
 
-use PDOException;
-
 /**
  * a class that handles the database and PDO functions
  *
@@ -242,7 +240,7 @@ class Database
      * Begin a transaction
      * 
      * @return bool 
-     * @throws PDOException 
+     * @throws \PDOException 
      */
     public function beginTransaction()
     {
@@ -253,7 +251,7 @@ class Database
      * Commit a successfull transaction
      * 
      * @return bool 
-     * @throws PDOException 
+     * @throws \PDOException 
      */
     public function commit()
     {
@@ -264,7 +262,7 @@ class Database
      * Rollback a failed transaction
      * 
      * @return bool 
-     * @throws PDOException 
+     * @throws \PDOException 
      */
     public function rollback()
     {

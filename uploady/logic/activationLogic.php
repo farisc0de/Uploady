@@ -11,3 +11,4 @@ if ($token) {
 }
 
 $page = 'activation';
+$title = $lang['activation_title'];

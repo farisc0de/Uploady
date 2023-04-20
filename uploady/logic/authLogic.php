@@ -41,3 +41,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = $lang["two_factor_auth_failed"];
     }
 }
+
+$title = $lang['two_factor_title'];

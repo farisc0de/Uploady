@@ -25,3 +25,4 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 }
 
 $page = "forgetPassword";
+$title = $lang['forget_password_title'];

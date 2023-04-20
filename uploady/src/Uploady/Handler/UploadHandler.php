@@ -2,8 +2,6 @@
 
 namespace Uploady\Handler;
 
-use PDOException;
-
 /**
  * Class to Handle adding files to the database
  *
@@ -249,7 +247,7 @@ class UploadHandler
      * 
      * @return int
      *  The number of downloads
-     * @throws PDOException
+     * @throws \PDOException
      *  If the prepare fails
      */
     public function getDownloadsTotal()
@@ -272,7 +270,7 @@ class UploadHandler
      * 
      * @return array
      *  The files data
-     * @throws PDOException
+     * @throws \PDOException
      *  If the prepare fails
      */
     public function getLatestFiles()
@@ -299,6 +297,29 @@ class UploadHandler
         }
     }
 
+    /**
+     * Function to know if a file is password protected
+     * 
+     * @param string $file_id
+     *  The file id
+     *
+     * @return bool
+     *  Return true if the file is password protected
+     */
+    public function isFilePasswordProtected($file_id)
+    {
+        $this->db->prepare("SELECT file_settings FROM files WHERE file_id = :file_id");
+
+        $this->db->bind(":file_id", $file_id, \PDO::PARAM_STR);
+
+        if ($this->db->execute()) {
+            $data = json_decode($this->db->single()->file_settings, true);
+
+            if (isset($data['password'])) {
+                return true;
+            }
+        }
+    }
 
     /**
      * Returns an array with the pre-defined countries names and codes

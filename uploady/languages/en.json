@@ -99,6 +99,12 @@
   "copyright_text": "Copyright",
   "page_not_found": "Page Not Found",
   "page_not_found_content": "The page you are looking for does not exist.",
+  "report_abuse": "Report Abuse",
+  "report_abuse_title": "Report Abuse",
+  "report_abuse_success": "Your report has been submitted successfully",
+  "report_abuse_button": "Report Abuse",
+  "file_url_placeholder": "Enter File URL",
+  "file_abuse_notes_placeholder": "Please provide a reason for reporting this file",
   "navbar": {
     "home": "Home",
     "login": "Login",

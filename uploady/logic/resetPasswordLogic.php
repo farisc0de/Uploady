@@ -29,3 +29,5 @@ if ($updatePassword->isExist($token) == true) {
 }
 
 session_destroy();
+
+$title = $lang['reset_password_title'];

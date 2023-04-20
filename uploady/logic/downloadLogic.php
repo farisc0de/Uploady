@@ -14,3 +14,4 @@ if (isset($_GET['file_id'])) {
 
 
 $page = 'download_file';
+$title = $lang['download_file_title'];

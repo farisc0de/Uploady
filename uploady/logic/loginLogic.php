@@ -56,3 +56,4 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 }
 
 $page = "loginPage";
+$title = $lang['login_title'];

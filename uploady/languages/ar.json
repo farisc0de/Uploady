@@ -99,6 +99,12 @@
   "copyright_text": "حقوق الطبع والنشر",
   "page_not_found": "الصفحة غير موجودة",
   "page_not_found_content": "عذرًا، لم يتم العثور على الصفحة التي تبحث عنها.",
+  "report_abuse": "الإبلاغ عن سوء استخدام",
+  "report_abuse_title": "الإبلاغ عن سوء استخدام",
+  "file_abuse_notes_placeholder": "يرجى تقديم تفاصيل محددة حول سوء استخدام.",
+  "report_abuse_button": "الإبلاغ عن سوء استخدام",
+  "report_abuse_success": "تم إرسال الإبلاغ بنجاح",
+  "file_url_placeholder": "رابط الملف",
   "navbar": {
     "home": "الصفحة الرئيسية",
     "login": "تسجيل الدخول",

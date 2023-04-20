@@ -5,3 +5,4 @@ $filter = json_decode(
 );
 
 $page = 'supported';
+$title = $lang['supported_formats'];

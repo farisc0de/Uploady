@@ -20,3 +20,4 @@ if ($page_content == false) {
 }
 
 $page = $_GET['s'];
+$title = $page_content->title;

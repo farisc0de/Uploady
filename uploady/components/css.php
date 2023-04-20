@@ -18,3 +18,7 @@ $utils->style(
 );
 
 $utils->style('css/custom.css');
+
+$utils->style(
+    'https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.css'
+);

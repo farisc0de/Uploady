@@ -11,3 +11,13 @@
     <link rel="shortcut icon" type="image/png" href="favicon.png" />
     <meta name="keywords" content="<?= $st['keywords'] ?>" />
     <meta name="language" content="EN" />
+
+    <title>
+        <?= $st['website_name'] ?> - <?= $title ?>
+    </title>
+    <?php include_once APP_PATH . 'components/css.php'; ?>
+</head>
+
+<body class="d-flex flex-column h-100">
+
+    <?php include_once APP_PATH . 'components/navbar.php'; ?>

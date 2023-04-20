@@ -18,3 +18,4 @@ if (isset($_GET['file_id']) && isset($_GET['user_id'])) {
 }
 
 $page = 'delete_file';
+$title = $lang['delete_file_title'];

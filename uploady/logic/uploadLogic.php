@@ -79,3 +79,4 @@ $resp = $upload->getLogs();
 $files = $upload->getFiles();
 
 $page = 'upload_file';
+$title = $lang['your_uploaded_files'];

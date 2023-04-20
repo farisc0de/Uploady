@@ -3,8 +3,7 @@ include_once 'config/config.php';
 include_once APP_PATH . 'logic/installLogic.php';
 ?>
 <!DOCTYPE html>
-<html lang="en">
-<html>
+<html lang="en" class="h-100">
 
 <head>
     <meta charset="UTF-8" />
@@ -16,16 +15,17 @@ include_once APP_PATH . 'logic/installLogic.php';
     <title>
         Uploady - Install Software
     </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
     <?php
-    $utils->style('https://bootswatch.com/5/litera/bootstrap.min.css');
     $utils->style('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css');
     $utils->style('css/custom.css');
     ?>
 </head>
 
-<body>
+<body class="d-flex flex-column h-100">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="<?= $utils->siteUrl(); ?>">
                 Uploady
@@ -114,17 +114,17 @@ include_once APP_PATH . 'logic/installLogic.php';
         </div>
     </div>
 
-    <footer class="py-5 my-sm-10 bg-primary">
+    <footer class="footer py-5 my-sm-10 bg-body-tertiary mt-auto">
         <div class="container-fluid my-auto">
-            <p class="m-0 text-center text-white">
+            <p class="m-0 text-center">
                 Copyright &copy; Uploady - <?= date('Y') ?>
             </p>
         </div>
     </footer>
 
-    <?php include_once 'components/js.php'; ?>
-</body>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
-</html>
+
+</body>
 
 </html>

@@ -10,3 +10,4 @@ foreach ($files as $file) {
 }
 
 $page = 'myFiles';
+$title = $lang['my_files_title'];

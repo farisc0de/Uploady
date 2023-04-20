@@ -2,8 +2,6 @@
 
 namespace Uploady;
 
-use PDOException;
-
 /**
  *  A Class to Handle User Data
  *
@@ -234,7 +232,7 @@ class User
      *  The token generated from the email
      * @return bool|void
      *  Return true if the user is activated otherwise false
-     * @throws PDOException
+     * @throws \PDOException
      *  Throw PDOException if the query fails
      */
     public function activate($token)
@@ -295,7 +293,7 @@ class User
      *  The username you want to check if the two factor authentication is enabled
      * @return int
      *  Return 1 if the two factor authentication is enabled otherwise 0
-     * @throws PDOException
+     * @throws \PDOException
      *  Throw PDOException if the query fails
      */
     public function isTwoFAEnabled($username)
@@ -311,7 +309,7 @@ class User
      *  The username you want to get the secret key
      * @return mixed
      *  Return the secret key from the database
-     * @throws PDOException
+     * @throws \PDOException
      *  Throw PDOException if the query fails
      */
     public function getSecret($username)
