@@ -51,7 +51,7 @@ Make Uploads Folder Writeble `chmod 777 uploads`
 - [x] Adding Languges support
 - [ ] Adding database updater
 - [ ] Adding custom css and js support
-- [ ] Adding dark mode
+- [x] Adding dark mode
 - [ ] Adding password protection for files
 - [ ] Adding delete files after x days
 - [ ] Adding report abuse page
