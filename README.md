@@ -23,9 +23,9 @@ It comes with more than 20 features and you can set up it in less than 5 minutes
 
 ## Screenshots
 
-![](https://i.ibb.co/sVg1RPS/screencapture-localhost-Uploady-uploady-index-php-2022-07-27-16-22-03.png)
+![](https://i.ibb.co/C7rB4m3/Web-capture-20-4-2023-10250-localhost.jpg)
 
-![](https://i.ibb.co/M2Rs0vF/screencapture-localhost-Uploady-uploady-admin-index-php-2022-07-27-16-24-09.png)
+![](https://i.ibb.co/hRbJxG9/Web-capture-20-4-2023-1035-localhost.jpg)
 
 ## Note
 
