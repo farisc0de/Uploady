@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html <?= $dir ?>>
+<html <?= $dir ?> class="h-100">
 
 <head>
     <meta charset="UTF-8" />

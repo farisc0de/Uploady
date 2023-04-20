@@ -2,17 +2,12 @@
 include_once 'session.php';
 include_once APP_PATH . 'logic/pageLogic.php';
 ?>
-<!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="UTF-8" />
-  <?php include_once 'components/header.php'; ?>
-  <title> <?= $st['website_name'] ?> - <?= $page_content->title; ?></title>
-  <?php include_once 'components/css.php'; ?>
+<?php include_once 'components/header.php'; ?>
+<title> <?= $st['website_name'] ?> - <?= $page_content->title; ?></title>
+<?php include_once 'components/css.php'; ?>
 </head>
 
-<body>
+<body class="d-flex flex-column h-100">
   <?php include_once 'components/navbar.php'; ?>
 
   <div id="wrapper">

@@ -10,11 +10,11 @@ include_once APP_PATH . 'logic/indexLogic.php';
 <?php include_once 'components/css.php'; ?>
 </head>
 
-<body>
+<body class="d-flex flex-column h-100">
 
   <?php include_once 'components/navbar.php'; ?>
 
-  <div id="wrapper">
+  <div id="wrapper flex-shrink-0">
     <div id="content-wrapper">
       <div class="container pb-5 pt-5">
         <div class="row justify-content-center text-center">

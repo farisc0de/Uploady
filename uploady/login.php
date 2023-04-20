@@ -10,7 +10,7 @@ include_once  APP_PATH . 'logic/loginLogic.php';
 <?php include_once 'components/css.php'; ?>
 </head>
 
-<body>
+<body class="d-flex flex-column h-100">
 
     <?php include_once 'components/navbar.php'; ?>
 
