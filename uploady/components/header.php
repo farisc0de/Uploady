@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html <?= $dir ?> class="h-100">
+<html <?= $dir ?> class="h-100" data-bs-theme="<?= $theme ?>">
 
 <head>
     <meta charset="UTF-8" />

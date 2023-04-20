@@ -62,11 +62,20 @@ if (isset($_SESSION)) {
 }
 
 $language = $_GET['lang'] ?? $localization->getLanguage();
+$theme = $_GET['theme'] ?? $_SESSION['theme'] ?? 'light';
 
 if ($language == 'ar') {
     $dir = 'dir="rtl" lang="ar"';
 } else {
     $dir = 'dir="ltr" lang="en"';
+}
+
+if ($theme == 'dark') {
+    $_SESSION['theme'] = 'dark';
+    $theme = 'dark';
+} else {
+    $_SESSION['theme'] = 'light';
+    $theme = 'light';
 }
 
 $localization->setLanguage($language);

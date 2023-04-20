@@ -1,4 +1,4 @@
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
           <a class="navbar-brand" href="<?= $utils->siteUrl(); ?>">
               <?= $st['website_name'] ?>
@@ -28,11 +28,21 @@
               </ul>
               <ul class="navbar-nav ml-auto">
                   <li class="nav-item">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <a class="nav-link dropdown-toggle" href="#" id="themeswitcher" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          <i class="fa-solid fa-palette"></i>
+                      </a>
+
+                      <div class="dropdown-menu dropdown-menu-end" aria-labelledby="themeswitcher">
+                          <a class="dropdown-item" href="?theme=light">Light</a>
+                          <a class="dropdown-item" href="?theme=dark">Dark</a>
+                      </div>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link dropdown-toggle" href="#" id="langswitcher" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                           <i class="fa-solid fa-globe"></i>
                       </a>
 
-                      <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                      <div class="dropdown-menu dropdown-menu-end" aria-labelledby="langswitcher">
                           <?php foreach ($localization->getLanguages() as $language) : ?>
                               <a class="dropdown-item" href="?lang=<?= $language->language_code ?>"><?= $language->language ?></a>
                           <?php endforeach; ?>
