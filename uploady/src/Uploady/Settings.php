@@ -14,7 +14,6 @@ namespace Uploady;
 
 class Settings
 {
-
     /**
      * Database Connection
      *

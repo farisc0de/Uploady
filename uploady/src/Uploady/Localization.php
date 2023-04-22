@@ -13,7 +13,6 @@ namespace Uploady;
  */
 class Localization
 {
-
     /**
      * The database connection
      *
@@ -38,7 +37,7 @@ class Localization
      *
      * @param mixed $language
      *  The language file name
-     * @return mixed 
+     * @return mixed
      *  An array contains the language file data
      */
     public function loadLangauge($language)
@@ -53,7 +52,7 @@ class Localization
      *
      * @param mixed $language
      *  The language file name
-     * @return void 
+     * @return void
      *  Create a new language file
      */
     public function createLanguage($language)
@@ -71,7 +70,7 @@ class Localization
      *  An array contains the new data
      * @param mixed $language
      *  The language file name
-     * @return void 
+     * @return void
      *  Update the language file
      */
     public function updateLanguage($data, $language)
@@ -92,7 +91,7 @@ class Localization
      *
      * @param mixed $language
      *  The language file name
-     * @return void 
+     * @return void
      *  Delete the language file
      */
     public function deleteLanguage($language)
@@ -103,7 +102,7 @@ class Localization
     /**
      * Function to change the current language
      *
-     * @return mixed 
+     * @return mixed
      *  The current language
      */
     public function setLanguage($language)
@@ -114,7 +113,7 @@ class Localization
     /**
      * Function to get the current language
      *
-     * @return mixed 
+     * @return mixed
      *  The current language
      */
     public function getLanguage()

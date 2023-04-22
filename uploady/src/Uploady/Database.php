@@ -238,9 +238,9 @@ class Database
 
     /**
      * Begin a transaction
-     * 
-     * @return bool 
-     * @throws \PDOException 
+     *
+     * @return bool
+     * @throws \PDOException
      */
     public function beginTransaction()
     {
@@ -249,9 +249,9 @@ class Database
 
     /**
      * Commit a successfull transaction
-     * 
-     * @return bool 
-     * @throws \PDOException 
+     *
+     * @return bool
+     * @throws \PDOException
      */
     public function commit()
     {
@@ -260,9 +260,9 @@ class Database
 
     /**
      * Rollback a failed transaction
-     * 
-     * @return bool 
-     * @throws \PDOException 
+     *
+     * @return bool
+     * @throws \PDOException
      */
     public function rollback()
     {

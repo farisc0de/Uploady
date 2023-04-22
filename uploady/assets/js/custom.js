@@ -77,3 +77,15 @@ function deleteAccount(token) {
     window.location.href = `actions/delete_me.php?token=${token}`;
   }
 }
+
+let myDropzone = new Dropzone("#my-dropzone", {
+  maxFilesize: 2,
+  maxFiles: 10,
+});
+
+myDropzone.on("success", function (files, response) {
+  let thumbnail = files.previewElement.querySelector(".dz-filename");
+  thumbnail.innerHTML = `<span data-dz-name>
+    <a href="${response.downloadlink}" target="_blank">${files.name}</a>
+    </span>`;
+});

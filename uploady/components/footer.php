@@ -8,6 +8,7 @@
 </footer>
 
 <?php include_once APP_PATH . 'components/js.php'; ?>
+
 </body>
 
 </html>

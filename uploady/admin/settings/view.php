@@ -9,7 +9,7 @@ include_once 'logic/settings.php';
     <?php include_once '../components/meta.php'; ?>
     <title>Edit Settings - <?= $st['website_name'] ?></title>
     <?php include_once '../components/css.php'; ?>
-    <?php $utils->style('css/tagsinput.css', 'admin/assets') ?>
+    <?php $utils->style('css/bootstrap-tagsinput.css', 'admin/assets'); ?>
 </head>
 
 <body class="sb-nav-fixed">
@@ -174,6 +174,21 @@ include_once 'logic/settings.php';
                                             </div>
                                         </div>
 
+                                        <div class="form-group">
+                                            <input hidden name="ganalytics_status" value="0" />
+                                            <div class="custom-control custom-switch custom-control-right">
+                                                <input class="custom-control-input" id="ganalytics_status" name="adsense_status" value="1" type="checkbox" <?= ($settings->getSettingValue('adsense_status') == true) ? 'checked' : null; ?>>
+                                                <label class="custom-control-label" for="ganalytics_status">Enable Google Analytics</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-label-group">
+                                                <input class="form-control" type="text" id="ganalytics_ua_code" name="ganalytics_ua_code" placeholder="Analytics UA Code" value="<?= $settings->getSettingValue('adsense_client_code'); ?>">
+                                                <label for="ganalytics_ua_code">Google Analytics Code</label>
+                                            </div>
+                                        </div>
+
                                         <button class="btn btn-primary btn-block">
                                             Update Settings
                                         </button>
@@ -188,7 +203,12 @@ include_once 'logic/settings.php';
         </div>
     </div>
     <?php include_once '../components/js.php'; ?>
-    <?php $utils->script('js/tagsinput.js', 'admin/assets') ?>
+    <?php $utils->script("js/bootstrap-tagsinput.js", "admin/assets"); ?>
+
+    <script>
+        $("#keywords").val()
+    </script>
+
 </body>
 
 </html>

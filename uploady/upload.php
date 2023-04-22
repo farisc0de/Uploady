@@ -1,48 +1,85 @@
 <?php
+
 include_once 'session.php';
-include_once APP_PATH . "logic/uploadLogic.php";
-?>
 
-<?php include_once 'components/header.php' ?>
+header("Content-type: application/json; charset=UTF-8");
 
-<div class="container pb-5 pt-5">
-  <div class="row justify-content-center text-center">
-    <div class="col-sm-12 col-md-9 col-lg-9">
-      <div class="card">
-        <div class="card-header">
-          <?= $lang['your_uploaded_files']; ?>
-        </div>
-        <div class="card-body">
-          <h4 class="card-title"><?= $lang['your_uploaded_files']; ?></h4>
-          <hr />
-          <div class="container">
-            <?php foreach ($resp as $msg) : ?>
-              <?php if (($msg['message'] != 5) && ($msg['message'] != 0)) : ?>
-                <?=
-                $utils->alert(
-                  $msg['filename'] . ': ' . $upload->getMessage($msg['message']),
-                  'danger',
-                  'times-circle'
-                ); ?>
-              <?php endif; ?>
-            <?php endforeach; ?>
-            <?php foreach ($files as $file) : ?>
-              <div class="alert alert-success mb-1 mt-3">
-                <b><?= $file['filename'] . " : " . $upload->getMessage(0) ?></b>
-              </div>
-              <?= $file['filename']; ?>
-              <br />
-              <a class="btn btn-primary" href="<?= $file['downloadlink'] ?>">
-                <?= $lang['download_cta_btn']; ?>
-              </a>
-              <a class="btn btn-danger" href="<?= $file['deletelink'] ?>">
-                <?= $lang['delete_cta_btn']; ?>
-              </a>
-            <?php endforeach; ?>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<?php include_once 'components/footer.php' ?>
+use Uploady\Handler\UploadHandler;
+use Wolfcast\BrowserDetection;
+
+$utilty = new Farisc0de\PhpFileUploading\Utility();
+
+$upload = new Farisc0de\PhpFileUploading\Upload();
+
+$dataCollection = new Uploady\DataCollection();
+
+$browser = new BrowserDetection();
+
+$role = new Uploady\Role($db, $user);
+
+$handler = new UploadHandler($db);
+
+$upload->setController("vendor/farisc0de/phpfileuploading/src/");
+
+$upload->setSiteUrl(SITE_URL);
+
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+  $upload->generateUserID();
+
+  $upload->createUserCloud(UPLOAD_FOLDER);
+
+  $upload->setUploadFolder([
+    "folder_name" => $upload->getUserCloud(UPLOAD_FOLDER),
+    "folder_path" => realpath($upload->getUserCloud(UPLOAD_FOLDER)),
+  ]);
+
+  $upload->enableProtection();
+
+  $upload->setSizeLimit($role->get($_SESSION['user_role'])->size_limit);
+
+  $upload->generateFileID();
+
+  $upload->setUpload(new Farisc0de\PhpFileUploading\File($_FILES['file']));
+
+  if ($upload->checkIfNotEmpty()) {
+
+    $upload->hashName();
+
+    if ($upload->checkSize()) {
+      if (
+        $upload->checkForbidden() &&
+        $upload->checkExtension() &&
+        $upload->checkMime()
+      ) {
+        if ($upload->upload()) {
+          $handler->addFile(
+            $upload->getFileID(),
+            $upload->getUserID(),
+            $upload->getJSON(),
+            json_encode(
+              [
+                "ip_address" => $dataCollection->collectIP(),
+                "country" => $dataCollection->idendifyCountry(),
+                "browser" => $dataCollection->getBrowser($browser),
+                "os" => $dataCollection->getOS()
+              ]
+            )
+          );
+        }
+      }
+    }
+  }
+}
+
+$resp = $upload->getLogs();
+$files = $upload->getFiles();
+
+if ($resp[0]['message'] == 0) {
+  http_response_code(200);
+  echo json_encode($files[0]);
+} else {
+  http_response_code(400);
+  echo json_encode([
+    "error" => $upload->getMessage($resp[0]['message']),
+  ]);
+}

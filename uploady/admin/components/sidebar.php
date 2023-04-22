@@ -27,12 +27,29 @@
                     </div>
                     Manage Files
                 </a>
-                <a class="nav-link" href="<?= $utils->siteUrl('/admin/pages/view.php'); ?>">
-                    <div class="sb-nav-link-icon">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
+
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
                     Manage Pages
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
+                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                        <a class="nav-link" href="<?= $utils->siteUrl('/admin/pages/view.php'); ?>">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            Manage Pages
+                        </a>
+                        <a class="nav-link" href="<?= $utils->siteUrl('/admin/transaltions/view.php'); ?>">
+                            <div class="sb-nav-link-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            Manage Translations
+                        </a>
+                    </nav>
+                </div>
+
                 <a class="nav-link" href="<?= $utils->siteUrl('/admin/languages/view.php'); ?>">
                     <div class="sb-nav-link-icon">
                         <i class="fas fa-globe"></i>
@@ -45,23 +62,13 @@
                     </div>
                     Edit Settings
                 </a>
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                    <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                    Pages
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+
+                <a class="nav-link" href="<?= $utils->siteUrl('/admin/settings/view.php'); ?>">
+                    <div class="sb-nav-link-icon">
+                        <i class="fas fa-wrench"></i>
+                    </div>
+                    Custom CSS & JS
                 </a>
-                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                            Authentication
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                            Error
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                    </nav>
-                </div>
             </div>
         </div>
         <div class="sb-sidenav-footer">

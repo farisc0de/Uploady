@@ -8,6 +8,9 @@
   "autoload": {
     "psr-4": {
       "Uploady\\": "src/Uploady"
-    }
+    },
+    "classmap": [
+      "src/BrowserDetection.php"
+    ]
   }
 }

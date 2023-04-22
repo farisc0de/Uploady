@@ -368,7 +368,7 @@ class Migration
 
     /**
      * Add INDEX to a column
-     * 
+     *
      * @param string $table_name
      *  The table name that you want to add the index to it
      * @param string $column

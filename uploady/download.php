@@ -20,9 +20,9 @@ include_once APP_PATH . 'logic/downloadLogic.php';
               <div class="alert">
                 <div class="row border border-primary rounded bg-body-tertiary">
                   <div class="col-sm-12 col-md-12 col-lg-4 text-center" id="qr_code">
-                    <img class="mr-auto justify-content-center" src="<?= $file_data->qrcode ?>" title="QR Code" />
+                    <img class="mr-auto justify-content-center rounded" src="<?= $file_data->qrcode ?>" title="QR Code" />
                   </div>
-                  <div class="col-sm-12 col-md-12 col-lg-8 pt-2 text-start" id="upload_info">
+                  <div class="col-sm-12 col-md-12 col-lg-8 pt-3 text-start" id="upload_info">
                     <div class="col-12 mb-3 mr-3 ml-3 text-underline">
                       <p>
                         <u><?= $lang['file_name']; ?>:
@@ -52,6 +52,11 @@ include_once APP_PATH . 'logic/downloadLogic.php';
                     </div>
                   </div>
                 </div>
+
+                <div class="pt-3 pb-2">
+                  <div class="sharethis-inline-share-buttons"></div>
+                </div>
+
                 <div class="pt-3">
                   <a href="<?= $file_data->directlink ?>" class="btn btn-primary text-decoration-none" download>
                     <?= $lang['download_button']; ?>

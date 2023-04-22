@@ -6,71 +6,71 @@ class Types
 {
     /**
      * String
-     * 
-     * @param mixed $length 
-     * @return string 
+     *
+     * @param mixed $length
+     * @return string
      */
-    public static function String($length)
+    public static function string($length)
     {
         return "varchar({$length})";
     }
 
     /**
      * Integer
-     * 
-     * @return string 
+     *
+     * @return string
      */
-    public static function Integer()
+    public static function integer()
     {
         return "int";
     }
 
     /**
      * Boolean
-     * 
-     * @return string 
+     *
+     * @return string
      */
-    public static function Boolean()
+    public static function boolean()
     {
         return "tinyint(1)";
     }
 
     /**
      * Text
-     * 
-     * @return string 
+     *
+     * @return string
      */
-    public static function Text()
+    public static function text()
     {
         return "text";
     }
 
     /**
      * Long Text
-     * 
-     * @return string 
+     *
+     * @return string
      */
-    public static function LongText()
+    public static function longText()
     {
         return "longtext";
     }
 
     /**
      * Date
-     * 
-     * @return string 
+     *
+     * @return string
      */
-    public static function DateTime()
+    public static function dateTime()
     {
         return "datetime";
     }
 
     /**
      * Time Stamp
-     * 
-     * @return string 
+     *
+     * @return string
      */
-    public static function TimeStamp()
+    public static function timeStamp()
     {
         return "timestamp";
     }

@@ -30,7 +30,7 @@ class UploadHandler
 
     /**
      * Add a file to the database
-     * 
+     *
      * @param string $file_id
      *  The file id
      * @param string $user_id
@@ -64,7 +64,7 @@ class UploadHandler
 
     /**
      * Check if a file exists in the database
-     * 
+     *
      * @param string $file_id
      *  The file id
      * @return bool
@@ -87,7 +87,7 @@ class UploadHandler
 
     /**
      * Check if a user exists in the database
-     * 
+     *
      * @param string $user_id
      *  The user id
      * @return bool
@@ -110,7 +110,7 @@ class UploadHandler
 
     /**
      * Get a file from the database
-     * 
+     *
      * @param string $file_id
      *  The file id
      * @return object
@@ -129,7 +129,7 @@ class UploadHandler
 
     /**
      * Update a file in the database
-     * 
+     *
      * @param string $file_id
      *  The file id
      * @param string $user_id
@@ -156,7 +156,7 @@ class UploadHandler
 
     /**
      * Delete a file from the database
-     * 
+     *
      * @param string $file_id
      *  The file id
      * @param string $user_id
@@ -176,7 +176,7 @@ class UploadHandler
 
     /**
      * Delete a file from the database as admin
-     * 
+     *
      * @param string $file_id
      *  The file id
      * @return bool
@@ -193,7 +193,7 @@ class UploadHandler
 
     /**
      * Get all files from the database
-     * 
+     *
      * @return array
      *  The files data
      */
@@ -208,7 +208,7 @@ class UploadHandler
 
     /**
      * Get all files from the database by user id
-     * 
+     *
      * @param string $user_id
      *  The user id
      * @return array
@@ -227,7 +227,7 @@ class UploadHandler
 
     /**
      * Get all files from the database by user id
-     * 
+     *
      * @param string $user_id
      *  The user id
      * @return array
@@ -244,7 +244,7 @@ class UploadHandler
 
     /**
      * Get the number of downloads from the database
-     * 
+     *
      * @return int
      *  The number of downloads
      * @throws \PDOException
@@ -267,7 +267,7 @@ class UploadHandler
 
     /**
      * Get the latest files from the database
-     * 
+     *
      * @return array
      *  The files data
      * @throws \PDOException
@@ -299,7 +299,7 @@ class UploadHandler
 
     /**
      * Function to know if a file is password protected
-     * 
+     *
      * @param string $file_id
      *  The file id
      *

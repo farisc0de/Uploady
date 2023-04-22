@@ -6,10 +6,10 @@ include_once 'logic/myFilesLogic.php';
 <?php include_once '../components/header.php'; ?>
 
 <div class="container pb-5 pt-5">
-    <div class="row justify-content-center text-center">
+    <div class="row justify-content-center">
         <div class="col-sm-12 col-md-8 col-lg-8">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header text-center">
                     <b><?= $lang['my_files_title']; ?></b>
                 </div>
                 <form method="POST" action="actions/delete.php">
@@ -36,7 +36,7 @@ include_once 'logic/myFilesLogic.php';
                             <?php endif; ?>
 
                         <?php endif; ?>
-                        <div class="table-responsive border pl-2 pb-2 pt-2 pr-2 pb-2 rounded">
+                        <div class="table-responsive pl-2 pb-2 pt-2 pr-2 pb-2 rounded">
                             <table class="table nowrap table-bordered" width="100%" id="dataTable" cellspacing="0">
                                 <thead>
                                     <tr>
@@ -62,13 +62,24 @@ include_once 'logic/myFilesLogic.php';
                                             </td>
                                             <td><?= $file['filename']; ?></td>
                                             <td><?= $file['uploaddate']; ?></td>
-                                            <td>
-                                                <a href="<?= $file['downloadlink']  ?>">
-                                                    <i class="fa fa-download" aria-hidden="true"></i>
-                                                </a>
-                                                <a href="<?= $file['deletelink']  ?>">
-                                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                                </a>
+                                            <td class="text-center">
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item">
+                                                        <a href="<?= $file['downloadlink']  ?>">
+                                                            <i class="fa fa-download" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-inline-item">
+                                                        <a href="<?= $file['downloadlink']  ?>">
+                                                            <i class="fa fa-edit" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li class="list-inline-item">
+                                                        <a href="<?= $file['deletelink']  ?>">
+                                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

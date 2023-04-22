@@ -4,7 +4,7 @@ namespace Uploady;
 
 class DataCollection
 {
-    /** 
+    /**
      * Function to collect the user IP
      *
      * @return string|false
@@ -15,7 +15,7 @@ class DataCollection
         return file_get_contents("https://api.ipify.org/");
     }
 
-    /** 
+    /**
      * Function to identify the user country
      *
      * @return mixed
@@ -27,16 +27,17 @@ class DataCollection
         return $obj->country;
     }
 
-    /** 
+    /**
      * Function to identify the user browser
-     * 
+     * @param mixed $browserDetection
+     *  The browser detection object
+     *
      * @return mixed
      *  The user browser
      **/
-    public function getBrowser()
+    public function getBrowser($browserDetection)
     {
-        $browser = get_browser(null, true);
-        return $browser['browser'];
+        return $browserDetection->getName();
     }
 
     /**

@@ -75,127 +75,127 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $users = [
             [
                 'id',
-                Types::Integer(),
-                Options::UnSigned(),
-                Options::NotNull()
+                Types::integer(),
+                Options::unSigned(),
+                Options::notNull()
             ],
             [
-                'username', Types::String(25),
-                Options::NotNull()
+                'username', Types::string(25),
+                Options::notNull()
             ],
             [
                 'email',
-                Types::String(225),
-                Options::NotNull()
+                Types::string(225),
+                Options::notNull()
             ],
             [
                 'password',
-                Types::String(225),
-                Options::NotNull()
+                Types::string(225),
+                Options::notNull()
             ],
             [
                 'user_id',
-                Types::String(64),
-                Options::NotNull()
+                Types::string(64),
+                Options::notNull()
             ],
             [
                 'role',
-                Types::Integer(),
-                Options::NotNull(),
-                Options::DefaultValue("1")
+                Types::integer(),
+                Options::notNull(),
+                Options::defaultValue("1")
             ],
             [
                 'otp_status',
                 Types::Boolean(),
-                Options::NotNull(),
-                Options::DefaultValue("0")
+                Options::notNull(),
+                Options::defaultValue("0")
             ],
             [
                 'otp_secret',
-                Types::String(255),
+                Types::string(255),
                 Options::Null(),
             ],
             [
                 'failed_login',
-                Types::Integer(),
-                Options::NotNull(),
-                Options::DefaultValue("0")
+                Types::integer(),
+                Options::notNull(),
+                Options::defaultValue("0")
             ],
             [
                 'last_login',
-                Types::TimeStamp(),
-                Options::NotNull(),
-                Options::DefaultValue("CURRENT_TIMESTAMP")
+                Types::timeStamp(),
+                Options::notNull(),
+                Options::defaultValue("CURRENT_timeStamp")
             ],
             [
                 'reset_hash',
-                Types::String(64),
-                Options::DefaultValue("NULL")
+                Types::string(64),
+                Options::defaultValue("NULL")
             ],
             [
                 'created_at',
-                Types::TimeStamp(),
+                Types::timeStamp(),
                 Options::Null(),
-                Options::DefaultValue("NULL")
+                Options::defaultValue("NULL")
             ],
             [
                 'activation_hash',
-                Types::String(64),
-                Options::DefaultValue("NULL")
+                Types::string(64),
+                Options::defaultValue("NULL")
             ],
             [
                 'is_active',
                 Types::Boolean(),
-                Options::NotNull(),
-                Options::DefaultValue("0")
+                Options::notNull(),
+                Options::defaultValue("0")
             ]
         ];
 
         $files = [
-            ['id', Types::Integer(), Options::UnSigned(), Options::NotNull()],
-            ['file_id', Types::String(100), Options::NotNull()],
-            ['user_id', Types::String(100), Options::NotNull()],
-            ['file_data', Types::LongText(), Options::NotNull()],
-            ['file_settings', Types::LongText(), Options::NotNull()],
-            ['user_data', Types::LongText(), Options::NotNull()],
-            ['downloads', Types::Integer(), Options::NotNull()],
-            ['uploaded_at', Types::TimeStamp(), Options::NotNull()]
+            ['id', Types::integer(), Options::unSigned(), Options::notNull()],
+            ['file_id', Types::string(100), Options::notNull()],
+            ['user_id', Types::string(100), Options::notNull()],
+            ['file_data', Types::LongText(), Options::notNull()],
+            ['file_settings', Types::LongText(), Options::notNull()],
+            ['user_data', Types::LongText(), Options::notNull()],
+            ['downloads', Types::integer(), Options::notNull()],
+            ['uploaded_at', Types::timeStamp(), Options::notNull()]
         ];
 
         $settings = [
-            ["id", Types::Integer(), Options::UnSigned(), Options::NotNull()],
-            ["setting_key", Types::String(50), Options::NotNull()],
-            ["setting_value", Types::String(225), Options::NotNull()],
+            ["id", Types::integer(), Options::unSigned(), Options::notNull()],
+            ["setting_key", Types::string(50), Options::notNull()],
+            ["setting_value", Types::string(225), Options::notNull()],
         ];
 
         $pages = [
-            ["id", Types::Integer(), Options::UnSigned(), Options::NotNull()],
-            ["slug", Types::Text(), Options::NotNull()],
-            ["deletable", Types::Boolean(), Options::DefaultValue(0), Options::NotNull()],
-            ["created_at", Types::TimeStamp(), Options::CurrentTimeStamp(), Options::NotNull()]
+            ["id", Types::integer(), Options::unSigned(), Options::notNull()],
+            ["slug", Types::Text(), Options::notNull()],
+            ["deletable", Types::Boolean(), Options::defaultValue(0), Options::notNull()],
+            ["created_at", Types::timeStamp(), Options::currentTimeStamp(), Options::notNull()]
         ];
 
         $languages = [
-            ["id", Types::Integer(), Options::UnSigned(), Options::NotNull()],
-            ["language", Types::String(50), Options::NotNull()],
-            ["language_code", Types::String(50), Options::NotNull()],
-            ["created_at", Types::TimeStamp(), Options::CurrentTimeStamp(), Options::NotNull()]
+            ["id", Types::integer(), Options::unSigned(), Options::notNull()],
+            ["language", Types::string(50), Options::notNull()],
+            ["language_code", Types::string(50), Options::notNull()],
+            ["created_at", Types::timeStamp(), Options::currentTimeStamp(), Options::notNull()]
         ];
 
         $pages_translation = [
-            ["id", Types::Integer(), Options::UnSigned(), Options::NotNull()],
-            ["page_id", Types::Integer(), Options::NotNull()],
-            ["language_id", Types::Integer(), Options::NotNull()],
-            ["title", Types::Text(), Options::NotNull()],
-            ["content", Types::LongText(), Options::NotNull()],
-            ["created_at", Types::TimeStamp(), Options::CurrentTimeStamp(), Options::NotNull()]
+            ["id", Types::integer(), Options::unSigned(), Options::notNull()],
+            ["page_id", Types::integer(), Options::notNull()],
+            ["language_id", Types::integer(), Options::notNull()],
+            ["title", Types::Text(), Options::notNull()],
+            ["content", Types::LongText(), Options::notNull()],
+            ["created_at", Types::timeStamp(), Options::currentTimeStamp(), Options::notNull()]
         ];
 
         $roles = [
-            ["id", Types::Integer(), Options::UnSigned(), Options::NotNull()],
-            ["title", Types::String(75), Options::NotNull()],
-            ["size_limit", Types::String(150), Options::NotNull()],
-            ["created_at", Types::TimeStamp(), Options::CurrentTimeStamp(), Options::NotNull()]
+            ["id", Types::integer(), Options::unSigned(), Options::notNull()],
+            ["title", Types::string(75), Options::notNull()],
+            ["size_limit", Types::string(150), Options::notNull()],
+            ["created_at", Types::timeStamp(), Options::currentTimeStamp(), Options::notNull()]
         ];
 
         $install->createTable("users", $users);
@@ -412,9 +412,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $install->setAutoinc("users", [
             "id",
-            Types::Integer(),
-            Options::UnSigned(),
-            Options::NotNull()
+            Types::integer(),
+            Options::unSigned(),
+            Options::notNull()
         ]);
 
         $install->setPrimary("files", "id");
@@ -423,54 +423,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $install->setAutoinc("files", [
             "id",
-            Types::Integer(),
-            Options::UnSigned(),
-            Options::NotNull()
+            Types::integer(),
+            Options::unSigned(),
+            Options::notNull()
         ]);
 
         $install->setPrimary("settings", "id");
 
         $install->setAutoinc("settings", [
             "id",
-            Types::Integer(),
-            Options::UnSigned(),
-            Options::NotNull()
+            Types::integer(),
+            Options::unSigned(),
+            Options::notNull()
         ]);
 
         $install->setPrimary("pages", "id");
 
         $install->setAutoinc("pages", [
             "id",
-            Types::Integer(),
-            Options::UnSigned(),
-            Options::NotNull()
+            Types::integer(),
+            Options::unSigned(),
+            Options::notNull()
         ]);
 
         $install->setPrimary("roles", "id");
 
         $install->setAutoinc("roles", [
             "id",
-            Types::Integer(),
-            Options::UnSigned(),
-            Options::NotNull()
+            Types::integer(),
+            Options::unSigned(),
+            Options::notNull()
         ]);
 
         $install->setPrimary("languages", "id");
 
         $install->setAutoinc("languages", [
             "id",
-            Types::Integer(),
-            Options::UnSigned(),
-            Options::NotNull()
+            Types::integer(),
+            Options::unSigned(),
+            Options::notNull()
         ]);
 
         $install->setPrimary("pages_translation", "id");
 
         $install->setAutoinc("pages_translation", [
             "id",
-            Types::Integer(),
-            Options::UnSigned(),
-            Options::NotNull()
+            Types::integer(),
+            Options::unSigned(),
+            Options::notNull()
         ]);
 
         // Enable Production Mode

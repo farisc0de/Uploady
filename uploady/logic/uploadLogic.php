@@ -1,6 +1,7 @@
 <?php
 
 use Uploady\Handler\UploadHandler;
+use Wolfcast\BrowserDetection;
 
 $utilty = new Farisc0de\PhpFileUploading\Utility();
 
@@ -8,9 +9,9 @@ $upload = new Farisc0de\PhpFileUploading\Upload();
 
 $dataCollection = new Uploady\DataCollection();
 
-$role = new Uploady\Role($db, $user);
+$browser = new BrowserDetection();
 
-$dataCollection->collectIP();
+$role = new Uploady\Role($db, $user);
 
 $handler = new UploadHandler($db);
 
@@ -63,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 [
                                     "ip_address" => $dataCollection->collectIP(),
                                     "country" => $dataCollection->idendifyCountry(),
-                                    "browser" => $dataCollection->getBrowser(),
+                                    "browser" => $dataCollection->getBrowser($browser),
                                     "os" => $dataCollection->getOS()
                                 ]
                             )
@@ -77,6 +78,3 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
 $resp = $upload->getLogs();
 $files = $upload->getFiles();
-
-$page = 'upload_file';
-$title = $lang['your_uploaded_files'];
