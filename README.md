@@ -33,6 +33,7 @@ Please use the stable version v2.0.1.
 
 ### v3.0 Features
 
+7. Drag and Drop Support
 8. Multi Language Support
 9. User Managment with Role-Based Permissions
 10. 2FA for users
@@ -47,10 +48,11 @@ Please use the stable version v2.0.1.
 19. Delete files after x downloads
 20. Report Abuse Page
 21. Custom CSS and JS Support
+22. Social Media Sharing
 
 ## Screenshots
 
-![](https://i.ibb.co/C7rB4m3/Web-capture-20-4-2023-10250-localhost.jpg)
+![](https://i.ibb.co/94JyH1f/Web-capture-22-4-2023-55851-localhost.jpg)
 
 ![](https://i.ibb.co/hRbJxG9/Web-capture-20-4-2023-1035-localhost.jpg)
 
@@ -68,6 +70,7 @@ Make Uploads Folder Writeble `chmod 777 uploads`
 
 ## TODO (v3.0.0)
 
+- [x] Drag and Drop Support
 - [x] Role-based User Managment with size limit for each role
 - [x] More charts and stats for admin
 - [x] Implementing data collection [IP Address, Browser Information, OS, Country]
@@ -84,6 +87,8 @@ Make Uploads Folder Writeble `chmod 777 uploads`
 - [ ] Adding delete files after x days
 - [ ] Adding delete files after x downloads
 - [ ] Adding report abuse page
+- [ ] Adding social media sharing
+- [ ] Adding Social Media Accounts in footer
 - [x] Overall Bug Fixing
 
 ## License
