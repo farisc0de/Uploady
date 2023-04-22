@@ -79,7 +79,6 @@ function deleteAccount(token) {
 }
 
 let myDropzone = new Dropzone("#my-dropzone", {
-  maxFilesize: 2,
   maxFiles: 10,
 });
 
