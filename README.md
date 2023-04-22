@@ -14,7 +14,11 @@ And it is free and open source.
 
 ## Note
 
-This branch contains v3.0 dev version and it is not recommended to use it in production.
+This branch is under heavy development and it is not recommended to use it in production.
+
+It contains v3.0 dev version with many new features and bug fixes.
+
+some features are not working properly and some features are not implemented yet.
 
 Please use the stable version v2.0.1.
 
