@@ -22,6 +22,8 @@
   "upload_add_more": "Add More Files",
   "note_supported_formats": "Note: Supported formats",
   "see_here": "See Here...",
+  "drop_files": "Drop files here to upload",
+  "download_file": "Download File",
   "upload_bypass_message": "You are trying to bypass the security measures",
   "activation_title": "Account Activation",
   "go_to_login": "Go to Login",

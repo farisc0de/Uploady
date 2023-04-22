@@ -1,35 +1,11 @@
-let add_button = document.getElementById("add_more");
-let count = 4;
-
-if (add_button != null) {
-  add_button.addEventListener("click", () => {
-    if (count <= 9) {
-      var txt =
-        '<div class="pt-2"><input type="file" class="form-control" id="file[]" name="file[]"></div>';
-      $("#dvFile").append(txt);
-      count++;
-    } else {
-      $("#upload_alert").html(
-        '<div class="alert alert-danger">Sorry you can\'t upload more then 10 files</div>'
-      );
-      $("#add_more").addClass("disabled");
-    }
-  });
-}
-
-$("#tos").change(function () {
-  if ($(this).prop("checked")) {
-    $("#submit").prop("disabled", false);
-  } else {
-    $("#submit").prop("disabled", true);
-  }
-});
-
-// Call the dataTables jQuery plugin
 $(document).ready(function () {
   $("#dataTable").DataTable({
     ordering: true,
-
+    language: {
+      url: `//cdn.datatables.net/plug-ins/1.13.4/i18n/${document
+        .querySelector("html")
+        .getAttribute("lang")}.json`,
+    },
     select: {
       style: "multi",
     },
@@ -40,8 +16,10 @@ $(document).ready(function () {
         orderable: false,
       },
     ],
+    fixedColumns: true,
   });
 });
+
 $("#select-all").click(function (event) {
   if (this.checked) {
     $(":checkbox").each(function () {
@@ -57,7 +35,11 @@ $("#select-all").click(function (event) {
 $(document).ready(function () {
   var table = $("#supported").DataTable({
     ordering: true,
-
+    language: {
+      url: `//cdn.datatables.net/plug-ins/1.13.4/i18n/${document
+        .querySelector("html")
+        .getAttribute("lang")}.json`,
+    },
     select: {
       style: "multi",
     },
@@ -68,6 +50,7 @@ $(document).ready(function () {
         orderable: false,
       },
     ],
+    fixedColumns: true,
   });
 });
 
@@ -78,13 +61,26 @@ function deleteAccount(token) {
   }
 }
 
+let text = loadLangugeValue("drop_files").then((data) => {
+  $(".dz-button").text(data);
+});
+
 let myDropzone = new Dropzone("#my-dropzone", {
   maxFiles: 10,
 });
 
 myDropzone.on("success", function (files, response) {
   let thumbnail = files.previewElement.querySelector(".dz-filename");
-  thumbnail.innerHTML = `<span data-dz-name>
-    <a href="${response.downloadlink}" target="_blank">${files.name}</a>
+  loadLangugeValue("download_file").then((data) => {
+    thumbnail.innerHTML = `<span data-dz-name>
+    <a href="${response.downloadlink}" target="_blank">${data}</a>
     </span>`;
+  });
 });
+
+async function loadLangugeValue(key) {
+  let lang = document.querySelector("html").getAttribute("lang");
+  const response = await fetch(`languages/${lang}.json`);
+  const movies = await response.json();
+  return movies[key];
+}
