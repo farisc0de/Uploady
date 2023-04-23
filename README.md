@@ -2,7 +2,7 @@
    <img src="https://i.ibb.co/qMSh4gN/UPLOADY-removebg-preview.png" alt="UPLOADY-removebg-preview" border="0">
 </div>
 
-![](https://img.shields.io/github/license/farisc0de/Uploady) ![](https://img.shields.io/github/v/release/farisc0de/Uploady) ![](https://img.shields.io/github/repo-size/farisc0de/Uploady)
+![](https://img.shields.io/github/license/farisc0de/Uploady) ![](https://img.shields.io/github/v/release/farisc0de/Uploady) ![](https://img.shields.io/github/repo-size/farisc0de/Uploady) ![](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
 
 # Uploady
 
