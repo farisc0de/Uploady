@@ -13,7 +13,7 @@ include_once APP_PATH . 'logic/indexLogic.php';
           <b><?= $lang['upload_form_card_title']; ?></b>
         </div>
         <div class="card-body">
-          <form enctype="multipart/form-data" class="dropzone" id="my-dropzone" method="POST" action="upload.php">
+          <form enctype="multipart/form-data" class="dropzone" id="my-dropzone" method="POST" action="actions/upload_file.php">
           </form>
         </div>
 

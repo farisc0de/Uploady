@@ -179,6 +179,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ["id", Types::integer(), Options::unSigned(), Options::notNull()],
             ["language", Types::string(50), Options::notNull()],
             ["language_code", Types::string(50), Options::notNull()],
+            ["language_direction", Types::string(10), Options::notNull(), Options::defaultValue("ltr")],
+            ["is_active", Types::boolean(), Options::defaultValue(0), Options::notNull()],
             ["created_at", Types::timeStamp(), Options::currentTimeStamp(), Options::notNull()]
         ];
 
@@ -211,6 +213,80 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->createTable("roles", $roles);
 
         $install->createTable("languages", $languages);
+
+
+
+        $install->setPrimary("users", "id");
+
+        $install->setUnique("users", "email");
+
+        $install->setUnique("users", "user_id");
+
+        $install->setUnique("users", "activation_hash");
+
+        $install->setAutoinc("users", [
+            "id",
+            Types::integer(),
+            Options::unSigned(),
+            Options::notNull()
+        ]);
+
+        $install->setPrimary("files", "id");
+
+        $install->setUnique("files", "file_id");
+
+        $install->setAutoinc("files", [
+            "id",
+            Types::integer(),
+            Options::unSigned(),
+            Options::notNull()
+        ]);
+
+        $install->setPrimary("settings", "id");
+
+        $install->setAutoinc("settings", [
+            "id",
+            Types::integer(),
+            Options::unSigned(),
+            Options::notNull()
+        ]);
+
+        $install->setPrimary("pages", "id");
+
+        $install->setAutoinc("pages", [
+            "id",
+            Types::integer(),
+            Options::unSigned(),
+            Options::notNull()
+        ]);
+
+        $install->setPrimary("roles", "id");
+
+        $install->setAutoinc("roles", [
+            "id",
+            Types::integer(),
+            Options::unSigned(),
+            Options::notNull()
+        ]);
+
+        $install->setPrimary("languages", "id");
+
+        $install->setAutoinc("languages", [
+            "id",
+            Types::integer(),
+            Options::unSigned(),
+            Options::notNull()
+        ]);
+
+        $install->setPrimary("pages_translation", "id");
+
+        $install->setAutoinc("pages_translation", [
+            "id",
+            Types::integer(),
+            Options::unSigned(),
+            Options::notNull()
+        ]);
+
 
         $install->insertValue("users", [
             "id" => 1,
@@ -402,76 +478,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'size_limit' => '500 MB',
         ]);
 
-        $install->setPrimary("users", "id");
-
-        $install->setUnique("users", "email");
-
-        $install->setUnique("users", "user_id");
-
-        $install->setUnique("users", "activation_hash");
-
-        $install->setAutoinc("users", [
-            "id",
-            Types::integer(),
-            Options::unSigned(),
-            Options::notNull()
-        ]);
-
-        $install->setPrimary("files", "id");
-
-        $install->setUnique("files", "file_id");
-
-        $install->setAutoinc("files", [
-            "id",
-            Types::integer(),
-            Options::unSigned(),
-            Options::notNull()
-        ]);
-
-        $install->setPrimary("settings", "id");
-
-        $install->setAutoinc("settings", [
-            "id",
-            Types::integer(),
-            Options::unSigned(),
-            Options::notNull()
-        ]);
-
-        $install->setPrimary("pages", "id");
-
-        $install->setAutoinc("pages", [
-            "id",
-            Types::integer(),
-            Options::unSigned(),
-            Options::notNull()
-        ]);
-
-        $install->setPrimary("roles", "id");
-
-        $install->setAutoinc("roles", [
-            "id",
-            Types::integer(),
-            Options::unSigned(),
-            Options::notNull()
-        ]);
-
-        $install->setPrimary("languages", "id");
-
-        $install->setAutoinc("languages", [
-            "id",
-            Types::integer(),
-            Options::unSigned(),
-            Options::notNull()
-        ]);
-
-        $install->setPrimary("pages_translation", "id");
-
-        $install->setAutoinc("pages_translation", [
-            "id",
-            Types::integer(),
-            Options::unSigned(),
-            Options::notNull()
-        ]);
+        foreach ($utils->getLanguages() as $code => $name) {
+            $install->insertValue("languages", [
+                'language' => $name,
+                'language_code' => $code,
+                'is_active' => $code == 'en' ? 1 : 0,
+            ]);
+        }
 
         // Enable Production Mode
         /* -------------------------- */

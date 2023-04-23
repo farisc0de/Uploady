@@ -100,7 +100,7 @@ class Mailer
 
             return $mail->send();
         } catch (Exception $th) {
-            echo $th->errorMessage();
+            return false;
         }
     }
 }

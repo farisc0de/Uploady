@@ -125,6 +125,29 @@ class Localization
         }
     }
 
+    /**
+     * Function to get all active languages
+     *
+     * @return mixed
+     *  An array contains all active languages
+     */
+    public function getActiveLanguages()
+    {
+        $languages = "SELECT * FROM languages WHERE is_active = 1";
+
+        $this->db->prepare($languages);
+
+        $this->db->execute();
+
+        return $this->db->resultset();
+    }
+
+    /**
+     * Function to get all languages
+     *
+     * @return mixed
+     *  An array contains all languages
+     */
     public function getLanguages()
     {
         $languages = "SELECT * FROM languages";

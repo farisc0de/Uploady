@@ -43,7 +43,7 @@
                       </a>
 
                       <div class="dropdown-menu dropdown-menu-end" aria-labelledby="langswitcher">
-                          <?php foreach ($localization->getLanguages() as $language) : ?>
+                          <?php foreach ($localization->getActiveLanguages() as $language) : ?>
                               <a class="dropdown-item" href="?lang=<?= $language->language_code ?>"><?= $language->language ?></a>
                           <?php endforeach; ?>
                       </div>

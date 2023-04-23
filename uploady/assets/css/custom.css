@@ -4,34 +4,23 @@
   font-family: "Oxygen", sans-serif;
 }
 
-html {
-  font-family: "Oxygen", sans-serif;
+.dropzone {
+  border: 1px dashed #0087f7;
+  border-radius: 5px;
+  min-height: 150px;
 }
 
-body {
-  font-family: "Oxygen", sans-serif;
+.dropzone .dz-message {
+  text-align: center;
+  margin: 7em 0;
 }
 
-p {
-  font-family: "Oxygen", sans-serif;
-}
-
-#submit {
-  transition: all 0.5s;
-}
-
-#qr_code {
-  padding-top: 1.5vh;
-}
-
-@media only screen and (max-width: 768px) {
-  #upload_info {
-    display: none;
-  }
-
-  #qr_code {
-    padding-top: 0px;
-  }
+.dropzone .dz-message::before {
+  font-family: FontAwesome;
+  content: "\f093";
+  font-size: 1.5em;
+  margin-right: 0.3em;
+  margin-left: 0.3em;
 }
 
 .circle-twitter {
