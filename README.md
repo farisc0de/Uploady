@@ -78,6 +78,7 @@ Make Uploads Folder Writeble `chmod 777 uploads`
 - [x] Role-based User Managment with size limit for each role
 - [x] More charts and stats for admin
 - [x] Implementing data collection [IP Address, Browser Information, OS, Country]
+- [x] Adding more features to admin panel
 - [ ] Image Manipulation
 - [x] Adding AdSense Support
 - [ ] Adding Google Analytics Support
@@ -86,7 +87,9 @@ Make Uploads Folder Writeble `chmod 777 uploads`
 - [x] Adding Languges support
 - [ ] Adding database updater
 - [ ] Adding custom css and js support
+- [ ] Adding modules support
 - [x] Adding dark mode
+- [ ] Adding custom logo
 - [ ] Adding password protection for files
 - [ ] Adding delete files after x days
 - [ ] Adding delete files after x downloads
@@ -94,6 +97,7 @@ Make Uploads Folder Writeble `chmod 777 uploads`
 - [ ] Adding social media sharing
 - [ ] Adding Social Media Accounts in footer
 - [x] Overall Bug Fixing
+- [ ] Overall Code Refactoring
 
 ## License
 
