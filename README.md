@@ -56,7 +56,7 @@ Please use the stable version v2.0.1.
 
 ## Screenshots
 
-![](https://i.ibb.co/94JyH1f/Web-capture-22-4-2023-55851-localhost.jpg)
+![](https://i.ibb.co/D7yGNTp/Web-capture-23-4-2023-52641-192-168-1-4.jpg)
 
 ![](https://i.ibb.co/hRbJxG9/Web-capture-20-4-2023-1035-localhost.jpg)
 
