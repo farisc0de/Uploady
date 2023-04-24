@@ -84,7 +84,7 @@ Make Uploads Folder Writeble `chmod 777 uploads`
 - [x] Adding more features to admin panel
 - [ ] Image Manipulation
 - [x] Adding AdSense Support
-- [ ] Adding Google Analytics Support
+- [x] Adding Google Analytics Support
 - [x] Adding 2FA for users
 - [ ] Adding pages with pages template and editor
 - [x] Adding Languges support
@@ -92,7 +92,7 @@ Make Uploads Folder Writeble `chmod 777 uploads`
 - [x] Adding custom css and js support
 - [ ] Adding modules support
 - [x] Adding dark mode
-- [ ] Adding custom logo
+- [x] Adding custom logo
 - [ ] Adding password protection for files
 - [ ] Adding delete files after x days
 - [ ] Adding delete files after x downloads

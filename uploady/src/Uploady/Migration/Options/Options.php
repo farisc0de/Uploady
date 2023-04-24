@@ -44,6 +44,22 @@ class Options
      */
     public static function defaultValue($value)
     {
+        if ($value == "CURRENT_TIMESTAMP") {
+            return "DEFAULT CURRENT_TIMESTAMP";
+        }
+
+        if (is_string($value)) {
+            return "DEFAULT '{$value}'";
+        }
+
+        if (is_bool($value)) {
+            return "DEFAULT " . ($value ? 1 : 0);
+        }
+
+        if (is_null($value)) {
+            return "DEFAULT NULL";
+        }
+
         return "DEFAULT {$value}";
     }
 

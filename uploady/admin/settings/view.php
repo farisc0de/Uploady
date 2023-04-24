@@ -29,8 +29,7 @@ include_once 'logic/settings.php';
                             Edit Settings
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="edit.php">
-
+                            <form method="POST" action="edit.php" enctype="multipart/form-data">
                                 <div class="container container-special">
                                     <?php if (isset($_GET['msg']) && $_GET['msg'] == "yes") : ?>
                                         <?= $utils->alert("Settings has been updated", "success", "check-circle"); ?>
@@ -67,6 +66,15 @@ include_once 'logic/settings.php';
 
                                         <div class="form-group">
                                             <input class="form-control" id="keywords" type="text" name="keywords" placeholder="Enter Keyword" data-role="tagsinput" value="<?= $settings->getSettingValue('keywords'); ?>">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="logo" name="website_logo" aria-describedby="logo">
+                                                <label class="custom-file-label" for="logo">
+                                                    Choose Website Logo
+                                                </label>
+                                            </div>
                                         </div>
 
                                         <div class="form-group">
@@ -219,9 +227,11 @@ include_once 'logic/settings.php';
     </div>
     <?php include_once '../components/js.php'; ?>
     <?php $utils->script("js/bootstrap-tagsinput.js", "admin/assets"); ?>
+    <?php $utils->script("https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"); ?>
 
     <script>
         $("#keywords").val()
+        bsCustomFileInput.init()
     </script>
 
 </body>

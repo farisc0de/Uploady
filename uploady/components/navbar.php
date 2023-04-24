@@ -1,7 +1,11 @@
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
           <a class="navbar-brand" href="<?= $utils->siteUrl(); ?>">
-              <?= $st['website_name'] ?>
+              <?php if ($st['website_logo'] != null) : ?>
+                  <img src="<?= $st['website_logo'] ?>" alt="<?= $st['website_name'] ?>" width="30" height="30" class="d-inline-block align-top">
+              <?php else : ?>
+                  <?= $st['website_name'] ?>
+              <?php endif; ?>
           </a>
 
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">

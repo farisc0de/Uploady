@@ -125,23 +125,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'last_login',
                 Types::timeStamp(),
                 Options::notNull(),
-                Options::defaultValue("CURRENT_timeStamp")
+                Options::defaultValue("CURRENT_TIMESTAMP")
             ],
             [
                 'reset_hash',
                 Types::string(64),
-                Options::defaultValue("NULL")
+                Options::defaultValue(null)
             ],
             [
                 'created_at',
                 Types::timeStamp(),
                 Options::Null(),
-                Options::defaultValue("NULL")
+                Options::defaultValue(null)
             ],
             [
                 'activation_hash',
                 Types::string(64),
-                Options::defaultValue("NULL")
+                Options::defaultValue(null)
             ],
             [
                 'is_active',
@@ -179,7 +179,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ["id", Types::integer(), Options::unSigned(), Options::notNull()],
             ["language", Types::string(50), Options::notNull()],
             ["language_code", Types::string(50), Options::notNull()],
-            ["language_direction", Types::string(10), Options::notNull(), Options::defaultValue("ltr")],
+            ["language_direction", Types::string(10), Options::defaultValue("ltr"), Options::notNull()],
             ["is_active", Types::boolean(), Options::defaultValue(0), Options::notNull()],
             ["created_at", Types::timeStamp(), Options::currentTimeStamp(), Options::notNull()]
         ];
@@ -213,8 +213,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->createTable("roles", $roles);
 
         $install->createTable("languages", $languages);
-
-
 
         $install->setPrimary("users", "id");
 
@@ -289,19 +287,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         $install->insertValue("users", [
-            "id" => 1,
             "username" => $utils->sanitize($_POST["username"]),
             "email" => $utils->sanitize($_POST["email"]),
             "password" => password_hash($utils->sanitize($_POST["password"]), PASSWORD_BCRYPT),
             "user_id" => $upload->getUserID(),
             "role" => 3,
-            "is_active" => 1
+            "is_active" => true
         ]);
 
         $install->insertValue(
             "settings",
             [
-                'id' => 1,
                 'setting_key' => 'website_name',
                 'setting_value' => 'Uploady'
             ]
@@ -310,7 +306,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->insertValue(
             "settings",
             [
-                'id' => 2,
                 'setting_key' => 'website_headline',
                 'setting_value' => 'Simple File Uploading Software'
             ]
@@ -319,7 +314,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->insertValue(
             "settings",
             [
-                'id' => 3,
                 'setting_key' => 'description',
                 'setting_value' => 'this is uploading service website'
             ]
@@ -328,15 +322,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->insertValue(
             "settings",
             [
-                'id' => 4,
                 'setting_key' => 'keywords',
                 'setting_value' => 'upload,file upload,file uploading,file sharing'
             ]
         );
+
+
         $install->insertValue(
             "settings",
             [
-                'id' => 5,
+                'setting_key' => 'website_logo',
+                'setting_value' => null
+            ]
+        );
+
+
+        $install->insertValue(
+            "settings",
+            [
                 'setting_key' => 'owner_name',
                 'setting_value' => $utils->sanitize($_POST['username'])
             ]
@@ -344,7 +347,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->insertValue(
             "settings",
             [
-                'id' => 6,
                 'setting_key' => 'owner_email',
                 'setting_value' => $utils->sanitize($_POST['email'])
             ]
@@ -352,15 +354,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->insertValue(
             "settings",
             [
-                'id' => 7,
                 'setting_key' => 'smtp_status',
-                'setting_value' => '0'
+                'setting_value' => false
             ]
         );
         $install->insertValue(
             "settings",
             [
-                'id' => 8,
                 'setting_key' => 'smtp_host',
                 'setting_value' => ''
             ]
@@ -368,7 +368,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->insertValue(
             "settings",
             [
-                'id' => 9,
                 'setting_key' => 'smtp_username',
                 'setting_value' => ''
             ]
@@ -376,7 +375,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->insertValue(
             "settings",
             [
-                'id' => 10,
                 'setting_key' => 'smtp_password',
                 'setting_value' => ''
             ]
@@ -384,7 +382,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->insertValue(
             "settings",
             [
-                'id' => 11,
                 'setting_key' => 'smtp_port',
                 'setting_value' => ''
             ]
@@ -392,7 +389,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->insertValue(
             "settings",
             [
-                'id' => 12,
                 'setting_key' => 'smtp_security',
                 'setting_value' => ''
             ]
@@ -400,15 +396,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->insertValue(
             "settings",
             [
-                'id' => 13,
                 'setting_key' => 'recaptcha_status',
-                'setting_value' => '0'
+                'setting_value' => false
             ]
         );
         $install->insertValue(
             "settings",
             [
-                'id' => 14,
                 'setting_key' => 'recaptcha_site_key',
                 'setting_value' =>  ''
             ]
@@ -416,7 +410,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->insertValue(
             "settings",
             [
-                'id' => 15,
                 'setting_key' => 'recaptcha_secret_key',
                 'setting_value' =>  ''
             ]
@@ -425,55 +418,78 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->insertValue(
             "settings",
             [
-                'id' => 16,
                 'setting_key' => 'adsense_status',
-                'setting_value' =>  0
+                'setting_value' =>  false
             ]
         );
 
         $install->insertValue(
             "settings",
             [
-                'id' => 17,
                 'setting_key' => 'adsense_client_code',
                 'setting_value' =>  ''
             ]
         );
 
+        $install->insertValue(
+            "settings",
+            [
+                'setting_key' => 'analytics_status',
+                'setting_value' =>  false
+            ]
+        );
+
+        $install->insertValue(
+            "settings",
+            [
+                'setting_key' => 'analytics_code',
+                'setting_value' =>  ''
+            ]
+        );
+
+        $install->insertValue(
+            "settings",
+            [
+                'setting_key' => 'sharethis_status',
+                'setting_value' =>  false
+            ]
+        );
+
+        $install->insertValue(
+            "settings",
+            [
+                'setting_key' => 'sharethis_code',
+                'setting_value' =>  ''
+            ]
+        );
 
         $install->insertValue("pages", [
-            'id' => 1,
             'slug' => 'about',
             'deletable' => false
         ]);
 
         $install->insertValue("pages", [
-            'id' => 2,
             'slug' => 'terms',
             'deletable' => false
         ]);
 
         $install->insertValue("pages", [
-            'id' => 3,
             'slug' => 'privacy',
             'deletable' => false
         ]);
 
         $install->insertValue("roles", [
-            'id' => 1,
             'title' => 'User',
             'size_limit' => '150 MB',
         ]);
 
 
         $install->insertValue("roles", [
-            'id' => 2,
             'title' => 'Guest',
             'size_limit' => '50 MB',
         ]);
 
         $install->insertValue("roles", [
-            'id' => 3,
             'title' => 'Admin',
             'size_limit' => '500 MB',
         ]);
@@ -482,7 +498,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $install->insertValue("languages", [
                 'language' => $name,
                 'language_code' => $code,
-                'is_active' => $code == 'en' ? 1 : 0,
+                'is_active' => $code == 'en' ? true : false,
             ]);
         }
 
