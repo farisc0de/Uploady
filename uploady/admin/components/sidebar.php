@@ -63,9 +63,9 @@
                     Edit Settings
                 </a>
 
-                <a class="nav-link" href="<?= $utils->siteUrl('/admin/settings/view.php'); ?>">
+                <a class="nav-link" href="<?= $utils->siteUrl('/admin/custom/view.php'); ?>">
                     <div class="sb-nav-link-icon">
-                        <i class="fas fa-wrench"></i>
+                        <i class="fas fa-code"></i>
                     </div>
                     Custom CSS & JS
                 </a>

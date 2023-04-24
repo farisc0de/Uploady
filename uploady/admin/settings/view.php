@@ -95,14 +95,14 @@ include_once 'logic/settings.php';
 
                                         <div class="form-group">
                                             <div class="form-label-group">
-                                                <input class="form-control" id="recaptchapublic" type="text" name="recaptchapublic" placeholder="reCAPTCHA Public Key" value="<?= $settings->getSettingValue('recaptcha_site_key'); ?>">
+                                                <input class="form-control" id="recaptchapublic" type="text" name="recaptcha_site_key" placeholder="reCAPTCHA Public Key" value="<?= $settings->getSettingValue('recaptcha_site_key'); ?>">
                                                 <label for="recaptchapublic">reCAPTCHA Public Key</label>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <div class="form-label-group">
-                                                <input class="form-control" id="recaptchaprivate" type="text" name="recaptchaprivate" placeholder="reCAPTCHA Public Key" value="<?= $settings->getSettingValue('recaptcha_secret_key'); ?>">
+                                                <input class="form-control" id="recaptchaprivate" type="text" name="recaptcha_secret_key" placeholder="reCAPTCHA Private Key" value="<?= $settings->getSettingValue('recaptcha_secret_key'); ?>">
                                                 <label for="recaptchaprivate">reCAPTCHA Private Key</label>
                                             </div>
                                             <small>
@@ -175,17 +175,32 @@ include_once 'logic/settings.php';
                                         </div>
 
                                         <div class="form-group">
-                                            <input hidden name="ganalytics_status" value="0" />
+                                            <input hidden name="analytics_status" value="0" />
                                             <div class="custom-control custom-switch custom-control-right">
-                                                <input class="custom-control-input" id="ganalytics_status" name="adsense_status" value="1" type="checkbox" <?= ($settings->getSettingValue('adsense_status') == true) ? 'checked' : null; ?>>
-                                                <label class="custom-control-label" for="ganalytics_status">Enable Google Analytics</label>
+                                                <input class="custom-control-input" id="analytics_status" name="analytics_status" value="1" type="checkbox" <?= ($settings->getSettingValue('analytics_status') == true) ? 'checked' : null; ?>>
+                                                <label class="custom-control-label" for="analytics_status">Enable Google Analytics</label>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <div class="form-label-group">
-                                                <input class="form-control" type="text" id="ganalytics_ua_code" name="ganalytics_ua_code" placeholder="Analytics UA Code" value="<?= $settings->getSettingValue('adsense_client_code'); ?>">
-                                                <label for="ganalytics_ua_code">Google Analytics Code</label>
+                                                <input class="form-control" type="text" id="analytics_code" name="analytics_code" placeholder="Analytics UA Code" value="<?= $settings->getSettingValue('analytics_code'); ?>">
+                                                <label for="analytics_code">Google Analytics Code</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input hidden name="sharethis_status" value="0" />
+                                            <div class="custom-control custom-switch custom-control-right">
+                                                <input class="custom-control-input" id="sharethis_status" name="sharethis_status" value="1" type="checkbox" <?= ($settings->getSettingValue('sharethis_status') == true) ? 'checked' : null; ?>>
+                                                <label class="custom-control-label" for="sharethis_status">Enable ShareThis</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="form-label-group">
+                                                <input class="form-control" type="text" id="sharethis_code" name="sharethis_code" placeholder="Sharethis Code" value="<?= $settings->getSettingValue('sharethis_code'); ?>">
+                                                <label for="sharethis_code">Sharethis Code</label>
                                             </div>
                                         </div>
 

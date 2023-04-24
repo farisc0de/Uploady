@@ -19,7 +19,7 @@ include_once APP_PATH . 'logic/installLogic.php';
 
     <?php
     $utils->style('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css');
-    $utils->style('css/custom.css');
+    $utils->style('css/main.css');
     ?>
 </head>
 
