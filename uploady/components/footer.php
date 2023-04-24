@@ -1,3 +1,23 @@
+<div class="text-center container">
+  <ul class="list-inline">
+    <li class="list-inline-item">
+      <a href="#" class="btn btn-info rounded-circle">
+        <i class="fab fa-twitter text-white"></i>
+      </a>
+    </li>
+    <li class="list-inline-item">
+      <a href="#" class="btn btn-danger rounded-circle">
+        <i class="fab fa-instagram text-white"></i>
+      </a>
+    </li>
+    <li class="list-inline-item">
+      <a href="#" class="btn btn-primary rounded-circle">
+        <i class="fab fa-linkedin-in text-white"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+
 <footer class="footer py-5 my-sm-10 bg-body-tertiary mt-auto py-3">
   <div class="container-fluid my-auto">
     <p class="m-0 text-center">

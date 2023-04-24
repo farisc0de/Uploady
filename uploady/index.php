@@ -28,24 +28,4 @@ include_once APP_PATH . 'logic/indexLogic.php';
   </div>
 </div>
 
-<div class="text-center container">
-  <ul class="list-inline">
-    <li class="list-inline-item">
-      <a href="#">
-        <i class="fab fa-twitter fa-stack circle-twitter rounded-circle"></i>
-      </a>
-    </li>
-    <li class="list-inline-item">
-      <a href="#">
-        <i class="fab fa-instagram fa-stack circle-instagram rounded-circle"></i>
-      </a>
-    </li>
-    <li class="list-inline-item">
-      <a href="#">
-        <i class="fab fa-linkedin-in fa-stack circle-linkedin rounded-circle"></i>
-      </a>
-    </li>
-  </ul>
-</div>
-
 <?php include_once 'components/footer.php'; ?>

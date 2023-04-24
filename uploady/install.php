@@ -75,8 +75,6 @@ include_once APP_PATH . 'logic/installLogic.php';
                                 </div>
                             <?php endif; ?>
 
-                            <h3 class="text-center">Create an admin user</h3>
-
                             <div class="pt-2">
                                 <div class="form-label-group">
                                     <input class="form-control" type="text" maxlength="15" id="username" name="username" placeholder="Username" required>
