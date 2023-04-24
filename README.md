@@ -55,6 +55,7 @@ Please use the stable version v2.0.1.
 20. Report Abuse Page
 21. Custom CSS and JS Support
 22. Social Media Sharing
+23. And more...
 
 ## Screenshots
 
