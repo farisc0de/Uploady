@@ -10,5 +10,6 @@ return array(
     'RobThree\\Auth\\' => array($vendorDir . '/robthree/twofactorauth/lib'),
     'ReCaptcha\\' => array($vendorDir . '/google/recaptcha/src/ReCaptcha'),
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
+    'Farisc0de\\PhpMigration\\' => array($vendorDir . '/farisc0de/phpmigration/src'),
     'Farisc0de\\PhpFileUploading\\' => array($vendorDir . '/farisc0de/phpfileuploading/src'),
 );

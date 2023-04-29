@@ -4,7 +4,8 @@
     "google/recaptcha": "^1.2",
     "farisc0de/phpfileuploading": "^1.0",
     "robthree/twofactorauth": "^1.8",
-    "wolfcast/browser-detection": "^2.9"
+    "wolfcast/browser-detection": "^2.9",
+    "farisc0de/phpmigration": "^1.0"
   },
   "autoload": {
     "psr-4": {

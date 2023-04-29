@@ -22,6 +22,7 @@ class ComposerStaticInit5945ad3276d7348e01910cc39dd50b7b
         ),
         'F' => 
         array (
+            'Farisc0de\\PhpMigration\\' => 23,
             'Farisc0de\\PhpFileUploading\\' => 27,
         ),
     );
@@ -42,6 +43,10 @@ class ComposerStaticInit5945ad3276d7348e01910cc39dd50b7b
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
+        ),
+        'Farisc0de\\PhpMigration\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/farisc0de/phpmigration/src',
         ),
         'Farisc0de\\PhpFileUploading\\' => 
         array (

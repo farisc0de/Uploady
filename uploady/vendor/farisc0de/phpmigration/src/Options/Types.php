@@ -1,6 +1,6 @@
 <?php
 
-namespace Uploady\Migration\Options;
+namespace Farisc0de\PhpMigration\Options;
 
 class Types
 {

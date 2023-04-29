@@ -1,0 +1,10 @@
+# Composer
+/vendor
+/composer.lock
+
+/.build/
+/.notes/
+/*.cache/
+
+*.cache
+.phpcs-cache

@@ -41,6 +41,52 @@
             "install-path": "../farisc0de/phpfileuploading"
         },
         {
+            "name": "farisc0de/phpmigration",
+            "version": "v1.0",
+            "version_normalized": "1.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/farisc0de/PhpMigration.git",
+                "reference": "b130f1a5da14df85b6623b9027e181aaa110325d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/farisc0de/PhpMigration/zipball/b130f1a5da14df85b6623b9027e181aaa110325d",
+                "reference": "b130f1a5da14df85b6623b9027e181aaa110325d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "squizlabs/php_codesniffer": "*"
+            },
+            "time": "2023-04-29T08:09:09+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Farisc0de\\PhpMigration\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Faris AL-Otaibi",
+                    "email": "farisksa79@gmail.com"
+                }
+            ],
+            "description": "Migration Library for PHP",
+            "support": {
+                "issues": "https://github.com/farisc0de/PhpMigration/issues",
+                "source": "https://github.com/farisc0de/PhpMigration/tree/v1.0"
+            },
+            "install-path": "../farisc0de/phpmigration"
+        },
+        {
             "name": "google/recaptcha",
             "version": "1.2.4",
             "version_normalized": "1.2.4.0",

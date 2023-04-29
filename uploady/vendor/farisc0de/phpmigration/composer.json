@@ -1,0 +1,27 @@
+{
+    "name": "farisc0de/phpmigration",
+    "description": "Migration Library for PHP",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Farisc0de\\PhpMigration\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Faris AL-Otaibi",
+            "email": "farisksa79@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "*"
+    },
+    "scripts": {
+        "cs-check": "vendor/bin/phpcs",
+        "cs-fix": "vendor/bin/phpcbf"
+    }
+}

@@ -1,6 +1,6 @@
 <?php
 
-namespace Uploady\Migration;
+namespace Farisc0de\PhpMigration;
 
 class Migration
 {

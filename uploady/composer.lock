@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "52353f31d4dfcbba699f0d4f06edf312",
+    "content-hash": "ecea9865e28908eac5b13288298325de",
     "packages": [
         {
             "name": "farisc0de/phpfileuploading",
@@ -42,6 +42,49 @@
                 "source": "https://github.com/farisc0de/PhpFileUploading/tree/v1.0.2"
             },
             "time": "2023-04-29T08:47:36+00:00"
+        },
+        {
+            "name": "farisc0de/phpmigration",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/farisc0de/PhpMigration.git",
+                "reference": "b130f1a5da14df85b6623b9027e181aaa110325d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/farisc0de/PhpMigration/zipball/b130f1a5da14df85b6623b9027e181aaa110325d",
+                "reference": "b130f1a5da14df85b6623b9027e181aaa110325d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "squizlabs/php_codesniffer": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Farisc0de\\PhpMigration\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Faris AL-Otaibi",
+                    "email": "farisksa79@gmail.com"
+                }
+            ],
+            "description": "Migration Library for PHP",
+            "support": {
+                "issues": "https://github.com/farisc0de/PhpMigration/issues",
+                "source": "https://github.com/farisc0de/PhpMigration/tree/v1.0"
+            },
+            "time": "2023-04-29T08:09:09+00:00"
         },
         {
             "name": "google/recaptcha",
