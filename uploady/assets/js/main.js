@@ -70,9 +70,9 @@ loadLanguge().then((data) => {
 
   myDropzone.on("success", function (files, response) {
     let thumbnail = files.previewElement.querySelector(".dz-filename");
-    thumbnail.innerHTML = `
-    ${data["download_file"]}
-    `;
+    thumbnail.innerHTML = `<span data-dz-name>
+    <a href="${response.directlink}">${data["download_file"]}</a>
+    </span>`;
 
     let deleteButton = files.previewElement.querySelector(".dz-remove");
     deleteButton.addEventListener("click", function (e) {

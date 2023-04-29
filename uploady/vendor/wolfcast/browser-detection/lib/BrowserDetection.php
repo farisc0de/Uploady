@@ -394,10 +394,8 @@ class BrowserDetection
         if ($uaNameToLookFor == '') {
             $uaNameToLookFor = $browserName;
         }
-        $this->_customBrowserDetection[$browserName] = array(
-            'uaNameToLookFor' => $uaNameToLookFor, 'isMobile' => $isMobile == true,
-            'separator' => $separator, 'uaNameFindWords' => $uaNameFindWords == true
-        );
+        $this->_customBrowserDetection[$browserName] = array('uaNameToLookFor' => $uaNameToLookFor, 'isMobile' => $isMobile == true,
+                                                             'separator' => $separator, 'uaNameFindWords' => $uaNameFindWords == true);
         return true;
     }
 
@@ -423,11 +421,9 @@ class BrowserDetection
         if ($platformNameToLookFor == '') {
             $platformNameToLookFor = $platformName;
         }
-        $this->_customPlatformDetection[$platformName] = array(
-            'platformNameToLookFor' => $platformNameToLookFor,
-            'isMobile' => $isMobile == true,
-            'uaNameFindWords' => $uaNameFindWords == true
-        );
+        $this->_customPlatformDetection[$platformName] = array('platformNameToLookFor' => $platformNameToLookFor,
+                                                               'isMobile' => $isMobile == true,
+                                                               'uaNameFindWords' => $uaNameFindWords == true);
         return true;
     }
 
@@ -456,10 +452,8 @@ class BrowserDetection
         if ($uaNameToLookFor == '') {
             $uaNameToLookFor = $robotName;
         }
-        $this->_customRobotDetection[$robotName] = array(
-            'uaNameToLookFor' => $uaNameToLookFor, 'isMobile' => $isMobile == true,
-            'separator' => $separator, 'uaNameFindWords' => $uaNameFindWords == true
-        );
+        $this->_customRobotDetection[$robotName] = array('uaNameToLookFor' => $uaNameToLookFor, 'isMobile' => $isMobile == true,
+                                                         'separator' => $separator, 'uaNameFindWords' => $uaNameFindWords == true);
         return true;
     }
 
@@ -596,8 +590,7 @@ class BrowserDetection
                 case self::PLATFORM_IOS:
                     return $this->iOSVerToStr($this->_platformVersion);
 
-                default:
-                    return self::PLATFORM_VERSION_UNKNOWN;
+                default: return self::PLATFORM_VERSION_UNKNOWN;
             }
         }
     }
@@ -926,10 +919,8 @@ class BrowserDetection
     protected function checkBrowserFirefox()
     {
         //Safari heavily matches with Firefox, ensure that Safari is filtered out...
-        if (
-            preg_match('/.*Firefox[ (\/]*([a-z0-9.-]*)/i', $this->_agent, $matches) &&
-            !$this->containString($this->_agent, 'Safari')
-        ) {
+        if (preg_match('/.*Firefox[ (\/]*([a-z0-9.-]*)/i', $this->_agent, $matches) &&
+                !$this->containString($this->_agent, 'Safari')) {
             $this->setBrowser(self::BROWSER_FIREFOX);
             $this->setVersion($matches[1]);
             $this->setMobile(false);
@@ -1218,7 +1209,7 @@ class BrowserDetection
             }
         }
 
-        if (!$found && $this->checkSimpleBrowserUA('Chrome', $this->_agent, self::BROWSER_CHROME)) {
+        if (!$found && $this->checkSimpleBrowserUA('Chrome', $this->_agent, self::BROWSER_CHROME) ) {
             if ($this->checkSimpleBrowserUA('OPR', $this->_agent, self::BROWSER_OPERA)) {
                 return true;
             }
@@ -1246,34 +1237,34 @@ class BrowserDetection
     {
         //Changing the check order can break the class detection results!
         return
-            /* Major browsers and browsers that need to be detected in a special order */
-            $this->checkBrowserCustom() ||           /* Customs rules are always checked first */
-            $this->checkBrowserMsnTv() ||            /* MSN TV is based on IE so we must check for MSN TV before IE */
-            $this->checkBrowserInternetExplorer() ||
-            $this->checkBrowserOpera() ||            /* Opera must be checked before Firefox, Netscape and Chrome to avoid conflicts */
-            $this->checkBrowserEdge() ||             /* Edge must be checked before Firefox, Safari and Chrome to avoid conflicts */
-            $this->checkBrowserSamsung() ||          /* Samsung Internet browser must be checked before Chrome and Safari to avoid conflicts */
-            $this->checkBrowserUC() ||               /* UC Browser must be checked before Chrome and Safari to avoid conflicts */
-            $this->checkBrowserChrome() ||           /* Chrome must be checked before Netscaoe and Mozilla to avoid conflicts */
-            $this->checkBrowserIcab() ||             /* Check iCab before Netscape since iCab have Mozilla UAs */
-            $this->checkBrowserNetscape() ||         /* Must be checked before Firefox since Netscape 8-9 are based on Firefox */
-            $this->checkBrowserIceCat() ||           /* Check IceCat and IceWeasel before Firefox since they are GNU builds of Firefox */
-            $this->checkBrowserIceWeasel() ||
-            $this->checkBrowserFirefox() ||
-            /* Current browsers that don't need to be detected in any special order */
-            $this->checkBrowserKonqueror() ||
-            $this->checkBrowserLynx() ||
-            /* Mobile */
-            $this->checkBrowserAndroid() ||
-            $this->checkBrowserBlackBerry() ||
-            $this->checkBrowserNokia() ||
-            /* WebKit base check (after most other checks) */
-            $this->checkBrowserSafari() ||
-            /* Deprecated browsers that don't need to be detected in any special order */
-            $this->checkBrowserFirebird() ||
-            $this->checkBrowserPhoenix() ||
-            /* Mozilla is such an open standard that it must be checked last */
-            $this->checkBrowserMozilla();
+               /* Major browsers and browsers that need to be detected in a special order */
+               $this->checkBrowserCustom() ||           /* Customs rules are always checked first */
+               $this->checkBrowserMsnTv() ||            /* MSN TV is based on IE so we must check for MSN TV before IE */
+               $this->checkBrowserInternetExplorer() ||
+               $this->checkBrowserOpera() ||            /* Opera must be checked before Firefox, Netscape and Chrome to avoid conflicts */
+               $this->checkBrowserEdge() ||             /* Edge must be checked before Firefox, Safari and Chrome to avoid conflicts */
+               $this->checkBrowserSamsung() ||          /* Samsung Internet browser must be checked before Chrome and Safari to avoid conflicts */
+               $this->checkBrowserUC() ||               /* UC Browser must be checked before Chrome and Safari to avoid conflicts */
+               $this->checkBrowserChrome() ||           /* Chrome must be checked before Netscaoe and Mozilla to avoid conflicts */
+               $this->checkBrowserIcab() ||             /* Check iCab before Netscape since iCab have Mozilla UAs */
+               $this->checkBrowserNetscape() ||         /* Must be checked before Firefox since Netscape 8-9 are based on Firefox */
+               $this->checkBrowserIceCat() ||           /* Check IceCat and IceWeasel before Firefox since they are GNU builds of Firefox */
+               $this->checkBrowserIceWeasel() ||
+               $this->checkBrowserFirefox() ||
+               /* Current browsers that don't need to be detected in any special order */
+               $this->checkBrowserKonqueror() ||
+               $this->checkBrowserLynx() ||
+               /* Mobile */
+               $this->checkBrowserAndroid() ||
+               $this->checkBrowserBlackBerry() ||
+               $this->checkBrowserNokia() ||
+               /* WebKit base check (after most other checks) */
+               $this->checkBrowserSafari() ||
+               /* Deprecated browsers that don't need to be detected in any special order */
+               $this->checkBrowserFirebird() ||
+               $this->checkBrowserPhoenix() ||
+               /* Mozilla is such an open standard that it must be checked last */
+               $this->checkBrowserMozilla();
     }
 
     /**
@@ -1409,7 +1400,7 @@ class BrowserDetection
                 $this->setPlatform(self::PLATFORM_NOKIA);
                 $this->setMobile(true);
 
-                /* Desktop platforms */
+            /* Desktop platforms */
             } else if ($this->containString($this->_agent, 'Windows')) {
                 $this->setPlatform(self::PLATFORM_WINDOWS);
             } else if ($this->containString($this->_agent, 'Macintosh')) {
@@ -1423,14 +1414,14 @@ class BrowserDetection
             } else if ($this->containString($this->_agent, 'NetBSD')) {
                 $this->setPlatform(self::PLATFORM_NETBSD);
 
-                /* Discontinued */
+            /* Discontinued */
             } else if ($this->containString($this->_agent, array('Symbian', 'SymbianOS'))) {
                 $this->setPlatform(self::PLATFORM_SYMBIAN);
                 $this->setMobile(true);
             } else if ($this->containString($this->_agent, 'OpenSolaris')) {
                 $this->setPlatform(self::PLATFORM_OPENSOLARIS);
 
-                /* Generic */
+            /* Generic */
             } else if ($this->containString($this->_agent, 'Win', true, false)) {
                 $this->setPlatform(self::PLATFORM_WINDOWS);
             } else if ($this->containString($this->_agent, 'Mac', true, false)) {
@@ -1439,10 +1430,8 @@ class BrowserDetection
         }
 
         //Check if it's a 64-bit platform
-        if ($this->containString($this->_agent, array(
-            'WOW64', 'Win64', 'AMD64', 'x86_64', 'x86-64', 'Aarch64', 'ia64',
-            'IRIX64', 'ppc64', 'sparc64', 'x64;', 'x64_64'
-        ))) {
+        if ($this->containString($this->_agent, array('WOW64', 'Win64', 'AMD64', 'x86_64', 'x86-64', 'Aarch64', 'ia64',
+                'IRIX64', 'ppc64', 'sparc64', 'x64;', 'x64_64'))) {
             $this->set64bit(true);
         }
 
@@ -1519,7 +1508,8 @@ class BrowserDetection
             case self::PLATFORM_CHROME_OS:
                 if (preg_match('/CrOS\s*\w*\s*([^\s;$]+)/i', $this->_agent, $foundVersion)) {
                     $result = $this->cleanVersion($foundVersion[1]);
-                } else if (preg_match('/Chromebook\s+([^\s;$]+)/i', $this->_agent, $foundVersion)) {
+                }
+                else if (preg_match('/Chromebook\s+([^\s;$]+)/i', $this->_agent, $foundVersion)) {
                     $result = $this->cleanVersion($foundVersion[1], 'Build');
                 }
                 break;
@@ -1590,12 +1580,12 @@ class BrowserDetection
     protected function checkRobot()
     {
         $this->checkRobotCustom() || /* Customs rules are always checked first */
-            $this->checkRobotGooglebot() ||
-            $this->checkRobotBingbot() ||
-            $this->checkRobotMsnBot() ||
-            $this->checkRobotSlurp() ||
-            $this->checkRobotYahooMultimedia() ||
-            $this->checkRobotW3CValidator();
+        $this->checkRobotGooglebot() ||
+        $this->checkRobotBingbot() ||
+        $this->checkRobotMsnBot() ||
+        $this->checkRobotSlurp() ||
+        $this->checkRobotYahooMultimedia() ||
+        $this->checkRobotW3CValidator();
     }
 
     /**
@@ -1797,7 +1787,7 @@ class BrowserDetection
 
         foreach ($needle as $currNeedle) {
             if ($findWords) {
-                $position = $this->wordPos($haystack, $currNeedle, $insensitive);
+                 $position = $this->wordPos($haystack, $currNeedle, $insensitive);
             } else {
                 if ($insensitive) {
                     $position = stripos($haystack, $currNeedle);
@@ -1991,14 +1981,11 @@ class BrowserDetection
         }
 
         switch ($verParts[0]) {
-            case 419:
-                $result = '2.0.4';
+            case 419: $result = '2.0.4';
                 break;
-            case 417:
-                $result = '2.0.3';
+            case 417: $result = '2.0.3';
                 break;
-            case 416:
-                $result = '2.0.2';
+            case 416: $result = '2.0.2';
                 break;
 
             case 412:
@@ -2057,18 +2044,14 @@ class BrowserDetection
                 }
                 break;
 
-            case 73:
-                $result = '0.9';
+            case 73: $result = '0.9';
                 break;
-            case 51:
-                $result = '0.8.1';
+            case 51: $result = '0.8.1';
                 break;
-            case 48:
-                $result = '0.8';
+            case 48: $result = '0.8';
                 break;
 
-            default:
-                $result = '';
+            default: $result = '';
         }
 
         return $result;
@@ -2197,8 +2180,7 @@ class BrowserDetection
         }
 
         switch ($verParts[0]) {
-            case 419:
-                $result = '2.0.4';
+            case 419: $result = '2.0.4';
                 break;
 
             case 418:
@@ -2209,12 +2191,10 @@ class BrowserDetection
                 }
                 break;
 
-            case 417:
-                $result = '2.0.3';
+            case 417: $result = '2.0.3';
                 break;
 
-            case 416:
-                $result = '2.0.2';
+            case 416: $result = '2.0.2';
                 break;
 
             case 412:
@@ -2253,10 +2233,9 @@ class BrowserDetection
                 }
                 break;
 
-                //WebKit 100 can be either Safari 1.1 (Safari build 100) or 1.1.1 (Safari build 100.1)
-                //for this reason, check the Safari build before the WebKit build.
-            case 100:
-                $result = '1.1.1';
+            //WebKit 100 can be either Safari 1.1 (Safari build 100) or 1.1.1 (Safari build 100.1)
+            //for this reason, check the Safari build before the WebKit build.
+            case 100: $result = '1.1.1';
                 break;
 
             case 85:
@@ -2273,18 +2252,14 @@ class BrowserDetection
                 }
                 break;
 
-            case 73:
-                $result = '0.9';
+            case 73: $result = '0.9';
                 break;
-            case 51:
-                $result = '0.8.1';
+            case 51: $result = '0.8.1';
                 break;
-            case 48:
-                $result = '0.8';
+            case 48: $result = '0.8';
                 break;
 
-            default:
-                $result = '';
+            default: $result = '';
         }
 
         return $result;
@@ -2394,7 +2369,7 @@ class BrowserDetection
 
         $regex = '/(?<=\A|[\s\/\\.,;:_()-])' . implode('[\s\/\\.,;:_()-]', $parts) . '(?=[\s\/\\.,;:_()-]|$)/';
         if ($insensitive) {
-            $regex .= 'i';
+             $regex .= 'i';
         }
 
         if (preg_match($regex, $haystack, $matches, PREG_OFFSET_CAPTURE)) {

@@ -1,0 +1,23 @@
+{
+    "name": "wolfcast/browser-detection",
+    "type": "library",
+    "description": "The Wolfcast BrowserDetection PHP class facilitates the identification of the user's environment such as Web browser, version, platform family, platform version or if it's a mobile device or not.",
+    "keywords": ["browser","detection","version","environment","platform","mobile"],
+    "homepage": "https://github.com/Wolfcast/BrowserDetection",
+    "license": "LGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Alexandre Valiquette",
+            "homepage": "https://wolfcast.com/",
+            "role": "Lead developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "classmap": [
+            "lib/BrowserDetection.php"
+        ]
+    }
+}

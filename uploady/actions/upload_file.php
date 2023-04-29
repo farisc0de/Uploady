@@ -10,7 +10,6 @@ header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
 use Uploady\Handler\UploadHandler;
-use Wolfcast\BrowserDetection;
 
 $utilty = new Farisc0de\PhpFileUploading\Utility();
 
@@ -18,7 +17,7 @@ $upload = new Farisc0de\PhpFileUploading\Upload();
 
 $dataCollection = new Uploady\DataCollection();
 
-$browser = new BrowserDetection();
+$browser = new Wolfcast\BrowserDetection();
 
 $role = new Uploady\Role($db, $user);
 
@@ -34,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $upload->createUserCloud("../" . UPLOAD_FOLDER);
 
     $upload->setUploadFolder([
-        "folder_name" => $upload->getUserCloud("../" . UPLOAD_FOLDER),
+        "folder_name" => $upload->getUserCloud(UPLOAD_FOLDER),
         "folder_path" => realpath($upload->getUserCloud("../" . UPLOAD_FOLDER)),
     ]);
 
@@ -46,45 +45,54 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $upload->setUpload(new Farisc0de\PhpFileUploading\File($_FILES['file']));
 
-    if ($upload->checkIfNotEmpty()) {
-
-        $upload->hashName();
-
-        if ($upload->checkSize()) {
-            if (
-                $upload->checkForbidden() &&
-                $upload->checkExtension() &&
-                $upload->checkMime()
-            ) {
-                if ($upload->upload()) {
-                    $handler->addFile(
-                        $upload->getFileID(),
-                        $upload->getUserID(),
-                        $upload->getJSON(),
-                        json_encode(
-                            [
-                                "ip_address" => $dataCollection->collectIP(),
-                                "country" => $dataCollection->idendifyCountry(),
-                                "browser" => $dataCollection->getBrowser($browser),
-                                "os" => $dataCollection->getOS()
-                            ]
-                        )
-                    );
-                }
-            }
-        }
+    if (!$upload->checkIfNotEmpty()) {
+        http_response_code(400);
+        echo json_encode([
+            "error" => "File is empty",
+        ]);
+        exit();
     }
-}
 
-$resp = $upload->getLogs();
-$files = $upload->getFiles();
+    $upload->hashName();
 
-if ($resp[0]['message'] == 0) {
+    if (!$upload->checkSize()) {
+        http_response_code(400);
+        echo json_encode([
+            "error" => "File size is too large",
+        ]);
+        exit();
+    }
+
+    if (
+        $upload->checkForbidden() &&
+        !$upload->checkExtension() &&
+        !$upload->checkMime()
+    ) {
+        http_response_code(400);
+        echo json_encode([
+            "error" => "File type is not allowed",
+        ]);
+        exit();
+    }
+
+    if ($upload->upload()) {
+        $handler->addFile(
+            $upload->getFileID(),
+            $upload->getUserID(),
+            $upload->getJSON(),
+            json_encode(
+                [
+                    "ip_address" => $dataCollection->collectIP(),
+                    "country" => $dataCollection->idendifyCountry(),
+                    "browser" => $dataCollection->getBrowser($browser),
+                    "os" => $dataCollection->getOS()
+                ]
+            )
+        );
+    }
+
+    $files = $upload->getFiles();
+
     http_response_code(200);
     echo json_encode($files[0]);
-} else {
-    http_response_code(400);
-    echo json_encode([
-        "error" => $upload->getMessage($resp[0]['message']),
-    ]);
 }

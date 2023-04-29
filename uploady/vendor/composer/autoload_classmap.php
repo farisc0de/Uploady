@@ -7,5 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'Wolfcast\\BrowserDetection' => $baseDir . '/src/BrowserDetection.php',
+    'Wolfcast\\BrowserDetection' => $vendorDir . '/wolfcast/browser-detection/lib/BrowserDetection.php',
 );
