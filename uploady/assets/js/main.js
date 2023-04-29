@@ -18,22 +18,8 @@ $(document).ready(function () {
     ],
     fixedColumns: true,
   });
-});
 
-$("#select-all").click(function (event) {
-  if (this.checked) {
-    $(":checkbox").each(function () {
-      this.checked = true;
-    });
-  } else {
-    $(":checkbox").each(function () {
-      this.checked = false;
-    });
-  }
-});
-
-$(document).ready(function () {
-  var table = $("#supported").DataTable({
+  $("#supported").DataTable({
     ordering: true,
     language: {
       url: `//cdn.datatables.net/plug-ins/1.13.4/i18n/${document
@@ -51,6 +37,18 @@ $(document).ready(function () {
       },
     ],
     fixedColumns: true,
+  });
+
+  $("#select-all").click(function (event) {
+    if (this.checked) {
+      $(":checkbox").each(function () {
+        this.checked = true;
+      });
+    } else {
+      $(":checkbox").each(function () {
+        this.checked = false;
+      });
+    }
   });
 });
 

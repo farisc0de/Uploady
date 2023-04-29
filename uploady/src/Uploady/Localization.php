@@ -158,4 +158,25 @@ class Localization
 
         return $this->db->resultset();
     }
+
+    /**
+     * Function to get language by code
+     *
+     * @param mixed $code
+     *  The language code
+     * @return mixed
+     *  An array contains the language data
+     */
+    public function getLanguageByCode($code)
+    {
+        $language = "SELECT * FROM languages WHERE language_code = :code";
+
+        $this->db->prepare($language);
+
+        $this->db->bind(":code", $code);
+
+        $this->db->execute();
+
+        return $this->db->single();
+    }
 }

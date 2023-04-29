@@ -62,13 +62,10 @@ if (isset($_SESSION)) {
 }
 
 $language = $_GET['lang'] ?? $localization->getLanguage();
+$direction = $localization->getLanguageByCode($language)->language_direction;
 $theme = $_GET['theme'] ?? $_SESSION['theme'] ?? 'light';
 
-if ($language == 'ar') {
-    $dir = 'dir="rtl" lang="ar"';
-} else {
-    $dir = 'dir="ltr" lang="en"';
-}
+$dir = "dir=\"{$direction}\" lang=\"{$language}\"";
 
 if ($theme == 'dark') {
     $_SESSION['theme'] = 'dark';
