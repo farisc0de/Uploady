@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $file = json_decode($handler->getFile($id)->file_data);
                 if ($handler->deleteFile($id, $_SESSION['user_id'])) {
                     unlink(
-                        realpath(APP_PATH . "uploads/{$_SESSION['user_id']}/{$file->filename}")
+                        realpath(APP_PATH . UPLOAD_FOLDER . "/{$_SESSION['user_id']}/{$file->filename}")
                     );
                 }
             }

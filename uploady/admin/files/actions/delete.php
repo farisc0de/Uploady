@@ -7,9 +7,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     foreach ($_POST['fileid'] as $id) {;
         $file = json_decode($handler->getFile($id)->file_data);
         $handler->deleteFileAsAdmin($id);
-        if (file_exists("uploads/{$_SESSION['user_id']}/{$file->filename}")) {
+        if (file_exists(UPLOAD_FOLDER . "/{$_SESSION['user_id']}/{$file->filename}")) {
             unlink(
-                realpath(APP_PATH . "uploads/{$_SESSION['user_id']}/{$file->filename}")
+                realpath(APP_PATH . UPLOAD_FOLDER . "/{$_SESSION['user_id']}/{$file->filename}")
             );
         }
     }

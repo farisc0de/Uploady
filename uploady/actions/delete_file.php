@@ -10,7 +10,7 @@ if (isset($_POST['file_id']) && isset($_POST['user_id'])) {
     if ($handler->fileExist($_POST['file_id']) && $handler->userExist($_POST['user_id'])) {
         $file = json_decode($handler->getFile($_POST['file_id'])->file_data);
         if ($handler->deleteFile($_POST['file_id'], $_POST['user_id'])) {
-            unlink(realpath("uploads/{$_POST['user_id']}/{$file->filename}"));
+            unlink(realpath("../" . UPLOAD_FOLDER . "/{$_POST['user_id']}/{$file->filename}"));
             http_response_code(200);
             echo json_encode([
                 "status" => "success",
