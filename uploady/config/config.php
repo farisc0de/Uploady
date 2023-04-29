@@ -7,7 +7,7 @@ define("DB_PASS", "");
 define("DB_NAME", "uploady");
 
 // Application Settings
-define("SITE_URL", "http://localhost/uploady"); // Example: http://localhost/uploady
+define("SITE_URL", "http://192.168.1.2/Uploady/uploady"); // Example: http://localhost/uploady
 define("APP_PATH", dirname(__FILE__, 2) . DIRECTORY_SEPARATOR); // ( Don't Change );
 define("LOGS_PATH", APP_PATH . "php_logs.log"); // ( Don't Change );
 

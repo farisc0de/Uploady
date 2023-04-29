@@ -13,7 +13,6 @@ namespace Farisc0de\PhpFileUploading;
  * @link https://github.com/farisc0de/PhpFileUploading
  */
 
-#[AllowDynamicProperties]
 final class Upload
 {
     /**
@@ -162,8 +161,6 @@ final class Upload
      *  An array that contain the upload folder full path and name
      * @param string $controller
      *  The folder name of folder that contains the json filters and the class file
-     * @param string $upload_controller
-     *  The upload controller that contains the factory code like upload.php
      * @param int $size
      *  The miximum size that the class allow to upload
      * @param int $max_height
@@ -185,7 +182,6 @@ final class Upload
         $upload_folder = [],
         $controller = null,
         $site_url = '',
-        $upload_controller = "upload.php",
         $size = "5 GB",
         $max_height = null,
         $max_width = null,
@@ -199,7 +195,6 @@ final class Upload
         $this->upload_folder = $upload_folder;
         $this->controller = $this->util->sanitize($controller);
         $this->site_url = $this->util->sanitize($site_url);
-        $this->upload_controller = $this->util->sanitize($upload_controller);
         $this->size = $this->util->sizeInBytes($this->util->sanitize($size));
         $this->max_height = $max_height;
         $this->max_width = $max_width;
@@ -229,17 +224,6 @@ final class Upload
     public function setController($controller)
     {
         $this->controller = $this->util->sanitize($controller);
-    }
-    /**
-     * Set the upload controller file
-     *
-     * @param string $upload_controller
-     *  The upload controller that contains the factory code like upload.php
-     * @return void
-     */
-    public function setUploadController($upload_controller)
-    {
-        $this->upload_controller = realpath($this->util->sanitize($upload_controller));
     }
     /**
      * Enable File Uploading Protection and Filters
@@ -346,6 +330,12 @@ final class Upload
         return true;
     }
 
+    /** 
+     * Get current user folder path
+     * 
+     * @return string
+     *  Return the current user folder path
+     */
     public function getUserCloud($main_upload_folder = null)
     {
         $user_id = $this->getUserID();
@@ -360,6 +350,7 @@ final class Upload
 
         return $user_cloud;
     }
+
     /**
      * Firewall 1: Check File Extension
      *
@@ -412,6 +403,7 @@ final class Upload
 
         return true;
     }
+
     /**
      * Firewall 4: Check file size limit
      *
@@ -427,6 +419,7 @@ final class Upload
 
         return true;
     }
+
     /**
      * Extra Firewall 1: Check an image dimenstions aginst the class dimenstions
      *
@@ -501,8 +494,9 @@ final class Upload
                 break;
         }
     }
+
     /**
-     * Extra Firewall 2: Function to check if uploaded file is an image
+     * Function to check if uploaded file is an image
      *
      * @return bool
      *  Return true if the uploaded file is a real image otherwise false
@@ -523,6 +517,7 @@ final class Upload
 
         return true;
     }
+
     /**
      * Function to set the miximum class image dimenstions to validate them
      *
@@ -537,6 +532,7 @@ final class Upload
         $this->max_height = $height;
         $this->max_width = $width;
     }
+
     /**
      * Function to set the minimum class image dimenstions to validate them
      *
@@ -551,6 +547,7 @@ final class Upload
         $this->min_height = $height;
         $this->min_width = $width;
     }
+
     /**
      * Function to check if the HTML input is empty or not
      *
@@ -566,6 +563,7 @@ final class Upload
 
         return true;
     }
+
     /**
      * Generate a Qr Code of the download url
      *
@@ -582,6 +580,7 @@ final class Upload
             $this->generateDownloadLink() .
             "&choe=UTF-8";
     }
+
     /**
      * Generate a download link
      *
@@ -599,6 +598,7 @@ final class Upload
             $file_id
         );
     }
+
     /**
      * Generate a delete link
      *
@@ -619,6 +619,7 @@ final class Upload
             $user_id
         );
     }
+
     /**
      * Generate a direct download link
      *
@@ -636,6 +637,7 @@ final class Upload
             $filename
         );
     }
+
     /**
      * Get the unique file id
      *
@@ -646,17 +648,18 @@ final class Upload
     {
         return $this->file_id;
     }
+
     /**
      * Get the unique user id for security
      *
      * @return string
      *  Return the unique user id
      */
-
     public function getUserID()
     {
         return $this->user_id;
     }
+
     /**
      * Set the site url manualy when needed to generate links
      *
@@ -669,6 +672,7 @@ final class Upload
 
         $this->site_url = $site_url;
     }
+
     /**
      * Return an "SHA1 Hashed File Name" of the uploaded file
      *
@@ -684,6 +688,7 @@ final class Upload
 
         return true;
     }
+
     /**
      * Function to upload the file to the server
      *
@@ -714,6 +719,7 @@ final class Upload
             return true;
         }
     }
+
     /**
      * Function to upload file to the server using chunck system
      *
@@ -748,6 +754,7 @@ final class Upload
 
         return true;
     }
+
     /**
      * Function to create an upload folder and secure it
      *
@@ -795,6 +802,7 @@ final class Upload
                 "/" . "index.php", $content);
         }
     }
+
     /**
      * Return the files from the upload folder to view them
      *
@@ -805,6 +813,7 @@ final class Upload
     {
         return scandir($this->upload_folder['folder_path']);
     }
+
     /**
      * Check if a file exist and it is a real file
      *
@@ -818,6 +827,7 @@ final class Upload
         $file_name = $this->util->sanitize($file_name);
         return file_exists($file_name) && is_file($file_name);
     }
+
     /**
      * Check if a directory exist and it is a real directory
      *
@@ -832,6 +842,7 @@ final class Upload
 
         return is_dir($dir_name) && file_exists($dir_name);
     }
+
     /**
      * Create a callback function when needed after or before an operation
      *
@@ -848,6 +859,7 @@ final class Upload
             return call_user_func_array($function, $args);
         }
     }
+
     /**
      * Add a message the system log
      *
@@ -866,6 +878,7 @@ final class Upload
 
         array_push($this->logs, $message);
     }
+
     /**
      * Get all logs from system log to view them
      *
@@ -876,6 +889,7 @@ final class Upload
     {
         return $this->logs;
     }
+
     /**
      * Get a system log message by an array index id
      *
@@ -888,6 +902,7 @@ final class Upload
     {
         return $this->logs[$log_id];
     }
+
     /**
      * Set php.ini settings using an array
      *
@@ -912,6 +927,7 @@ final class Upload
 
         file_put_contents('php.ini', '[PHP]' . "\n" . implode("\n", $sttings));
     }
+
     /**
      * Get all the uploaded file information in JSON
      *
@@ -938,6 +954,7 @@ final class Upload
 
         return json_encode($data);
     }
+
     /**
      * Function to add a file to the files array
      *
@@ -949,6 +966,7 @@ final class Upload
     {
         array_push($this->files, json_decode($json_string, true));
     }
+
     /**
      * Function to return an array with all the uploaded files information
      *
@@ -958,6 +976,7 @@ final class Upload
     {
         return $this->files;
     }
+
     /**
      * Function to get a log message using a message index id
      *
@@ -983,6 +1002,7 @@ final class Upload
     {
         $this->file_id = hash("sha1", uniqid("file-"));
     }
+
     /**
      * Generate a User ID for each uploaded file
      *

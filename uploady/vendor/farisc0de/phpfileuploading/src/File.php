@@ -43,6 +43,7 @@ class File
     {
         return $this->fixintOverflow($this->file['size']);
     }
+
     /**
      * Function to return the file input extension
      *
@@ -53,6 +54,7 @@ class File
     {
         return strtolower(pathinfo($this->getName(), PATHINFO_EXTENSION));
     }
+
     /**
      * Function to get the MIME type using the server
      *
@@ -70,6 +72,7 @@ class File
 
         return $mtype;
     }
+
     /**
      * Function that return the uploaded file MIME type
      *
@@ -80,6 +83,7 @@ class File
     {
         return $this->file['type'];
     }
+
     /**
      * Return the name of the uploaded file
      *
@@ -90,6 +94,7 @@ class File
     {
         return $this->file['name'];
     }
+
     /**
      * Return the PHP Generated name for the uploaded file
      *
@@ -100,6 +105,7 @@ class File
     {
         return $this->file['tmp_name']; // Return the PHP Generated Temp name
     }
+
     /**
      * Function to check if the file is empty or not
      *
@@ -114,6 +120,7 @@ class File
 
         return false;
     }
+
     /**
      * Get the date of the uploaded file
      *
@@ -124,10 +131,18 @@ class File
     {
         return filemtime($this->getTempName());
     }
+
+    /**
+     * Get the file hash
+     *
+     * @return string
+     *  Return the file hash as string
+     */
     public function getFileHash()
     {
         return  hash_file('sha1', $this->getTempName());
     }
+
     /**
      * Ensure correct value for big ints
      *

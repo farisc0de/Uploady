@@ -58,9 +58,7 @@
         "mp3": "audio/mpeg",
         "mpg": "video/mpeg",
         "mpeg": "video/mpeg",
-        "ogm": "video/ogg",
-        "exe": "application/x-msdownload",
-        "msi": "application/x-msdownload"
+        "ogm": "video/ogg"
     },
     "forbidden": [
         "b374k.php",
