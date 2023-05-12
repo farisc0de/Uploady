@@ -7,9 +7,9 @@ $utils = new Uploady\Utils();
 
 $database = new Uploady\Database();
 
-$install = new \Farisc0de\PhpMigration\Migration($db, $utils);
+$install = new \Farisc0de\PhpMigration\Migration($database, $utils);
 
-$upload = new Farisc0de\PhpFileUploading\Upload();
+$upload = new Farisc0de\PhpFileUploading\Upload(new Farisc0de\PhpFileUploading\Utility());
 
 $php_alert =  "";
 
@@ -27,11 +27,7 @@ $required_libs = [
 $is_installed = [];
 
 foreach ($required_libs as $lib_name => $lib_id) {
-    if (extension_loaded($lib_id) == true) {
-        array_push($is_installed, ["name" => $lib_name, "status" => "Installed", "bool" => true]);
-    } else {
-        array_push($is_installed, ["name" => $lib_name, "status" => "Missing", "bool" => false]);
-    }
+    array_push($is_installed, ["name" => $lib_name, "status" => extension_loaded($lib_id) ? "Installed" : "Missing"]);
 }
 
 $writables = [
@@ -43,26 +39,17 @@ $writables = [
 $is_writable = [];
 
 foreach ($writables as $file_name) {
-    if (is_writable($file_name) == true) {
-        array_push($is_writable, [
-            "name" => $file_name,
-            "status" => "Writable",
-            "bool" => true
-        ]);
-    } else {
-        array_push($is_writable, [
-            "name" => $file_name,
-            "status" => "Not Writable",
-            "bool" => false
-        ]);
-    }
+    array_push($is_writable, [
+        "name" => $file_name,
+        "status" => is_writable($file_name) == true ? "Writable" : "Not Writable",
+    ]);
 }
 
 $disabled = "";
 
 if (
-    $utils->findKeyValue($is_installed, "bool", false) ||
-    $utils->findKeyValue($is_writable, "bool", false) ||
+    $utils->findKeyValue($is_installed, "status", "Missing") ||
+    $utils->findKeyValue($is_writable, "status", "Not Writable") ||
     PHP_VERSION_ID < 70200
 ) {
     $disabled = "disabled";

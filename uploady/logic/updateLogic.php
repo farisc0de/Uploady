@@ -9,7 +9,7 @@ $database = new Uploady\Database();
 
 $update = new Uploady\Migration\Migration($database, $utils);
 
-$upload = new Farisc0de\PhpFileUploading\Upload();
+$upload = new Farisc0de\PhpFileUploading\Upload($utils);
 
 $update->insertValue(
     "settings",

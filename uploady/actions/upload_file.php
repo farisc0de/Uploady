@@ -13,7 +13,7 @@ use Uploady\Handler\UploadHandler;
 
 $utilty = new Farisc0de\PhpFileUploading\Utility();
 
-$upload = new Farisc0de\PhpFileUploading\Upload();
+$upload = new Farisc0de\PhpFileUploading\Upload($utilty);
 
 $dataCollection = new Uploady\DataCollection();
 
@@ -22,8 +22,6 @@ $browser = new Wolfcast\BrowserDetection();
 $role = new Uploady\Role($db, $user);
 
 $handler = new UploadHandler($db);
-
-$upload->setController("../vendor/farisc0de/phpfileuploading/src/");
 
 $upload->setSiteUrl(SITE_URL);
 
@@ -43,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $upload->generateFileID();
 
-    $upload->setUpload(new Farisc0de\PhpFileUploading\File($_FILES['file']));
+    $upload->setUpload(new Farisc0de\PhpFileUploading\File($_FILES['file'], $utilty));
 
     if (!$upload->checkIfNotEmpty()) {
         http_response_code(400);

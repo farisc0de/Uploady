@@ -38,12 +38,6 @@ final class Upload
      */
     private $filter_array = [];
     /**
-     * Class Controller Path
-     *
-     * @var string
-     */
-    private $controller;
-    /**
      * Array For the upload folder data
      *
      * Example: ["folder_name" => "upload", "folder_path" => "upload/"]
@@ -178,9 +172,9 @@ final class Upload
      * @return void
      */
     public function __construct(
+        $util,
         $file = null,
         $upload_folder = [],
-        $controller = null,
         $site_url = '',
         $size = "5 GB",
         $max_height = null,
@@ -190,10 +184,9 @@ final class Upload
         $file_id = null,
         $user_id = null
     ) {
+        $this->util = $util;
         $this->file = $file;
-        $this->util = new Utility();
         $this->upload_folder = $upload_folder;
-        $this->controller = $this->util->sanitize($controller);
         $this->site_url = $this->util->sanitize($site_url);
         $this->size = $this->util->sizeInBytes($this->util->sanitize($size));
         $this->max_height = $max_height;
@@ -215,17 +208,6 @@ final class Upload
         $this->file = $file;
     }
     /**
-     * Function to set the controller when needed
-     *
-     * @param string $controller
-     *  The folder name of folder that contains the json filters and the class file
-     * @return void
-     */
-    public function setController($controller)
-    {
-        $this->controller = $this->util->sanitize($controller);
-    }
-    /**
      * Enable File Uploading Protection and Filters
      *
      * @return void
@@ -235,7 +217,7 @@ final class Upload
         $this->name_array = json_decode(
             file_get_contents(
                 $this->util->sanitize(
-                    $this->controller . "filter.json"
+                    realpath(__DIR__) . DIRECTORY_SEPARATOR . "filter.json"
                 ),
             ),
             true
@@ -243,7 +225,7 @@ final class Upload
 
         $this->filter_array = json_decode(
             file_get_contents(
-                $this->controller . "filter.json"
+                realpath(__DIR__) . DIRECTORY_SEPARATOR . "filter.json"
             ),
             true
         )['extensions'];
@@ -260,7 +242,7 @@ final class Upload
      */
     public function setForbiddenFilter($forbidden_array)
     {
-        $this->name_array = $forbidden_array; // Custom name filter array
+        $this->name_array = $forbidden_array;
     }
     /**
      * Set Extension array to a custom list when needed
@@ -336,6 +318,14 @@ final class Upload
      * @return string
      *  Return the current user folder path
      */
+    /**
+     * Get the current user cloud folder
+     *
+     * @param string $main_upload_folder
+     * The main upload folder
+     *
+     * @return string
+     */
     public function getUserCloud($main_upload_folder = null)
     {
         $user_id = $this->getUserID();
@@ -352,7 +342,7 @@ final class Upload
     }
 
     /**
-     * Firewall 1: Check File Extension
+     * Check File Extension
      *
      * @return bool
      *  Return true it the uploaded file extenstion is allowed
@@ -369,7 +359,7 @@ final class Upload
     }
 
     /**
-     * Firewall 2: Check File MIME Type
+     * Check File MIME Type
      *
      * @return bool
      *  Return true if the uploaded file MIME type is allowed
@@ -389,7 +379,7 @@ final class Upload
     }
 
     /**
-     * Firewall 3: Check File Name is Forbidden
+     * Check File Name is Forbidden
      *
      * @return bool
      *  Return true if the name is forbidden
@@ -405,7 +395,7 @@ final class Upload
     }
 
     /**
-     * Firewall 4: Check file size limit
+     * Check file size limit
      *
      * @return bool
      *  Return true if the uploaded file size does not exceed the limit
@@ -421,7 +411,7 @@ final class Upload
     }
 
     /**
-     * Extra Firewall 1: Check an image dimenstions aginst the class dimenstions
+     * Check an image dimenstions aginst the class dimenstions
      *
      * @param int $opreation
      *  Filters opreations from 0 to 5
@@ -567,18 +557,14 @@ final class Upload
     /**
      * Generate a Qr Code of the download url
      *
-     * @param string $qr_size
-     *  The size ot the qr code image
      * @return string
      *  Return the qr code image url to display
      */
-    public function generateQrCode($qr_size = "150x150")
+    public function generateQrCode()
     {
-        return "https://chart.googleapis.com/chart?chs=" .
-            $this->util->sanitize($qr_size) .
-            "&cht=qr&chl=" .
+        return "https://quickchart.io/qr?text=" .
             $this->generateDownloadLink() .
-            "&choe=UTF-8";
+            "&size=150";
     }
 
     /**
@@ -768,39 +754,13 @@ final class Upload
             @mkdir($this->util->sanitize($folder_name));
             @chmod($this->util->sanitize($folder_name), 0777);
 
-            $this->protectFoler($folder_name);
+            $this->util->protectFolder($folder_name);
         }
 
         $this->setUploadFolder([
             "folder_name" => $folder_name,
             "folder_path" => realpath($folder_name)
         ]);
-    }
-
-    /**
-     * Function to potect a folder
-     *
-     * @param string $folder_name
-     *  The folder name you want protect
-     * @return void
-     */
-    public function protectFoler($folder_name)
-    {
-        if (!file_exists($folder_name . "/" . ".htaccess")) {
-            $content = "Options -Indexes" . "\n";
-            $content .= "<Files .htaccess>" . "\n";
-            $content .= "Order allow,deny" . "\n";
-            $content .= "Deny from all" . "\n";
-            $content .= "</Files>";
-            @file_put_contents($this->util->sanitize($folder_name) .
-                "/" . ".htaccess", $content);
-        }
-
-        if (!file_exists($this->util->sanitize($folder_name) . "/" . "index.php")) {
-            $content = "<?php http_response_code(403); ?>";
-            @file_put_contents($this->util->sanitize($folder_name) .
-                "/" . "index.php", $content);
-        }
     }
 
     /**
@@ -844,23 +804,6 @@ final class Upload
     }
 
     /**
-     * Create a callback function when needed after or before an operation
-     *
-     * @param callback $function
-     *  A callback function to execute
-     * @param mixed $args
-     *  A single paramter or an array that contains multiple paramters
-     * @return mixed
-     *  Return the callback function output
-     */
-    public function callback($function, $args = [])
-    {
-        if (is_callable($function)) {
-            return call_user_func_array($function, $args);
-        }
-    }
-
-    /**
      * Add a message the system log
      *
      * @param mixed $id
@@ -901,31 +844,6 @@ final class Upload
     public function getLog($log_id)
     {
         return $this->logs[$log_id];
-    }
-
-    /**
-     * Set php.ini settings using an array
-     *
-     * Example: setINI(["file_uploads"=>1])
-     *
-     * @param array $ini_settings
-     *  An array the contains the ini settings variables and values
-     * @return void
-     */
-    public function setINI($ini_settings)
-    {
-        $sttings = [];
-
-        foreach ($ini_settings as $key => $value) {
-            ini_set($key, $value);
-            $sttings[] = $key . "=" . $value;
-        }
-
-        if (is_file("php.ini") == false) {
-            touch('php.ini');
-        }
-
-        file_put_contents('php.ini', '[PHP]' . "\n" . implode("\n", $sttings));
     }
 
     /**
@@ -1021,5 +939,20 @@ final class Upload
             hash("sha1", "user-" . session_id());
 
         return true;
+    }
+
+    /**
+     * Inject a dependency class to the main class
+     *
+     * @param string $class_name
+     *  The name of the class to inject
+     * @param object $class
+     *  The class object to inject
+     *
+     * @return void
+     */
+    public function injectClass($class_name, $class)
+    {
+        $this->$class_name = $class;
     }
 }

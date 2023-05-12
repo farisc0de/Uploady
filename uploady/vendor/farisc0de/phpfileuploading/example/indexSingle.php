@@ -4,13 +4,11 @@ include '../src/Upload.php';
 include '../src/File.php';
 include '../src/Utility.php';
 
-
 use Farisc0de\PhpFileUploading\File;
 use Farisc0de\PhpFileUploading\Upload;
+use Farisc0de\PhpFileUploading\Utility;
 
-$upload = new Upload();
-
-$upload->setController('../src/');
+$upload = new Upload(new Utility());
 
 $upload->setUploadFolder([
     'folder_name' => 'uploads',
@@ -20,7 +18,7 @@ $upload->setUploadFolder([
 $upload->enableProtection();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $file = new File($_FILES['file']);
+    $file = new File($_FILES['file'], new Utility());
 
     $upload->setUpload($file);
 

@@ -22,15 +22,22 @@ class File
      */
     private $file;
     /**
+     * Utility Class
+     *
+     * @var Utility
+     */
+    private $utility;
+    /**
      * Class Constructor to initialize attributes
      *
      * @param array $file
      *  An array of the upload file information coming from $_FILES
      * @return void
      */
-    public function __construct($file)
+    public function __construct($file, $utility)
     {
         $this->file = $file;
+        $this->utility = $utility;
     }
 
     /**
@@ -41,7 +48,7 @@ class File
      */
     public function getSize()
     {
-        return $this->fixintOverflow($this->file['size']);
+        return $this->utility->fixintOverflow($this->file['size']);
     }
 
     /**
@@ -141,20 +148,5 @@ class File
     public function getFileHash()
     {
         return  hash_file('sha1', $this->getTempName());
-    }
-
-    /**
-     * Ensure correct value for big ints
-     *
-     * @param int $int
-     * @return float
-     */
-    private function fixintOverflow($int)
-    {
-        if ($int < 0) {
-            $int += 2.0 * (PHP_INT_MAX + 1);
-        }
-
-        return $int;
     }
 }

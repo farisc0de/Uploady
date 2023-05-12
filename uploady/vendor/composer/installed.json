@@ -2,20 +2,20 @@
     "packages": [
         {
             "name": "farisc0de/phpfileuploading",
-            "version": "v1.0.2",
-            "version_normalized": "1.0.2.0",
+            "version": "v1.0.3",
+            "version_normalized": "1.0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/farisc0de/PhpFileUploading.git",
-                "reference": "56cb072efb7c3031be8eccde7fee1d416dd4e9b9"
+                "reference": "a220fda30f68176bbdd277939077b81c6e500128"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/farisc0de/PhpFileUploading/zipball/56cb072efb7c3031be8eccde7fee1d416dd4e9b9",
-                "reference": "56cb072efb7c3031be8eccde7fee1d416dd4e9b9",
+                "url": "https://api.github.com/repos/farisc0de/PhpFileUploading/zipball/a220fda30f68176bbdd277939077b81c6e500128",
+                "reference": "a220fda30f68176bbdd277939077b81c6e500128",
                 "shasum": ""
             },
-            "time": "2023-04-29T08:47:36+00:00",
+            "time": "2023-05-04T04:46:45+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -36,7 +36,7 @@
             "description": "PHP Library to help you build your own file sharing website.",
             "support": {
                 "issues": "https://github.com/farisc0de/PhpFileUploading/issues",
-                "source": "https://github.com/farisc0de/PhpFileUploading/tree/v1.0.2"
+                "source": "https://github.com/farisc0de/PhpFileUploading/tree/v1.0.3"
             },
             "install-path": "../farisc0de/phpfileuploading"
         },

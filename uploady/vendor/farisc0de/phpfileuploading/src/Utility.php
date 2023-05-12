@@ -109,4 +109,72 @@ class Utility
 
         return $file_array;
     }
+
+    /**
+     * Set php.ini settings using an array
+     *
+     * Example: setINI(["file_uploads"=>1])
+     *
+     * @param array $ini_settings
+     *  An array the contains the ini settings variables and values
+     * @return void
+     */
+    public function setINI($ini_settings)
+    {
+        $sttings = [];
+
+        foreach ($ini_settings as $key => $value) {
+            ini_set($key, $value);
+            $sttings[] = $key . "=" . $value;
+        }
+
+        if (is_file("php.ini") == false) {
+            touch('php.ini');
+        }
+
+        file_put_contents('php.ini', '[PHP]' . "\n" . implode("\n", $sttings));
+    }
+
+    /**
+     * Create a callback function when needed after or before an operation
+     *
+     * @param callback $function
+     *  A callback function to execute
+     * @param mixed $args
+     *  A single paramter or an array that contains multiple paramters
+     * @return mixed
+     *  Return the callback function output
+     */
+    public function callback($function, $args = [])
+    {
+        if (is_callable($function)) {
+            return call_user_func_array($function, $args);
+        }
+    }
+
+    /**
+     * Function to potect a folder
+     *
+     * @param string $folder_name
+     *  The folder name you want protect
+     * @return void
+     */
+    public function protectFolder($folder_name)
+    {
+        if (!file_exists($folder_name . "/" . ".htaccess")) {
+            $content = "Options -Indexes" . "\n";
+            $content .= "<Files .htaccess>" . "\n";
+            $content .= "Order allow,deny" . "\n";
+            $content .= "Deny from all" . "\n";
+            $content .= "</Files>";
+            @file_put_contents($this->sanitize($folder_name) .
+                "/" . ".htaccess", $content);
+        }
+
+        if (!file_exists($this->sanitize($folder_name) . "/" . "index.php")) {
+            $content = "<?php http_response_code(403); ?>";
+            @file_put_contents($this->sanitize($folder_name) .
+                "/" . "index.php", $content);
+        }
+    }
 }

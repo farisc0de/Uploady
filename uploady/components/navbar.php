@@ -37,8 +37,8 @@
                       </a>
 
                       <div class="dropdown-menu dropdown-menu-end" aria-labelledby="themeswitcher">
-                          <a class="dropdown-item" href="?theme=light"><?= $lang['theme']['light'] ?></a>
-                          <a class="dropdown-item" href="?theme=dark"><?= $lang['theme']['dark'] ?></a>
+                          <a class="dropdown-item" href="<?= $utils->siteUrl("/?theme=light"); ?>"><?= $lang['theme']['light'] ?></a>
+                          <a class="dropdown-item" href="<?= $utils->siteUrl("/?theme=dark"); ?>"><?= $lang['theme']['dark'] ?></a>
                       </div>
                   </li>
                   <li class="nav-item">
@@ -48,7 +48,7 @@
 
                       <div class="dropdown-menu dropdown-menu-end" aria-labelledby="langswitcher">
                           <?php foreach ($localization->getActiveLanguages() as $language) : ?>
-                              <a class="dropdown-item" href="?lang=<?= $language->language_code ?>"><?= $language->language ?></a>
+                              <a class="dropdown-item" href="<?= $utils->siteUrl("/?lang=$language->language_code") ?>"><?= $language->language ?></a>
                           <?php endforeach; ?>
                       </div>
                   </li>

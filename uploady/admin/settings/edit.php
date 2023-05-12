@@ -4,14 +4,13 @@ require_once  '../session.php';
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $status = null;
     $settings = new Uploady\Settings($db);
-    $upload = new \Farisc0de\PhpFileUploading\Upload();
+    $upload = new \Farisc0de\PhpFileUploading\Upload(new \Farisc0de\PhpFileUploading\Utility());
 
     if ($auth->checkToken($_POST['csrf'], $_SESSION['csrf']) == false) {
         $status = "csrf";
     } else {
 
         if (isset($_FILES['website_logo'])) {
-            $upload->setController(APP_PATH . "/vendor/farisc0de/phpfileuploading/src/");
             $upload->setSiteUrl(SITE_URL);
 
             $upload->setUploadFolder([
@@ -23,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
             $upload->setSizeLimit(1000000);
 
-            $upload->setUpload(new Farisc0de\PhpFileUploading\File($_FILES['website_logo']));
+            $upload->setUpload(new Farisc0de\PhpFileUploading\File($_FILES['website_logo'], new \Farisc0de\PhpFileUploading\Utility()));
 
             if ($upload->checkIfNotEmpty()) {
 

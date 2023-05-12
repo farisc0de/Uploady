@@ -1,0 +1,90 @@
+<?php include_once '../session.php'; ?>
+<?php include_once './logic/new.php'; ?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <?php include_once '../components/meta.php'; ?>
+    <title>View Translations - <?= $st['website_name'] ?></title>
+    <?php include_once '../components/css.php'; ?>
+</head>
+
+<body class="sb-nav-fixed">
+    <?php include_once '../components/navbar.php' ?>
+    <div id="layoutSidenav">
+        <?php include_once '../components/sidebar.php'; ?>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid">
+                    <h1 class="mt-4">Dashboard</h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ol>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fas fa-table mr-1"></i>
+                            DataTable Example
+                        </div>
+                        <div class="card-body">
+                            <form method="POST" action="./actions/new.php">
+
+                                <div class="form-group">
+                                    <select label="Select Languge" name="lang_id" id="lang_id" class="form-control custom-select">
+                                        <option>Select Languge</option>
+                                        <?php foreach ($langs as $key => $value) : ?>
+                                            <option value="<?= $key ?>"><?= $value ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <select label="Select a page to translate" name="page_id" id="page_id" class="form-control custom-select">
+                                        <option>Select a page to translate</option>
+                                        <?php foreach ($pages as $key => $value) : ?>
+                                            <option value="<?= $key ?>"><?= $value ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="form-label-group">
+                                        <input class="form-control" type="text" id="page_title" name="page_title" placeholder="Page title" value="<?= $settings->getSettingValue('smtp_port'); ?>">
+                                        <label for="page_title">Page title</label>
+                                    </div>
+                                </div>
+
+                                <textarea id="page_content" name="page_content" class="form-control" placeholder="Page content"></textarea>
+
+                                <div class="form-group mt-3">
+                                    <button class="btn btn-primary" type="submit">Create</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <?php include_once '../components/footer.php'; ?>
+        </div>
+    </div>
+    <?php include_once '../components/js.php'; ?>
+    <script src="../assets//js/tinymce/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea#page_content',
+            height: 500,
+            menubar: false,
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+            ],
+            toolbar: 'undo redo | formatselect | ' +
+                'bold italic backcolor | alignleft aligncenter ' +
+                'alignright alignjustify | bullist numlist outdent indent | ' +
+                'removeformat | help',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+        });
+    </script>
+</body>
+
+</html>

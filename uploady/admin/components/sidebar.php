@@ -41,7 +41,7 @@
                             </div>
                             Manage Pages
                         </a>
-                        <a class="nav-link" href="<?= $utils->siteUrl('/admin/transaltions/view.php'); ?>">
+                        <a class="nav-link" href="<?= $utils->siteUrl('/admin/translations/view.php'); ?>">
                             <div class="sb-nav-link-icon">
                                 <i class="fas fa-file-alt"></i>
                             </div>

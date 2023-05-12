@@ -5,10 +5,9 @@ include '../src/File.php';
 
 use Farisc0de\PhpFileUploading\Upload;
 use Farisc0de\PhpFileUploading\File;
+use Farisc0de\PhpFileUploading\Utility;
 
-$upload = new Upload();
-
-$upload->setController('../src/');
+$upload = new Upload(new Utility());
 
 $upload->setUploadFolder([
     'folder_name' => 'uploads',
@@ -21,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $files = $util->fixArray($_FILES['file']);
 
     foreach ($files as $file) {
-        $upload->setUpload(new File($file));
+        $upload->setUpload(new File($file, new Utility()));
 
         if ($upload->checkIfNotEmpty()) {
             if (!$upload->checkForbidden()) {
