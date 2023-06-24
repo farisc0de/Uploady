@@ -1,5 +1,5 @@
 <?php
-$upload = new \Farisc0de\PhpFileUploading\Upload($utils);
+$upload = new \Farisc0de\PhpFileUploading\Upload(new \Farisc0de\PhpFileUploading\Utility());
 
 $mailer = new Uploady\Mailer($db);
 

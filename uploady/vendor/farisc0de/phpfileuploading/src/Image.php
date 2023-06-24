@@ -3,7 +3,7 @@
 namespace Farisc0de\PhpFileUploading;
 
 /**
- * Image Manipulation Class
+ * Image Class
  *
  * @version 1.5.3
  * @category File_Upload
@@ -14,4 +14,8 @@ namespace Farisc0de\PhpFileUploading;
  */
 class Image
 {
+    public function encodeImage($image_data, $image_type)
+    {
+        return 'data:image/' . $image_type . ';base64,' . base64_encode($image_data);
+    }
 }
