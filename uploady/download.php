@@ -66,4 +66,5 @@ include_once APP_PATH . 'logic/downloadLogic.php';
     </div>
   </div>
 </div>
+
 <?php include_once 'components/footer.php'; ?>

@@ -2,6 +2,16 @@
 
 namespace Uploady;
 
+/**
+ * A class that handles Page Translation
+ *
+ * @package Uploady
+ * @version 1.5.3
+ * @author fariscode <farisksa79@protonmail.com>
+ * @license MIT
+ * @link https://github.com/farisc0de/Uploady
+ */
+
 class PageTranslation
 {
     private $db;

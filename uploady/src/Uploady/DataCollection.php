@@ -2,6 +2,16 @@
 
 namespace Uploady;
 
+/**
+ * Simple Class that handles data collection
+ *
+ * @package Uploady
+ * @version 1.5.3
+ * @author fariscode <farisksa79@protonmail.com>
+ * @license MIT
+ * @link https://github.com/farisc0de/Uploady
+ */
+
 class DataCollection
 {
     /**
@@ -29,7 +39,7 @@ class DataCollection
 
     /**
      * Function to identify the user browser
-     * @param mixed $browserDetection
+     * @param \Wolfcast\BrowserDetection $browserDetection
      *  The browser detection object
      *
      * @return mixed

@@ -7,9 +7,9 @@ define("DB_PASS", "");
 define("DB_NAME", "uploady");
 
 // Application Settings
-define("SITE_URL", "http://localhost/uploady"); // Example: http://localhost/uploady
-define("APP_PATH", dirname(__FILE__, 2) . DIRECTORY_SEPARATOR); // ( Don't Change );
-define("LOGS_PATH", APP_PATH . "php_logs.log"); // ( Don't Change );
+define("SITE_URL", "http://localhost/uploady");
+define("APP_PATH", dirname(__FILE__, 2) . DIRECTORY_SEPARATOR);
+define("LOGS_PATH", APP_PATH . "php_logs.log");
 
 // Upload Settings
 define("MAX_SIZE", "1 GB");
