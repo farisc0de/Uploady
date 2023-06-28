@@ -7,7 +7,7 @@ $utils->script("https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.js");
 $utils->script("https://platform-api.sharethis.com/js/sharethis.js#property={$st['sharethis_code']}&product=inline-share-buttons");
 $utils->script("https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js");
 $utils->script("https://cdn.datatables.net/fixedcolumns/4.2.2/js/dataTables.fixedColumns.min.js");
-$utils->script("https://cdnjs.cloudflare.com/ajax/libs/camanjs/4.1.1/caman.full.min.js");
+$utils->script("vendor/camansjs/dist/caman.full.js");
 $utils->script("js/main.js");
 $utils->script("js/editor.js");
 $utils->script("js/custom.js");

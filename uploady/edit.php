@@ -12,9 +12,9 @@
 
                     <input type="hidden" id="file_name" value="<?= $file['filename'] ?>">
 
-                    <div class="alert alert success" id="alert"></div>
+                    <div class="alert alert-success" id="alert"></div>
 
-                    <img class="img-fluid" name="canvas" id="canvas" src="<?= $picture ?>"></img>
+                    <img name="canvas" id="canvas" src="<?= $picture ?>"></img>
 
                     <h4 class="text-center my-3">Filters</h4>
 
