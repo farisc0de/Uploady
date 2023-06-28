@@ -29,3 +29,9 @@ body {
     margin: 7.2em 0;
   }
 }
+
+#canvas {
+  margin: auto;
+  background-color: #ececec;
+  width: 100%;
+}

@@ -18,7 +18,7 @@
                                 <input type="email" class="form-control" name="emailaddress" placeholder="name@example.com">
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" name="fileurl" placeholder="<?= $lang['file_url_placeholder'] ?>" value="<?= $_GET['file_id'] ?? null ?>">
+                                <input type="text" class="form-control" name="fileurl" placeholder="<?= $lang['file_url_placeholder'] ?>" value="<?= $_GET['file_id'] ?? null ?>" readonly>
                             </div>
                             <div class="mb-3">
                                 <textarea class="form-control" name="fileabusenote" cols="30" rows="10" placeholder="<?= $lang['file_abuse_notes_placeholder'] ?>"></textarea>

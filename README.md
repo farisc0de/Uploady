@@ -82,7 +82,7 @@ Make Uploads Folder Writeble `chmod 777 uploads`
 - [x] More charts and stats for admin
 - [x] Implementing data collection [IP Address, Browser Information, OS, Country]
 - [x] Adding more features to admin panel
-- [ ] Image Manipulation
+- [x] Image Manipulation
 - [x] Adding AdSense Support
 - [x] Adding Google Analytics Support
 - [x] Adding 2FA for users

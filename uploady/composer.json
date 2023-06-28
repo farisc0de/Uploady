@@ -5,8 +5,7 @@
     "farisc0de/phpfileuploading": "^1.0",
     "robthree/twofactorauth": "^1.8",
     "wolfcast/browser-detection": "^2.9",
-    "farisc0de/phpmigration": "^1.0",
-    "intervention/image": "^2.7"
+    "farisc0de/phpmigration": "^1.0"
   },
   "autoload": {
     "psr-4": {

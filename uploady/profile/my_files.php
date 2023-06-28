@@ -70,7 +70,7 @@ include_once 'logic/myFilesLogic.php';
                                                         </a>
                                                     </li>
                                                     <li class="list-inline-item">
-                                                        <a href="edit_file.php?imageid=<?= $file['file_id']; ?>">
+                                                        <a href="<?= $file['editlink'] ?>">
                                                             <i class="fa fa-edit" aria-hidden="true"></i>
                                                         </a>
                                                     </li>

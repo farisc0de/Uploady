@@ -607,6 +607,27 @@ final class Upload
     }
 
     /**
+     * Generate a edit link
+     *
+     * @return string
+     *  Return a well formatted edit file link with a custom edit page
+     */
+    public function generateEditLink()
+    {
+        // Get user paramters [ file_id, user_id ]
+        $file_id = $this->file_id;
+        $user_id = $this->user_id;
+
+        return sprintf(
+            "%s/%s?file_id=%s&user_id=%s",
+            $this->site_url,
+            "edit.php",
+            $file_id,
+            $user_id
+        );
+    }
+
+    /**
      * Generate a direct download link
      *
      * @return string
@@ -868,6 +889,7 @@ final class Upload
             $data['downloadlink'] = $this->generateDownloadLink();
             $data['directlink'] = $this->generateDirectDownloadLink();
             $data['deletelink'] = $this->generateDeleteLink();
+            $data['editlink'] = $this->generateEditLink();
         }
 
         return json_encode($data);
