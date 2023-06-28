@@ -97,10 +97,10 @@ Make Uploads Folder Writeble `chmod 777 uploads`
 - [ ] Adding delete files after x days
 - [ ] Adding delete files after x downloads
 - [ ] Adding report abuse page
-- [ ] Adding social media sharing
+- [x] Adding social media sharing
 - [ ] Adding Social Media Accounts in footer
 - [x] Overall Bug Fixing
-- [ ] Overall Code Refactoring
+- [x] Overall Code Refactoring
 
 ## License
 

@@ -323,6 +323,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ]
         );
 
+        $install->insertValue(
+            "settings",
+            [
+                'setting_key' => 'website_favicon',
+                'setting_value' => null
+            ]
+        );
 
         $install->insertValue(
             "settings",

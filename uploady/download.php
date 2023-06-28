@@ -42,9 +42,13 @@ include_once APP_PATH . 'logic/downloadLogic.php';
               </div>
             </div>
 
-            <div class="pt-3 pb-2">
-              <div class="sharethis-inline-share-buttons"></div>
-            </div>
+            <?php if ($settings->getSettingValue('sharethis_status')) : ?>
+
+              <div class="pt-3 pb-2">
+                <div class="sharethis-inline-share-buttons"></div>
+              </div>
+
+            <?php endif; ?>
 
             <div class="pt-3">
               <ul class="list-inline">
