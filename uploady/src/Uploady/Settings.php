@@ -53,6 +53,8 @@ class Settings
 
             return $settings_array;
         }
+
+        return [];
     }
 
     /**

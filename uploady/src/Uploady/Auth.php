@@ -139,6 +139,8 @@ class Auth
                 return ($_COOKIE['2fa'] == $uniqueid);
             }
         }
+
+        return false;
     }
 
     /**

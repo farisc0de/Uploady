@@ -153,5 +153,7 @@ class Page
         if ($this->db->execute()) {
             return $this->db->rowCount() ? true : false;
         }
+
+        return false;
     }
 }

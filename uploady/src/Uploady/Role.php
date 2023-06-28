@@ -114,8 +114,8 @@ class Role
      *  The role name
      * @param mixed $id
      *  The role id
-     * @return void
-     *  No return value
+     * @return bool
+     *  return true if the role is updated
      */
     public function updateRole($title, $size_limit, $id)
     {
@@ -134,8 +134,8 @@ class Role
      *
      * @param mixed $id
      *  The role id
-     * @return void
-     *  No return value
+     * @return bool
+     *  return true if role is deleted
      */
     public function deleteRole($id)
     {
@@ -143,6 +143,6 @@ class Role
 
         $this->db->bind(":id", $id, \PDO::PARAM_INT);
 
-        $this->db->execute();
+        return $this->db->execute();
     }
 }

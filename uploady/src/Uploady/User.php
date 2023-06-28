@@ -95,6 +95,8 @@ class User
         if ($this->db->execute()) {
             return $this->db->rowCount();
         }
+
+        return 0;
     }
 
     /**
@@ -120,6 +122,8 @@ class User
         if ($this->db->execute()) {
             return $this->db->rowCount() > 0;
         }
+
+        return false;
     }
 
     /**
@@ -223,6 +227,8 @@ class User
             $obj =  $this->db->single();
             return ($obj != false) ? $obj->username : $user_id;
         }
+
+        return "";
     }
 
     /**
@@ -267,10 +273,10 @@ class User
     }
 
     /**
-     * Undocumented function
+     * Find a user using diffrent search values
      *
      * @param string $username
-     * @return void
+     * @return string
      */
     private function findBy($username)
     {

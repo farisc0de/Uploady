@@ -69,6 +69,13 @@ include_once 'logic/settings.php';
                                         </div>
 
                                         <div class="form-group">
+                                            <?php if ($settings->getSettingValue("website_logo")) : ?>
+                                                <img src="<?= $settings->getSettingValue("website_logo") ?>" height="64">
+                                                <button type="submit" name="delete_logo" class="btn btn-danger">Delete</button>
+                                            <?php endif; ?>
+                                        </div>
+
+                                        <div class="form-group">
                                             <div class="custom-file">
                                                 <input type="file" class="custom-file-input" id="logo" name="website_logo" aria-describedby="logo">
                                                 <label class="custom-file-label" for="logo">
@@ -76,6 +83,23 @@ include_once 'logic/settings.php';
                                                 </label>
                                             </div>
                                         </div>
+
+                                        <div class="form-group">
+                                            <?php if ($settings->getSettingValue("website_favicon")) : ?>
+                                                <img src="<?= $settings->getSettingValue("website_favicon") ?>" height="64">
+                                                <button type="submit" name="delete_favicon" class="btn btn-danger">Delete</button>
+                                            <?php endif; ?>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="favicon" name="website_favicon" aria-describedby="favicon">
+                                                <label class="custom-file-label" for="favicon">
+                                                    Choose Website Icon
+                                                </label>
+                                            </div>
+                                        </div>
+
 
                                         <div class="form-group">
                                             <div class="form-label-group">

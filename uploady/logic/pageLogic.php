@@ -6,11 +6,11 @@ if (!isset($_GET['s'])) {
     $utils->redirect($utils->siteUrl("/"));
 }
 
-if (!$pages->isExist($_GET['s'])) {
+if (!$pages->isExist($utils->sanitize($_GET['s']))) {
     $utils->redirect($utils->siteUrl("/"));
 }
 
-$page_content = $pages->get($_GET['s'], $_SESSION['language']);
+$page_content = $pages->get($utils->sanitize($_GET['s']), $_SESSION['language']);
 
 if ($page_content == false) {
     $page_content = json_decode(json_encode([

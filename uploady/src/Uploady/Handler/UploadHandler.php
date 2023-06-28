@@ -77,12 +77,10 @@ class UploadHandler
         $this->db->bind(":id", $file_id, \PDO::PARAM_STR);
 
         if ($this->db->execute()) {
-            if ($this->db->rowCount()) {
-                return true;
-            } else {
-                return false;
-            }
+            return ($this->db->rowCount()) ? true : false;
         }
+
+        return false;
     }
 
     /**
@@ -100,12 +98,12 @@ class UploadHandler
         $this->db->bind(":id", $user_id, \PDO::PARAM_STR);
 
         if ($this->db->execute()) {
-            if ($this->db->rowCount()) {
-                return true;
-            } else {
-                return false;
+            if ($this->db->execute()) {
+                return ($this->db->rowCount()) ? true : false;
             }
         }
+
+        return false;
     }
 
     /**
@@ -125,6 +123,8 @@ class UploadHandler
         if ($this->db->execute()) {
             return $this->db->single();
         }
+
+        return [];
     }
 
     /**
@@ -152,6 +152,8 @@ class UploadHandler
         if ($this->db->execute()) {
             return true;
         }
+
+        return false;
     }
 
     /**
@@ -204,6 +206,8 @@ class UploadHandler
         if ($this->db->execute()) {
             return $this->db->resultset();
         }
+
+        return [];
     }
 
     /**
@@ -223,6 +227,8 @@ class UploadHandler
         if ($this->db->execute()) {
             return $this->db->resultset();
         }
+
+        return [];
     }
 
     /**
@@ -295,6 +301,8 @@ class UploadHandler
         if ($this->db->execute()) {
             return $this->db->rowCount();
         }
+
+        return 0;
     }
 
     /**
@@ -319,6 +327,8 @@ class UploadHandler
                 return true;
             }
         }
+
+        return false;
     }
 
     /**

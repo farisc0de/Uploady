@@ -55,8 +55,11 @@ class Mailer
             foreach ($settings as $setting) {
                 $settings_array[$setting->setting_key] = $setting->setting_value;
             }
+
             return $settings_array;
         }
+
+        return [];
     }
 
     /**

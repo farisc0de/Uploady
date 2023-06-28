@@ -153,7 +153,7 @@ class Utils
      *
      * @param array $array
      *  The array you want to search inside it
-     * @param mixex $key
+     * @param mixed $key
      *  The kay you want to check is value
      * @param mixed $val
      *  The value you want to find in the array
@@ -243,6 +243,8 @@ class Utils
 
             return rtrim(SITE_URL, "/");
         }
+
+        return "";
     }
 
     /**
@@ -260,6 +262,8 @@ class Utils
         if (!isset($_COOKIE[$name])) {
             return setcookie($name, $value, time() + 60 * 60 * 24 * 30, "/");
         }
+
+        return true;
     }
 
     /**
@@ -275,6 +279,8 @@ class Utils
         if (isset($_COOKIE[$name])) {
             return setcookie($name, "", time() - 3600, "/");
         }
+
+        return true;
     }
 
     /**

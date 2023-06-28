@@ -219,9 +219,9 @@ class ResetPassword
             if ($this->db->rowCount()) {
                 return $this->isExpired($token) ? false : true;
             }
-
-            return false;
         }
+
+        return false;
     }
 
     /**
@@ -250,5 +250,7 @@ class ResetPassword
 
             return true;
         }
+
+        return true;
     }
 }

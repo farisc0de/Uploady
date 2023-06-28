@@ -10,6 +10,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $status = "csrf";
     } else {
 
+        if (isset($_POST['delete_logo'])) {
+            $settings->updateSettings(
+                [
+                    "website_logo" => ""
+                ]
+            );
+            $status = "yes";
+            $utils->redirect("view.php?msg=" . $utils->sanitize($status));
+        }
+
+        if (isset($_POST['delete_favicon'])) {
+            $settings->updateSettings(
+                [
+                    "website_favicon" => ""
+                ]
+            );
+            $status = "yes";
+            $utils->redirect("view.php?msg=" . $utils->sanitize($status));
+        }
+
         if (isset($_FILES['website_logo'])) {
             $upload->setSiteUrl(SITE_URL);
 
@@ -37,6 +57,40 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                         if ($upload->upload()) {
                             $settings->updateSettings([
                                 "website_logo" => $upload->generateDirectDownloadLink()
+                            ]);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (isset($_FILES['website_favicon'])) {
+            $upload->setSiteUrl(SITE_URL);
+
+            $upload->setUploadFolder([
+                "folder_name" => UPLOAD_FOLDER . "/settings",
+                "folder_path" => realpath(APP_PATH . "/" . UPLOAD_FOLDER . "/settings"),
+            ]);
+
+            $upload->enableProtection();
+
+            $upload->setSizeLimit(1000000);
+
+            $upload->setUpload(new Farisc0de\PhpFileUploading\File($_FILES['website_favicon'], new \Farisc0de\PhpFileUploading\Utility()));
+
+            if ($upload->checkIfNotEmpty()) {
+
+                $upload->hashName();
+
+                if ($upload->checkSize()) {
+                    if (
+                        $upload->checkForbidden() &&
+                        $upload->checkExtension() &&
+                        $upload->checkMime()
+                    ) {
+                        if ($upload->upload()) {
+                            $settings->updateSettings([
+                                "website_favicon" => $upload->generateDirectDownloadLink()
                             ]);
                         }
                     }
