@@ -198,32 +198,28 @@ document.getElementById("saveImageToUploads").addEventListener("click", (e) => {
   caman.render(function () {
     $("#canvas")
       .get(0)
-      .toBlob(
-        function (blob) {
-          var formData = new FormData();
+      .toBlob(function (blob) {
+        var formData = new FormData();
 
-          formData.append(
-            "file",
-            blob,
-            document.getElementById("file_name").value
-          );
+        formData.append(
+          "file",
+          blob,
+          document.getElementById("file_name").value
+        );
 
-          var request = new XMLHttpRequest();
-          request.open("POST", "actions/update_file.php");
-          request.send(formData);
+        var request = new XMLHttpRequest();
+        request.open("POST", "actions/update_file.php");
+        request.send(formData);
 
-          request.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-              document.getElementById(
-                "alert"
-              ).innerHTML = `<div class="alert alert-success" id="alert">
+        request.onreadystatechange = function () {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById(
+              "alert"
+            ).innerHTML = `<div class="alert alert-success" id="alert">
               ${JSON.parse(this.responseText).success}</div>`;
-            }
-          };
-        },
-        "image/jpeg",
-        0.5
-      );
+          }
+        };
+      });
   });
 });
 
