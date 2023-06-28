@@ -12,7 +12,8 @@
 
                     <input type="hidden" id="file_name" value="<?= $file['filename'] ?>">
 
-                    <div class="alert alert-success" id="alert"></div>
+                    <div id="alert">
+                    </div>
 
                     <img name="canvas" id="canvas" src="<?= $picture ?>"></img>
 

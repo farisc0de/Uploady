@@ -214,9 +214,10 @@ document.getElementById("saveImageToUploads").addEventListener("click", (e) => {
 
           request.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
-              document.getElementById("alert").innerHTML = JSON.parse(
-                this.responseText
-              ).success;
+              document.getElementById(
+                "alert"
+              ).innerHTML = `<div class="alert alert-success" id="alert">
+              ${JSON.parse(this.responseText).success}</div>`;
             }
           };
         },
