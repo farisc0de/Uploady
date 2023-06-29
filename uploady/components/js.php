@@ -21,5 +21,9 @@ if (strpos($_SERVER['REQUEST_URI'], 'edit.php') !== false) {
 $utils->script("js/main.js");
 $utils->script("js/custom.js");
 
+if (isset($page) && $page == 'index') {
+    $utils->script("js/upload.js");
+}
+
 include_once APP_PATH . "modules/adsense/main.php";
 include_once APP_PATH . "modules/analytics/main.php";

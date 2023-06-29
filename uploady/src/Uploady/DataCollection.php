@@ -22,7 +22,7 @@ class DataCollection
      **/
     public function collectIP()
     {
-        return file_get_contents("https://api.ipify.org/");
+        return json_decode(file_get_contents("https://api.seeip.org/jsonip"))->ip;
     }
 
     /**
