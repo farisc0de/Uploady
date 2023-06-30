@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (!$upload->checkIfNotEmpty()) {
         http_response_code(400);
         echo json_encode([
-            "error" => "File is empty",
+            "error" => $lang['file_is_empty'],
         ]);
         exit();
     }
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (!$upload->checkSize()) {
         http_response_code(400);
         echo json_encode([
-            "error" => "File size is too large",
+            "error" => $lang['file_is_too_large'],
         ]);
         exit();
     }
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     ) {
         http_response_code(400);
         echo json_encode([
-            "error" => "File name is forbidden",
+            "error" => $lang['file_name_is_forbidden'],
         ]);
         exit();
     }
@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     ) {
         http_response_code(400);
         echo json_encode([
-            "error" => "File type is not allowed",
+            "error" => $lang['file_type_is_not_allowed'],
         ]);
         exit();
     }
@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     ) {
         http_response_code(400);
         echo json_encode([
-            "error" => "File mime is not allowed",
+            "error" => $lang['file_mime_type_is_not_allowed'],
         ]);
         exit();
     }

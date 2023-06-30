@@ -17,63 +17,25 @@
 
                     <img name="canvas" id="canvas" src="<?= $picture ?>"></img>
 
-                    <h4 class="text-center my-3">Filters</h4>
+                    <h4 class="text-center my-3"><?= $lang['filters_title'] ?></h4>
 
                     <div class="row my-4 text-center">
-                        <div class="col-md-3 mb-3">
-                            <div class="btn-group btn-group-sm">
-                                <button class="filter-btn brightness-remove btn btn-primary">-</button>
-                                <button class="btn btn-secondary btn-disabled" disabled>Brightness</button>
-                                <button class="filter-btn brightness-add btn btn-primary">+</button>
+                        <?php foreach ($filters as $filter) : ?>
+                            <div class="col-md-3 mb-3">
+                                <div class="btn-group btn-group-sm">
+                                    <button class="filter-btn <?= strtolower($filter)  ?>-remove btn btn-primary">-</button>
+                                    <button class="btn btn-secondary btn-disabled" disabled><?= $filter ?></button>
+                                    <button class="filter-btn <?= strtolower($filter)  ?>-add btn btn-primary">+</button>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="col-md-3 mb-3">
-                            <div class="btn-group btn-group-sm">
-                                <button class="filter-btn contrast-remove btn btn-primary">-</button>
-                                <button class="btn btn-secondary btn-disabled" disabled>Contrast</button>
-                                <button class="filter-btn contrast-add btn btn-primary">+</button>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 mb-3">
-                            <div class="btn-group btn-group-sm">
-                                <button class="filter-btn saturation-remove btn btn-primary">-</button>
-                                <button class="btn btn-secondary btn-disabled" disabled>Saturation</button>
-                                <button class="filter-btn saturation-add btn btn-primary">+</button>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 mb-3">
-                            <div class="btn-group btn-group-sm">
-                                <button class="filter-btn vibrance-remove btn btn-primary">-</button>
-                                <button class="btn btn-secondary btn-disabled" disabled>Vibrance</button>
-                                <button class="filter-btn vibrance-add btn btn-primary">+</button>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="btn-group btn-group-sm">
-                                <button class="filter-btn sharpen-remove btn btn-primary">-</button>
-                                <button class="btn btn-secondary btn-disabled" disabled>Sharpen</button>
-                                <button class="filter-btn sharpen-add btn btn-primary">+</button>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="btn-group btn-group-sm">
-                                <button class="filter-btn blur-remove btn btn-primary">-</button>
-                                <button class="btn btn-secondary btn-disabled" disabled>Blur</button>
-                                <button class="filter-btn blur-add btn btn-primary">+</button>
-                            </div>
-                        </div>
+                        <?php endforeach; ?>
                     </div>
                     <!-- ./row -->
 
-                    <h4 class="text-center my-3">Effects</h4>
+                    <h4 class="text-center my-3"><?= $lang['effects_title'] ?></h4>
 
                     <select class="form-select" id="effects">
-                        <option value="none">Select Filter</option>
+                        <option value="none"><?= $lang['select_effect'] ?></option>
                         <option value="vintage">Vintage</option>
                         <option value="lomo">Lomo</option>
                         <option value="clarity">Clarity</option>
@@ -95,11 +57,11 @@
                     </select>
 
                     <div class="row mt-5">
-                        <div class="col-md-6">
-                            <button id="saveImageToUploads" class="btn btn-primary">Save Image</button>
+                        <div class="col-md-6 mb-3">
+                            <button id="saveImageToUploads" class="btn btn-primary"><?= $lang['save_image_btn'] ?></button>
                         </div>
                         <div class="col-md-6">
-                            <button id="clearFilters" class="btn btn-danger">Remove Filters</button>
+                            <button id="clearFilters" class="btn btn-danger"><?= $lang['remove_filter_btn'] ?></button>
                         </div>
                     </div>
                 </div>

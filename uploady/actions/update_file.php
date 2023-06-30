@@ -15,10 +15,6 @@ $utilty = new Farisc0de\PhpFileUploading\Utility();
 
 $upload = new Farisc0de\PhpFileUploading\Upload($utilty);
 
-$dataCollection = new Uploady\DataCollection();
-
-$browser = new Wolfcast\BrowserDetection();
-
 $role = new Uploady\Role($db, $user);
 
 $handler = new UploadHandler($db);
@@ -26,9 +22,8 @@ $handler = new UploadHandler($db);
 $upload->setSiteUrl(SITE_URL);
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $upload->generateUserID();
 
-    $upload->createUserCloud("../" . UPLOAD_FOLDER);
+    $upload->generateUserID();
 
     $upload->setUploadFolder([
         "folder_name" => $upload->getUserCloud(UPLOAD_FOLDER),
@@ -39,34 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $upload->setSizeLimit($role->get($_SESSION['user_role'])->size_limit);
 
-    $upload->generateFileID();
-
     $upload->setUpload(new Farisc0de\PhpFileUploading\File($_FILES['file'], $utilty));
 
     if (!$upload->checkIfNotEmpty()) {
         http_response_code(400);
         echo json_encode([
-            "error" => "File is empty",
-        ]);
-        exit();
-    }
-
-    if (!$upload->checkSize()) {
-        http_response_code(400);
-        echo json_encode([
-            "error" => "File size is too large",
-        ]);
-        exit();
-    }
-
-    if (
-        $upload->checkForbidden() &&
-        !$upload->checkExtension() &&
-        !$upload->checkMime()
-    ) {
-        http_response_code(400);
-        echo json_encode([
-            "error" => "File type is not allowed",
+            "error" => $lang['file_is_empty'],
         ]);
         exit();
     }
@@ -74,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if ($upload->upload()) {
         http_response_code(200);
         echo json_encode([
-            "success" => "Image uploaded successfully",
+            "success" => $lang['image_saved_success'],
         ]);
     }
 }

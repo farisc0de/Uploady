@@ -15,4 +15,15 @@ $file = json_decode($hander->getFile($file_id)->file_data, true);
 
 $picture = $file['directlink'];
 
+$filters = [
+    "Brightness",
+    "Contrast",
+    "Saturation",
+    "Vibrance",
+    "Sharpen",
+    "Blur",
+    "Gamma",
+    "Sepia"
+];
+
 $title = "Edit File";
