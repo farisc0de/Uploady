@@ -1,17 +1,17 @@
 <div class="text-center container">
   <ul class="list-inline">
     <li class="list-inline-item">
-      <a href="#" class="btn btn-info rounded-circle">
+      <a href="<?= $st['twitter_link'] ?>" class="btn btn-info rounded-circle">
         <i class="fab fa-twitter text-white"></i>
       </a>
     </li>
     <li class="list-inline-item">
-      <a href="#" class="btn btn-danger rounded-circle">
+      <a href="<?= $st['instagram_link'] ?>" class="btn btn-danger rounded-circle">
         <i class="fab fa-instagram text-white"></i>
       </a>
     </li>
     <li class="list-inline-item">
-      <a href="#" class="btn btn-primary rounded-circle">
+      <a href="<?= $st['linkedin_link'] ?>" class="btn btn-primary rounded-circle">
         <i class="fab fa-linkedin-in text-white"></i>
       </a>
     </li>

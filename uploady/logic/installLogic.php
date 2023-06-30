@@ -348,6 +348,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->insertValue(
             "settings",
             [
+                'setting_key' => 'twitter_link',
+                'setting_value' => null
+            ]
+        );
+        $install->insertValue(
+            "settings",
+            [
+                'setting_key' => 'instagram_link',
+                'setting_value' => null
+            ]
+        );
+        $install->insertValue(
+            "settings",
+            [
+                'setting_key' => 'linkedin_link',
+                'setting_value' => null
+            ]
+        );
+        $install->insertValue(
+            "settings",
+            [
                 'setting_key' => 'smtp_status',
                 'setting_value' => false
             ]
