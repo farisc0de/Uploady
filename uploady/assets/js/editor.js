@@ -52,6 +52,22 @@ document.addEventListener("click", (e) => {
       Caman("#canvas", function () {
         caman.stackBlur(-5).render();
       });
+    } else if (e.target.classList.contains("hue-add")) {
+      Caman("#canvas", function () {
+        caman.hue(5).render();
+      });
+    } else if (e.target.classList.contains("hue-remove")) {
+      Caman("#canvas", function () {
+        caman.hue(-5).render();
+      });
+    } else if (e.target.classList.contains("sepia-add")) {
+      Caman("#canvas", function () {
+        caman.sepia(5).render();
+      });
+    } else if (e.target.classList.contains("sepia-remove")) {
+      Caman("#canvas", function () {
+        caman.sepia(-5).render();
+      });
     }
   }
 });
@@ -81,7 +97,7 @@ document.addEventListener("change", (e) => {
       });
       break;
 
-    case "sincity":
+    case "sinCity":
       Caman("#canvas", function () {
         caman.revert();
         caman.sinCity().render();
@@ -95,7 +111,7 @@ document.addEventListener("change", (e) => {
       });
       break;
 
-    case "crossprocess":
+    case "crossProcess":
       Caman("#canvas", function () {
         caman.revert();
         caman.crossProcess().render();

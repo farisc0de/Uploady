@@ -22,8 +22,8 @@ $filters = [
     "Vibrance",
     "Sharpen",
     "Blur",
-    "Gamma",
+    "Hue",
     "Sepia"
 ];
 
-$title = "Edit File";
+$title = $lang['edit_file_title'];

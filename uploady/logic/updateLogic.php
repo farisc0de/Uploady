@@ -1,13 +1,13 @@
 <?php
 
-use Uploady\Migration\Options\Options;
-use Uploady\Migration\Options\Types;
+use Farisc0de\PhpMigration\Options\Options;
+use Farisc0de\PhpMigration\Options\Types;
 
 $utils = new Uploady\Utils();
 
 $database = new Uploady\Database();
 
-$update = new Uploady\Migration\Migration($database, $utils);
+$update = new \Farisc0de\PhpMigration\Migration($database, $utils);
 
 $upload = new Farisc0de\PhpFileUploading\Upload($utils);
 
