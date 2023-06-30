@@ -103,6 +103,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     "browser" => $dataCollection->getBrowser($browser),
                     "os" => $dataCollection->getOS()
                 ]
+            ),
+            json_encode(
+                [
+                    "delete_at" => [
+                        "downloads" => 0,
+                        "days" => 0,
+                    ],
+                ]
             )
         );
     }

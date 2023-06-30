@@ -42,13 +42,13 @@ class UploadHandler
      * @return bool
      *  True if the file was added successfully
      */
-    public function addFile($file_id, $user_id, $file_data, $user_data)
+    public function addFile($file_id, $user_id, $file_data, $user_data, $file_settings)
     {
         $this->db->prepare(
             "INSERT INTO files (
-                file_id,user_id,file_data,user_data,uploaded_at) 
+                file_id,user_id,file_data,user_data,file_settings,uploaded_at) 
                 VALUES
-                (:file_id,:user_id,:file_data,:user_data,:uploaded_at)"
+                (:file_id,:user_id,:file_data,:user_data,:file_settings,:uploaded_at)"
         );
 
         $data = json_decode($file_data);
@@ -57,6 +57,7 @@ class UploadHandler
         $this->db->bind(":user_id", $user_id, \PDO::PARAM_STR);
         $this->db->bind(":file_data", $file_data, \PDO::PARAM_STR);
         $this->db->bind(":user_data", $user_data, \PDO::PARAM_STR);
+        $this->db->bind(":file_settings", $file_settings, \PDO::PARAM_STR);
         $this->db->bind(":uploaded_at", $data->uploaddate, \PDO::PARAM_STR);
 
         return $this->db->execute();
@@ -116,7 +117,7 @@ class UploadHandler
      */
     public function getFile($file_id)
     {
-        $this->db->prepare("SELECT file_data FROM files WHERE file_id = :id");
+        $this->db->prepare("SELECT * FROM files WHERE file_id = :id");
 
         $this->db->bind(":id", $file_id, \PDO::PARAM_STR);
 
