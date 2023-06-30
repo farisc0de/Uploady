@@ -55,6 +55,7 @@
   "enter_password": "أدخل كلمة المرور",
   "signup_success": "تم تسجيلك بنجاح. يرجى التحقق من بريدك الإلكتروني لتفعيل حسابك.",
   "user_already_exist": "اسم المستخدم موجود بالفعل. يرجى تسجيل الدخول.",
+  "activation_email_subject": "تفعيل حسابك",
   "forget_password": "نسيت كلمة المرور؟",
   "reset_password_title": "إعادة تعيين كلمة المرور",
   "reset_password_header": "إعادة تعيين كلمة المرور",

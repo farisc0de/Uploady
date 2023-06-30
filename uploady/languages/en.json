@@ -56,6 +56,7 @@
   "forget_password": "Forgot Password?",
   "signup_success": "Your account has been created successfully. Please check your email to activate your account.",
   "user_already_exist": "User already exists",
+  "activation_email_subject": "Activate your account",
   "reset_password_title": "Reset Password",
   "reset_password_header": "Reset Password",
   "reset_password_msg": "Please enter a strong password that contains 8 characters and at least one special character",

@@ -62,13 +62,31 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
     if (
-        $upload->checkForbidden() &&
-        !$upload->checkExtension() &&
-        !$upload->checkMime()
+        !$upload->checkForbidden()
+    ) {
+        http_response_code(400);
+        echo json_encode([
+            "error" => "File name is forbidden",
+        ]);
+        exit();
+    }
+
+    if (
+        !$upload->checkExtension()
     ) {
         http_response_code(400);
         echo json_encode([
             "error" => "File type is not allowed",
+        ]);
+        exit();
+    }
+
+    if (
+        !$upload->checkMime()
+    ) {
+        http_response_code(400);
+        echo json_encode([
+            "error" => "File mime is not allowed",
         ]);
         exit();
     }

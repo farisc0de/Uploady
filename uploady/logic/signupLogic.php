@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $mailer->sendMessage(
             $email,
-            'Account Activation',
+            $lang['activation_email_subject'],
             $tpl->loadTemplate('activation_email', [
                 'username' => $username,
                 'activation_url' => $url

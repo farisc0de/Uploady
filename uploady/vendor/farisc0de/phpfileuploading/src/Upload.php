@@ -349,7 +349,7 @@ final class Upload
      */
     public function checkExtension()
     {
-        if (!key_exists(str_replace('.', '', $this->file->getExtension()), $this->filter_array)) {
+        if (!key_exists($this->file->getExtension(), $this->filter_array)) {
             $this->addLog(['filename' => $this->file_name, "message" => 1]);
 
             return false;
@@ -737,12 +737,18 @@ final class Upload
      */
     public function moveFile($filename)
     {
-        set_time_limit(0);
+        if (strpos(ini_get('disable_functions'), 'set_time_limit') === false) {
+            set_time_limit(0);
+        }
+
         $orig_file_size = $this->file->getSize();
         $chunk_size = 4096;
         $upload_start = 0;
         $handle = fopen($this->file->getTempName(), "rb");
         $fp = fopen($this->upload_folder['folder_path'] . "/" . $filename, 'w');
+
+        stream_set_timeout($handle, $chunk_size, 0);
+        stream_set_timeout($fp, $chunk_size, 0);
 
         while ($upload_start < $orig_file_size) {
             $contents = fread($handle, $chunk_size);
