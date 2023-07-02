@@ -110,13 +110,12 @@ class Page
      *
      * @return bool
      */
-    public function add($slug, $title, $content)
+    public function add($slug)
     {
-        $this->db->prepare("INSERT INTO pages (slug, title, content) VALUES (:slug, :title, :content)");
+        $this->db->prepare("INSERT INTO pages (slug, deletable) VALUES (:slug, :is_deletable)");
 
         $this->db->bind(":slug", $slug, \PDO::PARAM_STR);
-        $this->db->bind(":title", $title, \PDO::PARAM_STR);
-        $this->db->bind(":content", $content, \PDO::PARAM_STR);
+        $this->db->bind(":is_deletable", true, \PDO::PARAM_BOOL);
 
         return $this->db->execute();
     }

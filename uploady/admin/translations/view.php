@@ -39,8 +39,8 @@
                                                     <label class="custom-control-label" for="select-all"></label>
                                                 </div>
                                             </th>
-                                            <th>Role</th>
-                                            <th>Size Limit</th>
+                                            <th>Page Title</th>
+                                            <th>Language</th>
                                             <th>Settings</th>
                                         </tr>
                                     </thead>
@@ -55,10 +55,10 @@
                                                 </td>
                                                 <td><?= $translation->title; ?>
                                                 </td>
-                                                <td><?= $translation->language_id; ?></td>
+                                                <td><?= $languages[$translation->language_id - 1]->language; ?></td>
                                                 <td>
-                                                    <a type="button" class="btn btn-primary" href="<?= $utils->siteUrl('/admin/roles/edit.php?id=' . $translation->id); ?>">
-                                                        Edit Role
+                                                    <a type="button" class="btn btn-primary" href="<?= $utils->siteUrl('/admin/translations/edit.php?id=' . $translation->id); ?>">
+                                                        Edit Page
                                                     </a>
                                                 </td>
                                             </tr>

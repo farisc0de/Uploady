@@ -112,6 +112,7 @@
   "report_abuse": "Report Abuse",
   "report_abuse_title": "Report Abuse",
   "report_abuse_success": "Your report has been submitted successfully",
+  "report_file_not_found": "Reported File not found",
   "report_abuse_button": "Report Abuse",
   "file_url_placeholder": "Enter File URL",
   "file_abuse_notes_placeholder": "Please provide a reason for reporting this file",

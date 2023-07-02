@@ -8,6 +8,5 @@ $PTobj = new PageTranslation($db);
 $LocalObject = new Localization($db);
 $pageObject = new Page($db, $LocalObject);
 
-$page_translations = $obj->getTranslations();
-
-print_r($page_translations);
+$page_translations = $PTobj->getTranslations();
+$languages = $LocalObject->getLanguages();

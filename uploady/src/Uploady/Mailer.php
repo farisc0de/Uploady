@@ -74,7 +74,7 @@ class Mailer
      * @return bool
      *  Return true if the message is sent or false otherwise
      */
-    public function sendMessage($email, $subject, $body)
+    public function sendMessage($to, $subject, $body)
     {
         try {
             $smtp = $this->getSettingWithPattern('smtp_%');
@@ -84,8 +84,9 @@ class Mailer
 
             if ($smtp['smtp_status'] == true) {
                 $mail->isSMTP();
-
-                $mail->Host = $smtp['smtp_security'] . "://" . $smtp['smtp_host'] . ":" . $smtp['smtp_port'];
+                $mail->Host =  $smtp['smtp_host'];
+                $mail->Port = $smtp['smtp_port'];
+                $mail->SMTPSecure = $smtp['smtp_security'];
                 $mail->SMTPAuth = true;
                 $mail->Username = $smtp['smtp_username'];
                 $mail->Password = $smtp['smtp_password'];
@@ -93,7 +94,7 @@ class Mailer
 
             $mail->setFrom($owner['owner_email'], $owner['owner_name']);
 
-            $mail->addAddress($email);
+            $mail->addAddress($to);
 
             $mail->isHTML(true);
 
@@ -103,6 +104,7 @@ class Mailer
 
             return $mail->send();
         } catch (Exception $th) {
+            echo $th->getMessage();
             return false;
         }
     }
