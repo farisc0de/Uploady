@@ -73,13 +73,13 @@ class Localization
      * @return void
      *  Update the language file
      */
-    public function updateLanguage($data, $language)
+    public function updateLanguage($type, $data, $language)
     {
         $file = file_get_contents(APP_PATH . "/languages/{$language}.json");
         $file = json_decode($file, true);
 
         foreach ($data as $key => $value) {
-            $file[$key] = $value;
+            $file[$type][$key] = $value;
         }
 
         $file = json_encode($file, JSON_PRETTY_PRINT);
@@ -178,5 +178,50 @@ class Localization
         $this->db->execute();
 
         return $this->db->single();
+    }
+
+    /**
+     * Function to add new language
+     *
+     * @param mixed $code
+     *  The language code
+     * @return mixed
+     *  True if the language added successfully, false otherwise
+     */
+    public function activateLanguage($code)
+    {
+        $language = "UPDATE languages SET is_active = 1 WHERE language_code = :code";
+
+        $this->db->prepare($language);
+
+        $this->db->bind(":code", $code);
+
+        $this->db->execute();
+
+        if (!file_exists(APP_PATH . "/languages/{$code}.json")) {
+            $this->createLanguage($code);
+        }
+
+        return true;
+    }
+
+    /**
+     * Function to deactivate language
+     *
+     * @param mixed $code
+     *  The language code
+     * @return mixed
+     *  True if the language deactivated successfully, false otherwise
+     */
+
+    public function deactivateLanguage($code)
+    {
+        $language = "UPDATE languages SET is_active = 0 WHERE language_code = :code";
+
+        $this->db->prepare($language);
+
+        $this->db->bind(":code", $code);
+
+        return $this->db->execute();
     }
 }

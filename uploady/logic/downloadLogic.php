@@ -4,7 +4,7 @@ $handler = new Uploady\Handler\UploadHandler($db);
 
 if (isset($_GET['file_id'])) {
     if (!$handler->fileExist($_GET['file_id'])) {
-        die($lang['file_not_found']);
+        die($lang["general"]['file_not_found']);
     }
 
     $file = $handler->getFile($_GET['file_id']);
@@ -35,4 +35,4 @@ if (isset($_GET['file_id'])) {
 }
 
 $page = 'download_file';
-$title = $lang['download_file_title'];
+$title = $lang["general"]['download_file_title'];

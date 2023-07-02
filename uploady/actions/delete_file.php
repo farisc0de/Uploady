@@ -14,26 +14,26 @@ if (isset($_POST['file_id']) && isset($_POST['user_id'])) {
             http_response_code(200);
             echo json_encode([
                 "status" => "success",
-                "message" => $lang['file_deleted_success']
+                "message" => $lang["general"]['file_deleted_success']
             ]);
         } else {
             http_response_code(400);
             echo json_encode([
                 "status" => "error",
-                "message" => $lang['file_deleted_failed'] . " ):"
+                "message" => $lang["general"]['file_deleted_failed'] . " ):"
             ]);
         }
     } else {
         http_response_code(400);
         echo  json_encode([
             "status" => "error",
-            "message" => $lang["file_or_user_not_found"]
+            "message" => $lang["general"]["file_or_user_not_found"]
         ]);
     }
 } else {
     http_response_code(400);
     echo json_encode([
         "status" => "error",
-        "message" => $lang['file_id_missing']
+        "message" => $lang["general"]['file_id_missing']
     ]);
 }

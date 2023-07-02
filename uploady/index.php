@@ -10,7 +10,7 @@ include_once APP_PATH . 'logic/indexLogic.php';
     <div class="col-sm-12 col-md-10 col-lg-10">
       <div class="card">
         <div class="card-header">
-          <b><?= $lang['upload_form_card_title']; ?></b>
+          <b><?= $lang["general"]['upload_form_card_title']; ?></b>
         </div>
         <div class="card-body">
           <form enctype="multipart/form-data" class="dropzone" id="my-dropzone" method="POST" action="actions/upload_file.php">
@@ -19,8 +19,8 @@ include_once APP_PATH . 'logic/indexLogic.php';
 
         <div class="card-footer mb-0">
           <p class="mb-0">
-            <b><?= $lang['note_supported_formats']; ?></b>
-            <a href="supported.php"><?= $lang['see_here']; ?></a>
+            <b><?= $lang["general"]['note_supported_formats']; ?></b>
+            <a href="supported.php"><?= $lang["general"]['see_here']; ?></a>
           </p>
         </div>
       </div>

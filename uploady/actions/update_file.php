@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (!$upload->checkIfNotEmpty()) {
         http_response_code(400);
         echo json_encode([
-            "error" => $lang['file_is_empty'],
+            "error" => $lang["general"]['file_is_empty'],
         ]);
         exit();
     }
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if ($upload->upload()) {
         http_response_code(200);
         echo json_encode([
-            "success" => $lang['image_saved_success'],
+            "success" => $lang["general"]['image_saved_success'],
         ]);
     }
 }

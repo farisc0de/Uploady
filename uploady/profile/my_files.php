@@ -10,7 +10,7 @@ include_once 'logic/myFilesLogic.php';
         <div class="col-sm-12 col-md-8 col-lg-8">
             <div class="card">
                 <div class="card-header text-center">
-                    <b><?= $lang['my_files_title']; ?></b>
+                    <b><?= $lang["general"]['my_files_title']; ?></b>
                 </div>
                 <form method="POST" action="actions/delete.php">
                     <?= $utils->input('csrf', $_SESSION['csrf']); ?>
@@ -20,7 +20,7 @@ include_once 'logic/myFilesLogic.php';
                             <?php if ($_GET['msg'] == "yes") : ?>
 
                                 <?php echo $utils->alert(
-                                    $lang['delete_files_success'],
+                                    $lang["general"]['delete_files_success'],
                                     "success",
                                     "check-circle"
                                 ); ?>
@@ -28,7 +28,7 @@ include_once 'logic/myFilesLogic.php';
                             <?php elseif ($_GET['msg'] == "csrf") : ?>
 
                                 <?php echo $utils->alert(
-                                    $lang['csrf_error'],
+                                    $lang["general"]['csrf_error'],
                                     "danger",
                                     "times-circle"
                                 ); ?>
@@ -46,9 +46,9 @@ include_once 'logic/myFilesLogic.php';
                                                 <label class="custom-control-label" for="select-all"></label>
                                             </div>
                                         </th>
-                                        <th><?= $lang['file_name']; ?></th>
-                                        <th><?= $lang['uploaded_at'] ?></th>
-                                        <th><?= $lang['settings_title']; ?></th>
+                                        <th><?= $lang["general"]['file_name']; ?></th>
+                                        <th><?= $lang["general"]['uploaded_at'] ?></th>
+                                        <th><?= $lang["general"]['settings_title']; ?></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -89,7 +89,7 @@ include_once 'logic/myFilesLogic.php';
                     </div>
                     <div class="card-footer mb-0 text-left">
                         <button class="btn btn-primary">
-                            <?= $lang['delete_selected_btn']; ?>
+                            <?= $lang["general"]['delete_selected_btn']; ?>
                         </button>
                     </div>
                 </form>

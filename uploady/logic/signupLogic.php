@@ -30,18 +30,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $mailer->sendMessage(
             $email,
-            $lang['activation_email_subject'],
+            $lang["general"]['activation_email_subject'],
             $tpl->loadTemplate('activation_email', [
                 'username' => $username,
                 'activation_url' => $url
             ])
         );
 
-        $msg = $lang['signup_success'];
+        $msg = $lang["general"]['signup_success'];
     } else {
-        $error = $lang['user_already_exist'];
+        $error = $lang["general"]['user_already_exist'];
     }
 }
 
 $page = "signupPage";
-$title = $lang['signup_title'];
+$title = $lang["general"]['signup_title'];

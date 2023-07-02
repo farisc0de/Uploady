@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $_SESSION['isHuman'] = true;
             } else {
                 $_SESSION['isHuman'] = false;
-                $error = $lang["recaptcha_failed"];
+                $error = $lang["general"]["recaptcha_failed"];
             }
         }
 
@@ -47,13 +47,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             }
         }
     } elseif ($loginstatus == 401) {
-        $error = $lang["incorrect_creds"];
+        $error = $lang["general"]["incorrect_creds"];
     } elseif ($loginstatus == 403) {
-        $error = $lang['account_locked'];
+        $error = $lang["general"]['account_locked'];
     } else {
-        $error = $lang['unxpected_error'];
+        $error = $lang["general"]['unxpected_error'];
     }
 }
 
 $page = "loginPage";
-$title = $lang['login_title'];
+$title = $lang["general"]['login_title'];

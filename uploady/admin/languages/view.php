@@ -69,14 +69,14 @@ include_once 'logic/viewLogic.php';
                                                 <td><?= $language->language_code ?></td>
                                                 <td>
                                                     <?php if (!$language->is_active) : ?>
-                                                        <a type="button" class="btn btn-primary" href="<?= $utils->siteUrl('/admin/languages/edit.php?pageid=' . $language->id); ?>">
+                                                        <a type="button" class="btn btn-primary" href="<?= $utils->siteUrl('/admin/languages/actions/changeStatus.php?lang=' . $language->language_code . "&status=active"); ?>">
                                                             Enable Language
                                                         </a>
                                                     <?php else : ?>
                                                         <a type="button" class="btn btn-primary" href="<?= $utils->siteUrl('/admin/languages/edit.php?lang=' . $language->language_code); ?>">
                                                             Edit Language
                                                         </a>
-                                                        <a type="button" class="btn btn-danger" href="<?= $utils->siteUrl('/admin/languages/edit.php?pageid=' . $language->id); ?>">
+                                                        <a type="button" class="btn btn-danger" href="<?= $utils->siteUrl('/admin/languages/actions/changeStatus.php?lang=' . $language->language_code . "&status=deactive"); ?>">
                                                             Disable Language
                                                         </a>
                                                     <?php endif; ?>

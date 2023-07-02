@@ -14,8 +14,8 @@ $page_content = $pages->get($utils->sanitize($_GET['s']), $_SESSION['language'])
 
 if ($page_content == false) {
     $page_content = json_decode(json_encode([
-        'title' => $lang['page_not_found'],
-        'content' => $lang['page_not_found_content']
+        'title' => $lang["general"]['page_not_found'],
+        'content' => $lang["general"]['page_not_found_content']
     ]));
 }
 

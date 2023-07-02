@@ -16,12 +16,12 @@ if ($updatePassword->isExist($token) == true) {
         $confirmPassword = $utils->sanitize($_POST['confirmPassword']);
         if ($Password == $confirmPassword) {
             if ($updatePassword->updatePassword($token, $data->username, $_POST['password'])) {
-                $msg = $lang["password_reset_success"];
+                $msg = $lang["general"]["password_reset_success"];
             } else {
-                $err = $lang['password_reset_failed'];
+                $err = $lang["general"]['password_reset_failed'];
             }
         } else {
-            $err = $lang['password_not_match'];
+            $err = $lang["general"]['password_not_match'];
         }
     }
 } else {
@@ -30,4 +30,4 @@ if ($updatePassword->isExist($token) == true) {
 
 session_destroy();
 
-$title = $lang['reset_password_title'];
+$title = $lang["general"]['reset_password_title'];

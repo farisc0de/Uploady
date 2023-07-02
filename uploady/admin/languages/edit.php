@@ -5,7 +5,7 @@
 
 <head>
     <?php include_once '../components/meta.php'; ?>
-    <title>Dashboard - <?= $st['website_name'] ?></title>
+    <title>Edit Language - <?= $st['website_name'] ?></title>
     <?php include_once '../components/css.php'; ?>
 </head>
 
@@ -23,25 +23,50 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table mr-1"></i>
-                            DataTable Example
+                            Edit Language
                         </div>
                         <div class="card-body">
-                            <?php foreach ($language as $key => $value) : ?>
+                            <form method="POST" action="actions/edit.php">
 
-                                <?php if (!is_array($value)) : ?>
+                                <input type="hidden" name="lang" value="<?= $_GET["lang"]; ?>">
+
+                                <h3>General</h3>
+
+                                <?php foreach ($language['general'] as $key => $value) : ?>
                                     <label><?= $key; ?></label>
-                                    <input class="form-control" type="text" value="<?= $value ?>">
+                                    <input class="form-control" type="text" name="general_<?= $key ?>" value="<?= $value ?>">
+                                <?php endforeach; ?>
 
-                                <?php endif; ?>
+                                <div class="m-3">
+                                    <button class="btn btn-primary" name="update_general" type="submit">Update General</button>
+                                </div>
 
-                                <?php if (is_array($value)) : ?>
-                                    <?php foreach ($value as $k => $val) : ?>
-                                        <label><?= $k; ?></label>
-                                        <input class="form-control" type="text" value="<?= $val ?>">
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
+                                <h3>Navbar</h3>
 
-                            <?php endforeach; ?>
+                                <?php foreach ($language['navbar'] as $key => $value) : ?>
+
+                                    <label><?= $key; ?></label>
+                                    <input class="form-control" type="text" name="navbar_<?= $key ?>" value="<?= $value ?>">
+
+                                <?php endforeach; ?>
+
+                                <div class="m-3">
+                                    <button class="btn btn-primary" name="update_navbar" type="submit">Update Navbar</button>
+                                </div>
+
+                                <h3>Theme</h3>
+
+                                <?php foreach ($language['theme'] as $key => $value) : ?>
+
+                                    <label><?= $key; ?></label>
+                                    <input class="form-control" type="text" name="theme_<?= $key ?>" value="<?= $value ?>">
+
+                                <?php endforeach; ?>
+
+                                <div class="m-3">
+                                    <button class="btn btn-primary" name="update_theme" type="submit">Update Theme</button>
+                                </div>
+                            </form>
 
                         </div>
                     </div>

@@ -38,8 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $user->regenareSession();
     } else {
-        $error = $lang["two_factor_auth_failed"];
+        $error = $lang["general"]["two_factor_auth_failed"];
     }
 }
 
-$title = $lang['two_factor_title'];
+$title = $lang["general"]['two_factor_title'];

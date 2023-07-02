@@ -10,7 +10,7 @@ include_once APP_PATH . 'logic/forgetPasswordLogic.php';
         <div class="col-sm-12 col-md-8 col-lg-4">
             <div class="card">
                 <div class="card-header">
-                    <b><?= $lang['forget_password_header']; ?></b>
+                    <b><?= $lang["general"]['forget_password_header']; ?></b>
                 </div>
                 <div class="card-body">
                     <?php if (isset($error)) : ?>
@@ -20,17 +20,17 @@ include_once APP_PATH . 'logic/forgetPasswordLogic.php';
                         <?= $utils->alert($msg); ?>
                     <?php endif; ?>
                     <div class="text-center mb-4">
-                        <h4><?= $lang['forget_password_h4'] ?></h4>
-                        <p><?= $lang['forget_password_msg']; ?></p>
+                        <h4><?= $lang["general"]['forget_password_h4'] ?></h4>
+                        <p><?= $lang["general"]['forget_password_msg']; ?></p>
                     </div>
                     <form method="POST" id="login_form">
                         <div class="mb-3">
-                            <input type="text" class="form-control" name="email" placeholder="<?= $lang['enter_your_email']; ?>">
+                            <input type="text" class="form-control" name="email" placeholder="<?= $lang["general"]['enter_your_email']; ?>">
                         </div>
 
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">
-                                <?= $lang['reset_password_button']; ?>
+                                <?= $lang["general"]['reset_password_button']; ?>
                             </button>
                         </div>
                     </form>

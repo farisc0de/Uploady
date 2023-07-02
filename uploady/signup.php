@@ -10,7 +10,7 @@ include_once APP_PATH . 'logic/signupLogic.php';
         <div class="col-sm-12 col-md-8 col-lg-4">
             <div class="card">
                 <div class="card-header">
-                    <b><?= $lang['signup_title']; ?></b>
+                    <b><?= $lang["general"]['signup_title']; ?></b>
                 </div>
                 <div class="card-body">
                     <?php if (isset($error)) : ?>
@@ -21,30 +21,30 @@ include_once APP_PATH . 'logic/signupLogic.php';
                     <?php endif; ?>
                     <form method="POST">
                         <div class="mb-3">
-                            <input type="text" class="form-control" name="username" placeholder="<?= $lang['enter_username']; ?>" required>
+                            <input type="text" class="form-control" name="username" placeholder="<?= $lang["general"]['enter_username']; ?>" required>
                         </div>
                         <div class="mb-3">
-                            <input type="email" class="form-control" name="email" placeholder="<?= $lang['enter_your_email']; ?>" required>
+                            <input type="email" class="form-control" name="email" placeholder="<?= $lang["general"]['enter_your_email']; ?>" required>
                         </div>
                         <div class="mb-3">
-                            <input type="password" class="form-control" name="password" placeholder="<?= $lang['enter_password']; ?>" required>
+                            <input type="password" class="form-control" name="password" placeholder="<?= $lang["general"]['enter_password']; ?>" required>
                         </div>
                         <div class="form-check m-3 text-start">
                             <input type="checkbox" class="form-check-input" id="tos" required>
                             <label class="form-check-label" for="tos">
-                                <?= $lang['i_agree'] ?> <a href="page.php?s=terms"><?= $lang['tos_short'] ?></a>
+                                <?= $lang["general"]['i_agree'] ?> <a href="page.php?s=terms"><?= $lang["general"]['tos_short'] ?></a>
                             </label>
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">
-                                <?= $lang['signup_button'] ?>
+                                <?= $lang["general"]['signup_button'] ?>
                             </button>
                         </div>
                     </form>
                 </div>
                 <div class="card-footer mb-0">
                     <a href="<?= $utils->siteUrl('/login.php'); ?>">
-                        <?= $lang['login_cta_msg']; ?>
+                        <?= $lang["general"]['login_cta_msg']; ?>
                     </a>
                 </div>
             </div>

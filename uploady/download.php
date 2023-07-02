@@ -10,7 +10,7 @@ include_once APP_PATH . 'logic/downloadLogic.php';
     <div class="col-9">
       <div class="card">
         <div class="card-header">
-          <?= $lang['download_file_title'] ?>
+          <?= $lang["general"]['download_file_title'] ?>
         </div>
 
         <div class="card-body">
@@ -23,19 +23,19 @@ include_once APP_PATH . 'logic/downloadLogic.php';
               <div class="col-sm-12 col-md-12 col-lg-8 pt-3 text-start d-none d-md-block">
                 <ul class="list-unstyled">
                   <li class=" mb-3 mr-3 ml-3">
-                    <b><?= $lang['file_name']; ?>:</b>
+                    <b><?= $lang["general"]['file_name']; ?>:</b>
                     <?= $file_data->filename ?>
                   </li>
                   <li class="mt-3 mb-3 mr-3 ml-3">
-                    <b><?= $lang['file_hash']; ?>:</b>
+                    <b><?= $lang["general"]['file_hash']; ?>:</b>
                     <?= $file_data->filehash ?>
                   </li>
                   <li class=" mb-3 mr-3 ml-3">
-                    <b><?= $lang['file_size']; ?>:</b>
+                    <b><?= $lang["general"]['file_size']; ?>:</b>
                     <?= $file_data->filesize ?>
                   </li>
                   <li class="mt-3 mr-3 ml-3 mb-4">
-                    <b><?= $lang['upload_date']; ?>:</b>
+                    <b><?= $lang["general"]['upload_date']; ?>:</b>
                     <?= $file_data->uploaddate ?>
                   </li>
                 </ul>
@@ -54,12 +54,12 @@ include_once APP_PATH . 'logic/downloadLogic.php';
               <ul class="list-inline">
                 <li class="list-inline-item">
                   <a href="<?= $file_data->directlink ?>" class="btn btn-primary text-decoration-none" download>
-                    <?= $lang['download_button']; ?>
+                    <?= $lang["general"]['download_button']; ?>
                   </a>
                 </li>
                 <li class="list-inline-item mt-1">
                   <a href="reportabuse.php?file_id=<?= $file_data->file_id ?>" class="btn btn-danger text-decoration-none">
-                    <?= $lang['report_abuse']; ?>
+                    <?= $lang["general"]['report_abuse']; ?>
                   </a>
                 </li>
               </ul>

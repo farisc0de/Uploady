@@ -14,7 +14,7 @@
 
             <img name="canvas" id="canvas" src="<?= $picture ?>"></img>
 
-            <h4 class="text-center my-3"><?= $lang['filters_title'] ?></h4>
+            <h4 class="text-center my-3"><?= $lang["general"]['filters_title'] ?></h4>
 
             <div class="row my-4 text-center">
                 <?php foreach ($filters as $filter) : ?>
@@ -29,10 +29,10 @@
             </div>
             <!-- ./row -->
 
-            <h4 class="text-center my-3"><?= $lang['effects_title'] ?></h4>
+            <h4 class="text-center my-3"><?= $lang["general"]['effects_title'] ?></h4>
 
             <select class="form-select" id="effects">
-                <option value="none"><?= $lang['select_effect'] ?></option>
+                <option value="none"><?= $lang["general"]['select_effect'] ?></option>
                 <option value="vintage">Vintage</option>
                 <option value="lomo">Lomo</option>
                 <option value="clarity">Clarity</option>
@@ -55,10 +55,10 @@
 
             <div class="row mt-5">
                 <div class="col-md-6 mb-3">
-                    <button id="saveImageToUploads" class="btn btn-primary"><?= $lang['save_image_btn'] ?></button>
+                    <button id="saveImageToUploads" class="btn btn-primary"><?= $lang["general"]['save_image_btn'] ?></button>
                 </div>
                 <div class="col-md-6">
-                    <button id="clearFilters" class="btn btn-danger"><?= $lang['remove_filter_btn'] ?></button>
+                    <button id="clearFilters" class="btn btn-danger"><?= $lang["general"]['remove_filter_btn'] ?></button>
                 </div>
             </div>
         </div>

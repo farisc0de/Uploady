@@ -10,7 +10,7 @@ include_once 'logic/authLogic.php';
         <div class="col-sm-12 col-md-8 col-lg-5">
             <div class="card">
                 <div class="card-header">
-                    <b><?= $lang['manage_two_factor_title']; ?></b>
+                    <b><?= $lang["general"]['manage_two_factor_title']; ?></b>
                 </div>
                 <form method="POST" action="actions/auth.php">
                     <div class="card-body">
@@ -19,26 +19,26 @@ include_once 'logic/authLogic.php';
                         <?php if (isset($_GET['msg'])) : ?>
                             <?php if ($_GET['msg'] == "yes") : ?>
                                 <?php echo $utils->alert(
-                                    $lang["enable_two_factor_success"],
+                                    $lang["general"]["enable_two_factor_success"],
                                     "success",
                                     "check-circle"
                                 ); ?>
                             <?php elseif ($_GET['msg'] == "csrf") : ?>
 
                                 <?php echo $utils->alert(
-                                    $lang["csrf_error"],
+                                    $lang["general"]["csrf_error"],
                                     "danger",
                                     "times-circle"
                                 ); ?>
                             <?php elseif ($_GET['msg'] == "error") : ?>
                                 <?php echo $utils->alert(
-                                    $lang['unexpected_error'],
+                                    $lang["general"]['unexpected_error'],
                                     "danger",
                                     "times-circle"
                                 ); ?>
                             <?php elseif ($_GET['msg'] == "attack") : ?>
                                 <?php echo $utils->alert(
-                                    $lang['attack_error'],
+                                    $lang["general"]['attack_error'],
                                     "danger",
                                     "times-circle"
                                 ); ?>
@@ -58,17 +58,17 @@ include_once 'logic/authLogic.php';
                                 <input type="text" class="form-control" name="otp_secret" readonly value="<?= $secret ?>">
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" name="otp_code" placeholder="<?= $lang['two_factor_code']; ?>">
+                                <input type="text" class="form-control" name="otp_code" placeholder="<?= $lang["general"]['two_factor_code']; ?>">
                                 <small for="otp_code" class="small">
-                                    <?= $lang['get_code']; ?>
+                                    <?= $lang["general"]['get_code']; ?>
                                 </small>
                             </div>
                             <button name="enable" class="btn btn-primary">
-                                <?= $lang['enable_two_factor_btn'] ?>
+                                <?= $lang["general"]['enable_two_factor_btn'] ?>
                             </button>
                         <?php else : ?>
                             <button name="disable" class="btn btn-danger">
-                                <?= $lang['disable_two_factor_btn'] ?>
+                                <?= $lang["general"]['disable_two_factor_btn'] ?>
                             </button>
                         <?php endif; ?>
                     </div>

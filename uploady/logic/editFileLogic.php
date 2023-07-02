@@ -26,4 +26,4 @@ $filters = [
     "Sepia"
 ];
 
-$title = $lang['edit_file_title'];
+$title = $lang["general"]['edit_file_title'];

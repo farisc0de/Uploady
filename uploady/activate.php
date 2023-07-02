@@ -9,7 +9,7 @@ include_once APP_PATH . 'logic/activationLogic.php';
         <div class="col-sm-12 col-md-8 col-lg-8">
             <div class="card">
                 <div class="card-header">
-                    <b><?= $lang['activation_title'] ?></b>
+                    <b><?= $lang["general"]['activation_title'] ?></b>
                 </div>
                 <div class="card-body">
                     <div class="border border-primary bg-primary rounded">
@@ -20,7 +20,7 @@ include_once APP_PATH . 'logic/activationLogic.php';
                 </div>
                 <div class="card-footer mb-0">
                     <a class="btn btn-primary" href="<?= $utils->siteUrl('/login.php'); ?>">
-                        <?= $lang['go_to_login']; ?>
+                        <?= $lang["general"]['go_to_login']; ?>
                     </a>
                 </div>
             </div>

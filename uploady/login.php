@@ -10,7 +10,7 @@ include_once  APP_PATH . 'logic/loginLogic.php';
         <div class="col-sm-12 col-md-8 col-lg-4">
             <div class="card">
                 <div class="card-header">
-                    <b><?= $lang['login_title'] ?></b>
+                    <b><?= $lang["general"]['login_title'] ?></b>
                 </div>
                 <div class="card-body container text-left">
                     <?php if (isset($error)) : ?>
@@ -18,25 +18,25 @@ include_once  APP_PATH . 'logic/loginLogic.php';
                     <?php endif; ?>
                     <form method="POST" id="login_form">
                         <div class="mb-3">
-                            <input type="text" class="form-control" name="username" placeholder="<?= $lang['enter_username']; ?>">
+                            <input type="text" class="form-control" name="username" placeholder="<?= $lang["general"]['enter_username']; ?>">
                         </div>
                         <div class="mb-3">
-                            <input type="password" class="form-control" name="password" placeholder="<?= $lang['enter_password']; ?>">
+                            <input type="password" class="form-control" name="password" placeholder="<?= $lang["general"]['enter_password']; ?>">
                         </div>
                         <?php if ($settings->getSettingValue('recaptcha_status') == true) : ?>
                             <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
                         <?php endif; ?>
-                        <a class="d-block small m-3" href="forgot-password.php"><?= $lang['forget_password']; ?></a>
+                        <a class="d-block small m-3" href="forgot-password.php"><?= $lang["general"]['forget_password']; ?></a>
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">
-                                <?= $lang['login_button']; ?>
+                                <?= $lang["general"]['login_button']; ?>
                             </button>
                         </div>
                     </form>
                 </div>
                 <div class="card-footer mb-0">
                     <a href="<?= $utils->siteUrl('/signup.php'); ?>">
-                        <?= $lang['signup_cta_msg']; ?>
+                        <?= $lang["general"]['signup_cta_msg']; ?>
                     </a>
                 </div>
             </div>

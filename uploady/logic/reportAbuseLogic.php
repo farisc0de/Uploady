@@ -1,3 +1,3 @@
 <?php
 
-$title = $lang['report_abuse'];
+$title = $lang["general"]['report_abuse'];

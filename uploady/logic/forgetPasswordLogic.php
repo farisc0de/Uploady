@@ -15,14 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if (isset($username)) {
         if ($rp->sendMessage($username)) {
-            $msg = $lang["forget_password_success"];
+            $msg = $lang["general"]["forget_password_success"];
         } else {
-            $err = $lang["forget_password_failed"];
+            $err = $lang["general"]["forget_password_failed"];
         }
     } else {
-        $err = $lang["no_valid_email"];
+        $err = $lang["general"]["no_valid_email"];
     }
 }
 
 $page = "forgetPassword";
-$title = $lang['forget_password_title'];
+$title = $lang["general"]['forget_password_title'];
