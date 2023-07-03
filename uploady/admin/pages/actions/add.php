@@ -11,5 +11,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $page = new Uploady\Page($db, $loclizer);
     $page->add($slug);
 
-    $utils->redirect(SITE_URL . "/admin/pages/view.php?message=page_added");
+    $utils->redirect(SITE_URL . "/admin/pages/view.php?message=yes");
 }

@@ -80,13 +80,12 @@ class Page
      *  The page slug
      * @return bool
      */
-    public function update($slug, $title, $content)
+    public function update($id, $new_slug)
     {
-        $this->db->prepare("UPDATE pages SET title = :title, content = :content WHERE slug = :slug");
+        $this->db->prepare("UPDATE pages SET slug = :new_slug WHERE id = :id");
 
-        $this->db->bind(":title", $title, \PDO::PARAM_STR);
-        $this->db->bind(":content", $content, \PDO::PARAM_STR);
-        $this->db->bind(":slug", $slug, \PDO::PARAM_STR);
+        $this->db->bind(":id", $id, \PDO::PARAM_INT);
+        $this->db->bind(":new_slug", $new_slug, \PDO::PARAM_STR);
 
         return $this->db->execute();
     }
@@ -129,7 +128,7 @@ class Page
      */
     public function delete($slug)
     {
-        $this->db->prepare("DELETE * FROM pages WHERE slug = :slug");
+        $this->db->prepare("DELETE FROM pages WHERE slug = :slug");
 
         $this->db->bind(":slug", $slug, \PDO::PARAM_STR);
 
@@ -154,5 +153,37 @@ class Page
         }
 
         return false;
+    }
+
+    /**
+     * Count all pages in the database
+     *
+     * @return int
+     */
+    public function countAll()
+    {
+        $this->db->prepare("SELECT * FROM pages");
+
+        $this->db->execute();
+
+        return $this->db->rowCount();
+    }
+
+    /**
+     * Get the page slug
+     *
+     * @param int $id
+     *  The page id
+     * @return object
+     */
+    public function getSlug($id)
+    {
+        $this->db->prepare("SELECT slug FROM pages WHERE id = :id");
+
+        $this->db->bind(":id", $id, \PDO::PARAM_INT);
+
+        $this->db->execute();
+
+        return $this->db->single();
     }
 }

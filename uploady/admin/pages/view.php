@@ -91,7 +91,7 @@ include_once 'logic/viewLogic.php';
                                                 <tr>
                                                     <td>
                                                         <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="page_<?= $p->id ?>" name="pageid[]" value="<?= $p->id; ?>" />
+                                                            <input type="checkbox" class="custom-control-input" id="page_<?= $p->id ?>" name="slug[]" value="<?= $p->slug; ?>" />
                                                             <label class="custom-control-label" for="page_<?= $p->id; ?>" </label>
                                                         </div>
                                                     </td>

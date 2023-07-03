@@ -6,11 +6,15 @@ $mailer = new Uploady\Mailer($db);
 
 $user = new Uploady\User($db, $utils);
 
+$page = new Uploady\Page($db, $utils);
+
 $count_user = $user->countAll();
 
 $count_files = $upload->countFiles();
 
 $count_downloads = $upload->getDownloadsTotal();
+
+$count_pages = $page->countAll();
 
 $files_info = [];
 
