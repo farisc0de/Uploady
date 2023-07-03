@@ -29,10 +29,10 @@
                             <form method="POST" action="./actions/new.php">
 
                                 <div class="form-group">
-                                    <select label="Select Languge" name="lang_id" id="lang_id" class="form-control custom-select">
-                                        <option>Select Languge</option>
-                                        <?php foreach ($langs as $key => $value) : ?>
-                                            <option value="<?= $key ?>"><?= $value ?></option>
+                                    <select label="Select Language" name="lang_id" id="lang_id" class="form-control custom-select">
+                                        <option>Select language</option>
+                                        <?php foreach ($langs as $lang) : ?>
+                                            <option value="<?= $lang->id ?>"><?= $lang->language ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
@@ -40,15 +40,15 @@
                                 <div class="form-group">
                                     <select label="Select a page to translate" name="page_id" id="page_id" class="form-control custom-select">
                                         <option>Select a page to translate</option>
-                                        <?php foreach ($pages as $key => $value) : ?>
-                                            <option value="<?= $key ?>"><?= $value ?></option>
+                                        <?php foreach ($pages as $page) : ?>
+                                            <option value="<?= $page->id ?>"><?= $page->slug ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="form-label-group">
-                                        <input class="form-control" type="text" id="page_title" name="page_title" placeholder="Page title" value="<?= $settings->getSettingValue('smtp_port'); ?>">
+                                        <input class="form-control" type="text" id="page_title" name="page_title" placeholder="Page title">
                                         <label for="page_title">Page title</label>
                                     </div>
                                 </div>

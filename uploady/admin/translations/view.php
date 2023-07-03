@@ -58,7 +58,7 @@
                                                 <td><?= $languages[$translation->language_id - 1]->language; ?></td>
                                                 <td>
                                                     <a type="button" class="btn btn-primary" href="<?= $utils->siteUrl('/admin/translations/edit.php?id=' . $translation->id); ?>">
-                                                        Edit Page
+                                                        Edit Translation
                                                     </a>
                                                 </td>
                                             </tr>
@@ -66,6 +66,14 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">
+                                Delete Translations
+                            </button>
+                            <a type="button" class="btn btn-primary" href="<?= $utils->siteUrl('/admin/translations/new.php'); ?>">
+                                Create Translation
+                            </a>
                         </div>
                     </div>
                 </div>

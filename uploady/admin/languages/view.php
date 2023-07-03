@@ -30,7 +30,7 @@ include_once 'logic/viewLogic.php';
                         <?php if ($msg == "yes") : ?>
 
                             <?php echo $utils->alert(
-                                "Languge has been updated",
+                                "Language has been updated",
                                 "success",
                                 "check-circle"
                             ); ?>

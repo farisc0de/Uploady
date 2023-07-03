@@ -86,7 +86,7 @@ Make Uploads Folder Writeble `chmod 777 uploads`
 - [x] Adding Google Analytics Support
 - [x] Adding 2FA for users
 - [x] Adding pages
-- [x] Adding Languges support
+- [x] Adding Languages support
 - [x] Adding database updater
 - [x] Adding custom css and js support
 - [x] Adding dark mode
