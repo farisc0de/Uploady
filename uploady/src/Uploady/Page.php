@@ -128,6 +128,18 @@ class Page
      */
     public function delete($slug)
     {
+        $this->db->prepare("SELECT deletable FROM pages WHERE slug = :slug");
+
+        $this->db->bind(":slug", $slug, \PDO::PARAM_STR);
+
+        $this->db->execute();
+
+        $page = $this->db->single();
+
+        if (!$page->deletable) {
+            return false;
+        }
+
         $this->db->prepare("DELETE FROM pages WHERE slug = :slug");
 
         $this->db->bind(":slug", $slug, \PDO::PARAM_STR);
