@@ -49,13 +49,12 @@ Please use the stable version v2.0.1.
 14. Data Collection
 15. Charts and Stats
 16. Image Manipulation
-17. Password Protection for files
-18. Delete files after x days
-19. Delete files after x downloads
-20. Report Abuse Page
-21. Custom CSS and JS Support
-22. Social Media Sharing
-23. And more...
+17. Delete files after x days
+18. Delete files after x downloads
+19. Report Abuse Page
+20. Custom CSS and JS Support
+21. Social Media Sharing
+22. And more...
 
 ## Screenshots
 
