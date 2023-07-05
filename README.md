@@ -14,16 +14,6 @@ The software is written in PHP and uses MySQL as a database.
 
 And it is free and open source.
 
-## Note
-
-This branch is under heavy development and it is not recommended to use it in production.
-
-It contains v3.0 dev version with many new features and bug fixes.
-
-some features are not working properly and some features are not implemented yet.
-
-Please use the stable version v2.0.1.
-
 ## Features
 
 1. Simple to use and implement
@@ -36,31 +26,32 @@ Please use the stable version v2.0.1.
 4. Bootstrap and jQuery over CDN
 5. Multi-File Upload Support
 6. Admin Panel
-
-### v3.0 Features
-
 7. Drag and Drop Support
-8. Multi Language Support
-9. User Managment with Role-Based Permissions
-10. 2FA for users
-11. Dark Mode
+8. Role-based User Managment with size limit for each role
+9. More charts and stats for admin
+10. Data collection [IP Address, Browser Information, OS, Country]
+11. Image Manipulation
 12. AdSense Support
 13. Google Analytics Support
-14. Data Collection
-15. Charts and Stats
-16. Image Manipulation
-17. Delete files after x days
-18. Delete files after x downloads
-19. Report Abuse Page
-20. Custom CSS and JS Support
-21. Social Media Sharing
-22. And more...
+14. 2FA for users
+15. Pages Managment
+16. Multi-Languages Support
+17. Custom css and js support
+18. Dark mode
+19. Custom logo and favicon
+20. Delete files after x days
+21. Delete files after x downloads
+22. Report abuse page
+23. Social media sharing
+24. Social Media Accounts in footer
+25. Overall Bug Fixing
+26. Overall Code Refactoring
 
 ## Screenshots
 
-![](https://i.ibb.co/D7yGNTp/Web-capture-23-4-2023-52641-192-168-1-4.jpg)
+![](https://i.imgur.com/ropeZWD.png)
 
-![](https://i.ibb.co/hRbJxG9/Web-capture-20-4-2023-1035-localhost.jpg)
+![](https://i.imgur.com/fTe1FCZ.png)
 
 ## Note
 
@@ -73,31 +64,6 @@ Make Uploads Folder Writeble `chmod 777 uploads`
 3. Make uploads folder writeable
 4. Run install.php
 5. Enjoy (:
-
-## TODO (v3.0.0)
-
-- [x] Drag and Drop Support
-- [x] Role-based User Managment with size limit for each role
-- [x] More charts and stats for admin
-- [x] Implementing data collection [IP Address, Browser Information, OS, Country]
-- [x] Adding more features to admin panel
-- [x] Image Manipulation
-- [x] Adding AdSense Support
-- [x] Adding Google Analytics Support
-- [x] Adding 2FA for users
-- [x] Adding pages
-- [x] Adding Languages support
-- [x] Adding database updater
-- [x] Adding custom css and js support
-- [x] Adding dark mode
-- [x] Adding custom logo and favicon
-- [x] Adding delete files after x days
-- [x] Adding delete files after x downloads
-- [x] Adding report abuse page
-- [x] Adding social media sharing
-- [x] Adding Social Media Accounts in footer
-- [x] Overall Bug Fixing
-- [x] Overall Code Refactoring
 
 ## License
 

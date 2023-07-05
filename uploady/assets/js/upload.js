@@ -36,5 +36,5 @@ async function loadLanguge() {
   let lang = document.querySelector("html").getAttribute("lang");
   const response = await fetch(`languages/${lang}.json`);
   const language = await response.json();
-  return language;
+  return language["general"];
 }
