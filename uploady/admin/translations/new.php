@@ -23,7 +23,7 @@
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table mr-1"></i>
-                            DataTable Example
+                            Add Translation
                         </div>
                         <div class="card-body">
                             <form method="POST" action="./actions/new.php">
@@ -48,12 +48,12 @@
 
                                 <div class="form-group">
                                     <div class="form-label-group">
-                                        <input class="form-control" type="text" id="page_title" name="page_title" placeholder="Page title">
+                                        <input class="form-control" type="text" id="title" name="title" placeholder="Page title">
                                         <label for="page_title">Page title</label>
                                     </div>
                                 </div>
 
-                                <textarea id="page_content" name="page_content" class="form-control" placeholder="Page content"></textarea>
+                                <textarea id="page_content" name="content" class="form-control" placeholder="Page content"></textarea>
 
                                 <div class="form-group mt-3">
                                     <button class="btn btn-primary" type="submit">Create</button>
@@ -67,22 +67,21 @@
         </div>
     </div>
     <?php include_once '../components/js.php'; ?>
-    <script src="../assets//js/tinymce/tinymce.min.js"></script>
+    <?php $utils->script("js/tinymce/tinymce.min.js", "admin/assets") ?>
     <script>
         tinymce.init({
             selector: 'textarea#page_content',
             height: 500,
-            menubar: false,
             plugins: [
-                'advlist autolink lists link image charmap print preview anchor',
-                'searchreplace visualblocks code fullscreen',
-                'insertdatetime media table paste code help wordcount'
+                'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                'insertdatetime', 'media', 'table', 'help', 'wordcount'
             ],
-            toolbar: 'undo redo | formatselect | ' +
+            toolbar: 'undo redo | blocks | ' +
                 'bold italic backcolor | alignleft aligncenter ' +
                 'alignright alignjustify | bullist numlist outdent indent | ' +
                 'removeformat | help',
-            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
         });
     </script>
 </body>

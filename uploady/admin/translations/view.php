@@ -23,10 +23,32 @@
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item active">Dashboard</li>
                     </ol>
+
+                    <?php if (isset($msg)) : ?>
+
+                        <?php if ($msg == "translation_added" || $msg == "translation_updated") : ?>
+                            <?php echo $utils->alert(
+                                "Page has been updated",
+                                "success",
+                                "check-circle"
+                            ); ?>
+
+                        <?php elseif ($msg == "error") : ?>
+
+                            <?php echo $utils->alert(
+                                "An unexpected error has occurred",
+                                "danger",
+                                "times-circle"
+                            ); ?>
+
+                        <?php endif; ?>
+
+                    <?php endif; ?>
+
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table mr-1"></i>
-                            DataTable Example
+                            View Translations
                         </div>
                         <div class="card-body">
                             <div class="table-responsive border pl-2 pb-2 pt-2 pr-2 pb-2 rounded">
