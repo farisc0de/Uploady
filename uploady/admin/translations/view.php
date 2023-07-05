@@ -33,6 +33,14 @@
                                 "check-circle"
                             ); ?>
 
+                        <?php elseif ($msg == "translation_deleted") : ?>
+
+                            <?php echo $utils->alert(
+                                "Page has been deleted",
+                                "success",
+                                "check-circle"
+                            ); ?>
+
                         <?php elseif ($msg == "error") : ?>
 
                             <?php echo $utils->alert(
@@ -45,59 +53,61 @@
 
                     <?php endif; ?>
 
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-table mr-1"></i>
-                            View Translations
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive border pl-2 pb-2 pt-2 pr-2 pb-2 rounded">
-                                <table class="table nowrap table-bordered" width="100%" id="dataTable" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="select-all" name="select-all">
-                                                    <label class="custom-control-label" for="select-all"></label>
-                                                </div>
-                                            </th>
-                                            <th>Page Title</th>
-                                            <th>Language</th>
-                                            <th>Settings</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($page_translations as $translation) : ?>
+                    <form method="POST" action="actions/delete.php">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table mr-1"></i>
+                                View Translations
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive border pl-2 pb-2 pt-2 pr-2 pb-2 rounded">
+                                    <table class="table nowrap table-bordered" width="100%" id="dataTable" cellspacing="0">
+                                        <thead>
                                             <tr>
-                                                <td>
+                                                <th>
                                                     <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="role_<?= $translation->id ?>" name="roleid[]" value="<?= $translation->id; ?>" />
-                                                        <label class="custom-control-label" for="role_<?= $translation->id; ?>" </label>
+                                                        <input type="checkbox" class="custom-control-input" id="select-all" name="select-all">
+                                                        <label class="custom-control-label" for="select-all"></label>
                                                     </div>
-                                                </td>
-                                                <td><?= $translation->title; ?>
-                                                </td>
-                                                <td><?= $languages[$translation->language_id - 1]->language; ?></td>
-                                                <td>
-                                                    <a type="button" class="btn btn-primary" href="<?= $utils->siteUrl('/admin/translations/edit.php?id=' . $translation->id); ?>">
-                                                        Edit Translation
-                                                    </a>
-                                                </td>
+                                                </th>
+                                                <th>Page Title</th>
+                                                <th>Language</th>
+                                                <th>Settings</th>
                                             </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($page_translations as $translation) : ?>
+                                                <tr>
+                                                    <td>
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" id="role_<?= $translation->id ?>" name="translations[]" value="<?= $translation->id; ?>" />
+                                                            <label class="custom-control-label" for="role_<?= $translation->id; ?>" </label>
+                                                        </div>
+                                                    </td>
+                                                    <td><?= $translation->title; ?>
+                                                    </td>
+                                                    <td><?= $languages[$translation->language_id - 1]->language; ?></td>
+                                                    <td>
+                                                        <a type="button" class="btn btn-primary" href="<?= $utils->siteUrl('/admin/translations/edit.php?id=' . $translation->id); ?>">
+                                                            Edit Translation
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">
+                                    Delete Translations
+                                </button>
+                                <a type="button" class="btn btn-primary" href="<?= $utils->siteUrl('/admin/translations/new.php'); ?>">
+                                    Create Translation
+                                </a>
                             </div>
                         </div>
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">
-                                Delete Translations
-                            </button>
-                            <a type="button" class="btn btn-primary" href="<?= $utils->siteUrl('/admin/translations/new.php'); ?>">
-                                Create Translation
-                            </a>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </main>
             <?php include_once '../components/footer.php'; ?>

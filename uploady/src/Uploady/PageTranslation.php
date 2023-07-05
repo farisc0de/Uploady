@@ -55,6 +55,10 @@ class PageTranslation
         return $this->db->single();
     }
 
+    /**
+     * Get all translation records
+     * @return mixed
+     */
     public function getTranslations()
     {
         $this->db->prepare("SELECT * FROM pages_translation");
@@ -64,6 +68,13 @@ class PageTranslation
         return $this->db->resultset();
     }
 
+    /**
+     * Get a translation record
+     * @param mixed $id
+     * The id of the translation record
+     * @return mixed
+     * Returns the translation record if found, false otherwise
+     */
     public function getTranslationRecord($id)
     {
         $this->db->prepare("SELECT * FROM pages_translation WHERE id = :id");
@@ -72,11 +83,18 @@ class PageTranslation
         return $this->db->single();
     }
 
-    public function deleteTranslation($language, $page)
+    /**
+     * Delete a translation record
+     * 
+     * @param int $id
+     *  The id of the translation record
+     * @return bool
+     *  Returns true if the record is deleted, false otherwise
+     */
+    public function deleteTranslation($id)
     {
-        $this->db->prepare("DELETE FROM pages_translation WHERE language_id = :language AND page_id = :page");
-        $this->db->bind(":language", $language);
-        $this->db->bind(":page", $page);
-        $this->db->execute();
+        $this->db->prepare("DELETE FROM pages_translation WHERE id = :id");
+        $this->db->bind(":id", $id);
+        return $this->db->execute();
     }
 }
