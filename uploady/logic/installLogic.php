@@ -117,18 +117,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             [
                 'reset_hash',
                 Types::string(64),
-                Options::defaultValue(null)
+                Options::Null(),
             ],
             [
                 'created_at',
                 Types::timeStamp(),
                 Options::Null(),
-                Options::defaultValue(null)
             ],
             [
                 'activation_hash',
                 Types::string(64),
-                Options::defaultValue(null)
+                Options::Null(),
             ],
             [
                 'is_active',
@@ -146,7 +145,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ['file_settings', Types::LongText(), Options::notNull()],
             ['user_data', Types::LongText(), Options::notNull()],
             ['downloads', Types::integer(), Options::notNull()],
-            ['uploaded_at', Types::timeStamp(), Options::notNull()]
+            ['uploaded_at', Types::timeStamp(), Options::null()],
         ];
 
         $settings = [
