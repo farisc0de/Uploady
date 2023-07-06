@@ -152,7 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $settings = [
             ["id", Types::integer(), Options::unSigned(), Options::notNull()],
             ["setting_key", Types::string(50), Options::notNull()],
-            ["setting_value", Types::string(225), Options::notNull()],
+            ["setting_value", Types::string(225)],
         ];
 
         $pages = [
