@@ -6,6 +6,7 @@ services:
     ports:
       - 80:80
     image: uploady:latest
+    restart: always
     depends_on:
       - mysql
   
@@ -14,9 +15,21 @@ services:
     environment:
       MYSQL_DATABASE: "uploady"
       MYSQL_USER: "uploady"
-      MYSQL_PASSWORD: "uploady"
+      MYSQL_PASSWORD: "farisksa1997"
       MYSQL_ROOT_PASSWORD: "uploady"
     volumes:
       - mysql_data:/var/lib/mysql
+
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+        - '8080:80'
+    restart: always
+    environment:
+        PMA_HOST: mysql
+    depends_on:
+        - mysql
+
 volumes:
   mysql_data:
