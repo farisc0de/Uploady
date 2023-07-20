@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  app:
+    volumes:
+      - .:/var/www/html/
+    ports:
+      - 80:80
+    image: uploady:latest
+    depends_on:
+      - mysql
+  
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: "uploady"
+      MYSQL_USER: "uploady"
+      MYSQL_PASSWORD: "uploady"
+      MYSQL_ROOT_PASSWORD: "uploady"
+    volumes:
+      - mysql_data:/var/lib/mysql
+volumes:
+  mysql_data:
