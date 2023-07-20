@@ -15,7 +15,7 @@ services:
     environment:
       MYSQL_DATABASE: "uploady"
       MYSQL_USER: "uploady"
-      MYSQL_PASSWORD: "farisksa1997"
+      MYSQL_PASSWORD: "uploady"
       MYSQL_ROOT_PASSWORD: "uploady"
     volumes:
       - mysql_data:/var/lib/mysql
