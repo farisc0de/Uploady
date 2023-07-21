@@ -4,13 +4,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        user: 1001
     ports:
       - 80:80
     volumes:
       - .:/var/www/html
-    image: uploady:latest
+    image: fariscode/uploady:latest
     restart: always
     depends_on:
       - db

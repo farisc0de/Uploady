@@ -144,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ['file_data', Types::LongText(), Options::notNull()],
             ['file_settings', Types::LongText(), Options::notNull()],
             ['user_data', Types::LongText(), Options::notNull()],
-            ['downloads', Types::integer(), Options::notNull()],
+            ['downloads', Types::integer(), Options::null()],
             ['uploaded_at', Types::timeStamp(), Options::null()],
         ];
 
