@@ -8,7 +8,7 @@ services:
       - 80:80
     volumes:
       - .:/var/www/html
-    image: fariscode/uploady:latest
+    image: farisc0de/uploady:latest
     restart: always
     depends_on:
       - db
