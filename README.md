@@ -65,6 +65,12 @@ Make Uploads Folder Writeble `chmod 777 uploads`
 4. Run install.php
 5. Enjoy (:
 
+## Docker Deployment
+
+```
+docker-compose up -d
+```
+
 ## License
 
 MIT
