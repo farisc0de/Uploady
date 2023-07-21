@@ -306,7 +306,7 @@ final class Upload
 
         if (!file_exists($user_cloud)) {
             @mkdir($user_cloud);
-            @chmod($user_cloud, 777);
+            @chmod($user_cloud, 0777);
         }
 
         return true;

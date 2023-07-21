@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "farisc0de/phpfileuploading",
-            "version": "v1.0.6",
+            "version": "v1.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/farisc0de/PhpFileUploading.git",
-                "reference": "dfabe01b1ba65b9b911a2a6af6240236bda6ba01"
+                "reference": "ace66fc91726811b9e7af8b944df65de6782f52a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/farisc0de/PhpFileUploading/zipball/dfabe01b1ba65b9b911a2a6af6240236bda6ba01",
-                "reference": "dfabe01b1ba65b9b911a2a6af6240236bda6ba01",
+                "url": "https://api.github.com/repos/farisc0de/PhpFileUploading/zipball/ace66fc91726811b9e7af8b944df65de6782f52a",
+                "reference": "ace66fc91726811b9e7af8b944df65de6782f52a",
                 "shasum": ""
             },
             "type": "library",
@@ -39,9 +39,9 @@
             "description": "PHP Library to help you build your own file sharing website.",
             "support": {
                 "issues": "https://github.com/farisc0de/PhpFileUploading/issues",
-                "source": "https://github.com/farisc0de/PhpFileUploading/tree/v1.0.6"
+                "source": "https://github.com/farisc0de/PhpFileUploading/tree/v1.0.7"
             },
-            "time": "2023-06-30T12:05:58+00:00"
+            "time": "2023-07-21T10:52:29+00:00"
         },
         {
             "name": "farisc0de/phpmigration",
@@ -342,16 +342,16 @@
     "packages-dev": [
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.21",
+            "version": "1.10.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "b2a30186be2e4d97dce754ae4e65eb0ec2f04eb5"
+                "reference": "5d660cbb7e1b89253a47147ae44044f49832351f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/b2a30186be2e4d97dce754ae4e65eb0ec2f04eb5",
-                "reference": "b2a30186be2e4d97dce754ae4e65eb0ec2f04eb5",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/5d660cbb7e1b89253a47147ae44044f49832351f",
+                "reference": "5d660cbb7e1b89253a47147ae44044f49832351f",
                 "shasum": ""
             },
             "require": {
@@ -400,7 +400,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-21T20:07:58+00:00"
+            "time": "2023-07-19T12:44:37+00:00"
         }
     ],
     "aliases": [],
