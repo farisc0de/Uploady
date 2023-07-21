@@ -67,7 +67,8 @@ Make Uploads Folder Writeble `chmod 777 uploads`
 
 ## Docker Deployment
 
-```
+```bash
+docker buid . -t farisc0de/uploady
 docker-compose up -d
 ```
 
