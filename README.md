@@ -74,14 +74,6 @@ docker build . -t farisc0de/uploady
 docker-compose up -d
 ```
 
-## TODO
-
-```
-v3.1
-
-1. Configurable anonymous uploads
-```
-
 ## License
 
 MIT
