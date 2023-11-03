@@ -118,6 +118,16 @@ include_once 'logic/settings.php';
                                         <hr />
 
                                         <div class="form-group">
+                                            <input hidden name="public_upload" value="0" />
+                                            <div class="custom-control custom-switch custom-control-right">
+                                                <input class="custom-control-input" id="public_upload" name="public_upload" value="1" type="checkbox" <?= ($settings->getSettingValue('public_upload') == true) ? 'checked' : null; ?>>
+                                                <label class="custom-control-label" for="public_upload">Public Upload</label>
+                                            </div>
+                                        </div>
+
+                                        <hr />
+
+                                        <div class="form-group">
                                             <div class="form-label-group">
                                                 <input class="form-control" type="text" id="instagram_link" name="instagram_link" placeholder="Instagram Link" value="<?= $settings->getSettingValue('instagram_link'); ?>">
                                                 <label for="instagram_link"><i class="fab fa-instagram"></i> Instagram Link</label>

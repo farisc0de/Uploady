@@ -16,6 +16,7 @@ $st = $settings->getSettings();
 $current_url = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
 if (isset($_SESSION)) {
+
     $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
 
     if (!isset($_SESSION['user_role'])) {
@@ -50,6 +51,18 @@ if (isset($_SESSION)) {
         if (isset($_SESSION['isHuman'])) {
             if ($_SESSION['isHuman'] == false) {
                 $utils->redirect($utils->siteUrl('/logout.php'));
+            }
+        }
+    }
+
+    if (!isset($_SESSION['loggedin'])) {
+        if (
+            !strpos($current_url, "login.php") &&
+            !strpos($current_url, "signup.php") &&
+            !strpos($current_url, "auth.php")
+        ) {
+            if (!$settings->getSettingValue("public_upload")) {
+                $utils->redirect($utils->siteUrl('/login.php'));
             }
         }
     }

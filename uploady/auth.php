@@ -3,7 +3,7 @@ include_once 'session.php';
 include_once  APP_PATH . 'logic/authLogic.php';
 ?>
 
-<? include_once 'components/header.php'; ?>
+<?php include_once 'components/header.php'; ?>
 
 <div class="container pb-5 pt-5">
     <div class="row justify-content-center text-center">
