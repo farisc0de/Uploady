@@ -1,6 +1,6 @@
 <?php include_once 'session.php'; ?>
 
-<? $title = $lang["general"]['token_expired_title']; ?>
+<?php $title = $lang["general"]['token_expired_title']; ?>
 
 <?php include_once 'components/header.php'; ?>
 
