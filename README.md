@@ -69,7 +69,7 @@ Make Uploads Folder Writeble `chmod 777 uploads`
 
 ```bash
 git clone https://github.com/farisc0de/Uploady
-cd Uploady/
+cd Uploady/uploady
 docker build . -t farisc0de/uploady
 docker-compose up -d
 ```
