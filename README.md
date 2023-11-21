@@ -25,27 +25,21 @@ And it is free and open source.
 3. Out Of The Box Functions
 4. Bootstrap and jQuery over CDN
 5. Multi-File Upload Support
-6. Admin Panel
+6. Admin Panel with charts and stats
 7. Drag and Drop Support
-8. Role-based User Managment with size limit for each role
-9. More charts and stats for admin
-10. Data collection [IP Address, Browser Information, OS, Country]
-11. Image Manipulation
-12. AdSense Support
-13. Google Analytics Support
-14. 2FA for users
-15. Pages Managment
-16. Multi-Languages Support
-17. Custom css and js support
-18. Dark mode
-19. Custom logo and favicon
-20. Delete files after x days
-21. Delete files after x downloads
-22. Report abuse page
-23. Social media sharing
-24. Social Media Accounts in footer
-25. Overall Bug Fixing
-26. Overall Code Refactoring
+8. Role-based User Management with size limit for each role
+9. Data collection [IP Address, Browser Information, OS, Country]
+10. Image Manipulation
+11. AdSense Support
+12. Google Analytics Support
+13. Pages Management
+14. Multi-Languages Support
+15. Custom CSS and JS support
+16. Custom logo and favicon
+17. Delete files after x days
+18. Delete files after x downloads
+19. Report abuse page
+20. Social media sharing
 
 ## Screenshots
 
