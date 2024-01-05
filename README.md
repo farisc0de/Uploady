@@ -49,13 +49,13 @@ And it is free and open source.
 
 ## Note
 
-Make Uploads Folder Writeble `chmod 777 uploads`
+Change the permission of everything to 755 `chmod 755 -R uploady/`
 
 ## How to Install
 
 1. Upload all files to your server
 2. Modify config/config.php with your custom info
-3. Make uploads folder writeable
+3. Change files and folders permission to 775
 4. Run install.php
 5. Enjoy (:
 
