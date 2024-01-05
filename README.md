@@ -61,6 +61,17 @@ Change the permission of everything to 755 `chmod 755 -R uploady/`
 
 ## Docker Deployment
 
+Update config.php with connection string as below
+
+```php
+define("DB_HOST", "uploady");
+define("DB_USER", "uploady");
+define("DB_PASS", "uploady");
+define("DB_NAME", "uploady");
+```
+
+Then use the below command to run the application
+
 ```bash
 git clone https://github.com/farisc0de/Uploady
 cd Uploady/
