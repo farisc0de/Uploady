@@ -59,7 +59,8 @@ if (isset($_SESSION)) {
         if (
             !strpos($current_url, "login.php") &&
             !strpos($current_url, "signup.php") &&
-            !strpos($current_url, "auth.php")
+            !strpos($current_url, "auth.php") &&
+            !strpos($current_url, "page.php?s=terms")
         ) {
             if (!$settings->getSettingValue("public_upload")) {
                 $utils->redirect($utils->siteUrl('/login.php'));
