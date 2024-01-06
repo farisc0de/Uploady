@@ -79,10 +79,14 @@ docker build . -t farisc0de/uploady
 docker-compose up -d
 ```
 
+## Wiki
+
+1. [How to install on a shared hosting](https://github.com/farisc0de/Uploady/wiki/How-to-Install-on-a-shared-hosting)
+
 ## License
 
 MIT
 
 ## Copyright
 
-Developed by Faris AL-Otaibi - 2023
+Developed by Faris AL-Otaibi - 2024
