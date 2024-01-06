@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 services:
   app:
     build:
@@ -9,12 +9,12 @@ services:
     volumes:
       - .:/var/www/html
     image: farisc0de/uploady:latest
-    restart: always
     depends_on:
       - db
 
   db:
     image: mysql:latest
+    restart: always
     environment:
       MYSQL_DATABASE: "uploady"
       MYSQL_USER: "uploady"
