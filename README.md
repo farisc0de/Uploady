@@ -87,7 +87,7 @@ docker-compose up -d
 ## Wiki
 
 1. [How to install on a shared hosting](https://github.com/farisc0de/Uploady/wiki/How-to-Install-on-a-shared-hosting)
-2. [How to install on with Docker]([https://github.com/farisc0de/Uploady/wiki/How-to-install-using-Docker])
+2. [How to install on with Docker](https://github.com/farisc0de/Uploady/wiki/How-to-install-using-Docker)
 
 ## License
 
