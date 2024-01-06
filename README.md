@@ -64,7 +64,7 @@ Change the permission of everything to 755 `chmod 755 -R uploady/`
 Update config.php with connection string as below
 
 ```php
-define("DB_HOST", "uploady");
+define("DB_HOST", "db");
 define("DB_USER", "uploady");
 define("DB_PASS", "uploady");
 define("DB_NAME", "uploady");
