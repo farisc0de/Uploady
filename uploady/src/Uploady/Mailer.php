@@ -104,7 +104,6 @@ class Mailer
 
             return $mail->send();
         } catch (Exception $th) {
-            echo $th->getMessage();
             return false;
         }
     }
