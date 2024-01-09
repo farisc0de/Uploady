@@ -158,6 +158,35 @@ class UploadHandler
     }
 
     /**
+     * Update a file settings in the database
+     *
+     * @param string $file_id
+     *  The file id
+     * @param string $user_id
+     *  The file data
+     * @param string $file_settings
+     *  The file settings
+     * @return bool
+     *  True if the file was updated successfully
+     */
+    public function updateFileSettings($file_id, $user_id, $file_settings)
+    {
+        $this->db->prepare(
+            "UPDATE files SET file_settings = :file_settings WHERE file_id = :file_id AND user_id = :user_id"
+        );
+
+        $this->db->bind(":file_id", $file_id, \PDO::PARAM_STR);
+        $this->db->bind(":user_id", $user_id, \PDO::PARAM_STR);
+        $this->db->bind(":file_settings", $file_settings, \PDO::PARAM_STR);
+
+        if ($this->db->execute()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Delete a file from the database
      *
      * @param string $file_id

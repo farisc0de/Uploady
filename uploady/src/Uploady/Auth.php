@@ -20,6 +20,14 @@ class Auth
      */
     private $db;
 
+
+    /**
+     * User connection
+     *
+     * @var User
+     */
+    private $user;
+
     /**
      * Utils Connection
      *
@@ -122,6 +130,29 @@ class Auth
         $this->db->bind(':user', $username, \PDO::PARAM_STR);
 
         $this->db->execute();
+    }
+
+    public function authenticateApiKey(): bool
+    {
+        if (empty($_SERVER['HTTP_X_API_KEY'])) {
+            http_response_code(400);
+            echo json_encode(["message" => "Missing API key"]);
+            return false;
+        }
+
+        $api_key = $_SERVER['HTTP_X_API_KEY'];
+
+        $user = $this->user->getByApiKey($api_key);
+
+        if ($user == false) {
+            http_response_code(401);
+            echo json_encode(["message" => "Invalid API key"]);
+            return false;
+        }
+
+        $_SESSION['user_id'] = $user['id'];
+
+        return true;
     }
 
     /**

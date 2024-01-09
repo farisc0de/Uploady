@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+
 include_once 'config/config.php';
 
 $db = new Uploady\Database();

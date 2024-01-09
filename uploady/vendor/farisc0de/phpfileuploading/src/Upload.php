@@ -886,6 +886,7 @@ final class Upload
             "filehash" => $this->hash_id,
             "filesize" => $this->util->formatBytes($this->file->getSize()),
             "uploaddate" => date("Y-m-d h:i:s", $this->file->getDate()),
+            "filemime" => $this->file->getMime(),
             "user_id" => $this->getUserID(),
             "file_id" => $this->getFileID(),
         ];

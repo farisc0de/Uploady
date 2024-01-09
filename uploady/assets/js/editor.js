@@ -224,7 +224,7 @@ document.getElementById("saveImageToUploads").addEventListener("click", (e) => {
         );
 
         var request = new XMLHttpRequest();
-        request.open("POST", "actions/update_file.php");
+        request.open("POST", "actions/update_file.php?action=edit_image");
         request.send(formData);
 
         request.onreadystatechange = function () {

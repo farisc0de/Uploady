@@ -294,6 +294,25 @@ class User
     }
 
     /**
+     * Get the user information using the api key
+     *
+     * @param string $key
+     *  The api key you want to get the user information
+     * @return array|bool
+     *  Return the user information otherwise false
+     */
+    public function getByApiKey(string $key): array | false
+    {
+        $this->db->prepare("SELECT * FROM user WHERE api_key = :api_key");
+
+        $this->db->bind(":api_key", $key, \PDO::PARAM_STR);
+
+        $this->db->execute();
+
+        return $this->db->single();
+    }
+
+    /**
      * Check if the user has enabled the two factor authentication
      * @param mixed $username
      *  The username you want to check if the two factor authentication is enabled
@@ -325,12 +344,12 @@ class User
     }
 
     /**
-     * Regenare the session id and set the OTP session to true
+     * Regenrate the session id and set the OTP session to true
      *
      * @return void
      *  Redirect the user to the index page
      */
-    public function regenareSession()
+    public function regenerateSession()
     {
         session_regenerate_id();
         $_SESSION['OTP'] = true;

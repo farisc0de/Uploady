@@ -19,7 +19,7 @@ if (!isset($_SESSION['loggedin'])) {
 $uniqueid = $auth->generateDeviceID();
 
 if ($auth->checkDeviceId($uniqueid) == true) {
-    $user->regenareSession();
+    $user->regenerateSession();
 }
 
 $g = new \RobThree\Auth\TwoFactorAuth("Uploady");
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
 
-        $user->regenareSession();
+        $user->regenerateSession();
     } else {
         $error = $lang["general"]["two_factor_auth_failed"];
     }

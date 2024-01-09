@@ -123,7 +123,13 @@
     "select_effect": "Select Effect",
     "save_image_btn": "Save Image",
     "image_saved_success": "Image has been saved successfully",
-    "remove_filter_btn": "Remove Filter"
+    "remove_filter_btn": "Remove Filter",
+    "delete_after_days": "Delete After Days",
+    "delete_after_days_placeholder": "Enter number of days after which the file will be deleted",
+    "delete_after_days_help": "Enter number of days after which the file will be deleted. Leave 0 if you don't want to delete the file.",
+    "delete_after_downloads": "Delete After Downloads",
+    "delete_after_downloads_placeholder": "Enter number of downloads after which the file will be deleted",
+    "delete_after_downloads_help": "Enter number of downloads after which the file will be deleted. Leave 0 if you don't want to delete the file."
   },
   "navbar": {
     "home": "Home",
