@@ -89,6 +89,14 @@ docker-compose up -d
 1. [How to install on a shared hosting](https://github.com/farisc0de/Uploady/wiki/How-to-Install-on-a-shared-hosting)
 2. [How to install with Docker](https://github.com/farisc0de/Uploady/wiki/How-to-install-using-Docker)
 
+## API Usage
+
+```bash
+curl --location 'http://localhost/api/upload' \
+--header 'X-API-KEY: IpSznjueHn4vhi0BMhuZJRlk8epZxGJR' \
+--form 'file=@"postman-cloud:///1eeafe05-7a96-4b40-9639-6ae17e7155d7"'
+```
+
 ## License
 
 MIT
