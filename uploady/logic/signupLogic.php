@@ -42,14 +42,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $url = $utils->siteUrl("/activate.php?token=$token");
 
-            // $mailer->sendMessage(
-            //     $email,
-            //     $lang["general"]['activation_email_subject'],
-            //     $tpl->loadTemplate('activation_email', [
-            //         'username' => $username,
-            //         'activation_url' => $url
-            //     ])
-            // );
+            $mailer->sendMessage(
+                $email,
+                $lang["general"]['activation_email_subject'],
+                $tpl->loadTemplate('activation_email', [
+                    'username' => $username,
+                    'activation_url' => $url
+                ])
+            );
 
             $msg = $lang["general"]['signup_success'];
         }
