@@ -7,7 +7,7 @@ include_once 'config/config.php';
 $db = new Uploady\Database();
 $utils = new Uploady\Utils();
 $user = new Uploady\User($db, $utils);
-$auth = new Uploady\Auth($db, $utils);
+$auth = new Uploady\Auth($db, $utils, $user);
 $settings = new Uploady\Settings($db);
 $localization = new Uploady\Localization($db);
 $role = new Uploady\Role($db, $user);

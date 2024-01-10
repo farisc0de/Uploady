@@ -64,6 +64,9 @@ include_once 'logic/accountLogic.php';
                             <input type="password" class="form-control" name="password" placeholder="<?= $lang["general"]['enter_password']; ?>">
                             <small><?= $lang["general"]['keep_empty_msg']; ?></small>
                         </div>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" name="api_key" placeholder="<?= $lang["general"]['enter_your_email'] ?>" value="<?= $data->api_key; ?>" readonly>
+                        </div>
                         <a href="auth.php"><?= $lang["general"]['enable_two_factor'] ?></a>
                         |
                         <a href="#" onclick="deleteAccount('<?= $_SESSION['csrf'] ?>')">

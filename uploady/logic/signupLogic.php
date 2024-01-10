@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
 
-        if (isset($error)) {
+        if (!isset($error)) {
             $token = bin2hex(random_bytes(16));
 
             $hash = sha1($token);
@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'email' => $email,
                 'password' => password_hash($password, PASSWORD_BCRYPT),
                 'user_id' => $upload->getUserID(),
+                "api_key" => bin2hex(random_bytes(16)),
                 'activation_hash' => $hash,
                 'is_active' => 0
             ]);

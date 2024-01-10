@@ -44,11 +44,13 @@ class Auth
      *  An object from the Utils class
      * @return void
      */
-    public function __construct($database, $utils)
+    public function __construct($database, $utils, $user)
     {
         $this->db = $database;
 
         $this->utils = $utils;
+
+        $this->user = $user;
     }
 
     /**
@@ -137,6 +139,11 @@ class Auth
     }
 
 
+    /**
+     * Authenticate the user using the API key
+     *
+     * @return boolean
+     */
     public function authenticateApiKey(): bool
     {
         if (empty($_SERVER['HTTP_X_API_KEY'])) {
@@ -155,7 +162,8 @@ class Auth
             return false;
         }
 
-        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['user_id'] = $user->user_id;
+        $_SESSION['user_role'] = $user->role;
 
         return true;
     }

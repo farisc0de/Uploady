@@ -1,8 +1,7 @@
 <?php
 
-$auth = new Uploady\Auth($db, $utils);
 $user = new Uploady\User($db, $utils);
-
+$auth = new Uploady\Auth($db, $utils, $user);
 /** Check if user is already log in */
 
 if (isset($_SESSION['loggedin'])) {

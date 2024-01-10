@@ -4,8 +4,8 @@ $page = "authPage";
 
 $utils = new Uploady\Utils();
 $database = new Uploady\Database();
-$auth = new Uploady\Auth($database, $utils);
 $user = new Uploady\User($database, $utils);
+$auth = new Uploady\Auth($database, $utils, $user);
 
 // Check if the user is loggedin
 if (!isset($_SESSION['loggedin'])) {

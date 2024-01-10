@@ -161,6 +161,7 @@ class User
      */
     public function update($id, $user_array)
     {
+        unset($user_array['api_key']);
 
         $array_keys = array_keys($user_array);
 
@@ -298,12 +299,12 @@ class User
      *
      * @param string $key
      *  The api key you want to get the user information
-     * @return array|bool
+     * @return object|bool
      *  Return the user information otherwise false
      */
-    public function getByApiKey(string $key): array | false
+    public function getByApiKey(string $key)
     {
-        $this->db->prepare("SELECT * FROM user WHERE api_key = :api_key");
+        $this->db->prepare("SELECT * FROM users WHERE api_key = :api_key");
 
         $this->db->bind(":api_key", $key, \PDO::PARAM_STR);
 

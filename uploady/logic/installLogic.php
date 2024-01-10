@@ -92,6 +92,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 Options::defaultValue("1")
             ],
             [
+                'api_key',
+                Types::integer(),
+                Options::notNull(),
+                Options::defaultValue("1")
+            ],
+            [
                 'otp_status',
                 Types::Boolean(),
                 Options::notNull(),
@@ -278,6 +284,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             "password" => password_hash($utils->sanitize($_POST["password"]), PASSWORD_BCRYPT),
             "user_id" => $upload->getUserID(),
             "role" => 3,
+            "api_key" => bin2hex(random_bytes(16)),
             "is_active" => true
         ]);
 
