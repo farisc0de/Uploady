@@ -35,6 +35,9 @@ include_once APP_PATH . 'logic/signupLogic.php';
                                 <?= $lang["general"]['i_agree'] ?> <a href="page.php?s=terms"><?= $lang["general"]['tos_short'] ?></a>
                             </label>
                         </div>
+                        <?php if ($settings->getSettingValue('recaptcha_status') == true) : ?>
+                            <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
+                        <?php endif; ?>
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">
                                 <?= $lang["general"]['signup_button'] ?>
@@ -51,5 +54,19 @@ include_once APP_PATH . 'logic/signupLogic.php';
         </div>
     </div>
 </div>
+
+<?php if ($settings->getSettingValue('recaptcha_status') == true) : ?>
+    <script src="https://www.google.com/recaptcha/api.js?render=<?php echo $settings->getSettingValue('recaptcha_site_key'); ?>"></script>
+    <script>
+        grecaptcha.ready(function() {
+            grecaptcha.execute('<?php echo $settings->getSettingValue('recaptcha_site_key'); ?>', {
+                action: 'login_form'
+            }).then(function(token) {
+                var recaptchaResponse = document.getElementById('recaptchaResponse');
+                recaptchaResponse.value = token;
+            });
+        });
+    </script>
+<?php endif; ?>
 
 <?php include_once 'components/footer.php'; ?>

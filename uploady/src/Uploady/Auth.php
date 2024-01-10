@@ -97,6 +97,10 @@ class Auth
             }
         }
 
+        if ($row->is_active == 0) {
+            return 405;
+        }
+
         if (
             ($this->db->rowCount() == 1) &&
             (password_verify($password, $row->password)) &&
@@ -131,6 +135,7 @@ class Auth
 
         $this->db->execute();
     }
+
 
     public function authenticateApiKey(): bool
     {

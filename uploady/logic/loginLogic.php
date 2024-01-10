@@ -31,7 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 $error = $lang["general"]["recaptcha_failed"];
             }
         }
-
         if (!isset($error)) {
             session_regenerate_id();
 
@@ -50,6 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $error = $lang["general"]["incorrect_creds"];
     } elseif ($loginstatus == 403) {
         $error = $lang["general"]['account_locked'];
+    } elseif ($loginstatus == 405) {
+        $error = $lang["general"]['account_not_activated'];
     } else {
         $error = $lang["general"]['unxpected_error'];
     }

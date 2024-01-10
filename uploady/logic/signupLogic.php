@@ -11,33 +11,48 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $utils->sanitize($_POST['password']);
 
     if (!$user->isExist($email) && !$user->isExist($username)) {
-        $token = bin2hex(random_bytes(16));
+        if (isset($_POST['recaptcha_response'])) {
+            $recaptcha = new \ReCaptcha\ReCaptcha($settings->getSettingValue('recaptcha_secret_key'));
 
-        $hash = sha1($token);
+            $resp = $recaptcha->setChallengeTimeout(60)
+                ->setExpectedAction("login_form")
+                ->setScoreThreshold(0.5)
+                ->verify($_POST['recaptcha_response'], $_SERVER['REMOTE_ADDR']);
 
-        $upload->generateUserID();
+            if (!$resp->isSuccess()) {
+                $error = $lang["general"]["recaptcha_failed"];
+            }
+        }
 
-        $user->add([
-            'username' => $username,
-            'email' => $email,
-            'password' => password_hash($password, PASSWORD_BCRYPT),
-            'user_id' => $upload->getUserID(),
-            'activation_hash' => $hash,
-            'is_active' => 0
-        ]);
+        if (isset($error)) {
+            $token = bin2hex(random_bytes(16));
 
-        $url = $utils->siteUrl("/activate.php?token=$token");
+            $hash = sha1($token);
 
-        $mailer->sendMessage(
-            $email,
-            $lang["general"]['activation_email_subject'],
-            $tpl->loadTemplate('activation_email', [
+            $upload->generateUserID();
+
+            $user->add([
                 'username' => $username,
-                'activation_url' => $url
-            ])
-        );
+                'email' => $email,
+                'password' => password_hash($password, PASSWORD_BCRYPT),
+                'user_id' => $upload->getUserID(),
+                'activation_hash' => $hash,
+                'is_active' => 0
+            ]);
 
-        $msg = $lang["general"]['signup_success'];
+            $url = $utils->siteUrl("/activate.php?token=$token");
+
+            // $mailer->sendMessage(
+            //     $email,
+            //     $lang["general"]['activation_email_subject'],
+            //     $tpl->loadTemplate('activation_email', [
+            //         'username' => $username,
+            //         'activation_url' => $url
+            //     ])
+            // );
+
+            $msg = $lang["general"]['signup_success'];
+        }
     } else {
         $error = $lang["general"]['user_already_exist'];
     }

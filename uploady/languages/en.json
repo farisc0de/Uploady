@@ -60,6 +60,7 @@
     "enter_username": "Enter Username",
     "enter_password": "Enter Password",
     "forget_password": "Forgot Password?",
+    "account_not_activated": "Your account is not activated. Please check your email to activate your account.",
     "signup_success": "Your account has been created successfully. Please check your email to activate your account.",
     "user_already_exist": "User already exists",
     "activation_email_subject": "Activate your account",
