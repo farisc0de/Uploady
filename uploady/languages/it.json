@@ -123,7 +123,14 @@
     "select_effect": "Seleziona Effetto",
     "save_image_btn": "Salva Immagine",
     "image_saved_success": "L'immagine è stata salvata correttamente",
-    "remove_filter_btn": "Rimuovi Filtri"
+    "remove_filter_btn": "Rimuovi Filtri",
+    "account_not_activated": "Il suo account non è stato ancora attivato. Controlli la sua email.",
+    "delete_after_days_placeholder": "Enter number of days after which the file will be deleted",
+    "delete_after_days_help": "Enter number of days after which the file will be deleted. Leave 0 if you don't want to delete the file.",
+    "delete_after_downloads": "Delete After Downloads",
+    "delete_after_downloads_placeholder": "Enter number of downloads after which the file will be deleted",
+    "delete_after_downloads_help": "Enter number of downloads after which the file will be deleted. Leave 0 if you don't want to delete the file.",
+    "set_btn": "Imposta"
   },
   "navbar": {
     "home": "Home",

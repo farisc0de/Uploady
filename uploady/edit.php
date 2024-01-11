@@ -23,7 +23,7 @@
                     <small class="text-muted"><?= $lang["general"]['delete_after_downloads_help'] ?></small>
                 </div>
 
-                <button type="submit" id="delete_at_btn" class="btn btn-primary">Set</button>
+                <button type="submit" id="delete_at_btn" class="btn btn-primary"><?= $lang["general"]["set_btn"] ?></button>
             </form>
 
             <?php if (in_array($file_data['filemime'], $image_mime)) : ?>

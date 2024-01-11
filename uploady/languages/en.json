@@ -130,7 +130,8 @@
     "delete_after_days_help": "Enter number of days after which the file will be deleted. Leave 0 if you don't want to delete the file.",
     "delete_after_downloads": "Delete After Downloads",
     "delete_after_downloads_placeholder": "Enter number of downloads after which the file will be deleted",
-    "delete_after_downloads_help": "Enter number of downloads after which the file will be deleted. Leave 0 if you don't want to delete the file."
+    "delete_after_downloads_help": "Enter number of downloads after which the file will be deleted. Leave 0 if you don't want to delete the file.",
+    "set_btn": "Set"
   },
   "navbar": {
     "home": "Home",
