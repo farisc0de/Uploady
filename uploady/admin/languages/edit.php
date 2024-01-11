@@ -28,7 +28,52 @@
                         <div class="card-body">
                             <form method="POST" action="actions/edit.php">
 
+                                <?php if (isset($msg)) : ?>
+
+                                    <?php if ($msg == "language_updated") : ?>
+
+                                        <?php echo $utils->alert(
+                                            "Language has been updated",
+                                            "success",
+                                            "check-circle"
+                                        ); ?>
+
+                                    <?php elseif ($msg == "csrf") : ?>
+
+                                        <?php echo $utils->alert(
+                                            "CSRF token is invalid.",
+                                            "danger",
+                                            "times-circle"
+                                        ); ?>
+
+                                    <?php elseif ($msg == "error") : ?>
+
+                                        <?php echo $utils->alert(
+                                            "An unexpected error has occurred",
+                                            "danger",
+                                            "times-circle"
+                                        ); ?>
+
+                                    <?php endif; ?>
+
+                                <?php endif; ?>
+
                                 <input type="hidden" name="lang" value="<?= $_GET["lang"]; ?>">
+
+                                <?= $utils->input('csrf', $_SESSION['csrf']); ?>
+
+                                <div class="m-3">
+                                    <label>Language Direction</label>
+
+                                    <select class="form-control" name="direction">
+                                        <option value="ltr" <?= $loclizer->getLanguageByCode($_GET['lang'])->language_direction == 'ltr' ? 'selected' : '' ?>>Left to Right</option>
+                                        <option value="rtl" <?= $loclizer->getLanguageByCode($_GET['lang'])->language_direction == 'rtl' ? 'selected' : '' ?>>Right to Left</option>
+                                    </select>
+                                </div>
+
+                                <div class="m-3">
+                                    <button class="btn btn-primary" name="update_direction" type="submit">Update Direction</button>
+                                </div>
 
                                 <h3>General</h3>
 

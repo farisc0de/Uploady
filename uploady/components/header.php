@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="content-language" content="en" />
+    <meta http-equiv="content-language" content="<?= $language ?>" />
     <meta name="description" content="<?= $st['description'] ?>" />
     <meta name="author" content="<?= $st['owner_name'] ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

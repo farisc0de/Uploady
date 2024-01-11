@@ -2,6 +2,8 @@
 
 namespace Uploady;
 
+use PDOException;
+
 /**
  * Simple Class that handles localization
  *
@@ -61,6 +63,30 @@ class Localization
         $file = json_decode($file, true);
         $file = json_encode($file, JSON_PRETTY_PRINT);
         file_put_contents(APP_PATH . "/languages/{$language}.json", $file);
+    }
+
+    /**
+     * Functopm to update language direction
+     * @param mixed $language
+     *  The language code
+     * @param mixed $direction
+     *  The language direction
+     * @return bool
+     *  True if the language direction updated successfully, false otherwise
+     * @throws PDOException
+     *  If the query failed to execute
+     */
+    public function updateLanguageDirection($language, $direction)
+    {
+        $query = "UPDATE languages SET language_direction = :direction WHERE language_code = :code";
+
+        $this->db->prepare($query);
+
+        $this->db->bind(":direction", $direction, \PDO::PARAM_STR);
+
+        $this->db->bind(":code", $language, \PDO::PARAM_STR);
+
+        return $this->db->execute();
     }
 
     /**

@@ -11,7 +11,6 @@ if ($_SESSION['user_id'] != $user_id) {
     die("You are not authorized to edit this file");
 }
 
-
 $file = $handler->getFile($file_id);
 
 $file_data = json_decode($file->file_data, true);

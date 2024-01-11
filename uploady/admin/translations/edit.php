@@ -31,6 +31,8 @@
                                 <input type="hidden" name="page_id" value="<?= $paget->page_id ?>">
                                 <input type="hidden" name="lang_id" value="<?= $paget->language_id ?>">
 
+                                <?= $utils->input('csrf', $_SESSION['csrf']); ?>
+
                                 <div class="form-group">
                                     <div class="form-label-group">
                                         <input class="form-control" type="text" id="title" name="title" placeholder="Page title" value="<?= $paget->title ?>">
