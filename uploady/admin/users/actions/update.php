@@ -15,10 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $_POST['password'] = password_hash($password, PASSWORD_BCRYPT);
         }
 
-        $msg_code = $user->update($id, $utils->esc($_POST)) ? "yes" : "error";
+        $msg_code = $user->update($id, $utils->esc($_POST)) ? "user_updated" : "error";
     }
 
     $utils->redirect($utils->siteUrl(
-        "/admin/users/edit.php?username={$_POST['username']}&msg={$msg_code}"
+        "/admin/users/view.php?&msg={$msg_code}"
     ));
 }

@@ -32,9 +32,12 @@ include_once 'logic/viewLogic.php';
                             View Files
                         </div>
                         <form method="POST" action="<?= $utils->siteUrl('/admin/files/actions/delete.php') ?>">
+
+                            <?= $utils->input('csrf', $_SESSION['csrf']); ?>
+
                             <div class="card-body">
                                 <?php if (isset($_GET['msg'])) : ?>
-                                    <?= $utils->alert('File has been deleted', 'success', 'check-circle'); ?>
+                                    <?php $utils->loadAlerts($_GET['msg'], "file");  ?>
                                 <?php endif; ?>
                                 <div class="table-responsive border pl-2 pb-2 pt-2 pr-2 pb-2 rounded">
                                     <table class="table nowrap table-bordered" width="100%" id="dataTable" cellspacing="0">

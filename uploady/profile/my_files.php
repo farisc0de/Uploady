@@ -17,7 +17,7 @@ include_once 'logic/myFilesLogic.php';
                     <div class="card-body">
                         <?php if (isset($_GET['msg'])) : ?>
 
-                            <?php if ($_GET['msg'] == "yes") : ?>
+                            <?php if ($_GET['msg'] == "file_deleted") : ?>
 
                                 <?php echo $utils->alert(
                                     $lang["general"]['delete_files_success'],

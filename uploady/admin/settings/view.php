@@ -31,13 +31,13 @@ include_once 'logic/settings.php';
                         <div class="card-body">
                             <form method="POST" action="edit.php" enctype="multipart/form-data">
                                 <div class="container container-special">
-                                    <?php if (isset($_GET['msg']) && $_GET['msg'] == "yes") : ?>
-                                        <?= $utils->alert("Settings has been updated", "success", "check-circle"); ?>
+
+                                    <?php if (isset($msg)) : ?>
+
+                                        <?php $utils->loadAlerts($msg, "settings");  ?>
+
                                     <?php endif; ?>
 
-                                    <?php if (isset($_GET['msg']) && $_GET['msg'] == "csrf") : ?>
-                                        <?= $utils->alert("CSRF token is invalid.", "danger", "times-circle"); ?>
-                                    <?php endif; ?>
                                 </div>
                                 <div class="container container-special">
                                     <div class="align-content-center justify-content-center">

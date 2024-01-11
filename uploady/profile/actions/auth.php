@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     'otp_status' => true,
                     'otp_secret' => $_POST['otp_secret'],
                 ]);
-                $msg_code = "ok";
+                $msg_code = "two_factor_enabled";
             } else {
                 $msg_code = "err";
             }
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'otp_status' => false,
                 'otp_secret' => ''
             ]);
-            $msg_code = "ok";
+            $msg_code = "two_factor_disabled";
         }
     }
 

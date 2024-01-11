@@ -32,36 +32,6 @@
 
                                 <?= $utils->input('csrf', $_SESSION['csrf']); ?>
 
-                                <?php if (isset($msg)) : ?>
-
-                                    <?php if ($msg == "language_updated") : ?>
-
-                                        <?php echo $utils->alert(
-                                            "Page has been updated",
-                                            "success",
-                                            "check-circle"
-                                        ); ?>
-
-                                    <?php elseif ($msg == "csrf") : ?>
-
-                                        <?php echo $utils->alert(
-                                            "CSRF token is invalid.",
-                                            "danger",
-                                            "times-circle"
-                                        ); ?>
-
-                                    <?php elseif ($msg == "error") : ?>
-
-                                        <?php echo $utils->alert(
-                                            "An unexpected error has occurred",
-                                            "danger",
-                                            "times-circle"
-                                        ); ?>
-
-                                    <?php endif; ?>
-
-                                <?php endif; ?>
-
                                 <div class="form-group">
                                     <label for="slug">Page Slug</label>
                                     <input type="text" class="form-control" name="slug" id="slug" aria-describedby="slug" placeholder="Enter page slug" value="<?= $slug ?>">

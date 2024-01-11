@@ -29,36 +29,9 @@ include_once 'logic/addLogic.php';
                         </div>
                         <div class="card-body">
                             <form method="POST">
-                                <?php if (isset($msg)) : ?>
 
-                                    <?php if ($msg == "yes") : ?>
-
-                                        <?php echo $utils->alert(
-                                            "Role has been created",
-                                            "success",
-                                            "check-circle"
-                                        ); ?>
-
-                                    <?php elseif ($msg == "csrf") : ?>
-
-                                        <?php echo $utils->alert(
-                                            "CSRF token is invalid.",
-                                            "danger",
-                                            "times-circle"
-                                        ); ?>
-
-                                    <?php elseif ($msg == "error") : ?>
-
-                                        <?php echo $utils->alert(
-                                            "An unexpected error has occurred",
-                                            "danger",
-                                            "times-circle"
-                                        ); ?>
-
-                                    <?php endif; ?>
-
-                                <?php endif; ?>
                                 <?= $utils->input('csrf', $_SESSION['csrf']); ?>
+
                                 <div class="form-group">
                                     <input type="text" class="form-control" name="role_name" placeholder="Enter Role Name">
                                 </div>

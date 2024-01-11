@@ -4,6 +4,11 @@ include_once '../../session.php';
 $handler = new Uploady\Handler\UploadHandler($db);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    if (!$auth->checkToken($_POST['csrf'], $_SESSION['csrf'])) {
+        $utils->redirect($utils->siteUrl('/admin/files/view.php?msg=csrf'));
+    }
+
     foreach ($_POST['fileid'] as $id) {;
         $file = json_decode($handler->getFile($id)->file_data);
         $handler->deleteFileAsAdmin($id);

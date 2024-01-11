@@ -27,23 +27,7 @@ include_once 'logic/viewLogic.php';
                     </ol>
 
                     <?php if (isset($msg)) : ?>
-                        <?php if ($msg == "yes") : ?>
-
-                            <?php echo $utils->alert(
-                                "Language has been updated",
-                                "success",
-                                "check-circle"
-                            ); ?>
-
-                        <?php elseif ($msg == "error") : ?>
-
-                            <?php echo $utils->alert(
-                                "An unexpected error has occurred",
-                                "danger",
-                                "times-circle"
-                            ); ?>
-
-                        <?php endif; ?>
+                        <?php $utils->loadAlerts($msg, "language");  ?>
                     <?php endif; ?>
 
                     <div class="card mb-4">

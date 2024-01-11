@@ -28,6 +28,8 @@
                         <div class="card-body">
                             <form method="POST" action="./actions/new.php">
 
+                                <?= $utils->input('csrf', $_SESSION['csrf']); ?>
+
                                 <div class="form-group">
                                     <select label="Select Language" name="lang_id" id="lang_id" class="form-control custom-select">
                                         <option>Select language</option>

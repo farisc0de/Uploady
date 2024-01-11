@@ -28,36 +28,8 @@ include_once 'logic/addLogic.php';
                             Create User
                         </div>
                         <div class="card-body">
-                            <form method="POST">
-                                <?php if (isset($msg)) : ?>
+                            <form method="POST" action="<?= $utils->siteUrl('/admin/users/actions/new.php'); ?>">
 
-                                    <?php if ($msg == "yes") : ?>
-
-                                        <?php echo $utils->alert(
-                                            "Account has been created",
-                                            "success",
-                                            "check-circle"
-                                        ); ?>
-
-                                    <?php elseif ($msg == "csrf") : ?>
-
-                                        <?php echo $utils->alert(
-                                            "CSRF token is invalid.",
-                                            "danger",
-                                            "times-circle"
-                                        ); ?>
-
-                                    <?php elseif ($msg == "error") : ?>
-
-                                        <?php echo $utils->alert(
-                                            "An unexpected error has occurred",
-                                            "danger",
-                                            "times-circle"
-                                        ); ?>
-
-                                    <?php endif; ?>
-
-                                <?php endif; ?>
                                 <?= $utils->input('csrf', $_SESSION['csrf']); ?>
 
                                 <div class="form-group">
@@ -69,7 +41,7 @@ include_once 'logic/addLogic.php';
                                 <div class="form-group" class="text-left">
                                     <input type="password" class="form-control" name="password" placeholder="Enter Password">
                                 </div>
-                                <?= $utils->input('user_id', $user_id); ?>
+
                                 <div class="form-group">
                                     <input hidden name="role" value="1" />
                                     <div class="form-group">

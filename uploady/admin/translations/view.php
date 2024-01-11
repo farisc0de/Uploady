@@ -26,34 +26,14 @@
 
                     <?php if (isset($msg)) : ?>
 
-                        <?php if ($msg == "translation_added" || $msg == "translation_updated") : ?>
-                            <?php echo $utils->alert(
-                                "Page has been updated",
-                                "success",
-                                "check-circle"
-                            ); ?>
-
-                        <?php elseif ($msg == "translation_deleted") : ?>
-
-                            <?php echo $utils->alert(
-                                "Page has been deleted",
-                                "success",
-                                "check-circle"
-                            ); ?>
-
-                        <?php elseif ($msg == "error") : ?>
-
-                            <?php echo $utils->alert(
-                                "An unexpected error has occurred",
-                                "danger",
-                                "times-circle"
-                            ); ?>
-
-                        <?php endif; ?>
+                        <?php $utils->loadAlerts($msg, "translation");  ?>
 
                     <?php endif; ?>
 
                     <form method="POST" action="actions/delete.php">
+
+                        <?= $utils->input('csrf', $_SESSION['csrf']); ?>
+
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>

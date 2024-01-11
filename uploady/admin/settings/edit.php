@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     "website_logo" => ""
                 ]
             );
-            $status = "yes";
+            $status = "settings_updated";
             $utils->redirect("view.php?msg=" . $utils->sanitize($status));
         }
 
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     "website_favicon" => ""
                 ]
             );
-            $status = "yes";
+            $status = "settings_updated";
             $utils->redirect("view.php?msg=" . $utils->sanitize($status));
         }
 
@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         unset($_FILES['website_logo']);
         $settings->updateSettings($utils->esc($_POST));
 
-        $status = "yes";
+        $status = "settings_updated";
     }
 
     $utils->redirect("view.php?msg=" . $utils->sanitize($status));

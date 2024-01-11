@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
 
-        $utils->redirect($utils->siteUrl('/profile/my_files.php?msg=ok'));
+        $utils->redirect($utils->siteUrl('/profile/my_files.php?msg=file_deleted'));
     } else {
         $utils->redirect($utils->siteUrl('/profile/my_files.php?msg=csrf'));
     }

@@ -615,4 +615,67 @@ class Utils
             "zu" => "Zulu"
         ];
     }
+
+    /**
+     * Load alerts when needed
+     *
+     * @param string $msg
+     *  The message you want to show
+     * @param string $module
+     *  The module name you want to show
+     * @return void
+     */
+    public function loadAlerts($msg, $module = "user")
+    {
+        if ($msg == "{$module}_created") :
+
+            echo $this->alert(
+                "{$module} has been created",
+                "success",
+                "check-circle"
+            );
+
+        elseif ($msg == "{$module}_updated") :
+
+            echo $this->alert(
+                "{$module} has been updated",
+                "success",
+                "check-circle"
+            );
+
+
+        elseif ($msg == "{$module}_deleted") :
+
+            echo $this->alert(
+                "{$module} has been deleted",
+                "success",
+                "check-circle"
+            );
+
+        elseif ($msg == "csrf") :
+
+            echo $this->alert(
+                "CSRF token is invalid.",
+                "danger",
+                "times-circle"
+            );
+
+        elseif ($msg == "forbidden") :
+
+            echo $this->alert(
+                "Sorry, but you can't delete this {$module}!",
+                "danger",
+                "times-circle"
+            );
+
+        elseif ($msg == "error") :
+
+            echo $this->alert(
+                "An unexpected error has occurred",
+                "danger",
+                "times-circle"
+            );
+
+        endif;
+    }
 }

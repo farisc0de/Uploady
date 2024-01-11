@@ -29,35 +29,6 @@ include_once 'logic/editLogic.php';
                         </div>
                         <div class="card-body">
                             <form method="POST" action="<?= $utils->siteUrl('/admin/roles/actions/update.php'); ?>">
-                                <?php if (isset($msg)) : ?>
-
-                                    <?php if ($msg == "yes") : ?>
-
-                                        <?php echo $utils->alert(
-                                            "Role has been updated",
-                                            "success",
-                                            "check-circle"
-                                        ); ?>
-
-                                    <?php elseif ($msg == "csrf") : ?>
-
-                                        <?php echo $utils->alert(
-                                            "CSRF token is invalid.",
-                                            "danger",
-                                            "times-circle"
-                                        ); ?>
-
-                                    <?php elseif ($msg == "error") : ?>
-
-                                        <?php echo $utils->alert(
-                                            "An unexpected error has occurred",
-                                            "danger",
-                                            "times-circle"
-                                        ); ?>
-
-                                    <?php endif; ?>
-
-                                <?php endif; ?>
                                 <?= $utils->input('csrf', $_SESSION['csrf']); ?>
                                 <?= $utils->input('id', $role_data->id); ?>
                                 <div class="form-group">

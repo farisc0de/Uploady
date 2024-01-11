@@ -7,11 +7,15 @@ $page = new \Uploady\Page($db, $localization);
 
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    if (!$auth->checkToken($_POST['csrf'], $_SESSION['csrf'])) {
+        $utils->redirect(SITE_URL . "/admin/pages/view.php?message=csrf");
+    }
+
     foreach ($_POST['slug'] as $slug) {
         if (!$page->delete($slug)) {
             $utils->redirect(SITE_URL . "/admin/pages/view.php?message=forbidden");
         }
     }
 
-    $utils->redirect(SITE_URL . "/admin/pages/view.php?message=yes");
+    $utils->redirect(SITE_URL . "/admin/pages/view.php?message=page_deleted");
 }

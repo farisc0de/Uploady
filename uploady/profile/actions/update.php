@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
             if ($user->update($id, $user_array)) {
                 $_SESSION['username'] = $user_array['username'];
-                $msg_code = "yes";
+                $msg_code = "profile_updated";
             } else {
                 $msg_code = "error";
             }

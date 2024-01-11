@@ -6,6 +6,11 @@ $PageTranslation = new Uploady\PageTranslation($db);
 
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
+
+    if (!$auth->checkToken($_POST['csrf'], $_SESSION['csrf'])) {
+        $utils->redirect(SITE_URL . "/admin/translations/view.php?message=csrf");
+    }
+
     foreach ($_POST['translations'] as $translation) {
         if (!$PageTranslation->deleteTranslation($translation)) {
             $utils->redirect(SITE_URL . "/admin/translations/view.php?message=forbidden");

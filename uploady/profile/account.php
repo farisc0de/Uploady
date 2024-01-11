@@ -15,7 +15,7 @@ include_once 'logic/accountLogic.php';
                     <div class="card-body">
                         <?php if (isset($_GET['msg'])) : ?>
 
-                            <?php if ($_GET['msg'] == "yes") : ?>
+                            <?php if ($_GET['msg'] == "profile_updated") : ?>
 
                                 <?php echo $utils->alert(
                                     $lang["general"]['edit_account_success'],

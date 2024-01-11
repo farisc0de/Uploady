@@ -25,13 +25,15 @@
                             Add page
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="actions/add.php">
-                                <div class="form-group">
-                                    <label for="slug">Page Slug</label>
-                                    <input type="text" class="form-control" name="slug" id="slug" aria-describedby="slug" placeholder="Enter page slug">
-                                </div>
 
-                                <button class="btn btn-primary" type="submit">Add Page</button>
+                            <?= $utils->input('csrf', $_SESSION['csrf']); ?>
+
+                            <div class="form-group">
+                                <label for="slug">Page Slug</label>
+                                <input type="text" class="form-control" name="slug" id="slug" aria-describedby="slug" placeholder="Enter page slug">
+                            </div>
+
+                            <button class="btn btn-primary" type="submit">Add Page</button>
                             </form>
                         </div>
                     </div>

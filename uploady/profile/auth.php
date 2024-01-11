@@ -17,7 +17,7 @@ include_once 'logic/authLogic.php';
                         <?= $utils->input('id', $data->id); ?>
                         <?= $utils->input('csrf', $_SESSION['csrf']); ?>
                         <?php if (isset($_GET['msg'])) : ?>
-                            <?php if ($_GET['msg'] == "yes") : ?>
+                            <?php if ($_GET['msg'] == "two_factor_enabled") : ?>
                                 <?php echo $utils->alert(
                                     $lang["general"]["enable_two_factor_success"],
                                     "success",
