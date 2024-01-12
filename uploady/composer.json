@@ -11,8 +11,5 @@
     "psr-4": {
       "Uploady\\": "src/Uploady"
     }
-  },
-  "require-dev": {
-    "phpstan/phpstan": "^1.10"
   }
 }

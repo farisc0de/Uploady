@@ -3,7 +3,7 @@
         'name' => '__root__',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'eb1548b00952bb73078a0235b510e5510805f07b',
+        'reference' => 'e82bb21b2f01b3eb2680eb01171a8c67859139e7',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         '__root__' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'eb1548b00952bb73078a0235b510e5510805f07b',
+            'reference' => 'e82bb21b2f01b3eb2680eb01171a8c67859139e7',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -54,15 +54,6 @@
             'install_path' => __DIR__ . '/../phpmailer/phpmailer',
             'aliases' => array(),
             'dev_requirement' => false,
-        ),
-        'phpstan/phpstan' => array(
-            'pretty_version' => '1.10.55',
-            'version' => '1.10.55.0',
-            'reference' => '9a88f9d18ddf4cf54c922fbeac16c4cb164c5949',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../phpstan/phpstan',
-            'aliases' => array(),
-            'dev_requirement' => true,
         ),
         'robthree/twofactorauth' => array(
             'pretty_version' => '1.8.2',
