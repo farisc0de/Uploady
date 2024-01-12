@@ -12,6 +12,10 @@ header("Pragma: no-cache");
 set_error_handler("Uploady\Handler\ErrorHandler::handleError");
 set_exception_handler("Uploady\Handler\ErrorHandler::handleException");
 
+ini_set("display_errors", "1");
+ini_set("display_startup_errors", "1");
+error_reporting(E_ALL);
+
 $path = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 
 $parts = explode("/", $path);
