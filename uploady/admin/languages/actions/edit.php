@@ -6,7 +6,7 @@ $language = new Uploady\Localization($db);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!$auth->checkToken($_POST['csrf'], $_SESSION['csrf'])) {
-        $utils->redirect(SITE_URL . "/admin/languages/view.php?message=csrf");
+        $utils->redirect(SITE_URL . "/admin/languages/view.php?msg=csrf");
     }
 
     $lang = $_POST['lang'];
@@ -54,5 +54,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $language->updateLanguage("theme", $data, $lang);
     }
 
-    $utils->redirect(SITE_URL . "/admin/languages/view.php?message=language_updated");
+    $utils->redirect(SITE_URL . "/admin/languages/view.php?msg=language_updated");
 }

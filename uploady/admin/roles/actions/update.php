@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     if (!$auth->checkToken($_POST['csrf'], $_SESSION['csrf'])) {
         $utils->redirect($utils->siteUrl(
-            "/admin/roles/view.php?message=csrf"
+            "/admin/roles/view.php?msg=csrf"
         ));
     }
 
@@ -22,6 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     ) ? "role_updated" : "error";
 
     $utils->redirect($utils->siteUrl(
-        "/admin/roles/view.php?message=$msg_code"
+        "/admin/roles/view.php?msg=$msg_code"
     ));
 }

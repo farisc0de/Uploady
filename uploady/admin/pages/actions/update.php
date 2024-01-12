@@ -9,12 +9,12 @@ $utils = new Uploady\Utils($db);
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (!$auth->checkToken($_POST['csrf'], $_SESSION['csrf'])) {
-        $utils->redirect(SITE_URL . "/admin/pages/view.php?message=csrf");
+        $utils->redirect(SITE_URL . "/admin/pages/view.php?msg=csrf");
     }
 
     $slug = $_POST['slug'];
     $page = new Uploady\Page($db, $loclizer);
     $page->update($_POST['pageid'], $slug);
 
-    $utils->redirect(SITE_URL . "/admin/pages/view.php?message=page_updated");
+    $utils->redirect(SITE_URL . "/admin/pages/view.php?msg=page_updated");
 }

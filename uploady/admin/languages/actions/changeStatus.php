@@ -9,8 +9,8 @@ $staus = $_GET['status'];
 
 if ($staus == "active") {
     $loclizer->activateLanguage($lang);
-    $utils->redirect(SITE_URL . "/admin/languages/view.php?message=language_enabled");
+    $utils->redirect(SITE_URL . "/admin/languages/view.php?msg=language_enabled");
 } else {
     $loclizer->deactivateLanguage($lang);
-    $utils->redirect(SITE_URL . "/admin/languages/view.php?message=language_disabled");
+    $utils->redirect(SITE_URL . "/admin/languages/view.php?msg=language_disabled");
 }

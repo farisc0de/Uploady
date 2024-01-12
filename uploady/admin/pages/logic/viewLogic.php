@@ -5,4 +5,4 @@ $page = new Uploady\Page($db, $localization);
 
 $pages = $page->getAll();
 
-$msg = isset($_GET['message']) ? $_GET['message'] : null;
+$msg = isset($_GET['msg']) ? $_GET['msg'] : null;

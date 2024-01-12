@@ -652,6 +652,23 @@ class Utils
                 "check-circle"
             );
 
+        elseif ($msg == "{$module}_enabled") :
+
+            echo $this->alert(
+                "{$module} has been enabled",
+                "success",
+                "check-circle"
+            );
+
+
+        elseif ($msg == "{$module}_disabled") :
+
+            echo $this->alert(
+                "{$module} has been disabled",
+                "success",
+                "check-circle"
+            );
+
         elseif ($msg == "csrf") :
 
             echo $this->alert(
