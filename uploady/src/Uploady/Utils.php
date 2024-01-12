@@ -627,72 +627,42 @@ class Utils
      */
     public function loadAlerts($msg, $module = "user")
     {
-        if ($msg == "{$module}_created") :
+        $status = "success";
+        $icon = "check-circle";
 
-            echo $this->alert(
-                "{$module} has been created",
-                "success",
-                "check-circle"
-            );
+        switch ($msg) {
+            case "{$module}_created":
+                $msg = "{$module} has been created";
+                break;
+            case "{$module}_updated":
+                $msg = "{$module} has been updated";
+                break;
+            case "{$module}_deleted":
+                $msg = "{$module} has been deleted";
+                break;
+            case "{$module}_enabled":
+                $msg = "{$module} has been enabled";
+                break;
+            case "{$module}_disabled":
+                $msg = "{$module} has been disabled";
+                break;
+            case "csrf":
+                $msg = "CSRF token is invalid.";
+                $status = "danger";
+                $icon = "times-circle";
+                break;
+            case "forbidden":
+                $msg = "Sorry, but you can't delete this {$module}!";
+                $status = "danger";
+                $icon = "times-circle";
+                break;
+            case "error":
+                $msg = "An unexpected error has occurred";
+                $status = "danger";
+                $icon = "times-circle";
+                break;
+        }
 
-        elseif ($msg == "{$module}_updated") :
-
-            echo $this->alert(
-                "{$module} has been updated",
-                "success",
-                "check-circle"
-            );
-
-
-        elseif ($msg == "{$module}_deleted") :
-
-            echo $this->alert(
-                "{$module} has been deleted",
-                "success",
-                "check-circle"
-            );
-
-        elseif ($msg == "{$module}_enabled") :
-
-            echo $this->alert(
-                "{$module} has been enabled",
-                "success",
-                "check-circle"
-            );
-
-
-        elseif ($msg == "{$module}_disabled") :
-
-            echo $this->alert(
-                "{$module} has been disabled",
-                "success",
-                "check-circle"
-            );
-
-        elseif ($msg == "csrf") :
-
-            echo $this->alert(
-                "CSRF token is invalid.",
-                "danger",
-                "times-circle"
-            );
-
-        elseif ($msg == "forbidden") :
-
-            echo $this->alert(
-                "Sorry, but you can't delete this {$module}!",
-                "danger",
-                "times-circle"
-            );
-
-        elseif ($msg == "error") :
-
-            echo $this->alert(
-                "An unexpected error has occurred",
-                "danger",
-                "times-circle"
-            );
-
-        endif;
+        echo $this->alert($msg, $status, $icon);
     }
 }
