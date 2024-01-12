@@ -74,6 +74,18 @@ if (isset($_SESSION)) {
             $utils->redirect($utils->siteUrl('/login.php'));
         }
     }
+
+    // Refresh session id every 5 minutes
+
+    if (!isset($_SESSION['last_token_refresh'])) {
+        $_SESSION['last_token_refresh'] = time();
+        session_regenerate_id(true);
+    } else {
+        if (time() - $_SESSION['last_token_refresh'] > 300) {
+            $_SESSION['last_token_refresh'] = time();
+            session_regenerate_id(true);
+        }
+    }
 }
 
 $language = $_GET['lang'] ?? $localization->getLanguage();
