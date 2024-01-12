@@ -29,6 +29,29 @@ $filters = [
     "Sepia"
 ];
 
+$effects = [
+    "vintage" => "Vintage",
+    "lomo" => "Lomo",
+    "clarity" => "Clarity",
+    "sinCity" => "Sin City",
+    "crossProcess" => "Cross Process",
+    "sunrise" => "Sunrise",
+    "orangePeel" => "Orange Peel",
+    "love" => "Love",
+    "grungy" => "Grungy",
+    "jarques" => "Jarques",
+    "pinhole" => "Pinhole",
+    "oldBoot" => "Old Boot",
+    "glowingSun" => "Glowing Sun",
+    "hazyDays" => "Hazy Days",
+    "nostalgia" => "Nostalgia",
+    "herMajesty" => "Her Majesty",
+    "hemingway" => "Hemingway",
+    "concentrate" => "Concentrate"
+];
+
+
+
 $image_mime = [
     "image/jpeg",
     "image/png",

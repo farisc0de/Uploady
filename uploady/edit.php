@@ -51,24 +51,9 @@
 
                 <select class="form-select" id="effects">
                     <option value="none"><?= $lang["general"]['select_effect'] ?></option>
-                    <option value="vintage">Vintage</option>
-                    <option value="lomo">Lomo</option>
-                    <option value="clarity">Clarity</option>
-                    <option value="sinCity">Sin City</option>
-                    <option value="crossProcess">Cross Process</option>
-                    <option value="sunrise">Sunrise</option>
-                    <option value="orangePeel">Orange Peel</option>
-                    <option value="love">Love</option>
-                    <option value="grungy">Grungy</option>
-                    <option value="jarques">Jarques</option>
-                    <option value="pinhole">Pinhole</option>
-                    <option value="oldBoot">Old Boot</option>
-                    <option value="glowingSun">Glowing Sun</option>
-                    <option value="hazyDays">Hazy Days</option>
-                    <option value="nostalgia">Nostalgia</option>
-                    <option value="herMajesty">Her Majesty</option>
-                    <option value="hemingway">Hemingway</option>
-                    <option value="concentrate">Concentrate</option>
+                    <?php foreach ($effects as $value => $name) : ?>
+                        <option value="<?= $value ?>"><?= $name ?></option>
+                    <?php endforeach; ?>
                 </select>
 
                 <div class="row mt-5">

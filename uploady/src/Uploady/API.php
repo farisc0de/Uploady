@@ -55,50 +55,41 @@ class API
                 $this->gateway->setUpload(new \Farisc0de\PhpFileUploading\File($_FILES['file'], $this->utils));
 
                 if (!$this->gateway->checkIfNotEmpty()) {
-                    http_response_code(400);
-                    echo json_encode([
-                        "error" => $lang["general"]['file_is_empty'],
-                    ]);
+                    $this->respondBadRequest(
+                        $lang["general"]['file_is_empty']
+                    );
                     exit();
                 }
 
                 $this->gateway->hashName();
 
                 if (!$this->gateway->checkSize()) {
-                    http_response_code(400);
-                    echo json_encode([
-                        "error" => $lang["general"]['file_is_too_large'],
-                    ]);
+                    $this->respondBadRequest($lang["general"]['file_is_too_large']);
                     exit();
                 }
 
                 if (
                     !$this->gateway->checkForbidden()
                 ) {
-                    http_response_code(400);
-                    echo json_encode([
-                        "error" => $lang["general"]['file_name_is_forbidden'],
-                    ]);
+                    $this->respondBadRequest($lang["general"]['file_name_is_forbidden']);
                     exit();
                 }
 
                 if (
                     !$this->gateway->checkExtension()
                 ) {
-                    http_response_code(400);
-                    echo json_encode([
-                        "error" => $lang["general"]['file_type_is_not_allowed'],
-                    ]);
+                    $this->respondBadRequest(
+                        $lang["general"]['file_type_is_not_allowed']
+                    );
                     exit();
                 }
 
                 if (
                     !$this->gateway->checkMime()
                 ) {
-                    http_response_code(400);
-                    echo json_encode([
-                        "error" => $lang["general"]['file_mime_type_is_not_allowed'],
-                    ]);
+                    $this->respondBadRequest(
+                        $lang["general"]['file_mime_type_is_not_allowed']
+                    );
                     exit();
                 }
 
@@ -167,18 +158,26 @@ class API
         echo json_encode($file);
     }
 
+    public function respondForbidden($message): void
+    {
+        http_response_code(403);
+
+        echo json_encode(["error" => $message]);
+    }
+
+    public function respondBadRequest($message): void
+    {
+        http_response_code(400);
+
+        echo json_encode(["error" => $message]);
+    }
+
     public function getValidationErrors(array $data, bool $is_new = true): array
     {
         $errors = [];
 
-        if ($is_new && empty($data['name'])) {
-            $errors[] = "name is required";
-        }
-
-        if (!(empty($data['priority']))) {
-            if (filter_var($data['priority'], FILTER_VALIDATE_INT) === false) {
-                $errors[] = "priority must be an integer";
-            }
+        if ($is_new && empty($data['file'])) {
+            $errors[] = "File is required";
         }
 
         return $errors;
