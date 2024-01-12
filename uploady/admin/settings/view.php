@@ -29,7 +29,7 @@ include_once 'logic/settings.php';
                             Edit Settings
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="edit.php" enctype="multipart/form-data">
+                            <form method="POST" action="<?= $utils->siteUrl("/admin/settings/actions/edit.php"); ?>" enctype="multipart/form-data">
                                 <div class="container container-special">
 
                                     <?php if (isset($msg)) : ?>

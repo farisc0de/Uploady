@@ -1,5 +1,5 @@
 <?php
-require_once  '../session.php';
+require_once  '../../session.php';
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $status = null;

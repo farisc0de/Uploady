@@ -13,7 +13,7 @@ $user_id = $upload->getUserID();
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (!$auth->checkToken($_POST['csrf'], $_SESSION['csrf'])) {
-        $utils->redirect(SITE_URL . "/admin/pages/view.php?message=csrf");
+        $utils->redirect($utils->siteUrl("/admin/users/view.php?msg=csrf"));
     }
 
     unset($_POST['csrf']);

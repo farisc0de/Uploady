@@ -2,4 +2,4 @@
 
 $smtp_types = ["None", "SSL", "TLS"];
 
-$msg = isset($_GET['message']) ? $_GET['message'] : null;
+$msg = isset($_GET['msg']) ? $_GET['msg'] : null;

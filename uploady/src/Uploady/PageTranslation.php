@@ -14,6 +14,11 @@ namespace Uploady;
 
 class PageTranslation
 {
+    /**
+     * Database connection
+     *
+     * @var Database
+     */
     private $db;
 
     public function __construct($db)
@@ -21,16 +26,35 @@ class PageTranslation
         $this->db = $db;
     }
 
+    /**
+     * Add a new translation record
+     *
+     * @param array $data
+     *  The data to be inserted
+     * @return mixed
+     */
     public function addTranslation($data)
     {
         $this->db->prepare("INSERT INTO pages_translation (page_id, language_id, title, content) VALUES (:page, :language, :title, :content)");
+
         $this->db->bind(":language", $data['lang_id']);
+
         $this->db->bind(":page", $data['page_id']);
+
         $this->db->bind(":title", $data['title']);
+
         $this->db->bind(":content", $data['content']);
+
         return $this->db->execute();
     }
 
+    /**
+     * Update a translation record
+     *
+     * @param array $data
+     *  The data to be updated
+     * @return mixed
+     */
     public function updateTranslation($data)
     {
         $this->db->prepare("UPDATE pages_translation SET
@@ -39,13 +63,26 @@ class PageTranslation
          language_id = :language AND page_id = :page");
 
         $this->db->bind(":language", $data['lang_id']);
+
         $this->db->bind(":page", $data['page_id']);
+
         $this->db->bind(":title", $data['title']);
+
         $this->db->bind(":content", $data['content']);
 
         return $this->db->execute();
     }
 
+    /**
+     * Get a translation
+     *
+     * @param mixed $language
+     *  The language id
+     * @param mixed $page
+     *  The page id
+     * @return mixed
+     *  Returns the translation if found, false otherwise
+     */
     public function getTranslation($language, $page)
     {
         $this->db->prepare("SELECT * FROM pages_translation WHERE language_id = :language AND page = :page");
