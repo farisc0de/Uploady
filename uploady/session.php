@@ -14,6 +14,20 @@ $role = new Uploady\Role($db, $user);
 
 $st = $settings->getSettings();
 
+// if ($st['maintenance_mode'] == 1) {
+//     if (!strpos($_SERVER['REQUEST_URI'], "maintenance.php")) {
+//         $utils->redirect($utils->siteUrl('/maintenance.php'));
+//     }
+// }
+
+$allowrd_pages = array(
+    'login.php',
+    'signup.php',
+    'auth.php',
+    'page.php',
+);
+
+
 $current_url = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
 if (isset($_SESSION)) {
@@ -56,13 +70,10 @@ if (isset($_SESSION)) {
         }
     }
 
+    // Public Uploads handling
+
     if (!isset($_SESSION['loggedin'])) {
-        if (
-            !strpos($current_url, "login.php") &&
-            !strpos($current_url, "signup.php") &&
-            !strpos($current_url, "auth.php") &&
-            !strpos($current_url, "page.php?s=terms")
-        ) {
+        if (!in_array(basename($_SERVER['PHP_SELF']), $allowrd_pages)) {
             if (!$settings->getSettingValue("public_upload")) {
                 $utils->redirect($utils->siteUrl('/login.php'));
             }
