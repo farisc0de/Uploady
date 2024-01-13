@@ -4,8 +4,28 @@ namespace Uploady;
 
 use Farisc0de\PhpFileUploading\Upload;
 
+/**
+ * A class that handles API requests
+ *
+ * @package Uploady
+ * @version 1.5.3
+ * @author fariscode <farisksa79@protonmail.com>
+ * @license MIT
+ * @link https://github.com/farisc0de/Uploady
+ */
 class API
 {
+    /**
+     * Class constructor
+     *
+     * @param Upload $gateway
+     * @param Role $role
+     * @param Localization $localization
+     * @param \Farisc0de\PhpFileUploading\Utility $utils
+     * @param \Uploady\DataCollection $dataCollection
+     * @param \Wolfcast\BrowserDetection $browser
+     * @param \Uploady\Handler\UploadHandler $handler
+     */
     public function __construct(
         private Upload $gateway,
         private Role $role,
@@ -17,6 +37,16 @@ class API
     ) {
     }
 
+    /**
+     * Process API request
+     *
+     * @param string $method
+     *  Method of request
+     * @param null|string $id
+     *  ID of file 
+     * @return void
+     *  Return nothing 
+     */
     public function processRequest(string $method, ?string $id): void
     {
         switch ($method) {
@@ -127,6 +157,12 @@ class API
         }
     }
 
+    /**
+     * Respond with 422 Unprocessable Entity
+     *
+     * @param array $errors
+     * @return void
+     */
     public function responedUnprocessableEntity(array $errors)
     {
         http_response_code(442);
@@ -134,6 +170,12 @@ class API
         echo json_encode(["errors" => $errors]);
     }
 
+    /**
+     * Respond with 405 Method Not Allowed
+     *
+     * @param array $allowed_method
+     * @return void
+     */
     public function responedMethodNotAllowed(array $allowed_method): void
     {
         http_response_code(405);
@@ -141,6 +183,12 @@ class API
         header("Allow: " . implode(", ", $allowed_method));
     }
 
+    /**
+     * Respond with 404 Not Found
+     *
+     * @param string $id
+     * @return void
+     */
     public function responedNotFound(string $id): void
     {
         http_response_code(404);
@@ -151,6 +199,12 @@ class API
         ]);
     }
 
+    /**
+     * Respond with 201 Created
+     *
+     * @param mixed $file
+     * @return void
+     */
     public function responedCreated(mixed $file): void
     {
         http_response_code(201);
@@ -158,6 +212,12 @@ class API
         echo json_encode($file);
     }
 
+    /**
+     * Respond with 403 Forbidden
+     *
+     * @param mixed $message
+     * @return void
+     */
     public function respondForbidden($message): void
     {
         http_response_code(403);
@@ -165,12 +225,19 @@ class API
         echo json_encode(["error" => $message]);
     }
 
+    /**
+     * Respond with 400 Bad Request
+     *
+     * @param mixed $message
+     * @return void
+     */
     public function respondBadRequest($message): void
     {
         http_response_code(400);
 
         echo json_encode(["error" => $message]);
     }
+
 
     public function getValidationErrors(array $data, bool $is_new = true): array
     {
