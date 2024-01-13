@@ -80,7 +80,6 @@ define("DB_NAME", "uploady");
 3. Use the below to build the container and run it
 
 ```bash
-docker build . -t farisc0de/uploady
 docker-compose up -d
 ```
 
