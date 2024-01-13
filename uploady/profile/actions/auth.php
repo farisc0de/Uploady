@@ -28,5 +28,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    $utils->redirect($utils->siteUrl("/profile/auth.php?message={$msg_code}"));
+    $utils->redirect($utils->siteUrl("/profile/auth.php?msg={$msg_code}"));
 }

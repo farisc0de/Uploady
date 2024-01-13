@@ -7,7 +7,7 @@ if ($auth->checkToken($_GET['token'], $_SESSION['csrf'])) {
         return;
     }
     $user->delete($_SESSION['username']);
-    $utils->redirect($utils->siteUrl('/logout.php?redirect=delete'));
+    $utils->redirect($utils->siteUrl('/logout.php?redirect=user_deleted'));
 } else {
     $utils->redirect($utils->siteUrl('/profile/account.php?msg=csrf'));
 }

@@ -13,14 +13,14 @@
                         <b><?= $lang["general"]['report_abuse_title'] ?></b>
                     </div>
                     <div class="card-body">
-                        <?php if (isset($_GET['message'])) : ?>
-                            <?php if ($_GET['message'] == 'report_sent') : ?>
+                        <?php if (isset($_GET['msg'])) : ?>
+                            <?php if ($_GET['msg'] == 'report_sent') : ?>
                                 <div class="alert alert-success" role="alert">
                                     <i class="fas fa-check-circle"></i> <?= $lang["general"]['report_abuse_success']; ?>
                                 </div>
                             <?php endif; ?>
 
-                            <?php if ($_GET['message'] == 'file_not_found') : ?>
+                            <?php if ($_GET['msg'] == 'file_not_found') : ?>
                                 <div class="alert alert-danger" role="alert">
                                     <i class="fas fa-times-circle"></i> <?= $lang["general"]['report_file_not_found'] ?>
                                 </div>

@@ -10,7 +10,7 @@ $handler = new Uploady\Handler\UploadHandler($db);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!$handler->fileExist($_POST['fileid'])) {
-        $utils->redirect(SITE_URL . "/reportabuse.php?message=file_not_found&file_id={$_POST['fileid']}");
+        $utils->redirect(SITE_URL . "/reportabuse.php?msg=file_not_found&file_id={$_POST['fileid']}");
     }
 
     $mailer = new Mailer($db);
@@ -28,5 +28,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         )
     );
 
-    $utils->redirect(SITE_URL . "/reportabuse.php?message=report_sent&file_id={$_POST['fileid']}");
+    $utils->redirect(SITE_URL . "/reportabuse.php?msg=report_sent&file_id={$_POST['fileid']}");
 }

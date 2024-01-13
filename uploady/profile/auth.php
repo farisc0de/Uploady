@@ -23,6 +23,12 @@ include_once 'logic/authLogic.php';
                                     "success",
                                     "check-circle"
                                 ); ?>
+                            <?php elseif ($_GET['msg'] == "two_factor_disabled") : ?>
+                                <?php echo $utils->alert(
+                                    $lang["general"]["disable_two_factor_success"],
+                                    "success",
+                                    "check-circle"
+                                ); ?>
                             <?php elseif ($_GET['msg'] == "csrf") : ?>
 
                                 <?php echo $utils->alert(
