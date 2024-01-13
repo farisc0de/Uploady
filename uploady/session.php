@@ -20,13 +20,12 @@ $st = $settings->getSettings();
 //     }
 // }
 
-$allowrd_pages = array(
+$allowed_pages = array(
     'login.php',
     'signup.php',
     'auth.php',
     'page.php',
 );
-
 
 $current_url = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
