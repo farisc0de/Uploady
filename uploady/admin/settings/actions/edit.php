@@ -104,5 +104,5 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $status = "settings_updated";
     }
 
-    $utils->redirect("view.php?msg=" . $utils->sanitize($status));
+    $utils->redirect($utils->siteUrl('/admin/settings/view.php?msg=' . $utils->sanitize($status)));
 }
