@@ -118,6 +118,7 @@
                 }, ],
             });
         });
+
         $("#select-all").click(function(event) {
             if (this.checked) {
                 $(":checkbox").each(function() {

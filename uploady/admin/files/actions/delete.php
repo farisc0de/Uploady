@@ -19,5 +19,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    $utils->redirect($utils->siteUrl('/admin/files/view.php?msg=ok'));
+    $utils->redirect($utils->siteUrl('/admin/files/view.php?msg=file_deleted'));
 }

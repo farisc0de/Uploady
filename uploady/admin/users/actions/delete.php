@@ -13,5 +13,5 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $user->delete((int) $id);
     }
 
-    $utils->redirect($utils->siteUrl('/admin/users/view.php?msg=ok'));
+    $utils->redirect($utils->siteUrl('/admin/users/view.php?msg=user_deleted'));
 }
