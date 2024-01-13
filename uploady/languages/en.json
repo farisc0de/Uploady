@@ -49,7 +49,7 @@
     "token_expired_title": "Token Expired",
     "token_expired_head": "Token Expired",
     "token_expired_msg": "Your token has expired. Please try again.",
-    "forgot_password_title": "Forgot Password",
+    "forget_password_title": "Forgot Password",
     "forget_password_header": "Password Recovery",
     "forget_password_h4": "Forgot your password?",
     "forget_password_msg": "Enter your email address and we'll send you a link to reset your password.",

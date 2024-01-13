@@ -49,7 +49,7 @@
     "token_expired_title": "Токен истек",
     "token_expired_head": "Токен истек",
     "token_expired_msg": "Срок действия вашего токена истек. Пожалуйста, попробуйте еще раз.",
-    "forgot_password_title": "Пароль утерян",
+    "forget_password_title": "Пароль утерян",
     "forget_password_header": "Восстановление пароля",
     "forget_password_h4": "Забыли свой пароль?",
     "forget_password_msg": "Введите свой адрес электронной почты, и мы вышлем вам ссылку для сброса пароля.",
