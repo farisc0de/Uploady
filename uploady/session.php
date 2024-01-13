@@ -72,7 +72,7 @@ if (isset($_SESSION)) {
     // Public Uploads handling
 
     if (!isset($_SESSION['loggedin'])) {
-        if (!in_array(basename($_SERVER['PHP_SELF']), $allowrd_pages)) {
+        if (!in_array(basename($_SERVER['PHP_SELF']), $allowed_pages)) {
             if (!$settings->getSettingValue("public_upload")) {
                 $utils->redirect($utils->siteUrl('/login.php'));
             }
