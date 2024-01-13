@@ -26,4 +26,33 @@ class Image
     {
         return 'data:image/' . $image_type . ';base64,' . base64_encode($image_data);
     }
+
+    /**
+     * Compress Image with low quality
+     *
+     * @param string $source
+     *  The image source
+     * @param string $destination
+     *  The image destination
+     * @param int $quality
+     *  The image quality
+     * @return bool
+     *  Return true if success
+     */
+    function compress($source, $destination, $quality)
+    {
+
+        $info = getimagesize($source);
+
+        if ($info['mime'] == 'image/jpeg')
+            $image = imagecreatefromjpeg($source);
+
+        elseif ($info['mime'] == 'image/gif')
+            $image = imagecreatefromgif($source);
+
+        elseif ($info['mime'] == 'image/png')
+            $image = imagecreatefrompng($source);
+
+        return imagejpeg($image, $destination, $quality);
+    }
 }
