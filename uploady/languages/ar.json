@@ -49,7 +49,7 @@
         "token_expired_title": "انتهت صلاحية الرمز",
         "token_expired_head": "انتهت صلاحية الرمز",
         "token_expired_msg": "انتهت صلاحية رمزك المميز. حاول مرة اخرى.",
-        "forgot_password_title": "نسيت كلمة المرور",
+        "forget_password_title": "نسيت كلمة المرور",
         "forget_password_header": "نسيت كلمة المرور",
         "forget_password_h4": "نسيت كلمة المرور",
         "forget_password_msg": "يرجى إدخال عنوان بريدك الإلكتروني لإعادة تعيين كلمة المرور الخاصة بك.",

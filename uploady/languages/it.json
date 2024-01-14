@@ -49,7 +49,7 @@
     "token_expired_title": "Token Scaduto",
     "token_expired_head": "Token Scaduto",
     "token_expired_msg": "Il suo token è scaduto. Riprovare nuovamente.",
-    "forgot_password_title": "Password Dimenticata",
+    "forget_password_title": "Password Dimenticata",
     "forget_password_header": "Recupero Password",
     "forget_password_h4": "Hai dimenticato la password?",
     "forget_password_msg": "Inserisca la sua email e le verrà inviato il link per recuperare la password.",
