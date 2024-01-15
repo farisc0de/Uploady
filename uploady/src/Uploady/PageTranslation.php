@@ -21,6 +21,11 @@ class PageTranslation
      */
     private $db;
 
+    /**
+     * Class constructor
+     *
+     * @param Database $db
+     */
     public function __construct($db)
     {
         $this->db = $db;

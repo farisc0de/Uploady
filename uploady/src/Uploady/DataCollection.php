@@ -59,7 +59,7 @@ class DataCollection
     public function getOS()
     {
 
-        $user_agent = $_SERVER['HTTP_USER_AGENT'];
+        $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? "Unknown User Agent";
 
         $os_platform =   "";
         $os_array =   array(
