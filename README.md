@@ -96,6 +96,8 @@ curl --location 'http://localhost/api/upload' \
 --form 'file=@"postman-cloud:///1eeafe05-7a96-4b40-9639-6ae17e7155d7"'
 ```
 
+Click here for a real demo [Uploady.NET](https://github.com/farisc0de/Uploady.NET)
+
 ## License
 
 MIT
