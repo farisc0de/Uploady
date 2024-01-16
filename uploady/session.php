@@ -25,6 +25,7 @@ $allowed_pages = array(
     'signup.php',
     'auth.php',
     'page.php',
+    'download.php',
 );
 
 $current_url = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
