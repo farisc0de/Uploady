@@ -14,11 +14,11 @@ $role = new Uploady\Role($db, $user);
 
 $st = $settings->getSettings();
 
-// if ($st['maintenance_mode'] == 1) {
-//     if (!strpos($_SERVER['REQUEST_URI'], "maintenance.php")) {
-//         $utils->redirect($utils->siteUrl('/maintenance.php'));
-//     }
-// }
+if ($st['maintenance_mode'] == 1) {
+    if (!strpos($_SERVER['REQUEST_URI'], "maintenance.php")) {
+        $utils->redirect($utils->siteUrl('/maintenance.php'));
+    }
+}
 
 $allowed_pages = array(
     'login.php',

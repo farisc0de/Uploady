@@ -665,4 +665,9 @@ class Utils
 
         echo $this->alert($msg, $status, $icon);
     }
+
+    public function module_exist($module)
+    {
+        return file_exists(APP_PATH . "modules/$module/main.php");
+    }
 }

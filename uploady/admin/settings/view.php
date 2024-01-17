@@ -225,49 +225,72 @@ include_once 'logic/settings.php';
                                         <hr>
 
                                         <div class="form-group">
-                                            <input hidden name="adsense_status" value="0" />
+                                            <input hidden name="maintenance_mode" value="0" />
                                             <div class="custom-control custom-switch custom-control-right">
-                                                <input class="custom-control-input" id="adsense_status" name="adsense_status" value="1" type="checkbox" <?= ($settings->getSettingValue('adsense_status') == true) ? 'checked' : null; ?>>
-                                                <label class="custom-control-label" for="adsense_status">Enable Adsense</label>
+                                                <input class="custom-control-input" id="maintenance_mode" name="maintenance_mode" value="1" type="checkbox" <?= ($settings->getSettingValue('maintenance_mode') == true) ? 'checked' : null; ?>>
+                                                <label class="custom-control-label" for="maintenance_mode">Enable Maintenance Mode</label>
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <div class="form-label-group">
-                                                <input class="form-control" type="text" id="adsense_client_code" name="adsense_client_code" placeholder="Adsense Client Code" value="<?= $settings->getSettingValue('adsense_client_code'); ?>">
-                                                <label for="adsense_client_code">Adsense Client Code</label>
-                                            </div>
-                                        </div>
+                                        <hr>
 
-                                        <div class="form-group">
-                                            <input hidden name="analytics_status" value="0" />
-                                            <div class="custom-control custom-switch custom-control-right">
-                                                <input class="custom-control-input" id="analytics_status" name="analytics_status" value="1" type="checkbox" <?= ($settings->getSettingValue('analytics_status') == true) ? 'checked' : null; ?>>
-                                                <label class="custom-control-label" for="analytics_status">Enable Google Analytics</label>
-                                            </div>
-                                        </div>
+                                        <?php if ($utils->module_exist("adsense")) : ?>
 
-                                        <div class="form-group">
-                                            <div class="form-label-group">
-                                                <input class="form-control" type="text" id="analytics_code" name="analytics_code" placeholder="Analytics UA Code" value="<?= $settings->getSettingValue('analytics_code'); ?>">
-                                                <label for="analytics_code">Google Analytics Code</label>
+                                            <div class="form-group">
+                                                <input hidden name="adsense_status" value="0" />
+                                                <div class="custom-control custom-switch custom-control-right">
+                                                    <input class="custom-control-input" id="adsense_status" name="adsense_status" value="1" type="checkbox" <?= ($settings->getSettingValue('adsense_status') == true) ? 'checked' : null; ?>>
+                                                    <label class="custom-control-label" for="adsense_status">Enable Adsense</label>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="form-group">
-                                            <input hidden name="sharethis_status" value="0" />
-                                            <div class="custom-control custom-switch custom-control-right">
-                                                <input class="custom-control-input" id="sharethis_status" name="sharethis_status" value="1" type="checkbox" <?= ($settings->getSettingValue('sharethis_status') == true) ? 'checked' : null; ?>>
-                                                <label class="custom-control-label" for="sharethis_status">Enable ShareThis</label>
+                                            <div class="form-group">
+                                                <div class="form-label-group">
+                                                    <input class="form-control" type="text" id="adsense_client_code" name="adsense_client_code" placeholder="Adsense Client Code" value="<?= $settings->getSettingValue('adsense_client_code'); ?>">
+                                                    <label for="adsense_client_code">Adsense Client Code</label>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="form-group">
-                                            <div class="form-label-group">
-                                                <input class="form-control" type="text" id="sharethis_code" name="sharethis_code" placeholder="Sharethis Code" value="<?= $settings->getSettingValue('sharethis_code'); ?>">
-                                                <label for="sharethis_code">Sharethis Code</label>
+                                        <?php endif; ?>
+
+
+                                        <?php if ($utils->module_exist("analytics")) : ?>
+
+                                            <div class="form-group">
+                                                <input hidden name="analytics_status" value="0" />
+                                                <div class="custom-control custom-switch custom-control-right">
+                                                    <input class="custom-control-input" id="analytics_status" name="analytics_status" value="1" type="checkbox" <?= ($settings->getSettingValue('analytics_status') == true) ? 'checked' : null; ?>>
+                                                    <label class="custom-control-label" for="analytics_status">Enable Google Analytics</label>
+                                                </div>
                                             </div>
-                                        </div>
+
+                                            <div class="form-group">
+                                                <div class="form-label-group">
+                                                    <input class="form-control" type="text" id="analytics_code" name="analytics_code" placeholder="Analytics UA Code" value="<?= $settings->getSettingValue('analytics_code'); ?>">
+                                                    <label for="analytics_code">Google Analytics Code</label>
+                                                </div>
+                                            </div>
+
+                                        <?php endif; ?>
+
+                                        <?php if ($utils->module_exist("sharethis")) : ?>
+
+                                            <div class="form-group">
+                                                <input hidden name="sharethis_status" value="0" />
+                                                <div class="custom-control custom-switch custom-control-right">
+                                                    <input class="custom-control-input" id="sharethis_status" name="sharethis_status" value="1" type="checkbox" <?= ($settings->getSettingValue('sharethis_status') == true) ? 'checked' : null; ?>>
+                                                    <label class="custom-control-label" for="sharethis_status">Enable ShareThis</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="form-label-group">
+                                                    <input class="form-control" type="text" id="sharethis_code" name="sharethis_code" placeholder="Sharethis Code" value="<?= $settings->getSettingValue('sharethis_code'); ?>">
+                                                    <label for="sharethis_code">Sharethis Code</label>
+                                                </div>
+                                            </div>
+
+                                        <?php endif; ?>
 
                                         <button class="btn btn-primary btn-block">
                                             Update Settings

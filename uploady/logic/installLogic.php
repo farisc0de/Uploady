@@ -424,6 +424,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->insertValue(
             "settings",
             [
+                'setting_key' => 'maintenance_mode',
+                'setting_value' => false
+            ]
+        );
+        $install->insertValue(
+            "settings",
+            [
                 'setting_key' => 'recaptcha_status',
                 'setting_value' => false
             ]

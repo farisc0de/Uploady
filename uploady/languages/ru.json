@@ -133,7 +133,11 @@
     "delete_after_downloads": "Удалить через... (кол-во загрузок)",
     "delete_after_downloads_placeholder": "Введите количество скачиваний, после которого файл будет удален",
     "delete_after_downloads_help": "Введите количество скачиваний, после которого файл будет удален. Оставьте 0, если не хотите удалять файл",
-    "set_btn": "Установить"
+    "set_btn": "Установить",
+    "maintenance_mode": "Maintenance Mode",
+    "maintenance_mode_help": "Enable maintenance mode to disable all the uploads and downloads.",
+    "maintenance_mode_title": "Maintenance Mode",
+    "maintenance_mode_body": "Maintenance Mode is enabled. Please try again later."
   },
   "navbar": {
     "home": "Главная",

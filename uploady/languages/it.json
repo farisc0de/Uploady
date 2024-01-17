@@ -133,7 +133,11 @@
     "delete_after_downloads": "Delete After Downloads",
     "delete_after_downloads_placeholder": "Enter number of downloads after which the file will be deleted",
     "delete_after_downloads_help": "Enter number of downloads after which the file will be deleted. Leave 0 if you don't want to delete the file.",
-    "set_btn": "Imposta"
+    "set_btn": "Imposta",
+    "maintenance_mode": "Maintenance Mode",
+    "maintenance_mode_help": "Enable maintenance mode to disable all the uploads and downloads.",
+    "maintenance_mode_title": "Maintenance Mode",
+    "maintenance_mode_body": "Maintenance Mode is enabled. Please try again later."
   },
   "navbar": {
     "home": "Home",
