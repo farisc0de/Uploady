@@ -93,9 +93,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ],
             [
                 'api_key',
-                Types::integer(),
+                Types::string(255),
                 Options::notNull(),
-                Options::defaultValue("1")
+                Options::defaultValue(bin2hex(random_bytes(16)))
             ],
             [
                 'otp_status',
