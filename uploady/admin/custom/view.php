@@ -35,10 +35,12 @@
                             <h4>Custom Javascript Code</h4>
                             <div id="jseditor" class="editor"><?php echo file_get_contents(APP_PATH . "/assets/js/custom.js"); ?></div>
                             <div class="pt-3"></div>
+                            <button class="btn btn-primary" id="saveJS">Update JS</button>
+                            <hr />
                             <h4>Custom CSS Code</h4>
                             <div id="csseditor" class="editor"><?php echo file_get_contents(APP_PATH . "/assets/css/custom.css"); ?></div>
                             <div class="pt-3"></div>
-                            <button class="btn btn-primary" id="save">Save</button>
+                            <button class="btn btn-primary" id="saveCSS">Update CSS</button>
                         </div>
                     </div>
                 </div>
@@ -60,16 +62,25 @@
         editor.setTheme("ace/theme/monokai");
         editor.session.setMode("ace/mode/css");
 
-        $("#save").click(function() {
-            var js = ace.edit("jseditor").getValue();
+        $("#saveCSS").click(function() {
             var css = ace.edit("csseditor").getValue();
+            update(css, "css");
 
+        });
+
+        $("#saveJS").click(function() {
+            var js = ace.edit("jseditor").getValue();
+            update(js, "js");
+
+        });
+
+        function update(editor, button) {
             $.ajax({
                 url: "actions/save.php",
                 type: "POST",
                 data: {
-                    js: js,
-                    css: css
+                    editor: editor,
+                    button: button
                 },
                 success: function(data) {
                     if (data == "success") {
@@ -79,7 +90,7 @@
                     }
                 }
             });
-        });
+        }
     </script>
 </body>
 
