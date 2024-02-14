@@ -96,8 +96,15 @@ class Settings
 
         $this->db->bind(":key", $setting_key);
 
+        $setting_value = "";
+
         if ($this->db->execute()) {
-            $setting_value = $this->db->single()->setting_value;
+
+            $result = $this->db->single();
+
+            if ($result) {
+                $setting_value = $result->setting_value;
+            }
         }
 
         return $setting_value;

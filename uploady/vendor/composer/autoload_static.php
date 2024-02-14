@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInit5945ad3276d7348e01910cc39dd50b7b
 {
     public static $prefixLengthsPsr4 = array (
+        'W' => 
+        array (
+            'Whoops\\' => 7,
+        ),
         'U' => 
         array (
             'Uploady\\' => 8,
@@ -18,6 +22,7 @@ class ComposerStaticInit5945ad3276d7348e01910cc39dd50b7b
         ),
         'P' => 
         array (
+            'Psr\\Log\\' => 8,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
         'F' => 
@@ -28,6 +33,10 @@ class ComposerStaticInit5945ad3276d7348e01910cc39dd50b7b
     );
 
     public static $prefixDirsPsr4 = array (
+        'Whoops\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/filp/whoops/src/Whoops',
+        ),
         'Uploady\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src/Uploady',
@@ -39,6 +48,10 @@ class ComposerStaticInit5945ad3276d7348e01910cc39dd50b7b
         'ReCaptcha\\' => 
         array (
             0 => __DIR__ . '/..' . '/google/recaptcha/src/ReCaptcha',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/src',
         ),
         'PHPMailer\\PHPMailer\\' => 
         array (
