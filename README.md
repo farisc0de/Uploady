@@ -14,8 +14,6 @@ The software is written in PHP and uses MySQL as a database.
 
 And it is free and open source.
 
-_Please note!_ This fork of Uploady ONLY focuses on English! Please change `uploady/languages/*.json` to support your specific language!
-
 ## Features
 
 1. Simple to use and implement
