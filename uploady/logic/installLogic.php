@@ -498,6 +498,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ]
         );
 
+        $install->insertValue(
+            "settings",
+            [
+                'setting_key' => 'twitter_enable',
+                'setting_value' =>  '1'
+            ]
+        );
+
+        $install->insertValue(
+            "settings",
+            [
+                'setting_key' => 'instagram_enable',
+                'setting_value' =>  '1'
+            ]
+        );
+
+        $install->insertValue(
+            "settings",
+            [
+                'setting_key' => 'linkedin_enable',
+                'setting_value' =>  '1'
+            ]
+        );
+
+        $install->insertValue(
+            "settings",
+            [
+                'setting_key' => 'protections_enable',
+                'setting_value' =>  '1'
+            ]
+        );
+
         $install->insertValue("pages", [
             'slug' => 'about',
             'deletable' => false

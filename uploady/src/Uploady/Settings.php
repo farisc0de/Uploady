@@ -70,7 +70,18 @@ class Settings
         $res = [];
 
         foreach ($settings_array as $setting_key => $setting_value) {
-            $this->db->prepare("UPDATE settings SET setting_value = :value WHERE setting_key = :key");
+            $this->db->prepare("SELECT setting_key FROM settings WHERE setting_key = :key");
+            $this->db->bind(":key", $setting_key, \PDO::PARAM_STR);
+            $this->db->execute();
+            $setting_exists = $this->db->single();
+
+            if ($setting_exists) {
+                // If setting exists, update it
+                $this->db->prepare("UPDATE settings SET setting_value = :value WHERE setting_key = :key");
+            } else {
+                // If setting doesn't exist, insert it
+                $this->db->prepare("INSERT INTO settings (setting_key, setting_value) VALUES (:key, :value)");
+            }
 
             $this->db->bind(":key", $setting_key, \PDO::PARAM_STR);
             $this->db->bind(":value", $setting_value, \PDO::PARAM_STR);
@@ -78,7 +89,7 @@ class Settings
             array_push($res, $this->db->execute());
         }
 
-        return in_array(false, $res) ? false : true;
+        return !in_array(false, $res);
     }
 
     /**
