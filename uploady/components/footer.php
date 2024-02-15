@@ -1,20 +1,26 @@
 <div class="text-center container">
   <ul class="list-inline">
+  <?php if ($settings->getSettingValue('twitter_enable') == true) : ?>
     <li class="list-inline-item">
       <a href="<?= $st['twitter_link'] ?>" class="btn btn-info rounded-circle">
         <i class="fab fa-twitter text-white"></i>
       </a>
     </li>
+    <?php endif; ?>
+    <?php if ($settings->getSettingValue('instagram_enable') == true) : ?>
     <li class="list-inline-item">
       <a href="<?= $st['instagram_link'] ?>" class="btn btn-danger rounded-circle">
         <i class="fab fa-instagram text-white"></i>
       </a>
     </li>
+    <?php endif; ?>
+    <?php if ($settings->getSettingValue('linkedin_enable') == true) : ?>
     <li class="list-inline-item">
       <a href="<?= $st['linkedin_link'] ?>" class="btn btn-primary rounded-circle">
         <i class="fab fa-linkedin-in text-white"></i>
       </a>
     </li>
+    <?php endif; ?>
   </ul>
 </div>
 

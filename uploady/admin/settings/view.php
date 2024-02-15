@@ -124,10 +124,24 @@ include_once 'logic/settings.php';
                                                 <label class="custom-control-label" for="public_upload">Public Upload</label>
                                             </div>
                                         </div>
-
+                                        
+                                        <div class="form-group">
+                                            <input hidden name="protections_enable" value="0" />
+                                            <div class="custom-control custom-switch custom-control-right">
+                                                <input class="custom-control-input" id="protections_enable" value="1" name="protections_enable" type="checkbox" <?= ($settings->getSettingValue('protections_enable') == true) ? 'checked' : null; ?>>
+                                                <label class="custom-control-label" for="protections_enable">Enable MIME/extension Protections</label>
+                                            </div>
+                                        </div>
+                                        
                                         <hr />
 
                                         <div class="form-group">
+                                            <input hidden name="instagram_enable" value="0" />
+                                            <div class="custom-control custom-switch custom-control-right">
+                                                <input class="custom-control-input" id="instagram_enable" value="1" name="instagram_enable" type="checkbox" <?= ($settings->getSettingValue('instagram_enable') == true) ? 'checked' : null; ?>>
+                                                <label class="custom-control-label" for="instagram_enable">Enable Instagram Link</label>
+                                            </div>
+                                            
                                             <div class="form-label-group">
                                                 <input class="form-control" type="text" id="instagram_link" name="instagram_link" placeholder="Instagram Link" value="<?= $settings->getSettingValue('instagram_link'); ?>">
                                                 <label for="instagram_link"><i class="fab fa-instagram"></i> Instagram Link</label>
@@ -135,6 +149,12 @@ include_once 'logic/settings.php';
                                         </div>
 
                                         <div class="form-group">
+                                            <input hidden name="twitter_enable" value="0" />
+                                            <div class="custom-control custom-switch custom-control-right">
+                                                <input class="custom-control-input" id="twitter_enable" value="1" name="twitter_enable" type="checkbox" <?= ($settings->getSettingValue('twitter_enable') == true) ? 'checked' : null; ?>>
+                                                <label class="custom-control-label" for="twitter_enable">Enable Twitter Link</label>
+                                            </div>
+                                            
                                             <div class="form-label-group">
                                                 <input class="form-control" type="text" id="twitter_link" name="twitter_link" placeholder="Twitter Link" value="<?= $settings->getSettingValue('twitter_link'); ?>">
                                                 <label for="twitter_link"><i class="fab fa-twitter"></i> Twitter Link</label>
@@ -142,6 +162,12 @@ include_once 'logic/settings.php';
                                         </div>
 
                                         <div class="form-group">
+                                            <input hidden name="linkedin_enable" value="0" />
+                                            <div class="custom-control custom-switch custom-control-right">
+                                                <input class="custom-control-input" id="linkedin_enable" value="1" name="linkedin_enable" type="checkbox" <?= ($settings->getSettingValue('linkedin_enable') == true) ? 'checked' : null; ?>>
+                                                <label class="custom-control-label" for="linkedin_enable">Enable LinkedIn Link</label>
+                                            </div>
+                                            
                                             <div class="form-label-group">
                                                 <input class="form-control" type="text" id="linkedin_link" name="linkedin_link" placeholder="LinkedIn Link" value="<?= $settings->getSettingValue('linkedin_link'); ?>">
                                                 <label for="linkedin_link"><i class="fab fa-linkedin-in"></i> LinkedIn Link</label>

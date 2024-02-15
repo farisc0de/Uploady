@@ -71,24 +71,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         exit();
     }
 
-    if (
-        !$upload->checkExtension()
-    ) {
-        http_response_code(400);
-        echo json_encode([
-            "error" => $lang["general"]['file_type_is_not_allowed'],
-        ]);
-        exit();
-    }
+    if($settings->getSettingValue("protections_enable")){
+        if (!$upload->checkExtension()) {
+            http_response_code(400);
+            echo json_encode([
+                "error" => $lang["general"]['file_type_is_not_allowed'],
+            ]);
+            exit();
+        }
 
-    if (
-        !$upload->checkMime()
-    ) {
-        http_response_code(400);
-        echo json_encode([
-            "error" => $lang["general"]['file_mime_type_is_not_allowed'],
-        ]);
-        exit();
+        if (!$upload->checkMime()) {
+            http_response_code(400);
+            echo json_encode([
+                "error" => $lang["general"]['file_mime_type_is_not_allowed'],
+            ]);
+            exit();
+        }
     }
 
     if ($upload->upload()) {
