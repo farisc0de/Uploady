@@ -1,9 +1,9 @@
 <?php
 
 // Database Settings
-define("DB_HOST", "localhost");
-define("DB_USER", "root");
-define("DB_PASS", "");
+define("DB_HOST", "db");
+define("DB_USER", "uploady");
+define("DB_PASS", "uploady");
 define("DB_NAME", "uploady");
 
 // Application Settings
