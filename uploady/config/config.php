@@ -22,4 +22,4 @@ require_once 'environment.php';
 require_once APP_PATH . 'vendor/autoload.php';
 
 // Initialize Application
-require_once 'init.php';
+require_once APP_PATH . 'init.php';
