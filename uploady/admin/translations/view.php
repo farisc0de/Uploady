@@ -95,7 +95,7 @@
     </div>
     <?php include_once '../components/js.php'; ?>
     <?php $utils->script(
-        'https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"'
+        'https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js'
     ); ?>
     <?php $utils->script(
         'https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js'

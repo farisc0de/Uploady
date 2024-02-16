@@ -115,7 +115,7 @@ include_once 'logic/homeLogic.php';
     ); ?>
     <?php $utils->script('chart-bar-demo.js', 'admin/assets/demo'); ?>
     <?php $utils->script(
-        'https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"'
+        'https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js'
     ); ?>
     <?php $utils->script(
         'https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js'
