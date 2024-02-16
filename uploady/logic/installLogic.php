@@ -1,5 +1,10 @@
 <?php
 
+if (ENVIRONMENT == 'production' || ENVIRONMENT == 'testing' || ENVIRONMENT == 'development') {
+    header("Location: /");
+    exit;
+}
+
 use Farisc0de\PhpMigration\Options\Options;
 use Farisc0de\PhpMigration\Options\Types;
 
