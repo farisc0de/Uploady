@@ -306,7 +306,6 @@ include_once 'logic/settings.php';
         </div>
     </div>
     <?php include_once '../components/js.php'; ?>
-    <?php $utils->script("js/bootstrap-tagsinput.js", "admin/assets"); ?>
     <?php $utils->script("https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"); ?>
 
     <script>
