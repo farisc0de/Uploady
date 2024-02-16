@@ -221,7 +221,7 @@ class ResetPassword
             }
         }
 
-        return true;
+        return false;
     }
 
     /**
@@ -245,12 +245,12 @@ class ResetPassword
 
             if (round($diff / 3600) >= 24) {
                 $this->deleteToken($key);
-                return true;
+                return false;
             }
 
-            return false;
+            return true;
         }
 
-        return false;
+        return true;
     }
 }

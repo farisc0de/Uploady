@@ -32,6 +32,8 @@ $allowed_pages = array(
     'maintenance.php',
     'forgot-password.php',
     'reset.php',
+    'supported.php',
+    'reportabuse.php',
 );
 
 $current_url = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];

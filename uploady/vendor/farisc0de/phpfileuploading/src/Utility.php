@@ -70,6 +70,36 @@ class Utility
         $bytes /= pow(1024, $pow);
         return round($bytes, $precision) . ' ' . $units[$pow];
     }
+
+    /**
+     * Convert any type of storage size to a different unit
+     *
+     *
+     * @param int $size
+     *  The file size that you want to convert in bytes
+     * @param string $unit
+     *  The unit of the file size
+     * @return float
+     *  Return the file size as float
+     */
+    public function unitConvert($size, $unit)
+    {
+        switch ($unit) {
+            case "B":
+                return $size;
+            case "KB":
+                return $size / 1024;
+            case "MB":
+                return $size / 1024 / 1024;
+            case "GB":
+                return $size / 1024 / 1024 / 1024;
+            case "TB":
+                return $size / 1024 / 1024 / 1024 / 1024;
+            default:
+                return $size;
+        }
+    }
+
     /**
      * Function that helps with input filter and sanitize
      *
