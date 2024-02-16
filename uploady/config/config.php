@@ -20,3 +20,5 @@ require_once 'environment.php';
 
 // Autoload Composer
 require_once APP_PATH . 'vendor/autoload.php';
+
+require_once 'init.php';
