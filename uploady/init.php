@@ -28,6 +28,10 @@ $allowed_pages = array(
     'auth.php',
     'page.php',
     'download.php',
+    'activate.php',
+    'maintenance.php',
+    'forgot-password.php',
+    'reset.php',
 );
 
 $current_url = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
