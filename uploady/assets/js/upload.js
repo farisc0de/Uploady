@@ -1,7 +1,9 @@
 loadLanguge().then((data) => {
   let myDropzone = new Dropzone("#my-dropzone", {
     maxFiles: 10,
+    maxFilesize: 250,
     addRemoveLinks: true,
+    chunking: true,
     dictDefaultMessage: data["drop_files"],
     dictRemoveFile: data["remove_file"],
     dictCancelUpload: data["cancel_upload"],

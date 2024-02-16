@@ -14,6 +14,9 @@ include_once APP_PATH . 'logic/indexLogic.php';
         </div>
         <div class="card-body">
           <form enctype="multipart/form-data" class="dropzone" id="my-dropzone" method="POST" action="actions/upload_file.php">
+            <div class="fallback">
+              <input name="file" type="file" multiple />
+            </div>
           </form>
         </div>
 

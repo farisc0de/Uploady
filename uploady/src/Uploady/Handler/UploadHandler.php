@@ -271,7 +271,7 @@ class UploadHandler
      */
     public function addDownload($file_id)
     {
-        $this->db->prepare("UPDATE files SET downloads = (downloads + 1) WHERE file_id = :file_id");
+        $this->db->prepare("UPDATE files SET downloads = COALESCE(downloads, 0) + 1 WHERE file_id = :file_id LIMIT 1;");
 
         $this->db->bind(":file_id", $file_id, \PDO::PARAM_STR);
 
