@@ -246,7 +246,7 @@ class User
     {
         $sql = 'SELECT * FROM users WHERE activation_hash = :hash';
 
-        $hash = sha1($token);
+        $hash = hash("sha256", $token);
 
         $this->db->prepare($sql);
 

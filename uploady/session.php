@@ -48,7 +48,7 @@ if (isset($_SESSION)) {
 
 
     if (!isset($_SESSION['user_id'])) {
-        $_SESSION["user_id"] = hash("sha1", "user-" . session_id());
+        $_SESSION["user_id"] = hash("sha256", "user-" . session_id());
     }
 
     // Public Uploads handling

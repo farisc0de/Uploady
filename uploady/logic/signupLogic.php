@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (!isset($error)) {
             $token = bin2hex(random_bytes(16));
 
-            $hash = sha1($token);
+            $hash = hash("sha256", $token);
 
             $upload->generateUserID();
 

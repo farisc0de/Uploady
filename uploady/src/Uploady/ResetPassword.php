@@ -66,10 +66,10 @@ class ResetPassword
     }
 
     /**
-     * Generate a secure sha1 token
+     * Generate a secure token
      *
      * @return string
-     *  Return a secure SHA token
+     *  Return a secure token
      */
     public function generateToken()
     {
@@ -106,7 +106,7 @@ class ResetPassword
              WHERE username = :user");
 
         $this->db->bind(":user", $rows->username, \PDO::PARAM_STR);
-        $this->db->bind(":hash", sha1($token), \PDO::PARAM_STR);
+        $this->db->bind(":hash", hash("sha256", $token), \PDO::PARAM_STR);
         $this->db->bind(":ct", $created_at, \PDO::PARAM_STR);
 
         if ($this->db->execute()) {
@@ -161,7 +161,7 @@ class ResetPassword
     }
 
     /**
-     * Get the username using the SHA1 token
+     * Get the username using the sha256 token
      *
      * @param string $token
      *  The secure token to verfiy the request
@@ -172,7 +172,7 @@ class ResetPassword
     {
         $this->db->prepare("SELECT username FROM users WHERE reset_hash = :token limit 1");
 
-        $this->db->bind(":token", sha1($token), \PDO::PARAM_STR);
+        $this->db->bind(":token", hash("sha256", $token), \PDO::PARAM_STR);
 
         return $this->db->execute() ? $this->db->single() : false;
     }
@@ -194,7 +194,7 @@ class ResetPassword
          reset_hash = :token"
         );
 
-        $this->db->bind(":token", sha1($token), \PDO::PARAM_STR);
+        $this->db->bind(":token", hash("sha256", $token), \PDO::PARAM_STR);
         $this->db->bind(":null", null, \PDO::PARAM_NULL);
         $this->db->bind(":nullct", null, \PDO::PARAM_NULL);
 
@@ -213,7 +213,7 @@ class ResetPassword
     {
         $this->db->prepare("SELECT * FROM users WHERE reset_hash = :token");
 
-        $this->db->bind(":token", sha1($token), \PDO::PARAM_STR);
+        $this->db->bind(":token", hash("sha256", $token), \PDO::PARAM_STR);
 
         if ($this->db->execute()) {
             if ($this->db->rowCount()) {
@@ -236,7 +236,7 @@ class ResetPassword
     {
         $this->db->prepare("SELECT created_at FROM users WHERE reset_hash = :token");
 
-        $this->db->bind(":token", sha1($key), \PDO::PARAM_STR);
+        $this->db->bind(":token", hash("sha256", $key), \PDO::PARAM_STR);
 
         if ($this->db->execute()) {
             $data = $this->db->single();
