@@ -12,7 +12,7 @@ define("APP_PATH", dirname(__FILE__, 2) . DIRECTORY_SEPARATOR);
 define("LOGS_PATH", APP_PATH . "php_logs.log");
 
 // Upload Settings
-define("MAX_SIZE", "250 MB");
+define("MAX_SIZE", "1 GB");
 define("UPLOAD_FOLDER", "uploads");
 
 // Environment Settings

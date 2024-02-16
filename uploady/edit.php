@@ -10,7 +10,7 @@
             <input type="hidden" id="file_name" value="<?= $file_data['filename'] ?>">
 
             <form id="delete_form" method="POST" action="actions/update_file.php?action=delete_settings">
-                <input type="hidden" name="file_id" value="<?= $_GET['file_id'] ?>">
+                <input type="hidden" name="file_id" value="<?= $utils->sanitize($_GET['file_id']) ?>">
                 <div class="pb-3">
                     <label for="delete_at_downloads" class="form-label"><?= $lang["general"]['delete_after_days'] ?></label>
                     <input type="text" id="delete_at_days" class="form-control" placeholder="<?= $lang['general']['delete_after_downloads_placeholder'] ?>" name="days" value="<?= $file_settings['delete_at']['days'] ?>">

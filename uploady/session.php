@@ -7,6 +7,7 @@ include_once 'config/config.php';
 if (isset($_SESSION)) {
 
     $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
+    $data = null;
 
     if (!isset($_SESSION['user_role'])) {
         $_SESSION['user_role'] = 2;
@@ -15,10 +16,6 @@ if (isset($_SESSION)) {
     if ($username != null) {
         if (isset($_SESSION['loggedin'])) {
             $data = $user->get($username);
-
-            if (!isset($_SESSION['user_id'])) {
-                $_SESSION["user_id"] = hash("sha1", $data->user_id);
-            }
         }
 
         if (!isset($_SESSION['current_ip'])) {
@@ -28,6 +25,11 @@ if (isset($_SESSION)) {
         if (!(isset($_SESSION['csrf']))) {
             $auth->generateSessionToken();
         }
+
+
+        $_SESSION['user_id'] = $data->user_id;
+
+        // Two Factor Authentication
 
         if ($user->isTwoFAEnabled($username) == true) {
             if (!isset($_SESSION['OTP']) || $_SESSION['OTP'] != true) {
@@ -42,6 +44,11 @@ if (isset($_SESSION)) {
                 $utils->redirect($utils->siteUrl('/logout.php'));
             }
         }
+    }
+
+
+    if (!isset($_SESSION['user_id'])) {
+        $_SESSION["user_id"] = hash("sha1", "user-" . session_id());
     }
 
     // Public Uploads handling
