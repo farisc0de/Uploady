@@ -32,7 +32,7 @@
                                 <input type="email" class="form-control" name="emailaddress" placeholder="name@example.com">
                             </div>
                             <div class="mb-3">
-                                <input type="text" class="form-control" name="fileid" placeholder="<?= $lang["general"]['file_url_placeholder'] ?>" value="<?= $utils->sanitize($_POST['fileid']) ?? null ?>" readonly>
+                                <input type="text" class="form-control" name="fileid" placeholder="<?= $lang["general"]['file_url_placeholder'] ?>" value="<?= $fileID ?>" readonly>
                             </div>
                             <div class="mb-3">
                                 <textarea class="form-control" name="fileabusenote" cols="30" rows="10" placeholder="<?= $lang["general"]['file_abuse_notes_placeholder'] ?>"></textarea>
