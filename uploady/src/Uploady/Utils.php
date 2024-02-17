@@ -260,7 +260,7 @@ class Utils
     public function createCookie($name, $value)
     {
         if (!isset($_COOKIE[$name])) {
-            return setcookie($name, $value, time() + 60 * 60 * 24 * 30, "/");
+            return setcookie($name, $value, time() + 60 * 60 * 24 * 30, "/", "", false, true);
         }
 
         return true;
@@ -277,7 +277,7 @@ class Utils
     public function deleteCookie($name)
     {
         if (isset($_COOKIE[$name])) {
-            return setcookie($name, "", time() - 3600, "/");
+            return setcookie($name, "", time() - 3600, "/", "", false, true);
         }
 
         return true;

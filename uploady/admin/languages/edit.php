@@ -28,7 +28,7 @@
                         <div class="card-body">
                             <form method="POST" action="actions/edit.php">
 
-                                <input type="hidden" name="lang" value="<?= $_GET["lang"]; ?>">
+                                <input type="hidden" name="lang" value="<?= $utils->sanitize($_GET["lang"]); ?>">
 
                                 <?= $utils->input('csrf', $_SESSION['csrf']); ?>
 

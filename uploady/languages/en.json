@@ -70,6 +70,7 @@
     "password_pattern_title": "Must contain at least one number, one uppercase letter, lowercase letter, one character, and at least 8 or more characters",
     "new_password": "New Password",
     "confirm_password": "Confirm Password",
+    "password_pattern_msg": "Password should be at least 8 characters in length and should include at least one upper case letter, one number, and one special character.",
     "signup_title": "Sign Up",
     "signup_button": "Sign Up",
     "login_cta_msg": "Already have an account? Login!",

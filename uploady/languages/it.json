@@ -73,6 +73,7 @@
     "signup_button": "Registrati",
     "login_cta_msg": "Hai già un account? Accedi!",
     "supported_formats": "Formati accettati",
+    "password_pattern_msg": "La password deve contenere almeno un numero, una lettera maiuscola, lettere minuscole ed almeno 8 caratteri",
     "format": "Formato",
     "max_size": "Dimensione Massima",
     "status": "Stato",

@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $user_array['email'] = $utils->sanitize($_POST['email']);
 
             if ($_POST['password'] || $_POST['password'] != "") {
-                $password = $utils->sanitize($_POST['Password']);
+                $password = $utils->sanitize($_POST['password']);
                 $user_array['password'] = password_hash($password, PASSWORD_BCRYPT);
             }
 

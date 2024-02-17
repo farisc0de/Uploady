@@ -44,7 +44,7 @@ class Localization
      */
     public function loadLangauge($language)
     {
-        $file = file_get_contents(APP_PATH . "/languages/{$language}.json");
+        $file = file_get_contents(realpath(APP_PATH . "/languages/{$language}.json"));
         $file = json_decode($file, true);
         return $file;
     }
@@ -59,10 +59,10 @@ class Localization
      */
     public function createLanguage($language)
     {
-        $file = file_get_contents(APP_PATH . "/languages/en.json");
+        $file = file_get_contents(realpath(APP_PATH . "/languages/en.json"));
         $file = json_decode($file, true);
         $file = json_encode($file, JSON_PRETTY_PRINT);
-        file_put_contents(APP_PATH . "/languages/{$language}.json", $file);
+        file_put_contents(realpath(APP_PATH . "/languages/{$language}.json"), $file);
     }
 
     /**
@@ -101,7 +101,7 @@ class Localization
      */
     public function updateLanguage($type, $data, $language)
     {
-        $file = file_get_contents(APP_PATH . "/languages/{$language}.json");
+        $file = file_get_contents(realpath(APP_PATH . "/languages/{$language}.json"));
         $file = json_decode($file, true);
 
         foreach ($data as $key => $value) {
@@ -109,7 +109,7 @@ class Localization
         }
 
         $file = json_encode($file, JSON_PRETTY_PRINT);
-        file_put_contents(APP_PATH . "/languages/{$language}.json", $file);
+        file_put_contents(realpath(APP_PATH . "/languages/{$language}.json"), $file);
     }
 
     /**
@@ -122,7 +122,7 @@ class Localization
      */
     public function deleteLanguage($language)
     {
-        unlink(APP_PATH . "/languages/{$language}.json");
+        unlink(realpath(APP_PATH . "/languages/{$language}.json"));
     }
 
     /**

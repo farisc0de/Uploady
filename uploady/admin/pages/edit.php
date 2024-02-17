@@ -28,7 +28,7 @@
                         <div class="card-body">
                             <form method="POST" action="actions/update.php">
 
-                                <input type="hidden" name="pageid" value="<?= $_GET['pageid']; ?>">
+                                <input type="hidden" name="pageid" value="<?= $utils->sanitize($_GET['pageid']); ?>">
 
                                 <?= $utils->input('csrf', $_SESSION['csrf']); ?>
 

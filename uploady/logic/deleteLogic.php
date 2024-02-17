@@ -1,11 +1,16 @@
 <?php
+
 $handler = new Uploady\Handler\UploadHandler($db);
 
 if (isset($_GET['file_id']) && isset($_GET['user_id'])) {
-    if ($handler->fileExist($_GET['file_id']) && $handler->userExist($_GET['user_id'])) {
-        $file = json_decode($handler->getFile($_GET['file_id'])->file_data);
-        if ($handler->deleteFile($_GET['file_id'], $_GET['user_id'])) {
-            unlink(realpath("uploads/{$_GET['user_id']}/{$file->filename}"));
+
+    $fileID = $utils->sanitize($_POST['file_id']);
+    $userID = $utils->sanitize($_POST['user_id']);
+
+    if ($handler->fileExist($fileID) && $handler->userExist($userID) && $_SESSION['user_id'] == $userID) {
+        $file = json_decode($handler->getFile($fileID)->file_data);
+        if ($handler->deleteFile($fileID, $userID)) {
+            unlink(realpath("uploads/{$userID}/{$file->filename}"));
             $msg = $lang["general"]['file_deleted_success'];
         } else {
             $msg = $lang["general"]['file_deleted_failed'] . " ):";
