@@ -1,5 +1,7 @@
 <?php
 
+session_set_cookie_params(time() + 60 * 60 * 24 * 30, "/", "", true, true);
+
 session_start();
 
 include_once 'config/config.php';
