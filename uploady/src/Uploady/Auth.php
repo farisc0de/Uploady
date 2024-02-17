@@ -118,7 +118,7 @@ class Auth
 
             return 200;
         } else {
-            sleep(rand(2, 4));
+            sleep(random_int(2, 4));
 
             $this->db->prepare(
                 'UPDATE users SET failed_login = (failed_login + 1) WHERE username = (:user) LIMIT 1;'
