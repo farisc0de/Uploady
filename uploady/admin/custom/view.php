@@ -49,10 +49,10 @@
         </div>
     </div>
     <?php include_once '../components/js.php'; ?>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.18.0/ace.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.18.0/theme-monokai.min.js" integrity="sha512-8rSB/wU3KoN3rr1VHwPP4dfpbU063BvH6qzwt0oe9E2ThEchzd8MmJylVPxZ5kLvxsShgtWvc9AtIlS7rmPunA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.18.0/mode-javascript.min.js" integrity="sha512-4pSr5XJEo9PorZpo7xa7DrbEWKN5Pu4atm/tmMXTRJtepTeKo+sNzlfqkDwPlPx+hpSM4yz4fJEacTiaPazeoA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.18.0/mode-css.min.js" integrity="sha512-q2Qu7dOhudjAQ8wvsLOsZ1NyUhOPAeGL/jzO1f45NMFGSv9F6sgDyzWa00LCVBWg/p84nGM/NHOX4bO1ctbkKg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.6/ace.min.js" integrity="sha512-kiECX53fzPhY5cnGzxTUZUOefsjR7gY3SD2OOgcsxZ0nAMZ3e+lkqxhXzGAFm05KjIaQ49/OyNryGTcbLb2V9w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.6/theme-monokai.min.js" integrity="sha512-g9yptARGYXbHR9r3kTKIAzF+vvmgEieTxuuUUcHC5tKYFpLR3DR+lsisH2KZJG2Nwaou8jjYVRdbbbBQI3Bo5w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.6/mode-javascript.min.js" integrity="sha512-Vxd7YZ0TLTa/GFCZ9UxBW9fipF4lxQXad6T2/VaIntzS77vh30JjpxAEpvrBUwtoUItupwvGAHi1TdXTddUxhQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.6/mode-css.min.js" integrity="sha512-q2Qu7dOhudjAQ8wvsLOsZ1NyUhOPAeGL/jzO1f45NMFGSv9F6sgDyzWa00LCVBWg/p84nGM/NHOX4bO1ctbkKg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         var editor = ace.edit("jseditor");
         editor.setTheme("ace/theme/monokai");

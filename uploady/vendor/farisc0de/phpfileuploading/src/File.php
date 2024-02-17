@@ -147,6 +147,6 @@ class File
      */
     public function getFileHash()
     {
-        return  hash_file('sha1', $this->getTempName());
+        return  hash_file('sha256', $this->getTempName());
     }
 }

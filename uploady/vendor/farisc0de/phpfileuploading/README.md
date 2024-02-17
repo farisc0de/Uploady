@@ -21,7 +21,7 @@ composer require farisc0de/phpfileuploading
 
 ## How to Use
 
-take a look at the documentation and the examples
+take a look at the examples
 
 ## TODO
 

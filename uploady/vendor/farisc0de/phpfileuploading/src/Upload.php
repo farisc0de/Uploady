@@ -688,7 +688,7 @@ final class Upload
      */
     public function hashName()
     {
-        $this->file_name = sha1($this->file->getFileHash() .
+        $this->file_name = hash("sha256", $this->file->getFileHash() .
             uniqid()) .
             ".{$this->file->getExtension()}";
         $this->is_hashed = true;
@@ -947,7 +947,7 @@ final class Upload
      */
     public function generateFileID()
     {
-        $this->file_id = hash("sha1", uniqid("file-"));
+        $this->file_id = hash("sha256", uniqid("file-"));
     }
 
     /**
@@ -959,13 +959,13 @@ final class Upload
     public function generateUserID($disable_session = false)
     {
         if ($disable_session == true) {
-            $this->user_id = hash("sha1", "user-" . bin2hex(random_bytes(16)));
+            $this->user_id = hash("sha256", "user-" . bin2hex(random_bytes(16)));
             return true;
         }
 
         $this->user_id = (isset($_SESSION['user_id'])) ?
             $_SESSION['user_id'] :
-            hash("sha1", "user-" . session_id());
+            hash("sha256", "user-" . session_id());
 
         return true;
     }
