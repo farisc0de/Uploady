@@ -18,7 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     unset($_POST['csrf']);
 
-    $_POST['password'] = password_hash($_POST['password'], PASSWORD_BCRYPT);
+    $password = $utils->sanitize($_POST['password']);
+    $_POST['password'] = password_hash($password, PASSWORD_BCRYPT);
     $_POST['user_id'] = $user_id;
 
     if ($user->add($utils->esc($_POST))) {
