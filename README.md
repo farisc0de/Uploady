@@ -98,6 +98,14 @@ curl --location 'http://localhost/api/upload' \
 
 Click here for a real demo [Uploady.NET](https://github.com/farisc0de/Uploady.NET)
 
+## TODO
+
+```
+1. Report abuse dashboard
+2. PhpFileUpload refactor
+3. Upgrade Bootstrap to 5.3.3
+```
+
 ## License
 
 MIT
