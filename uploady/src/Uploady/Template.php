@@ -6,7 +6,7 @@ namespace Uploady;
  * Simple Template Engine to handle layouts
  *
  * @package Uploady
- * @version 1.5.3
+ * @version 3.0.x
  * @author fariscode <farisksa79@gmail.com>
  * @license MIT
  * @link https://github.com/farisc0de/Uploady

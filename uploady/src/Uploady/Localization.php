@@ -8,7 +8,7 @@ use PDOException;
  * Simple Class that handles localization
  *
  * @package Uploady
- * @version 1.5.3
+ * @version 3.0.x
  * @author fariscode <farisksa79@protonmail.com>
  * @license MIT
  * @link https://github.com/farisc0de/Uploady

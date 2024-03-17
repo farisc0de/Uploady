@@ -6,7 +6,7 @@ namespace Uploady\Handler;
  * A class that handles error and exception
  *
  * @package Uploady
- * @version 1.5.3
+ * @version 3.0.x
  * @author fariscode <farisksa79@protonmail.com>
  * @license MIT
  * @link https://github.com/farisc0de/Uploady

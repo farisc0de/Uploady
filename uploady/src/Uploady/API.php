@@ -8,7 +8,7 @@ use Farisc0de\PhpFileUploading\Upload;
  * A class that handles API requests
  *
  * @package Uploady
- * @version 1.5.3
+ * @version 3.0.x
  * @author fariscode <farisksa79@protonmail.com>
  * @license MIT
  * @link https://github.com/farisc0de/Uploady
@@ -239,6 +239,13 @@ class API
     }
 
 
+    /**
+     * Get validation errors
+     *
+     * @param array $data
+     * @param boolean $is_new
+     * @return array
+     */
     public function getValidationErrors(array $data, bool $is_new = true): array
     {
         $errors = [];
