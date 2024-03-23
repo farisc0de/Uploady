@@ -101,9 +101,11 @@ Click here for a real demo [Uploady.NET](https://github.com/farisc0de/Uploady.NE
 ## TODO
 
 ```
-1. Report abuse dashboard
-2. PhpFileUpload refactor
-3. Upgrade Bootstrap to 5.3.3
+v4.0
+1. Rewrite in Custom MVC
+2. Report abuse dashboard
+3. PhpFileUpload refactor
+4. Upgrade Bootstrap to 5.3.3
 ```
 
 ## License
