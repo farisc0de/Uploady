@@ -8,4 +8,4 @@
 
 ## Reporting a Vulnerability
 
-Please send me an email at farisksa79@gmail.com
+Please send me an email at farisksa79@gmail.com or open an issue to resolve it.
