@@ -1,14 +1,13 @@
-version: "3.8"
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
     ports:
-      - 80:80
+      - 80:8080
     volumes:
       - .:/var/www/html
-    image: farisc0de/uploady:latest
+    environment:
+      APACHE_DOCUMENT_ROOT: /var/www/html
+      SSL_MODE: "off"
+    image: serversideup/php:8.3-fpm-apache
     depends_on:
       - db
 
