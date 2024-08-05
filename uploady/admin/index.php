@@ -8,12 +8,12 @@ include_once 'logic/homeLogic.php';
 <head>
     <?php include_once 'components/meta.php'; ?>
     <title>Dashboard - <?= $st['website_name'] ?></title>
-    <?php include_once 'components/css.php'; ?>
 
     <?php $utils->style(
         'https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css'
     ); ?>
     <?php $utils->style("https://cdnjs.cloudflare.com/ajax/libs/jvectormap/2.0.5/jquery-jvectormap.min.css"); ?>
+    <?php include_once 'components/css.php'; ?>
 </head>
 
 <body class="sb-nav-fixed">
@@ -121,8 +121,8 @@ include_once 'logic/homeLogic.php';
         'https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js'
     ); ?>
     <?php $utils->script('datatables-demo.js', 'admin/assets/demo'); ?>
-    <?php $utils->script("https://jvectormap.com/js/jquery-jvectormap-2.0.5.min.js") ?>
-    <?php $utils->script("https://jvectormap.com/js/jquery-jvectormap-world-mill.js") ?>
+    <?php $utils->script("core.js", "admin/assets/vendor/jvectormap/js") ?>
+    <?php $utils->script("world.js", "admin/assets/vendor/jvectormap/js") ?>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             $.getJSON("logic/mapChart.php", {}, function(data) {
