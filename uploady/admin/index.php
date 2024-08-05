@@ -121,8 +121,8 @@ include_once 'logic/homeLogic.php';
         'https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js'
     ); ?>
     <?php $utils->script('datatables-demo.js', 'admin/assets/demo'); ?>
-    <?php $utils->script("core.js", "admin/assets/vendor/jvectormap/js") ?>
-    <?php $utils->script("world.js", "admin/assets/vendor/jvectormap/js") ?>
+    <?php $utils->script("core.js", "admin/assets/js/jvectormap/") ?>
+    <?php $utils->script("world.js", "admin/assets/js/jvectormap/") ?>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             $.getJSON("logic/mapChart.php", {}, function(data) {
