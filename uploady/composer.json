@@ -3,7 +3,7 @@
     "phpmailer/phpmailer": "^6.2",
     "google/recaptcha": "^1.2",
     "farisc0de/phpfileuploading": "^1.0",
-    "robthree/twofactorauth": "^1.8",
+    "robthree/twofactorauth": "^3.0",
     "wolfcast/browser-detection": "^2.9",
     "farisc0de/phpmigration": "^1.0",
     "filp/whoops": "^2.15"
