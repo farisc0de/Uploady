@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6d3ffc5cf5b9fad259e30a09e7c02718",
+    "content-hash": "0f662999a61b430c9ff688707188f240",
     "packages": [
         {
             "name": "farisc0de/phpfileuploading",
@@ -45,16 +45,16 @@
         },
         {
             "name": "farisc0de/phpmigration",
-            "version": "v1.0",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/farisc0de/PhpMigration.git",
-                "reference": "b130f1a5da14df85b6623b9027e181aaa110325d"
+                "reference": "672f4aa3b660e647babdc80bdd25f3c8484e0e20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/farisc0de/PhpMigration/zipball/b130f1a5da14df85b6623b9027e181aaa110325d",
-                "reference": "b130f1a5da14df85b6623b9027e181aaa110325d",
+                "url": "https://api.github.com/repos/farisc0de/PhpMigration/zipball/672f4aa3b660e647babdc80bdd25f3c8484e0e20",
+                "reference": "672f4aa3b660e647babdc80bdd25f3c8484e0e20",
                 "shasum": ""
             },
             "require": {
@@ -82,9 +82,9 @@
             "description": "Migration Library for PHP",
             "support": {
                 "issues": "https://github.com/farisc0de/PhpMigration/issues",
-                "source": "https://github.com/farisc0de/PhpMigration/tree/v1.0"
+                "source": "https://github.com/farisc0de/PhpMigration/tree/v2.0.0"
             },
-            "time": "2023-04-29T08:09:09+00:00"
+            "time": "2025-01-14T20:21:44+00:00"
         },
         {
             "name": "filp/whoops",
@@ -469,5 +469,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
