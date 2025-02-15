@@ -1,6 +1,6 @@
 <?php
 
-$auth = new \RobThree\Auth\TwoFactorAuth("Uploady");
+$auth = new \RobThree\Auth\TwoFactorAuth(new \RobThree\Auth\Providers\Qr\BaconQrCodeProvider(), "Uploady");
 
 $secret = $auth->createSecret();
 
