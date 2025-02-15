@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6d3ffc5cf5b9fad259e30a09e7c02718",
+    "content-hash": "d3dbcdb80293728ffe3454376ec9daa4",
     "packages": [
         {
             "name": "farisc0de/phpfileuploading",
-            "version": "v1.0.11",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/farisc0de/PhpFileUploading.git",
-                "reference": "dd38eacdbdab8627f54138d04ad73278280b5a25"
+                "reference": "ff56c0eab5b30feb28c5a9d7146613f13612cfed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/farisc0de/PhpFileUploading/zipball/dd38eacdbdab8627f54138d04ad73278280b5a25",
-                "reference": "dd38eacdbdab8627f54138d04ad73278280b5a25",
+                "url": "https://api.github.com/repos/farisc0de/PhpFileUploading/zipball/ff56c0eab5b30feb28c5a9d7146613f13612cfed",
+                "reference": "ff56c0eab5b30feb28c5a9d7146613f13612cfed",
                 "shasum": ""
             },
             "type": "library",
@@ -39,22 +39,22 @@
             "description": "PHP Library to help you build your own file sharing website.",
             "support": {
                 "issues": "https://github.com/farisc0de/PhpFileUploading/issues",
-                "source": "https://github.com/farisc0de/PhpFileUploading/tree/v1.0.11"
+                "source": "https://github.com/farisc0de/PhpFileUploading/tree/v2.0.1"
             },
-            "time": "2024-02-17T14:37:14+00:00"
+            "time": "2025-02-15T12:35:56+00:00"
         },
         {
             "name": "farisc0de/phpmigration",
-            "version": "v1.0",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/farisc0de/PhpMigration.git",
-                "reference": "b130f1a5da14df85b6623b9027e181aaa110325d"
+                "reference": "672f4aa3b660e647babdc80bdd25f3c8484e0e20"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/farisc0de/PhpMigration/zipball/b130f1a5da14df85b6623b9027e181aaa110325d",
-                "reference": "b130f1a5da14df85b6623b9027e181aaa110325d",
+                "url": "https://api.github.com/repos/farisc0de/PhpMigration/zipball/672f4aa3b660e647babdc80bdd25f3c8484e0e20",
+                "reference": "672f4aa3b660e647babdc80bdd25f3c8484e0e20",
                 "shasum": ""
             },
             "require": {
@@ -82,32 +82,32 @@
             "description": "Migration Library for PHP",
             "support": {
                 "issues": "https://github.com/farisc0de/PhpMigration/issues",
-                "source": "https://github.com/farisc0de/PhpMigration/tree/v1.0"
+                "source": "https://github.com/farisc0de/PhpMigration/tree/v2.0.0"
             },
-            "time": "2023-04-29T08:09:09+00:00"
+            "time": "2025-01-14T20:21:44+00:00"
         },
         {
             "name": "filp/whoops",
-            "version": "2.15.4",
+            "version": "2.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "a139776fa3f5985a50b509f2a02ff0f709d2a546"
+                "reference": "075bc0c26631110584175de6523ab3f1652eb28e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/a139776fa3f5985a50b509f2a02ff0f709d2a546",
-                "reference": "a139776fa3f5985a50b509f2a02ff0f709d2a546",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/075bc0c26631110584175de6523ab3f1652eb28e",
+                "reference": "075bc0c26631110584175de6523ab3f1652eb28e",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5.9 || ^7.0 || ^8.0",
+                "php": "^7.1 || ^8.0",
                 "psr/log": "^1.0.1 || ^2.0 || ^3.0"
             },
             "require-dev": {
-                "mockery/mockery": "^0.9 || ^1.0",
-                "phpunit/phpunit": "^4.8.36 || ^5.7.27 || ^6.5.14 || ^7.5.20 || ^8.5.8 || ^9.3.3",
-                "symfony/var-dumper": "^2.6 || ^3.0 || ^4.0 || ^5.0"
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^7.5.20 || ^8.5.8 || ^9.3.3",
+                "symfony/var-dumper": "^4.0 || ^5.0"
             },
             "suggest": {
                 "symfony/var-dumper": "Pretty print complex values better with var-dumper available",
@@ -147,7 +147,7 @@
             ],
             "support": {
                 "issues": "https://github.com/filp/whoops/issues",
-                "source": "https://github.com/filp/whoops/tree/2.15.4"
+                "source": "https://github.com/filp/whoops/tree/2.17.0"
             },
             "funding": [
                 {
@@ -155,7 +155,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-11-03T12:00:00+00:00"
+            "time": "2025-01-25T12:00:00+00:00"
         },
         {
             "name": "google/recaptcha",
@@ -211,16 +211,16 @@
         },
         {
             "name": "phpmailer/phpmailer",
-            "version": "v6.9.1",
+            "version": "v6.9.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "039de174cd9c17a8389754d3b877a2ed22743e18"
+                "reference": "2f5c94fe7493efc213f643c23b1b1c249d40f47e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/039de174cd9c17a8389754d3b877a2ed22743e18",
-                "reference": "039de174cd9c17a8389754d3b877a2ed22743e18",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/2f5c94fe7493efc213f643c23b1b1c249d40f47e",
+                "reference": "2f5c94fe7493efc213f643c23b1b1c249d40f47e",
                 "shasum": ""
             },
             "require": {
@@ -280,7 +280,7 @@
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
             "support": {
                 "issues": "https://github.com/PHPMailer/PHPMailer/issues",
-                "source": "https://github.com/PHPMailer/PHPMailer/tree/v6.9.1"
+                "source": "https://github.com/PHPMailer/PHPMailer/tree/v6.9.3"
             },
             "funding": [
                 {
@@ -288,20 +288,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-11-25T22:23:28+00:00"
+            "time": "2024-11-24T18:04:13+00:00"
         },
         {
             "name": "psr/log",
-            "version": "3.0.0",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "fe5ea303b0887d5caefd3d431c3e61ad47037001"
+                "reference": "f16e1d5863e37f8d8c2a01719f5b34baa2b714d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/fe5ea303b0887d5caefd3d431c3e61ad47037001",
-                "reference": "fe5ea303b0887d5caefd3d431c3e61ad47037001",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/f16e1d5863e37f8d8c2a01719f5b34baa2b714d3",
+                "reference": "f16e1d5863e37f8d8c2a01719f5b34baa2b714d3",
                 "shasum": ""
             },
             "require": {
@@ -336,9 +336,9 @@
                 "psr-3"
             ],
             "support": {
-                "source": "https://github.com/php-fig/log/tree/3.0.0"
+                "source": "https://github.com/php-fig/log/tree/3.0.2"
             },
-            "time": "2021-07-14T16:46:02+00:00"
+            "time": "2024-09-11T13:17:53+00:00"
         },
         {
             "name": "robthree/twofactorauth",
@@ -412,16 +412,16 @@
         },
         {
             "name": "wolfcast/browser-detection",
-            "version": "2.9.7",
+            "version": "2.9.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Wolfcast/BrowserDetection.git",
-                "reference": "77fad169776d6c4fc61fa740fb16495cafc505eb"
+                "reference": "bdefc66821164ecdfa7c2596e303f7c681544f4f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Wolfcast/BrowserDetection/zipball/77fad169776d6c4fc61fa740fb16495cafc505eb",
-                "reference": "77fad169776d6c4fc61fa740fb16495cafc505eb",
+                "url": "https://api.github.com/repos/Wolfcast/BrowserDetection/zipball/bdefc66821164ecdfa7c2596e303f7c681544f4f",
+                "reference": "bdefc66821164ecdfa7c2596e303f7c681544f4f",
                 "shasum": ""
             },
             "require": {
@@ -456,9 +456,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Wolfcast/BrowserDetection/issues",
-                "source": "https://github.com/Wolfcast/BrowserDetection/tree/2.9.7"
+                "source": "https://github.com/Wolfcast/BrowserDetection/tree/2.9.8"
             },
-            "time": "2022-09-21T04:06:27+00:00"
+            "time": "2024-04-22T02:21:19+00:00"
         }
     ],
     "packages-dev": [],

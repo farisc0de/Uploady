@@ -7,12 +7,22 @@ if (ENVIRONMENT == 'production' || ENVIRONMENT == 'testing' || ENVIRONMENT == 'd
 
 use Farisc0de\PhpMigration\Options\Options;
 use Farisc0de\PhpMigration\Options\Types;
+use Uploady\Utils;
 
-$utils = new Uploady\Utils();
+$config = [
+    'DB_HOST' => DB_HOST,
+    'DB_USER' => DB_USER,
+    'DB_PASS' => DB_PASS,
+    'DB_NAME' => DB_NAME,
+];
 
-$database = new Uploady\Database();
+$DButils = new \Farisc0de\PhpMigration\Utils();
 
-$install = new \Farisc0de\PhpMigration\Migration($database, $utils);
+$utils = new Utils();
+
+$database = new \Farisc0de\PhpMigration\Database($config);
+
+$install = new \Farisc0de\PhpMigration\Migration($database, $DButils);
 
 $upload = new Farisc0de\PhpFileUploading\Upload(new Farisc0de\PhpFileUploading\Utility());
 
@@ -72,7 +82,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 Options::notNull()
             ],
             [
-                'username', Types::string(25),
+                'username',
+                Types::string(25),
                 Options::notNull()
             ],
             [
@@ -123,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'last_login',
                 Types::timeStamp(),
                 Options::notNull(),
-                Options::defaultValue("CURRENT_TIMESTAMP")
+                Options::currentTimeStamp()
             ],
             [
                 'reset_hash',
@@ -219,7 +230,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $install->setUnique("users", "activation_hash");
 
-        $install->setAutoinc("users", [
+        $install->setAutoIncrement("users", [
             "id",
             Types::integer(),
             Options::unSigned(),
@@ -230,7 +241,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $install->setUnique("files", "file_id");
 
-        $install->setAutoinc("files", [
+        $install->setAutoIncrement("files", [
             "id",
             Types::integer(),
             Options::unSigned(),
@@ -239,7 +250,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $install->setPrimary("settings", "id");
 
-        $install->setAutoinc("settings", [
+        $install->setAutoIncrement("settings", [
             "id",
             Types::integer(),
             Options::unSigned(),
@@ -248,7 +259,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $install->setPrimary("pages", "id");
 
-        $install->setAutoinc("pages", [
+        $install->setAutoIncrement("pages", [
             "id",
             Types::integer(),
             Options::unSigned(),
@@ -257,7 +268,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $install->setPrimary("roles", "id");
 
-        $install->setAutoinc("roles", [
+        $install->setAutoIncrement("roles", [
             "id",
             Types::integer(),
             Options::unSigned(),
@@ -266,7 +277,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $install->setPrimary("languages", "id");
 
-        $install->setAutoinc("languages", [
+        $install->setAutoIncrement("languages", [
             "id",
             Types::integer(),
             Options::unSigned(),
@@ -275,7 +286,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $install->setPrimary("pages_translation", "id");
 
-        $install->setAutoinc("pages_translation", [
+        $install->setAutoIncrement("pages_translation", [
             "id",
             Types::integer(),
             Options::unSigned(),

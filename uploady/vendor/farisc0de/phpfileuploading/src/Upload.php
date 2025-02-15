@@ -2,6 +2,10 @@
 
 namespace Farisc0de\PhpFileUploading;
 
+use RuntimeException;
+use InvalidArgumentException;
+use Exception;
+
 /**
  * PHP Library to help you build your own file sharing website.
  *
@@ -15,126 +19,40 @@ namespace Farisc0de\PhpFileUploading;
 
 final class Upload
 {
-    /**
-     * File object
-     * @var File|null
-     */
-    private $file;
-    /**
-     * Utility object
-     * @var Utility|null
-     */
-    private $util;
-    /**
-     * Array For Filename Protection Filter
-     *
-     * @var array
-     */
-    private $name_array = [];
-    /**
-     * Array For File Protection Filter
-     *
-     * @var array
-     */
-    private $filter_array = [];
-    /**
-     * Array For the upload folder data
-     *
-     * Example: ["folder_name" => "upload", "folder_path" => "upload/"]
-     *
-     * @var array
-     */
-    private $upload_folder = [];
-    /**
-     * Size limit for protection
-     *
-     * @var int
-     */
-    private $size;
-    /**
-     * File name
-     *
-     * @var int
-     */
-    private $file_name;
-    /**
-     * File hash
-     *
-     * @var int
-     */
-    private $hash_id;
-    /**
-     * File ID for the database
-     *
-     * @var string
-     */
-    private $file_id;
-    /**
-     * User ID for the database
-     *
-     * @var string
-     */
-    private $user_id;
-    /**
-     * System Logs Array
-     *
-     * @var array
-     */
-    private $logs = [];
-    /**
-     * Array for the all uploaded files informations
-     *
-     * @var array
-     */
-    private $files = [];
-    /**
-     * Image miximum height
-     *
-     * @var int
-     */
-    private $max_height;
-    /**
-     * Image miximum width
-     *
-     * @var int
-     */
-    private $max_width;
-    /**
-     * Image minimum height
-     *
-     * @var int
-     */
-    private $min_height;
-    /**
-     * Image minimum width
-     *
-     * @var int
-     */
-    private $min_width;
-    /**
-     * Website URL to use with Download URL
-     *
-     * @var string
-     */
-    private $site_url;
-    /**
-     * Check if the hash name function is triggerd
-     * @var mixed
-     */
-    private $is_hashed = false;
-    /**
-     * Array list of error codes and the messages
-     *
-     * @var array
-     */
-    private $message = [
+    private ?File $file;
+    private Utility $util;
+    private array $name_array = [];
+    private array $filter_array = [];
+    private array $upload_folder = [];
+    private int $size;
+    private string $file_name;
+    private string $hash_id;
+    private ?string $file_id;
+    private ?string $user_id;
+    private array $logs = [];
+    private array $files = [];
+    private ?int $max_height;
+    private ?int $max_width;
+    private ?int $min_height;
+    private ?int $min_width;
+    private string $site_url;
+    private bool $is_hashed = false;
+
+    private const ALLOWED_IMAGE_MIMES = [
+        'image/gif',
+        'image/jpeg',
+        'image/pjpeg',
+        'image/png'
+    ];
+
+    private const ERROR_MESSAGES = [
         0 => "File has been uploaded.",
         1 => "Invalid file format.",
         2 => "Failed to get MIME type.",
         3 => "File is forbidden.",
         4 => "Exceeded filesize limit.",
         5 => "Please select a file",
-        6 => "File already exist.",
+        6 => "File already exists.",
         7 => "Failed to move uploaded file.",
         8 => "The uploaded file's height is too large.",
         9 => "The uploaded file's width is too large.",
@@ -142,48 +60,24 @@ final class Upload
         11 => "The uploaded file's width is too small.",
         12 => "The uploaded file's is too small.",
         13 => "The uploaded file is not a valid image.",
-        14 => "Opreation does not exist.",
+        14 => "Operation does not exist."
     ];
 
-    /**
-     * Class Constructor to initialize attributes
-     * @param File $file
-     *  An array of the upload file information coming from $_FILES
-     * @param Utility $utility
-     *  Utility Class injection to access helpful functions
-     * @param array $upload_folder
-     *  An array that contain the upload folder full path and name
-     * @param string $controller
-     *  The folder name of folder that contains the json filters and the class file
-     * @param int $size
-     *  The miximum size that the class allow to upload
-     * @param int $max_height
-     *  The miximum image height allowed
-     * @param int $max_width
-     *  The miximum image width allowed
-     * @param int $min_height
-     *  The minimum image height allowed
-     * @param int $min_width
-     *  The minimum image width allowed
-     * @param string $file_id
-     *  A unique if for the file to validate that the file exist
-     * @param string $user_id
-     *  A unique if for the user to validate the file owner
-     * @return void
-     */
     public function __construct(
-        $util,
-        $file = null,
-        $upload_folder = [],
-        $site_url = '',
-        $size = "5 GB",
-        $max_height = null,
-        $max_width = null,
-        $min_height = null,
-        $min_width = null,
-        $file_id = null,
-        $user_id = null
+        Utility $util,
+        ?File $file = null,
+        array $upload_folder = [],
+        string $site_url = '',
+        string $size = "5 GB",
+        ?int $max_height = null,
+        ?int $max_width = null,
+        ?int $min_height = null,
+        ?int $min_width = null,
+        ?string $file_id = null,
+        ?string $user_id = null
     ) {
+        $this->validateConstructorParams($upload_folder, $site_url, $size);
+
         $this->util = $util;
         $this->file = $file;
         $this->upload_folder = $upload_folder;
@@ -196,213 +90,89 @@ final class Upload
         $this->file_id = $file_id;
         $this->user_id = $user_id;
     }
-    /**
-     * Function to set upload input when needed
-     *
-     * @param object $file
-     *  An array of the upload file information coming from $_FILES
-     * @return void
-     */
-    public function setUpload($file)
+
+    private function validateConstructorParams(array $upload_folder, string $site_url, string $size): void
+    {
+        if (!empty($upload_folder) && (!isset($upload_folder['folder_name']) || !isset($upload_folder['folder_path']))) {
+            throw new InvalidArgumentException('Upload folder array must contain folder_name and folder_path keys');
+        }
+
+        if (!empty($site_url) && !filter_var($site_url, FILTER_VALIDATE_URL)) {
+            throw new InvalidArgumentException('Invalid site URL provided');
+        }
+
+        if (!preg_match('/^\d+\s*(?:B|KB|MB|GB|TB)$/i', $size)) {
+            throw new InvalidArgumentException('Invalid size format. Expected format: number followed by B/KB/MB/GB/TB');
+        }
+    }
+
+    public function setUpload(File $file): void
     {
         $this->file = $file;
     }
-    /**
-     * Enable File Uploading Protection and Filters
-     *
-     * @return void
-     */
-    public function enableProtection()
-    {
-        $this->name_array = json_decode(
-            file_get_contents(
-                $this->util->sanitize(
-                    realpath(__DIR__) . DIRECTORY_SEPARATOR . "filter.json"
-                ),
-            ),
-            true
-        )['forbidden'];
 
-        $this->filter_array = json_decode(
-            file_get_contents(
-                realpath(__DIR__) . DIRECTORY_SEPARATOR . "filter.json"
-            ),
-            true
-        )['extensions'];
-    }
-    /**
-     * Set Forbidden array to a custom list when needed
-     *
-     * @param array $forbidden_array
-     *  An array that contains the forbidden file names like php shell names
-     *
-     *  Example: ["aaa.php", "file.exe"]
-     *
-     * @return void
-     */
-    public function setForbiddenFilter($forbidden_array)
+    public function enableProtection(): void
     {
-        $this->name_array = $forbidden_array;
-    }
-    /**
-     * Set Extension array to a custom list when needed
-     *
-     * @param array $filter_array
-     *  An array that contains the allowed file extensions
-     * @return void
-     */
-    public function setProtectionFilter($filter_array)
-    {
-        $this->filter_array = $filter_array;
-    }
-    /**
-     * Set file size limit when needed
-     *
-     * @param int $size
-     *  The size you want to limit for each uploaded file
-     * @return void
-     */
-    public function setSizeLimit($size)
-    {
-        $this->size = $this->util->fixintOverflow(
-            $this->util->sizeInBytes(
-                $this->util->sanitize(
-                    $size
-                )
-            )
-        );
-    }
-    /**
-     * Set upload folder when needed
-     *
-     * @param array $folder_name
-     *  An array contains the upload folder information full path and name
-     *
-     *  Example: ["folder_name" => "upload", "folder_path" => realpath("upload")]
-     *
-     * @return void
-     */
-    public function setUploadFolder($folder_name)
-    {
-        $this->upload_folder = $folder_name;
-    }
-    /**
-     * Create a folder for a spesfic user
-     *
-     * @return true
-     *  Returns true if the folder is created
-     */
-    public function createUserCloud($main_upload_folder = null)
-    {
-        $user_id = $this->getUserID();
+        $filterPath = realpath(__DIR__) . DIRECTORY_SEPARATOR . "filter.json";
 
-        if ($main_upload_folder == null) {
-            $main_upload_folder = $this->upload_folder;
+        if (!file_exists($filterPath)) {
+            throw new RuntimeException('Filter configuration file not found');
         }
 
-        $user_cloud = $main_upload_folder .
-            DIRECTORY_SEPARATOR .
-            $user_id;
-
-        if (!file_exists($user_cloud)) {
-            @mkdir($user_cloud);
-            @chmod($user_cloud, 0777);
+        $filterContent = file_get_contents($filterPath);
+        if ($filterContent === false) {
+            throw new RuntimeException('Unable to read filter configuration');
         }
 
-        return true;
-    }
-
-    /** 
-     * Get current user folder path
-     * 
-     * @return string
-     *  Return the current user folder path
-     */
-    /**
-     * Get the current user cloud folder
-     *
-     * @param string $main_upload_folder
-     * The main upload folder
-     *
-     * @return string
-     */
-    public function getUserCloud($main_upload_folder = null)
-    {
-        $user_id = $this->getUserID();
-
-        if ($main_upload_folder == null) {
-            $main_upload_folder = $this->upload_folder;
+        $filters = json_decode($filterContent, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new RuntimeException('Invalid filter configuration format');
         }
 
-        $user_cloud = $main_upload_folder .
-            DIRECTORY_SEPARATOR .
-            $user_id;
-
-        return $user_cloud;
+        $this->name_array = $filters['forbidden'] ?? [];
+        $this->filter_array = $filters['extensions'] ?? [];
     }
 
-    /**
-     * Check File Extension
-     *
-     * @return bool
-     *  Return true it the uploaded file extenstion is allowed
-     */
-    public function checkExtension()
+    public function setForbiddenFilter(array $forbidden_array): void
     {
-        if (!key_exists($this->file->getExtension(), $this->filter_array)) {
-            $this->addLog(['filename' => $this->file_name, "message" => 1]);
+        if (empty($forbidden_array)) {
+            throw new InvalidArgumentException('Forbidden array cannot be empty');
+        }
+        $this->name_array = array_map([$this->util, 'sanitize'], $forbidden_array);
+    }
 
-            return false;
+    public function setProtectionFilter(array $filter_array): void
+    {
+        if (empty($filter_array)) {
+            throw new InvalidArgumentException('Filter array cannot be empty');
+        }
+        $this->filter_array = array_map([$this->util, 'sanitize'], $filter_array);
+    }
+
+    public function setUploadFolder(array $upload_folder): void
+    {
+        if (!isset($upload_folder['folder_name']) || !isset($upload_folder['folder_path'])) {
+            throw new InvalidArgumentException('Upload folder array must contain folder_name and folder_path keys');
         }
 
-        return true;
+        $this->upload_folder = $upload_folder;
     }
 
-    /**
-     * Check File MIME Type
-     *
-     * @return bool
-     *  Return true if the uploaded file MIME type is allowed
-     */
-    public function checkMime()
+    public function setSizeLimit(string $size): void
     {
-        $mime = mime_content_type($this->file->getTempName());
+        if (!preg_match('/^\d+\s*(?:B|KB|MB|GB|TB)$/i', $size)) {
+            throw new InvalidArgumentException('Invalid size format. Expected format: number followed by B/KB/MB/GB/TB');
+        }
+        $this->size = $this->util->sizeInBytes($size);
+    }
 
-        if ($this->filter_array[$this->file->getExtension()] == $mime) {
-            if (!$mime == $this->file->getMime()) {
-                $this->addLog(['filename' => $this->file_name, "message" => 1]);
-                return false;
-            }
+    public function checkSize(): bool
+    {
+        if (!$this->file) {
+            throw new RuntimeException('No file has been set');
         }
 
-        return true;
-    }
-
-    /**
-     * Check File Name is Forbidden
-     *
-     * @return bool
-     *  Return true if the name is forbidden
-     */
-    public function checkForbidden()
-    {
-        if ((in_array($this->file_name, $this->name_array))) {
-            $this->addLog(['filename' => $this->file_name, "message" => 3]);
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Check file size limit
-     *
-     * @return bool
-     *  Return true if the uploaded file size does not exceed the limit
-     */
-    public function checkSize()
-    {
-        if (!($this->file->getSize() <= $this->size)) {
+        if ($this->file->getSize() > $this->size) {
             $this->addLog(['filename' => $this->file_name, "message" => 4]);
             return false;
         }
@@ -410,97 +180,87 @@ final class Upload
         return true;
     }
 
-    /**
-     * Check an image dimenstions aginst the class dimenstions
-     *
-     * @param int $opreation
-     *  Filters opreations from 0 to 5
-     * @return bool
-     *  Return true if an image size passed this filter otherwise false
-     */
-    public function checkDimenstion($opreation = 2)
+    public function checkDimension(int $operation = 2): bool
     {
-        $image_data = getimagesize($this->file->getTempName());
-        $width = $image_data[0];
-        $height = $image_data[1];
+        if (!$this->file) {
+            throw new RuntimeException('No file has been set');
+        }
 
-        switch ($opreation) {
+        if (!$this->isImage()) {
+            throw new RuntimeException('File is not an image');
+        }
+
+        $image_data = @getimagesize($this->file->getTempName());
+        if ($image_data === false) {
+            throw new RuntimeException('Unable to get image dimensions');
+        }
+
+        [$width, $height] = $image_data;
+
+        switch ($operation) {
             case 0:
-                if (!($height <= $this->max_height)) {
+                if ($this->max_height && $height > $this->max_height) {
                     $this->addLog(['filename' => $this->file_name, "message" => 8]);
                     return false;
                 }
-
-                return true;
                 break;
 
             case 1:
-                if (!($width <= $this->max_width)) {
+                if ($this->max_width && $width > $this->max_width) {
                     $this->addLog(['filename' => $this->file_name, "message" => 9]);
                     return false;
                 }
-
-                return true;
                 break;
 
             case 2:
-                if (($width <= $this->max_width && $height <= $this->max_height)) {
+                if (
+                    $this->max_width && $this->max_height &&
+                    ($width > $this->max_width || $height > $this->max_height)
+                ) {
                     $this->addLog(['filename' => $this->file_name, "message" => 8]);
                     return false;
                 }
-
-                return true;
                 break;
 
             case 3:
-                if (!($height >= $this->min_height)) {
+                if ($this->min_height && $height < $this->min_height) {
                     $this->addLog(['filename' => $this->file_name, "message" => 10]);
                     return false;
                 }
-
-                return true;
                 break;
 
             case 4:
-                if (!($width >= $this->min_width)) {
+                if ($this->min_width && $width < $this->min_width) {
                     $this->addLog(['filename' => $this->file_name, "message" => 11]);
                     return false;
                 }
-
-                return true;
                 break;
 
             case 5:
-                if (!($width >= $this->min_width && $height >= $this->min_height)) {
+                if (
+                    $this->min_width && $this->min_height &&
+                    ($width < $this->min_width || $height < $this->min_height)
+                ) {
                     $this->addLog(['filename' => $this->file_name, "message" => 12]);
                     return false;
                 }
-
-                return true;
                 break;
 
             default:
                 $this->addLog(['filename' => $this->file_name, "message" => 14]);
-                break;
+                throw new InvalidArgumentException('Invalid operation code');
         }
+
+        return true;
     }
 
-    /**
-     * Function to check if uploaded file is an image
-     *
-     * @return bool
-     *  Return true if the uploaded file is a real image otherwise false
-     */
-    public function isImage()
+    public function isImage(): bool
     {
-        $image_mime = [
-            'image/gif',
-            'image/jpeg',
-            'image/pjpeg',
-            'image/png'
-        ];
+        if (!$this->file) {
+            throw new RuntimeException('No file has been set');
+        }
 
-        if (!in_array($this->file->getMime(), $image_mime)) {
+        if (!in_array($this->file->getMime(), self::ALLOWED_IMAGE_MIMES, true)) {
             $this->addLog(['filename' => $this->file_name, "message" => 13]);
             return false;
         }
@@ -508,44 +268,202 @@ final class Upload
         return true;
     }
 
-    /**
-     * Function to set the miximum class image dimenstions to validate them
-     *
-     * @param int $height
-     *  The miximum image height
-     * @param int $width
-     *  The miximum image width
-     * @return void
-     */
-    public function setMaxDimenstion($height = null, $width = null)
+    public function upload(): bool
     {
-        $this->max_height = $height;
-        $this->max_width = $width;
+        if (!$this->file) {
+            throw new RuntimeException('No file has been set');
+        }
+
+        if (!$this->checkIfNotEmpty()) {
+            return false;
+        }
+
+        try {
+            $this->validateUpload();
+
+            if ($this->file_name === null) {
+                $this->file_name = $this->file->getName();
+            }
+
+            if ($this->hash_id === null) {
+                $this->hash_id = $this->file->getFileHash();
+            }
+
+            if ($this->file->getFileHash() !== $this->hash_id && !$this->is_hashed) {
+                $this->file_name = $this->file->getName();
+                $this->hash_id = $this->file->getFileHash();
+            }
+
+            $this->hash_id = $this->file->getFileHash();
+            $filename = $this->file_name;
+
+            if ($this->moveFile($filename)) {
+                $this->addLog(['filename' => $this->file_name, "message" => 0]);
+                $this->addFile($this->getJSON());
+                return true;
+            }
+
+            return false;
+        } catch (Exception $e) {
+            $this->addLog(['filename' => $this->file_name, "message" => $e->getMessage()]);
+            return false;
+        }
     }
 
-    /**
-     * Function to set the minimum class image dimenstions to validate them
-     *
-     * @param int $height
-     *  The minimum image height
-     * @param int $width
-     *  The minimum image width
-     * @return void
-     */
-    public function setMinDimenstion($height = null, $width = null)
+    private function validateUpload(): void
     {
-        $this->min_height = $height;
-        $this->min_width = $width;
+        if (empty($this->upload_folder)) {
+            throw new RuntimeException('Upload folder not set');
+        }
+
+        if (!is_dir($this->upload_folder['folder_path'])) {
+            throw new RuntimeException('Upload folder does not exist');
+        }
+
+        if (!is_writable($this->upload_folder['folder_path'])) {
+            throw new RuntimeException('Upload folder is not writable');
+        }
     }
 
-    /**
-     * Function to check if the HTML input is empty or not
-     *
-     * @return bool
-     *  Return true if the the input contain a file false otherwise
-     */
-    public function checkIfNotEmpty()
+    public function moveFile(string $filename): bool
     {
+        if (!$this->file) {
+            throw new RuntimeException('No file has been set');
+        }
+
+        $this->disableTimeLimit();
+
+        try {
+            $targetPath = $this->upload_folder['folder_path'] . DIRECTORY_SEPARATOR . $filename;
+
+            if (file_exists($targetPath)) {
+                throw new RuntimeException('File already exists');
+            }
+
+            return $this->moveFileInChunks($targetPath);
+        } catch (Exception $e) {
+            $this->addLog(['filename' => $filename, "message" => $e->getMessage()]);
+            return false;
+        }
+    }
+
+    private function moveFileInChunks(string $targetPath): bool
+    {
+        $chunk_size = 4096;
+        $handle = @fopen($this->file->getTempName(), "rb");
+        $fp = @fopen($targetPath, 'wb');
+
+        if (!$handle || !$fp) {
+            throw new RuntimeException('Failed to open file streams');
+        }
+
+        try {
+            while (!feof($handle)) {
+                $contents = fread($handle, $chunk_size);
+                if ($contents === false) {
+                    throw new RuntimeException('Failed to read from source file');
+                }
+                if (fwrite($fp, $contents) === false) {
+                    throw new RuntimeException('Failed to write to target file');
+                }
+            }
+        } finally {
+            fclose($handle);
+            if (!fclose($fp)) {
+                throw new RuntimeException('Failed to close target file');
+            }
+        }
+
+        return true;
+    }
+
+    private function disableTimeLimit(): void
+    {
+        if (strpos(ini_get('disable_functions'), 'set_time_limit') === false) {
+            @set_time_limit(0);
+        }
+    }
+
+    public function createUserCloud(?string $main_upload_folder = null): bool
+    {
+        $user_id = $this->getUserID();
+        $upload_folder = $main_upload_folder ?? $this->upload_folder['folder_path'];
+
+        $user_cloud = $upload_folder . DIRECTORY_SEPARATOR . $user_id;
+
+        if (!file_exists($user_cloud)) {
+            if (!@mkdir($user_cloud, 0755, true)) {
+                throw new RuntimeException('Failed to create user cloud directory');
+            }
+        }
+
+        return true;
+    }
+
+    public function getUserCloud(?string $main_upload_folder = null): string
+    {
+        $user_id = $this->getUserID();
+        $upload_folder = $main_upload_folder ?? $this->upload_folder['folder_path'];
+
+        return $upload_folder . DIRECTORY_SEPARATOR . $user_id;
+    }
+
+    public function checkExtension(): bool
+    {
+        if (!$this->file) {
+            throw new RuntimeException('No file has been set');
+        }
+
+        if (!isset($this->filter_array[$this->file->getExtension()])) {
+            $this->addLog(['filename' => $this->file_name, "message" => 1]);
+            return false;
+        }
+
+        return true;
+    }
+
+    public function checkMime(): bool
+    {
+        if (!$this->file) {
+            throw new RuntimeException('No file has been set');
+        }
+
+        $mime = mime_content_type($this->file->getTempName());
+        if ($mime === false) {
+            throw new RuntimeException('Failed to determine file MIME type');
+        }
+
+        if (
+            $this->filter_array[$this->file->getExtension()] !== $mime ||
+            $mime !== $this->file->getMime()
+        ) {
+            $this->addLog(['filename' => $this->file_name, "message" => 1]);
+            return false;
+        }
+
+        return true;
+    }
+
+    public function checkForbidden(): bool
+    {
+        if (!$this->file_name) {
+            throw new RuntimeException('File name not set');
+        }
+
+        if (in_array($this->file_name, $this->name_array, true)) {
+            $this->addLog(['filename' => $this->file_name, "message" => 3]);
+            return false;
+        }
+
+        return true;
+    }
+
+    public function checkIfNotEmpty(): bool
+    {
+        if (!$this->file) {
+            throw new RuntimeException('No file has been set');
+        }
+
         if ($this->file->isEmpty()) {
             $this->addLog(['filename' => $this->file_name, "message" => 5]);
             return false;
@@ -554,344 +472,206 @@ final class Upload
         return true;
     }
 
-    /**
-     * Generate a Qr Code of the download url
-     *
-     * @return string
-     *  Return the qr code image url to display
-     */
-    public function generateQrCode()
+    public function generateQrCode(): string
     {
-        return "https://quickchart.io/qr?text=" .
-            $this->generateDownloadLink() .
-            "&size=150";
+        if (empty($this->site_url)) {
+            throw new RuntimeException('Site URL not set');
+        }
+
+        return sprintf(
+            "https://quickchart.io/qr?text=%s&size=150",
+            urlencode($this->generateDownloadLink())
+        );
     }
 
-    /**
-     * Generate a download link
-     *
-     * @return string
-     *  Return a well formatted download link with a custom download page
-     */
-    public function generateDownloadLink()
+    public function generateDownloadLink(): string
     {
-        $file_id = $this->file_id;
+        if (empty($this->site_url)) {
+            throw new RuntimeException('Site URL not set');
+        }
+
+        if (!$this->file_id) {
+            throw new RuntimeException('File ID not set');
+        }
 
         return sprintf(
             "%s/%s?file_id=%s",
-            $this->site_url,
+            rtrim($this->site_url, '/'),
             "download.php",
-            $file_id
+            urlencode($this->file_id)
         );
     }
 
-    /**
-     * Generate a delete link
-     *
-     * @return string
-     *  Return a well formatted delete file link with a custom delete page
-     */
-    public function generateDeleteLink()
+    public function generateDeleteLink(): string
     {
-        // Get user paramters [ file_id, user_id ]
-        $file_id = $this->file_id;
-        $user_id = $this->user_id;
+        if (empty($this->site_url)) {
+            throw new RuntimeException('Site URL not set');
+        }
+
+        if (!$this->file_id || !$this->user_id) {
+            throw new RuntimeException('File ID or User ID not set');
+        }
 
         return sprintf(
             "%s/%s?file_id=%s&user_id=%s",
-            $this->site_url,
+            rtrim($this->site_url, '/'),
             "delete.php",
-            $file_id,
-            $user_id
+            urlencode($this->file_id),
+            urlencode($this->user_id)
         );
     }
 
-    /**
-     * Generate a edit link
-     *
-     * @return string
-     *  Return a well formatted edit file link with a custom edit page
-     */
-    public function generateEditLink()
+    public function generateEditLink(): string
     {
-        // Get user paramters [ file_id, user_id ]
-        $file_id = $this->file_id;
-        $user_id = $this->user_id;
+        if (empty($this->site_url)) {
+            throw new RuntimeException('Site URL not set');
+        }
+
+        if (!$this->file_id || !$this->user_id) {
+            throw new RuntimeException('File ID or User ID not set');
+        }
 
         return sprintf(
             "%s/%s?file_id=%s&user_id=%s",
-            $this->site_url,
+            rtrim($this->site_url, '/'),
             "edit.php",
-            $file_id,
-            $user_id
+            urlencode($this->file_id),
+            urlencode($this->user_id)
         );
     }
 
-    /**
-     * Generate a direct download link
-     *
-     * @return string
-     *  Return a well formatted direct download link without a custom download page
-     */
-    public function generateDirectDownloadLink()
+    public function generateDirectDownloadLink(): string
     {
-        $filename = ($this->file_name);
+        if (empty($this->site_url) || empty($this->upload_folder['folder_name']) || !$this->file_name) {
+            throw new RuntimeException('Required parameters not set');
+        }
 
         return sprintf(
             "%s/%s/%s",
-            $this->site_url,
+            rtrim($this->site_url, '/'),
             $this->upload_folder['folder_name'],
-            $filename
+            urlencode($this->file_name)
         );
     }
 
-    /**
-     * Get the unique file id
-     *
-     * @return string
-     *  Return the uploaded file uniqe id
-     */
-    public function getFileID()
+    public function getFileID(): ?string
     {
         return $this->file_id;
     }
 
-    /**
-     * Get the unique user id for security
-     *
-     * @return string
-     *  Return the unique user id
-     */
-    public function getUserID()
+    public function getUserID(): ?string
     {
         return $this->user_id;
     }
 
-    /**
-     * Set the site url manualy when needed to generate links
-     *
-     * @param string $site_url
-     *  The site url you want to genearate urls for
-     * @return void
-     */
-    public function setSiteUrl($site_url = "")
+    public function setSiteUrl(string $site_url): void
     {
-
-        $this->site_url = $site_url;
+        if (!filter_var($site_url, FILTER_VALIDATE_URL)) {
+            throw new InvalidArgumentException('Invalid site URL provided');
+        }
+        $this->site_url = rtrim($this->util->sanitize($site_url), '/');
     }
 
-    /**
-     * Return an "SHA1 Hashed File Name" of the uploaded file
-     *
-     * @return true
-     *  Return the file real name using getName() function and hash it using SHA1
-     */
-    public function hashName()
+    public function hashName(): bool
     {
-        $this->file_name = hash("sha256", $this->file->getFileHash() .
-            uniqid()) .
-            ".{$this->file->getExtension()}";
+        if (!$this->file) {
+            throw new RuntimeException('No file has been set');
+        }
+
+        $this->file_name = hash("sha256", $this->file->getFileHash() . uniqid()) .
+            "." . $this->file->getExtension();
         $this->is_hashed = true;
 
         return true;
     }
 
-    /**
-     * Function to upload the file to the server
-     *
-     * @return bool
-     *  Return true if the file is uploaded or false otherwise
-     */
-    public function upload()
+    public function createUploadFolder(string $folder_name): void
     {
-        if ($this->file_name == null) {
-            $this->file_name = $this->file->getName();
+        $sanitized_folder = $this->util->sanitize($folder_name);
+
+        if (!file_exists($sanitized_folder) && !is_dir($sanitized_folder)) {
+            if (!@mkdir($sanitized_folder, 0755, true)) {
+                throw new RuntimeException('Failed to create upload folder');
+            }
+
+            $this->util->secureDirectory($sanitized_folder, true, true);
         }
 
-        if ($this->hash_id == null) {
-            $this->hash_id = $this->file->getFileHash();
+        $real_path = realpath($sanitized_folder);
+        if ($real_path === false) {
+            throw new RuntimeException('Failed to resolve upload folder path');
         }
 
-        if ($this->file->getFileHash() != $this->hash_id && $this->is_hashed == false) {
-            $this->file_name = $this->file->getName();
-            $this->hash_id = $this->file->getFileHash();
-        }
-
-        $this->hash_id = $this->file->getFileHash();
-        $filename = $this->file_name;
-
-        if ($this->moveFile($filename) == true) {
-            $this->addLog(['filename' => $this->file_name, "message" => 0]);
-            $this->addFile($this->getJSON($this->file_name));
-            return true;
-        }
-    }
-
-    /**
-     * Function to upload file to the server using chunck system
-     *
-     * @param string $filename
-     *  The file name you want to use as uploaded name
-     * @return bool
-     *  Return true if the file is uploaded or false otherwise
-     */
-    public function moveFile($filename)
-    {
-        if (strpos(ini_get('disable_functions'), 'set_time_limit') === false) {
-            set_time_limit(0);
-        }
-
-        $orig_file_size = $this->file->getSize();
-        $chunk_size = 4096;
-        $upload_start = 0;
-        $handle = fopen($this->file->getTempName(), "rb");
-        $fp = fopen($this->upload_folder['folder_path'] . "/" . $filename, 'w');
-
-        stream_set_timeout($handle, $chunk_size, 0);
-        stream_set_timeout($fp, $chunk_size, 0);
-
-        while ($upload_start < $orig_file_size) {
-            $contents = fread($handle, $chunk_size);
-            fwrite($fp, $contents);
-
-            $upload_start += strlen($contents);
-            fseek($handle, $upload_start);
-        }
-
-        fclose($handle);
-
-        if (!fclose($fp)) {
-            $this->addLog(['filename' => $filename, "message" => 7]);
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Function to create an upload folder and secure it
-     *
-     * @param string $folder_name
-     *  The folder name you want to create as an upload folder
-     * @return void
-     */
-    public function createUploadFolder($folder_name)
-    {
-        if (!file_exists($folder_name) && !is_dir($folder_name)) {
-            @mkdir($this->util->sanitize($folder_name));
-            @chmod($this->util->sanitize($folder_name), 0777);
-
-            $this->util->protectFolder($folder_name);
-        }
-
-        $this->setUploadFolder([
+        $this->upload_folder = [
             "folder_name" => $folder_name,
-            "folder_path" => realpath($folder_name)
-        ]);
+            "folder_path" => $real_path
+        ];
     }
 
-    /**
-     * Return the files from the upload folder to view them
-     *
-     * @return array|bool
-     *  Return an array the contains all files in the upload folder or false if an error occurred
-     */
-    public function getUploadDirFiles()
+    public function getUploadDirFiles(): array
     {
-        return scandir($this->upload_folder['folder_path']);
-    }
-
-    /**
-     * Check if a file exist and it is a real file
-     *
-     * @param string $file_name
-     *  The file you want to cheack if it exist
-     * @return bool
-     *  Return true if the exist or false otherwise
-     */
-    public function isFile($file_name)
-    {
-        $file_name = $this->util->sanitize($file_name);
-        return file_exists($file_name) && is_file($file_name);
-    }
-
-    /**
-     * Check if a directory exist and it is a real directory
-     *
-     * @param string $dir_name
-     *  The name of the folder you want check if it exist
-     * @return bool
-     *  Return true if the folder exist or false otherwise
-     */
-    public function isDir($dir_name)
-    {
-        $dir_name = $this->util->sanitize($dir_name);
-
-        return is_dir($dir_name) && file_exists($dir_name);
-    }
-
-    /**
-     * Add a message the system log
-     *
-     * @param mixed $id
-     *  The array index that you want to assign the message too
-     * @param mixed $message
-     *  The message id from the messsages array or as raw string
-     * @return void
-     */
-    public function addLog($message, $id = null)
-    {
-        if (!($id == null)) {
-            $this->logs[$id] = $message;
-            return;
+        if (empty($this->upload_folder['folder_path'])) {
+            throw new RuntimeException('Upload folder path not set');
         }
 
-        array_push($this->logs, $message);
+        $files = @scandir($this->upload_folder['folder_path']);
+        if ($files === false) {
+            throw new RuntimeException('Failed to scan upload directory');
+        }
+
+        return array_filter($files, function ($file) {
+            return !in_array($file, ['.', '..']);
+        });
     }
 
-    /**
-     * Get all logs from system log to view them
-     *
-     * @return array
-     *  Return an array that contains all the logs in class logs system
-     */
-    public function getLogs()
+    public function isFile(string $file_name): bool
+    {
+        $sanitized_file = $this->util->sanitize($file_name);
+        return file_exists($sanitized_file) && is_file($sanitized_file);
+    }
+
+    public function isDir(string $dir_name): bool
+    {
+        $sanitized_dir = $this->util->sanitize($dir_name);
+        return is_dir($sanitized_dir) && file_exists($sanitized_dir);
+    }
+
+    public function addLog(array $message, ?string $id = null): void
+    {
+        if ($id !== null) {
+            $this->logs[$id] = $message;
+        } else {
+            $this->logs[] = $message;
+        }
+    }
+
+    public function getLogs(): array
     {
         return $this->logs;
     }
 
-    /**
-     * Get a system log message by an array index id
-     *
-     * @param mixed $log_id
-     *  The logs id to retrive the message
-     * @return int
-     *  Return the message id to use with the messages array
-     */
-    public function getLog($log_id)
+    public function getLog(string $log_id): ?array
     {
-        return $this->logs[$log_id];
+        return $this->logs[$log_id] ?? null;
     }
 
-    /**
-     * Get all the uploaded file information in JSON
-     *
-     * @return string
-     *  Return a JSON string that contains the uploaded file information
-     */
-    public function getJSON()
+    public function getJSON(): string
     {
+        if (!$this->file) {
+            throw new RuntimeException('No file has been set');
+        }
+
         $data = [
             "filename" => $this->file_name,
             "filehash" => $this->hash_id,
             "filesize" => $this->util->formatBytes($this->file->getSize()),
-            "uploaddate" => date("Y-m-d h:i:s", $this->file->getDate()),
+            "uploaddate" => date("Y-m-d H:i:s", $this->file->getDate()),
             "filemime" => $this->file->getMime(),
             "user_id" => $this->getUserID(),
             "file_id" => $this->getFileID(),
         ];
 
-        if ($this->site_url != '') {
+        if (!empty($this->site_url)) {
             $data['qrcode'] = $this->generateQrCode();
             $data['downloadlink'] = $this->generateDownloadLink();
             $data['directlink'] = $this->generateDirectDownloadLink();
@@ -899,89 +679,53 @@ final class Upload
             $data['editlink'] = $this->generateEditLink();
         }
 
-        return json_encode($data);
+        return json_encode($data, JSON_THROW_ON_ERROR);
     }
 
-    /**
-     * Function to add a file to the files array
-     *
-     * @param string $json_string
-     *  The JSON string the contains the file information
-     * @return void
-     */
-    public function addFile($json_string)
+    public function addFile(string $json_string): void
     {
-        array_push($this->files, json_decode($json_string, true));
+        $file_data = json_decode($json_string, true, 512, JSON_THROW_ON_ERROR);
+        $this->files[] = $file_data;
     }
 
-    /**
-     * Function to return an array with all the uploaded files information
-     *
-     * @return array
-     */
-    public function getFiles()
+    public function getFiles(): array
     {
         return $this->files;
     }
 
-    /**
-     * Function to get a log message using a message index id
-     *
-     * @param int $index
-     *  The message index from 1 to 14
-     * @return string
-     *  Return the log message as string
-     */
-    public function getMessage($index)
+    public function getMessage(int $index): string
     {
-        return $this->message[$index];
+        if (!isset(self::ERROR_MESSAGES[$index])) {
+            throw new InvalidArgumentException('Invalid message index');
+        }
+        return self::ERROR_MESSAGES[$index];
     }
 
-    /**
-     * Generate a Uniqe ID for each uploaded file
-     *
-     * @param mixed $prefix
-     *  Custom string to append before the unique id
-     * @return string
-     *  Return the uinque id hashed using sha1
-     */
-    public function generateFileID()
+    public function generateFileID(): void
     {
-        $this->file_id = hash("sha256", uniqid("file-"));
+        $this->file_id = hash("sha256", uniqid("file-", true));
     }
 
-    /**
-     * Generate a User ID for each uploaded file
-     *
-     * @return bool
-     *  Return the user id hashed using sha1
-     */
-    public function generateUserID($disable_session = false)
+    public function generateUserID(bool $disable_session = false): bool
     {
-        if ($disable_session == true) {
+        if ($disable_session) {
             $this->user_id = hash("sha256", "user-" . bin2hex(random_bytes(16)));
             return true;
         }
 
-        $this->user_id = (isset($_SESSION['user_id'])) ?
-            $_SESSION['user_id'] :
-            hash("sha256", "user-" . session_id());
+        if (!isset($_SESSION)) {
+            throw new RuntimeException('Session not started');
+        }
 
+        $this->user_id = $_SESSION['user_id'] ?? hash("sha256", "user-" . session_id());
         return true;
     }
 
-    /**
-     * Inject a dependency class to the main class
-     *
-     * @param string $class_name
-     *  The name of the class to inject
-     * @param object $class
-     *  The class object to inject
-     *
-     * @return void
-     */
-    public function injectClass($class_name, $class)
+    public function injectClass(string $class_name, object $class): void
     {
+        if (!property_exists($this, $class_name)) {
+            throw new InvalidArgumentException("Invalid class name: {$class_name}");
+        }
         $this->$class_name = $class;
     }
 }

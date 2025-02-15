@@ -58,19 +58,36 @@ class Database
      * @var int
      */
     private $fetch_style = \PDO::FETCH_OBJ;
+    /**
+     * Database charset
+     *
+     * @var string
+     */
+    private $charset;
 
     /**
      * Database class constructor
      *
-     * @return void
+     * @param array $config Configuration array containing database settings
+     * @throws \InvalidArgumentException If required configuration is missing
      */
-    public function __construct($config)
+    public function __construct(array $config)
     {
-        if ($config != []) {
-            $this->host = $config['DB_HOST'];
-            $this->user = $config['DB_USER'];
-            $this->pass = $config['DB_PASS'];
-            $this->dbname = $config['DB_NAME'];
+        if (!isset($config['DB_HOST'], $config['DB_USER'], $config['DB_PASS'], $config['DB_NAME'])) {
+            throw new \InvalidArgumentException('Missing required database configuration parameters');
+        }
+
+        $this->host = $config['DB_HOST'];
+        $this->user = $config['DB_USER'];
+        $this->pass = $config['DB_PASS'];
+        $this->dbname = $config['DB_NAME'];
+
+        if (isset($config['DB_CHARSET'])) {
+            $this->charset = $config['DB_CHARSET'];
+        }
+
+        if (isset($config['FETCH_STYLE'])) {
+            $this->fetch_style = $config['FETCH_STYLE'];
         }
 
         $this->connect();
@@ -79,26 +96,33 @@ class Database
     /**
      * Create a connection between PHP and a database server.
      *
+     * @throws \PDOException When connection fails
      * @return void
      */
     private function connect()
     {
-        // Set PDO Connection
-        $dsn = 'mysql:host=' . $this->host . ';dbname=' . $this->dbname . ';charset=utf8mb4';
-        $options = array(
+        $charset = $this->charset ?? 'utf8mb4';
+        $dsn = sprintf(
+            'mysql:host=%s;dbname=%s;charset=%s',
+            $this->host,
+            $this->dbname,
+            $charset
+        );
+        
+        $options = [
             \PDO::ATTR_PERSISTENT => true,
             \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-        );
+            \PDO::ATTR_DEFAULT_FETCH_MODE => $this->fetch_style,
+        ];
 
-        // Create a new PDO instanace
         try {
             $this->connection = new \PDO($dsn, $this->user, $this->pass, $options);
             $this->dbconnected = true;
         } catch (\PDOException $e) {
             $this->error = $e->getMessage();
+            throw $e;
         }
     }
-
 
     /**
      * Get the Error Message
