@@ -1,5 +1,5 @@
 <div align="center">
-   <img src="https://i.ibb.co/qMSh4gN/UPLOADY-removebg-preview.png" alt="UPLOADY-removebg-preview" border="0">
+<a href="https://ibb.co/LXPzsfRs"><img src="https://raw.githubusercontent.com/farisc0de/Uploady/refs/heads/main/uploady_logo.png" alt="Untitled-design-11" border="0" /></a>
 </div>
 
 ![](https://img.shields.io/github/license/farisc0de/Uploady) ![](https://img.shields.io/github/v/release/farisc0de/Uploady) ![](https://img.shields.io/github/repo-size/farisc0de/Uploady) ![](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=farisc0de_Uploady&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=farisc0de_Uploady)
