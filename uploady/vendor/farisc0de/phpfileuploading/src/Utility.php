@@ -72,7 +72,10 @@ class Utility
         }
 
         $unit = strtoupper($matches['unit'] ?? 'B');
-        $unit = rtrim($unit, 'B');
+        // Add B suffix if not present
+        if ($unit !== 'B' && substr($unit, -1) !== 'B') {
+            $unit .= 'B';
+        }
         
         if (!isset(self::STORAGE_UNITS[$unit])) {
             throw new InvalidArgumentException("Invalid unit: {$unit}");

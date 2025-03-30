@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 if (ENVIRONMENT == 'production' || ENVIRONMENT == 'testing' || ENVIRONMENT == 'development') {
     header("Location: /");
     exit;
