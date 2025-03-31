@@ -41,6 +41,18 @@ class Image
     ];
 
     /**
+     * Constructor - Validates that GD extension is available
+     * 
+     * @throws RuntimeException If GD extension is not available
+     */
+    public function __construct()
+    {
+        if (!extension_loaded('gd')) {
+            throw new RuntimeException('GD extension is not available. Please install or enable it.');
+        }
+    }
+
+    /**
      * Encode image to base64
      * 
      * @param string $imagePath Path to the image file
@@ -49,16 +61,14 @@ class Image
      */
     public function encodeToBase64(string $imagePath): string
     {
-        if (!file_exists($imagePath)) {
-            throw new RuntimeException("Image file not found: {$imagePath}");
-        }
+        $this->validateImageFile($imagePath);
 
         $imageData = file_get_contents($imagePath);
         if ($imageData === false) {
             throw new RuntimeException("Failed to read image file: {$imagePath}");
         }
 
-        $mimeType = mime_content_type($imagePath);
+        $mimeType = $this->getMimeType($imagePath);
         if (!$mimeType || !str_starts_with($mimeType, 'image/')) {
             throw new RuntimeException("Invalid image file: {$imagePath}");
         }
@@ -94,34 +104,52 @@ class Image
             throw new RuntimeException("Unsupported image type: {$mimeType}");
         }
 
-        $createFunc = self::SUPPORTED_TYPES[$mimeType]['create'];
-        $image = $createFunc($source);
+        $srcImage = null;
+        $dstImage = null;
         
-        if (!$image instanceof GdImage) {
-            throw new RuntimeException("Failed to create image resource");
-        }
-
-        // If output format is specified, convert to that format
-        if ($outputFormat !== null) {
-            $outputMime = "image/{$outputFormat}";
-            if (!isset(self::SUPPORTED_TYPES[$outputMime])) {
-                throw new RuntimeException("Unsupported output format: {$outputFormat}");
+        try {
+            $createFunc = self::SUPPORTED_TYPES[$mimeType]['create'];
+            $srcImage = $createFunc($source);
+            
+            if (!$srcImage instanceof GdImage) {
+                throw new RuntimeException("Failed to create image resource");
             }
+            
+            // Determine output format and function
+            $outputMime = $mimeType;
+            if ($outputFormat !== null) {
+                $outputMime = "image/{$outputFormat}";
+                if (!isset(self::SUPPORTED_TYPES[$outputMime])) {
+                    throw new RuntimeException("Unsupported output format: {$outputFormat}");
+                }
+            }
+            
             $outputFunc = self::SUPPORTED_TYPES[$outputMime]['output'];
-            $quality = $this->normalizeQuality($quality, $outputMime);
-        } else {
-            $outputFunc = self::SUPPORTED_TYPES[$mimeType]['output'];
-            $quality = $this->normalizeQuality($quality, $mimeType);
+            $normalizedQuality = $this->normalizeQuality($quality, $outputMime);
+            
+            // Handle transparency for PNG images
+            if ($outputMime === 'image/png') {
+                imagealphablending($srcImage, false);
+                imagesavealpha($srcImage, true);
+            }
+            
+            // Save with specified quality
+            $result = $outputFunc($srcImage, $destination, $normalizedQuality);
+            
+            if (!$result) {
+                throw new RuntimeException("Failed to save compressed image");
+            }
+            
+            return true;
+        } finally {
+            // Clean up resources
+            if ($srcImage instanceof GdImage) {
+                imagedestroy($srcImage);
+            }
+            if ($dstImage instanceof GdImage) {
+                imagedestroy($dstImage);
+            }
         }
-
-        $result = $outputFunc($image, $destination, $quality);
-        imagedestroy($image);
-
-        if (!$result) {
-            throw new RuntimeException("Failed to save compressed image");
-        }
-
-        return true;
     }
 
     /**
@@ -157,58 +185,67 @@ class Image
         $newWidth = (int)($width * $ratio);
         $newHeight = (int)($height * $ratio);
 
-        // Create image resource
-        $createFunc = self::SUPPORTED_TYPES[$mimeType]['create'];
-        $srcImage = $createFunc($source);
+        $srcImage = null;
+        $dstImage = null;
         
-        if (!$srcImage instanceof GdImage) {
-            throw new RuntimeException("Failed to create source image resource");
+        try {
+            // Create image resource
+            $createFunc = self::SUPPORTED_TYPES[$mimeType]['create'];
+            $srcImage = $createFunc($source);
+            
+            if (!$srcImage instanceof GdImage) {
+                throw new RuntimeException("Failed to create source image resource");
+            }
+
+            // Create new image
+            $dstImage = imagecreatetruecolor($newWidth, $newHeight);
+            if (!$dstImage instanceof GdImage) {
+                throw new RuntimeException("Failed to create destination image resource");
+            }
+
+            // Handle transparency for PNG and GIF images
+            if ($mimeType === 'image/png' || $mimeType === 'image/gif') {
+                imagealphablending($dstImage, false);
+                imagesavealpha($dstImage, true);
+                $transparent = imagecolorallocatealpha($dstImage, 0, 0, 0, 127);
+                imagefilledrectangle($dstImage, 0, 0, $newWidth, $newHeight, $transparent);
+            }
+
+            // Resize
+            if (!imagecopyresampled(
+                $dstImage,
+                $srcImage,
+                0,
+                0,
+                0,
+                0,
+                $newWidth,
+                $newHeight,
+                $width,
+                $height
+            )) {
+                throw new RuntimeException("Failed to resize image");
+            }
+
+            // Save
+            $outputFunc = self::SUPPORTED_TYPES[$mimeType]['output'];
+            $normalizedQuality = $this->normalizeQuality($quality, $mimeType);
+            $result = $outputFunc($dstImage, $destination, $normalizedQuality);
+
+            if (!$result) {
+                throw new RuntimeException("Failed to save resized image");
+            }
+
+            return true;
+        } finally {
+            // Clean up resources
+            if ($srcImage instanceof GdImage) {
+                imagedestroy($srcImage);
+            }
+            if ($dstImage instanceof GdImage) {
+                imagedestroy($dstImage);
+            }
         }
-
-        // Create new image
-        $dstImage = imagecreatetruecolor($newWidth, $newHeight);
-        if (!$dstImage instanceof GdImage) {
-            imagedestroy($srcImage);
-            throw new RuntimeException("Failed to create destination image resource");
-        }
-
-        // Handle transparency for PNG images
-        if ($mimeType === 'image/png') {
-            imagealphablending($dstImage, false);
-            imagesavealpha($dstImage, true);
-        }
-
-        // Resize
-        if (!imagecopyresampled(
-            $dstImage,
-            $srcImage,
-            0,
-            0,
-            0,
-            0,
-            $newWidth,
-            $newHeight,
-            $width,
-            $height
-        )) {
-            imagedestroy($srcImage);
-            imagedestroy($dstImage);
-            throw new RuntimeException("Failed to resize image");
-        }
-
-        // Save
-        $outputFunc = self::SUPPORTED_TYPES[$mimeType]['output'];
-        $quality = $this->normalizeQuality($quality, $mimeType);
-        $result = $outputFunc($dstImage, $destination, $quality);
-
-        imagedestroy($srcImage);
-        imagedestroy($dstImage);
-
-        if (!$result) {
-            throw new RuntimeException("Failed to save resized image");
-        }
-
-        return true;
     }
 
     /**
@@ -242,65 +279,81 @@ class Image
             throw new RuntimeException("Failed to get image information");
         }
 
-        // Create image resources
-        $sourceImage = $this->createImageResource($source, $sourceInfo['mime']);
-        $watermarkImage = $this->createImageResource($watermark, $watermarkInfo['mime']);
+        $sourceImage = null;
+        $watermarkImage = null;
+        
+        try {
+            // Create image resources
+            $sourceImage = $this->createImageResource($source, $sourceInfo['mime']);
+            $watermarkImage = $this->createImageResource($watermark, $watermarkInfo['mime']);
 
-        // Calculate position
-        $x = $y = $padding;
-        switch ($position) {
-            case 'top-right':
-                $x = $sourceInfo[0] - $watermarkInfo[0] - $padding;
-                break;
-            case 'bottom-left':
-                $y = $sourceInfo[1] - $watermarkInfo[1] - $padding;
-                break;
-            case 'bottom-right':
-                $x = $sourceInfo[0] - $watermarkInfo[0] - $padding;
-                $y = $sourceInfo[1] - $watermarkInfo[1] - $padding;
-                break;
-            case 'center':
-                $x = ($sourceInfo[0] - $watermarkInfo[0]) / 2;
-                $y = ($sourceInfo[1] - $watermarkInfo[1]) / 2;
-                break;
+            // Calculate position
+            $x = $y = $padding;
+            switch ($position) {
+                case 'top-right':
+                    $x = $sourceInfo[0] - $watermarkInfo[0] - $padding;
+                    break;
+                case 'bottom-left':
+                    $y = $sourceInfo[1] - $watermarkInfo[1] - $padding;
+                    break;
+                case 'bottom-right':
+                    $x = $sourceInfo[0] - $watermarkInfo[0] - $padding;
+                    $y = $sourceInfo[1] - $watermarkInfo[1] - $padding;
+                    break;
+                case 'center':
+                    $x = ($sourceInfo[0] - $watermarkInfo[0]) / 2;
+                    $y = ($sourceInfo[1] - $watermarkInfo[1]) / 2;
+                    break;
+                default:
+                    throw new InvalidArgumentException("Invalid position: {$position}");
+            }
+
+            // Apply opacity
+            if ($opacity < 100) {
+                imagealphablending($watermarkImage, false);
+                imagesavealpha($watermarkImage, true);
+                imagefilter($watermarkImage, IMG_FILTER_COLORIZE, 0, 0, 0, (127 * (100 - $opacity)) / 100);
+            }
+
+            // Preserve transparency in the source image if it's PNG
+            if ($sourceInfo['mime'] === 'image/png') {
+                imagealphablending($sourceImage, true);
+                imagesavealpha($sourceImage, true);
+            }
+
+            // Merge images
+            if (!imagecopy(
+                $sourceImage,
+                $watermarkImage,
+                (int)$x,
+                (int)$y,
+                0,
+                0,
+                $watermarkInfo[0],
+                $watermarkInfo[1]
+            )) {
+                throw new RuntimeException("Failed to apply watermark");
+            }
+
+            // Save result
+            $outputFunc = self::SUPPORTED_TYPES[$sourceInfo['mime']]['output'];
+            $quality = self::DEFAULT_QUALITY[$sourceInfo['mime']] ?? 85;
+            $result = $outputFunc($sourceImage, $destination, $quality);
+
+            if (!$result) {
+                throw new RuntimeException("Failed to save watermarked image");
+            }
+
+            return true;
+        } finally {
+            // Clean up resources
+            if ($sourceImage instanceof GdImage) {
+                imagedestroy($sourceImage);
+            }
+            if ($watermarkImage instanceof GdImage) {
+                imagedestroy($watermarkImage);
+            }
         }
-
-        // Apply opacity
-        if ($opacity < 100) {
-            imagealphablending($watermarkImage, false);
-            imagesavealpha($watermarkImage, true);
-            imagefilter($watermarkImage, IMG_FILTER_COLORIZE, 0, 0, 0, (127 * (100 - $opacity)) / 100);
-        }
-
-        // Merge images
-        if (!imagecopy(
-            $sourceImage,
-            $watermarkImage,
-            (int)$x,
-            (int)$y,
-            0,
-            0,
-            $watermarkInfo[0],
-            $watermarkInfo[1]
-        )) {
-            imagedestroy($sourceImage);
-            imagedestroy($watermarkImage);
-            throw new RuntimeException("Failed to apply watermark");
-        }
-
-        // Save result
-        $outputFunc = self::SUPPORTED_TYPES[$sourceInfo['mime']]['output'];
-        $quality = self::DEFAULT_QUALITY[$sourceInfo['mime']] ?? 85;
-        $result = $outputFunc($sourceImage, $destination, $quality);
-
-        imagedestroy($sourceImage);
-        imagedestroy($watermarkImage);
-
-        if (!$result) {
-            throw new RuntimeException("Failed to save watermarked image");
-        }
-
-        return true;
     }
 
     /**
@@ -352,26 +405,32 @@ class Image
             throw new RuntimeException("Failed to get image information");
         }
 
-        $image = $this->createImageResource($source, $imageInfo['mime']);
+        $image = null;
+        
+        try {
+            $image = $this->createImageResource($source, $imageInfo['mime']);
 
-        // Apply filter
-        if (!imagefilter($image, $filter, ...$args)) {
-            imagedestroy($image);
-            throw new RuntimeException("Failed to apply image filter");
+            // Apply filter
+            if (!imagefilter($image, $filter, ...$args)) {
+                throw new RuntimeException("Failed to apply image filter");
+            }
+
+            // Save result
+            $outputFunc = self::SUPPORTED_TYPES[$imageInfo['mime']]['output'];
+            $quality = self::DEFAULT_QUALITY[$imageInfo['mime']] ?? 85;
+            $result = $outputFunc($image, $destination, $quality);
+
+            if (!$result) {
+                throw new RuntimeException("Failed to save filtered image");
+            }
+
+            return true;
+        } finally {
+            // Clean up resources
+            if ($image instanceof GdImage) {
+                imagedestroy($image);
+            }
         }
-
-        // Save result
-        $outputFunc = self::SUPPORTED_TYPES[$imageInfo['mime']]['output'];
-        $quality = self::DEFAULT_QUALITY[$imageInfo['mime']] ?? 85;
-        $result = $outputFunc($image, $destination, $quality);
-
-        imagedestroy($image);
-
-        if (!$result) {
-            throw new RuntimeException("Failed to save filtered image");
-        }
-
-        return true;
     }
 
     /**
@@ -390,11 +449,16 @@ class Image
             throw new RuntimeException("Failed to get image information");
         }
 
+        $fileSize = filesize($source);
+        if ($fileSize === false) {
+            throw new RuntimeException("Failed to get file size");
+        }
+
         return [
             'width' => $imageInfo[0],
             'height' => $imageInfo[1],
             'type' => $imageInfo['mime'],
-            'size' => filesize($source),
+            'size' => $fileSize,
             'aspectRatio' => $imageInfo[0] / $imageInfo[1],
         ];
     }
@@ -407,6 +471,10 @@ class Image
      */
     private function validateImageFile(string $path): void
     {
+        if (!extension_loaded('gd')) {
+            throw new RuntimeException('GD extension is not available. Please install or enable it.');
+        }
+        
         if (!file_exists($path)) {
             throw new RuntimeException("Image file not found: {$path}");
         }
@@ -415,10 +483,49 @@ class Image
             throw new RuntimeException("Image file is not readable: {$path}");
         }
 
-        $mimeType = mime_content_type($path);
+        $mimeType = $this->getMimeType($path);
         if (!$mimeType || !isset(self::SUPPORTED_TYPES[$mimeType])) {
             throw new RuntimeException("Unsupported image type: {$mimeType}");
         }
+    }
+
+    /**
+     * Get MIME type of a file with fallbacks
+     * 
+     * @param string $path File path
+     * @return string|false MIME type or false on failure
+     */
+    private function getMimeType(string $path): string|false
+    {
+        // Try mime_content_type first
+        if (function_exists('mime_content_type')) {
+            $mimeType = mime_content_type($path);
+            if ($mimeType !== false) {
+                return $mimeType;
+            }
+        }
+        
+        // Try fileinfo extension
+        if (function_exists('finfo_open')) {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mimeType = finfo_file($finfo, $path);
+            finfo_close($finfo);
+            if ($mimeType !== false) {
+                return $mimeType;
+            }
+        }
+        
+        // Try to determine from file extension
+        $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+        $extensionMap = [
+            'jpg' => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'png' => 'image/png',
+            'gif' => 'image/gif',
+            'webp' => 'image/webp'
+        ];
+        
+        return $extensionMap[$extension] ?? false;
     }
 
     /**
@@ -431,14 +538,38 @@ class Image
      */
     private function createImageResource(string $path, string $mimeType): GdImage
     {
-        $createFunc = self::SUPPORTED_TYPES[$mimeType]['create'];
-        $image = $createFunc($path);
-        
-        if (!$image instanceof GdImage) {
-            throw new RuntimeException("Failed to create image resource");
+        if (!isset(self::SUPPORTED_TYPES[$mimeType])) {
+            throw new RuntimeException("Unsupported image type: {$mimeType}");
         }
-
-        return $image;
+        
+        $createFunc = self::SUPPORTED_TYPES[$mimeType]['create'];
+        if (!function_exists($createFunc)) {
+            throw new RuntimeException("GD function {$createFunc} is not available");
+        }
+        
+        // Set memory limit temporarily for large images
+        $memoryLimit = ini_get('memory_limit');
+        ini_set('memory_limit', '256M');
+        
+        try {
+            // Suppress warnings and convert to exceptions
+            $image = @$createFunc($path);
+            
+            if (!$image instanceof GdImage) {
+                throw new RuntimeException("Failed to create image resource from {$path}");
+            }
+            
+            // Handle transparency for PNG images
+            if ($mimeType === 'image/png') {
+                imagealphablending($image, false);
+                imagesavealpha($image, true);
+            }
+            
+            return $image;
+        } finally {
+            // Restore original memory limit
+            ini_set('memory_limit', $memoryLimit);
+        }
     }
 
     /**
@@ -451,8 +582,8 @@ class Image
     private function normalizeQuality(int $quality, string $mimeType): int
     {
         if ($mimeType === 'image/png') {
-            // PNG quality is 0-9
-            return min(9, max(0, (int)($quality / 11.111)));
+            // PNG quality is 0-9 (compression level)
+            return min(9, max(0, (int)round($quality / 11.1)));
         }
         
         // JPEG/WEBP quality is 0-100

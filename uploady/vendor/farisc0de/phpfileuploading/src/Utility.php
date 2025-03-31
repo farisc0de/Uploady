@@ -67,21 +67,25 @@ class Utility
     public function sizeInBytes(string $size): float
     {
         $matches = [];
-        if (!preg_match("/^(?<size>[\d.]+)\s*(?<unit>[BKMGT]B?)?$/i", trim($size), $matches)) {
+        if (!preg_match('/^(?<size>[\d.]+)\s*(?<unit>[BKMGT]B?)?$/i', trim($size), $matches)) {
             throw new InvalidArgumentException('Invalid size format. Expected format: "7.2 MB"');
         }
 
-        $unit = strtoupper($matches['unit'] ?? 'B');
+        $sizeValue = (float)$matches['size'];
+        if ($sizeValue < 0) {
+            throw new InvalidArgumentException('Size value must be non-negative');
+        }
+
+        $unit = isset($matches['unit']) ? strtoupper($matches['unit']) : 'B';
         // Add B suffix if not present
         if ($unit !== 'B' && substr($unit, -1) !== 'B') {
             $unit .= 'B';
         }
-        
+
         if (!isset(self::STORAGE_UNITS[$unit])) {
             throw new InvalidArgumentException("Invalid unit: {$unit}");
         }
 
-        $sizeValue = (float)$matches['size'];
         return $sizeValue * pow(1024, self::STORAGE_UNITS[$unit]);
     }
 
@@ -111,7 +115,7 @@ class Utility
         $units = array_keys(self::STORAGE_UNITS);
         $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
         $pow = min($pow, count($units) - 1);
-        
+
         $bytes /= pow(1024, $pow);
         return sprintf("%.{$precision}f %s", $bytes, $units[$pow]);
     }
@@ -126,14 +130,20 @@ class Utility
      */
     public function convertUnit(float $size, string $unit): float
     {
-        $unit = strtoupper(rtrim($unit, 'B'));
-        
+        $unit = strtoupper($unit);
+
+        // Add B suffix if not present
+        if ($unit !== 'B' && substr($unit, -1) !== 'B') {
+            $unit .= 'B';
+        }
+
         if (!isset(self::STORAGE_UNITS[$unit])) {
             throw new InvalidArgumentException(
                 "Invalid unit. Supported units: " . implode(', ', array_keys(self::STORAGE_UNITS))
             );
         }
 
+        // Convert bytes to the target unit
         return $size / pow(1024, self::STORAGE_UNITS[$unit]);
     }
 
@@ -163,21 +173,36 @@ class Utility
      */
     public function normalizeFileArray(array $filePost): array
     {
+        // Check if it's already a normalized array
+        if (isset($filePost[0]['name'])) {
+            return $filePost;
+        }
+
+        // Check if it's a single file (not an array of files)
+        if (isset($filePost['name']) && !is_array($filePost['name'])) {
+            return [$filePost];
+        }
+
+        // Handle multi-file upload
         if (!isset($filePost['name']) || !is_array($filePost['name'])) {
             throw new InvalidArgumentException('Invalid file array structure');
         }
 
         $fileArray = [];
         $fileKeys = array_keys($filePost);
-        $fileCount = count($filePost['name']);
 
-        for ($i = 0; $i < $fileCount; $i++) {
+        // Get the first dimension keys (could be numeric or string keys)
+        $firstDimKeys = array_keys($filePost['name']);
+
+        foreach ($firstDimKeys as $i) {
+            $fileItem = [];
             foreach ($fileKeys as $key) {
                 if (!isset($filePost[$key][$i])) {
                     throw new InvalidArgumentException("Missing key '{$key}' at index {$i}");
                 }
-                $fileArray[$i][$key] = $filePost[$key][$i];
+                $fileItem[$key] = $filePost[$key][$i];
             }
+            $fileArray[] = $fileItem;
         }
 
         return $fileArray;
@@ -194,7 +219,7 @@ class Utility
     public function setPhpIniSettings(array $settings, ?string $iniPath = null): array
     {
         $changes = [];
-        
+
         foreach ($settings as $key => $value) {
             $oldValue = ini_get($key);
             if ($oldValue === false) {
@@ -247,7 +272,7 @@ class Utility
         bool $denyAccess = true
     ): void {
         $path = rtrim($path, '/\\');
-        
+
         if (!is_dir($path)) {
             throw new RuntimeException("Directory does not exist: {$path}");
         }
@@ -259,11 +284,11 @@ class Utility
         // Create .htaccess
         if ($preventListing || $denyAccess) {
             $htaccess = [];
-            
+
             if ($preventListing) {
                 $htaccess[] = 'Options -Indexes';
             }
-            
+
             if ($denyAccess) {
                 $htaccess[] = '<Files ~ "^\.">
     Order allow,deny
@@ -275,7 +300,11 @@ class Utility
             if (!file_put_contents($htaccessPath, implode("\n", $htaccess))) {
                 throw new RuntimeException("Failed to create .htaccess file");
             }
-            chmod($htaccessPath, self::DEFAULT_FILE_PERMISSIONS);
+
+            // Apply permissions to the .htaccess file
+            if (!chmod($htaccessPath, self::DEFAULT_FILE_PERMISSIONS)) {
+                throw new RuntimeException("Failed to set permissions on .htaccess file");
+            }
         }
 
         // Create empty index.php
@@ -284,7 +313,11 @@ class Utility
             if (!file_put_contents($indexPath, '<?php http_response_code(403);')) {
                 throw new RuntimeException("Failed to create index.php file");
             }
-            chmod($indexPath, self::DEFAULT_FILE_PERMISSIONS);
+
+            // Apply permissions to the index.php file
+            if (!chmod($indexPath, self::DEFAULT_FILE_PERMISSIONS)) {
+                throw new RuntimeException("Failed to set permissions on index.php file");
+            }
         }
     }
 
@@ -306,6 +339,8 @@ class Utility
             throw new RuntimeException("Failed to write php.ini file: {$path}");
         }
 
-        chmod($path, self::DEFAULT_FILE_PERMISSIONS);
+        if (!chmod($path, self::DEFAULT_FILE_PERMISSIONS)) {
+            throw new RuntimeException("Failed to set permissions on php.ini file: {$path}");
+        }
     }
 }

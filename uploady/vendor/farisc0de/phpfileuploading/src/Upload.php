@@ -89,6 +89,12 @@ final class Upload
         $this->min_width = $min_width;
         $this->file_id = $file_id;
         $this->user_id = $user_id;
+
+        // Initialize file_name and hash_id if file is provided
+        if ($this->file !== null) {
+            $this->file_name = $this->file->getName();
+            $this->hash_id = $this->file->getFileHash();
+        }
     }
 
     private function validateConstructorParams(array $upload_folder, string $site_url, string $size): void
@@ -109,6 +115,8 @@ final class Upload
     public function setUpload(File $file): void
     {
         $this->file = $file;
+        $this->file_name = $file->getName();
+        $this->hash_id = $file->getFileHash();
     }
 
     public function enableProtection(): void
@@ -163,7 +171,7 @@ final class Upload
         if (!preg_match('/^\d+\s*(?:B|KB|MB|GB|TB)$/i', $size)) {
             throw new InvalidArgumentException('Invalid size format. Expected format: number followed by B/KB/MB/GB/TB');
         }
-        $this->size = $this->util->sizeInBytes($size);
+        $this->size = $this->util->sizeInBytes($this->util->sanitize($size));
     }
 
     public function checkSize(): bool
@@ -281,20 +289,21 @@ final class Upload
         try {
             $this->validateUpload();
 
-            if ($this->file_name === null) {
+            // Ensure file_name and hash_id are set
+            if (empty($this->file_name)) {
                 $this->file_name = $this->file->getName();
             }
 
-            if ($this->hash_id === null) {
+            if (empty($this->hash_id)) {
                 $this->hash_id = $this->file->getFileHash();
             }
 
+            // If file has been hashed but the hash doesn't match, update it
             if ($this->file->getFileHash() !== $this->hash_id && !$this->is_hashed) {
                 $this->file_name = $this->file->getName();
                 $this->hash_id = $this->file->getFileHash();
             }
 
-            $this->hash_id = $this->file->getFileHash();
             $filename = $this->file_name;
 
             if ($this->moveFile($filename)) {
@@ -305,7 +314,7 @@ final class Upload
 
             return false;
         } catch (Exception $e) {
-            $this->addLog(['filename' => $this->file_name, "message" => $e->getMessage()]);
+            $this->addLog(['filename' => $this->file_name ?? 'unknown', "message" => $e->getMessage()]);
             return false;
         }
     }
@@ -337,7 +346,8 @@ final class Upload
             $targetPath = $this->upload_folder['folder_path'] . DIRECTORY_SEPARATOR . $filename;
 
             if (file_exists($targetPath)) {
-                throw new RuntimeException('File already exists');
+                $this->addLog(['filename' => $filename, "message" => 6]);
+                return false;
             }
 
             return $this->moveFileInChunks($targetPath);
@@ -369,8 +379,10 @@ final class Upload
             }
         } finally {
             fclose($handle);
-            if (!fclose($fp)) {
-                throw new RuntimeException('Failed to close target file');
+            if (is_resource($fp)) {
+                if (!fclose($fp)) {
+                    throw new RuntimeException('Failed to close target file');
+                }
             }
         }
 
@@ -387,7 +399,15 @@ final class Upload
     public function createUserCloud(?string $main_upload_folder = null): bool
     {
         $user_id = $this->getUserID();
-        $upload_folder = $main_upload_folder ?? $this->upload_folder['folder_path'];
+        if ($user_id === null) {
+            throw new RuntimeException('User ID not set');
+        }
+
+        $upload_folder = $main_upload_folder ?? $this->upload_folder['folder_path'] ?? null;
+
+        if ($upload_folder === null) {
+            throw new RuntimeException('Upload folder not set');
+        }
 
         $user_cloud = $upload_folder . DIRECTORY_SEPARATOR . $user_id;
 
@@ -403,7 +423,15 @@ final class Upload
     public function getUserCloud(?string $main_upload_folder = null): string
     {
         $user_id = $this->getUserID();
-        $upload_folder = $main_upload_folder ?? $this->upload_folder['folder_path'];
+        if ($user_id === null) {
+            throw new RuntimeException('User ID not set');
+        }
+
+        $upload_folder = $main_upload_folder ?? $this->upload_folder['folder_path'] ?? null;
+
+        if ($upload_folder === null) {
+            throw new RuntimeException('Upload folder not set');
+        }
 
         return $upload_folder . DIRECTORY_SEPARATOR . $user_id;
     }
@@ -412,6 +440,10 @@ final class Upload
     {
         if (!$this->file) {
             throw new RuntimeException('No file has been set');
+        }
+
+        if (empty($this->filter_array)) {
+            throw new RuntimeException('Filter array not set');
         }
 
         if (!isset($this->filter_array[$this->file->getExtension()])) {
@@ -428,9 +460,14 @@ final class Upload
             throw new RuntimeException('No file has been set');
         }
 
+        if (empty($this->filter_array)) {
+            throw new RuntimeException('Filter array not set');
+        }
+
         $mime = mime_content_type($this->file->getTempName());
         if ($mime === false) {
-            throw new RuntimeException('Failed to determine file MIME type');
+            $this->addLog(['filename' => $this->file_name, "message" => 2]);
+            return false;
         }
 
         if (
@@ -446,8 +483,12 @@ final class Upload
 
     public function checkForbidden(): bool
     {
-        if (!$this->file_name) {
+        if (empty($this->file_name)) {
             throw new RuntimeException('File name not set');
+        }
+
+        if (empty($this->name_array)) {
+            return true; // No forbidden names set, so all names are allowed
         }
 
         if (in_array($this->file_name, $this->name_array, true)) {
@@ -542,7 +583,7 @@ final class Upload
 
     public function generateDirectDownloadLink(): string
     {
-        if (empty($this->site_url) || empty($this->upload_folder['folder_name']) || !$this->file_name) {
+        if (empty($this->site_url) || empty($this->upload_folder['folder_name']) || empty($this->file_name)) {
             throw new RuntimeException('Required parameters not set');
         }
 
@@ -714,10 +755,24 @@ final class Upload
         }
 
         if (!isset($_SESSION)) {
-            throw new RuntimeException('Session not started');
+            if (session_status() === PHP_SESSION_DISABLED) {
+                throw new RuntimeException('Sessions are disabled');
+            }
+
+            if (session_status() === PHP_SESSION_NONE) {
+                if (!session_start()) {
+                    throw new RuntimeException('Failed to start session');
+                }
+            }
         }
 
         $this->user_id = $_SESSION['user_id'] ?? hash("sha256", "user-" . session_id());
+
+        // Store the user_id in the session for future use
+        if (!isset($_SESSION['user_id'])) {
+            $_SESSION['user_id'] = $this->user_id;
+        }
+
         return true;
     }
 

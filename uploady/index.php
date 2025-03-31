@@ -13,7 +13,7 @@ include_once APP_PATH . 'logic/indexLogic.php';
           <b><?= $lang["general"]['upload_form_card_title']; ?></b>
         </div>
         <div class="card-body">
-          <input type="hidden" id="max_file_size" value="<?= $utility->unitConvert($utility->sizeInBytes(MAX_SIZE), "MB"); ?>">
+          <input type="hidden" id="max_file_size" value="<?= $utility->convertUnit($utility->sizeInBytes(MAX_SIZE), "MB"); ?>">
           <form enctype="multipart/form-data" class="dropzone" id="my-dropzone" method="POST" action="actions/upload_file.php">
             <div class="fallback">
               <input name="file" type="file" multiple />
