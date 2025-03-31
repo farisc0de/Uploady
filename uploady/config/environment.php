@@ -1,6 +1,6 @@
 <?php
 
-define('ENVIRONMENT', 'development');
+define('ENVIRONMENT', 'installation');
 ini_set("memory_limit", "1024M");
 
 switch (ENVIRONMENT) {
