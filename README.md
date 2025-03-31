@@ -105,6 +105,9 @@ v4.0
 1. Report abuse dashboard
 2. PhpFileUpload refactor
 3. Upgrade Bootstrap to 5.3.3
+4. S3 Bucket Integration
+5. Adding File Taging
+6. Adding Malware Scanning
 ```
 
 ## License
