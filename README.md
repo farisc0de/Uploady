@@ -43,7 +43,7 @@ And it is free and open source.
 
 ## Screenshots
 
-![](https://i.imgur.com/ropeZWD.png)
+![](https://i.imgur.com/jALS2DN.png)
 
 ![](https://i.imgur.com/fTe1FCZ.png)
 
@@ -102,12 +102,13 @@ Click here for a real demo [Uploady.NET](https://github.com/farisc0de/Uploady.NE
 
 ```
 v4.0
-1. Report abuse dashboard
-2. PhpFileUpload refactor
-3. Upgrade Bootstrap to 5.3.3
-4. S3 Bucket Integration
-5. Adding File Taging
-6. Adding Malware Scanning
+1. Report abuse dashboard (in progress)
+2. PhpFileUpload refactor (done)
+3. Upgrade Bootstrap to 5.3.3 (done)
+4. S3 Bucket Integration (backlog)
+5. Adding File Taging (backlog)
+6. Adding Malware Scanning (backlog)
+7. Modernize the UI (done)
 ```
 
 ## License
