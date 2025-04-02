@@ -30,10 +30,6 @@ class ComposerStaticInit5945ad3276d7348e01910cc39dd50b7b
             'Farisc0de\\PhpMigration\\' => 23,
             'Farisc0de\\PhpFileUploading\\' => 27,
         ),
-        'D' => 
-        array (
-            'DASPRiD\\Enum\\' => 13,
-        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -68,10 +64,6 @@ class ComposerStaticInit5945ad3276d7348e01910cc39dd50b7b
         'Farisc0de\\PhpFileUploading\\' => 
         array (
             0 => __DIR__ . '/..' . '/farisc0de/phpfileuploading/src',
-        ),
-        'DASPRiD\\Enum\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/dasprid/enum/src',
         ),
     );
 

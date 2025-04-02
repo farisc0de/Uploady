@@ -1,6 +1,6 @@
 <?php
 include_once 'session.php';
-include_once  APP_PATH . 'logic/loginLogic.php';
+include_once APP_PATH . 'logic/loginLogic.php';
 ?>
 
 <?php include_once APP_PATH . 'components/header.php'; ?>

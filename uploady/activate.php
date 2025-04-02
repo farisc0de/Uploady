@@ -17,17 +17,17 @@ include_once APP_PATH . 'logic/activationLogic.php';
                 <div class="card-body p-4 text-center">
                     <div class="mb-4">
                         <div class="d-inline-block p-3 border rounded-circle mb-3">
-                            <?php if (strpos($msg, 'success') !== false || strpos($msg, 'activated') !== false): ?>
+                            <?php if (strpos($msg, 'success') !== false || strpos($msg, 'activated') !== false) : ?>
                                 <i class="fas fa-check-circle fa-3x text-success"></i>
-                            <?php else: ?>
+                            <?php else : ?>
                                 <i class="fas fa-exclamation-circle fa-3x text-warning"></i>
                             <?php endif; ?>
                         </div>
                         
                         <h4 class="mb-3">
-                            <?php if (strpos($msg, 'success') !== false || strpos($msg, 'activated') !== false): ?>
+                            <?php if (strpos($msg, 'success') !== false || strpos($msg, 'activated') !== false) : ?>
                                 <?= $lang["general"]['activation_success'] ?? 'Account Activated'; ?>
-                            <?php else: ?>
+                            <?php else : ?>
                                 <?= $lang["general"]['activation_failed'] ?? 'Activation Status'; ?>
                             <?php endif; ?>
                         </h4>
@@ -37,9 +37,9 @@ include_once APP_PATH . 'logic/activationLogic.php';
                         </div>
                         
                         <p class="text-muted">
-                            <?php if (strpos($msg, 'success') !== false || strpos($msg, 'activated') !== false): ?>
+                            <?php if (strpos($msg, 'success') !== false || strpos($msg, 'activated') !== false) : ?>
                                 <?= $lang["general"]['activation_success_message'] ?? 'Your account has been successfully activated. You can now log in and start using all features.'; ?>
-                            <?php else: ?>
+                            <?php else : ?>
                                 <?= $lang["general"]['activation_failed_message'] ?? 'If you continue to experience issues, please contact support.'; ?>
                             <?php endif; ?>
                         </p>

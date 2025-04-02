@@ -92,7 +92,7 @@ include_once APP_PATH . 'logic/signupLogic.php';
                 
                 <div class="card-footer py-3 text-center">
                     <p class="mb-0">
-                        <?= $lang["general"]['already_have_account'] ?? 'Already have an account?'; ?> 
+                        <?= $lang["general"]['already_have_account'] ?? 'Already have an account?'; ?>
                         <a href="<?= $utils->siteUrl('/login.php'); ?>" class="fw-bold text-decoration-none">
                             <?= $lang["general"]['login_cta_msg']; ?>
                         </a>
@@ -102,7 +102,7 @@ include_once APP_PATH . 'logic/signupLogic.php';
             
             <div class="text-center mt-4">
                 <p class="text-muted small">
-                    <i class="fas fa-shield-alt me-1"></i> 
+                    <i class="fas fa-shield-alt me-1"></i>
                     <?= $lang["general"]['secure_signup'] ?? 'Your information is secure with Uploady'; ?>
                 </p>
             </div>
@@ -135,8 +135,8 @@ include_once APP_PATH . 'logic/signupLogic.php';
                 
                 // Update tooltip
                 const tooltip = bootstrap.Tooltip.getInstance(this);
-                const newTitle = type === 'password' ? 
-                    '<?= $lang["general"]['show_password'] ?? 'Show password'; ?>' : 
+                const newTitle = type === 'password' ?
+                    '<?= $lang["general"]['show_password'] ?? 'Show password'; ?>' :
                     '<?= $lang["general"]['hide_password'] ?? 'Hide password'; ?>';
                 this.setAttribute('data-bs-original-title', newTitle);
                 if (tooltip) tooltip.update();

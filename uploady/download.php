@@ -23,10 +23,10 @@ include_once APP_PATH . 'logic/downloadLogic.php';
 
             if (in_array(strtolower($file_extension), $image_extensions)) {
               // Show image preview for image files
-              echo '<div class="file-preview mb-3"><img src="' . $file_data->directlink . '" class="img-fluid rounded" style="max-height: 200px;" alt="' . $file_data->filename . '"></div>';
+                echo '<div class="file-preview mb-3"><img src="' . $file_data->directlink . '" class="img-fluid rounded" style="max-height: 200px;" alt="' . $file_data->filename . '"></div>';
             } else {
               // Show file type icon for non-image files
-              echo '<div class="file-icon mb-3"><i class="fas fa-file fa-4x"></i></div>';
+                echo '<div class="file-icon mb-3"><i class="fas fa-file fa-4x"></i></div>';
             }
             ?>
             <h4 class="text-break"><?= $file_data->filename ?></h4>

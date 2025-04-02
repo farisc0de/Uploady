@@ -14,5 +14,4 @@ return array(
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
     'Farisc0de\\PhpMigration\\' => array($vendorDir . '/farisc0de/phpmigration/src'),
     'Farisc0de\\PhpFileUploading\\' => array($vendorDir . '/farisc0de/phpfileuploading/src'),
-    'DASPRiD\\Enum\\' => array($vendorDir . '/dasprid/enum/src'),
 );

@@ -33,7 +33,7 @@ include_once APP_PATH . 'logic/pageLogic.php';
           <div class="mt-5 pt-3 border-top">
             <small class="text-muted">
               <i class="fas fa-clock me-1"></i> <?= $lang["general"]['last_updated'] ?? 'Last updated'; ?>: 
-              <?= date('F j, Y', strtotime($page_content->updated_at)); ?>
+                <?= date('F j, Y', strtotime($page_content->updated_at)); ?>
             </small>
           </div>
           <?php endif; ?>

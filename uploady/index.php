@@ -128,7 +128,6 @@ include_once APP_PATH . 'logic/indexLogic.php';
           let progressBar = document.getElementById('upload-progress-bar');
           let progressText = document.getElementById('progress-text');
           let progressValue = Math.round(progress);
-          
           progressBar.value = progressValue;
           progressText.textContent = progressValue + '%';
         });
