@@ -84,8 +84,8 @@ include_once APP_PATH . 'logic/indexLogic.php';
             <div class="mb-3">
               <i class="fas fa-lock fa-3x"></i>
             </div>
-            <h5><?= $lang["general"]['feature_secure_title'] ?? 'Secure'; ?></h5>
-            <p class="text-muted"><?= $lang["general"]['feature_secure_desc'] ?? 'Your files are encrypted and protected'; ?></p>
+            <h5><?= $lang['features']['file_secure'] ?? 'Secure'; ?></h5>
+            <p class="text-muted"><?= $lang['features']['file_secure_desc'] ?? 'Your files are encrypted and protected'; ?></p>
           </div>
         </div>
         <div class="col-md-4">
@@ -93,8 +93,8 @@ include_once APP_PATH . 'logic/indexLogic.php';
             <div class="mb-3">
               <i class="fas fa-bolt fa-3x"></i>
             </div>
-            <h5><?= $lang["general"]['feature_fast_title'] ?? 'Fast'; ?></h5>
-            <p class="text-muted"><?= $lang["general"]['feature_fast_desc'] ?? 'Upload and share files in seconds'; ?></p>
+            <h5><?= $lang['features']['file_fast'] ?? 'Fast'; ?></h5>
+            <p class="text-muted"><?= $lang['features']['file_fast_desc'] ?? 'Upload and share files in seconds'; ?></p>
           </div>
         </div>
         <div class="col-md-4">
@@ -102,8 +102,8 @@ include_once APP_PATH . 'logic/indexLogic.php';
             <div class="mb-3">
               <i class="fas fa-user-shield fa-3x"></i>
             </div>
-            <h5><?= $lang["general"]['feature_private_title'] ?? 'Private'; ?></h5>
-            <p class="text-muted"><?= $lang["general"]['feature_private_desc'] ?? 'No registration required for basic uploads'; ?></p>
+            <h5><?= $lang['features']['file_private'] ?? 'Private'; ?></h5>
+            <p class="text-muted"><?= $lang['features']['file_private_desc'] ?? 'No registration required for basic uploads'; ?></p>
           </div>
         </div>
       </div>

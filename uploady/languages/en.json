@@ -223,7 +223,26 @@
     "image_editor": "Image Editor",
     "delete_account_warning": "This action cannot be undone. All your data will be permanently deleted.",
     "account_settings": "Account Settings",
-    "security": "Security"
+    "security": "Security",
+    "upload_instructions": "How to Upload",
+    "drag_drop_instructions": "Drag and drop files here, or click to select files. Maximum file size: ",
+    "login": "Login",
+    "my_files": "My Files",
+    "welcome_back": "Welcome Back",
+    "login_subtitle": "Sign in to access your account",
+    "secure_login": "Secure login with Uploady",
+    "enter_2fa_code_msg": "Please enter the 6-digit code from your authenticator app",
+    "verification_code": "Verification Code",
+    "code_expires": "Code expires after 30 seconds",
+    "trust_device_info": "You won't be asked for the code on this device for 30 days"
+  },
+  "features": {
+    "file_secure": "Secure",
+    "file_secure_desc": "Your files are encrypted and protected",
+    "file_fast": "Fast",
+    "file_fast_desc": "Upload and share files in seconds",
+    "file_private": "Private",
+    "file_private_desc": "No registration required for basic uploads"
   },
   "navbar": {
     "home": "Home",

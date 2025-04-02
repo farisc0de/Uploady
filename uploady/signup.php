@@ -12,7 +12,7 @@ include_once APP_PATH . 'logic/signupLogic.php';
                 <h1 class="h3 mb-3 fw-normal"><?= $lang["general"]['create_account'] ?? 'Create Account'; ?></h1>
                 <p class="text-muted"><?= $lang["general"]['signup_subtitle'] ?? 'Join Uploady to start sharing files'; ?></p>
             </div>
-            
+
             <div class="card shadow-sm border-0 rounded-3">
                 <div class="card-header py-3">
                     <h5 class="mb-0">
@@ -20,7 +20,7 @@ include_once APP_PATH . 'logic/signupLogic.php';
                         <?= $lang["general"]['signup_title']; ?>
                     </h5>
                 </div>
-                
+
                 <div class="card-body p-4">
                     <?php if (isset($error)) : ?>
                         <?= $utils->alert($error, 'danger', 'times-circle'); ?>
@@ -28,7 +28,7 @@ include_once APP_PATH . 'logic/signupLogic.php';
                     <?php if (isset($msg)) : ?>
                         <?= $utils->alert($msg, 'success', 'check-circle'); ?>
                     <?php endif; ?>
-                    
+
                     <form method="POST">
                         <div class="mb-4">
                             <label for="username" class="form-label"><?= $lang["general"]['username'] ?? 'Username'; ?></label>
@@ -37,7 +37,7 @@ include_once APP_PATH . 'logic/signupLogic.php';
                                 <input type="text" class="form-control" id="username" name="username" placeholder="<?= $lang["general"]['enter_username']; ?>" required>
                             </div>
                         </div>
-                        
+
                         <div class="mb-4">
                             <label for="email" class="form-label"><?= $lang["general"]['email'] ?? 'Email'; ?></label>
                             <div class="input-group">
@@ -45,7 +45,7 @@ include_once APP_PATH . 'logic/signupLogic.php';
                                 <input type="email" class="form-control" id="email" name="email" placeholder="<?= $lang["general"]['enter_your_email']; ?>" required>
                             </div>
                         </div>
-                        
+
                         <div class="mb-4">
                             <label for="password" class="form-label"><?= $lang["general"]['password'] ?? 'Password'; ?></label>
                             <div class="input-group">
@@ -62,7 +62,7 @@ include_once APP_PATH . 'logic/signupLogic.php';
                                 <small class="form-text text-muted" id="password-strength-text"><?= $lang["general"]['password_strength'] ?? 'Password strength'; ?></small>
                             </div>
                         </div>
-                        
+
                         <div class="mb-4">
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" id="tos" required>
@@ -71,7 +71,7 @@ include_once APP_PATH . 'logic/signupLogic.php';
                                 </label>
                             </div>
                         </div>
-                        
+
                         <?php if ($settings->getSettingValue('recaptcha_status') == true) : ?>
                             <input type="hidden" name="recaptcha_response" id="recaptchaResponse">
                             <div class="mb-4">
@@ -81,7 +81,7 @@ include_once APP_PATH . 'logic/signupLogic.php';
                                 </div>
                             </div>
                         <?php endif; ?>
-                        
+
                         <div class="d-grid gap-2 mt-4">
                             <button type="submit" class="btn btn-primary py-2">
                                 <i class="fas fa-user-plus me-2"></i><?= $lang["general"]['signup_button'] ?>
@@ -89,17 +89,16 @@ include_once APP_PATH . 'logic/signupLogic.php';
                         </div>
                     </form>
                 </div>
-                
+
                 <div class="card-footer py-3 text-center">
                     <p class="mb-0">
-                        <?= $lang["general"]['already_have_account'] ?? 'Already have an account?'; ?>
                         <a href="<?= $utils->siteUrl('/login.php'); ?>" class="fw-bold text-decoration-none">
                             <?= $lang["general"]['login_cta_msg']; ?>
                         </a>
                     </p>
                 </div>
             </div>
-            
+
             <div class="text-center mt-4">
                 <p class="text-muted small">
                     <i class="fas fa-shield-alt me-1"></i>
@@ -118,21 +117,21 @@ include_once APP_PATH . 'logic/signupLogic.php';
         var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
-        
+
         // Toggle password visibility
         const togglePassword = document.getElementById('toggle-password');
         const password = document.getElementById('password');
-        
+
         if (togglePassword) {
             togglePassword.addEventListener('click', function() {
                 const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
                 password.setAttribute('type', type);
-                
+
                 // Toggle icon
                 const icon = this.querySelector('i');
                 icon.classList.toggle('fa-eye');
                 icon.classList.toggle('fa-eye-slash');
-                
+
                 // Update tooltip
                 const tooltip = bootstrap.Tooltip.getInstance(this);
                 const newTitle = type === 'password' ?
@@ -142,25 +141,25 @@ include_once APP_PATH . 'logic/signupLogic.php';
                 if (tooltip) tooltip.update();
             });
         }
-        
+
         // Password strength meter
         const strengthMeter = document.getElementById('password-progress');
         const strengthText = document.getElementById('password-strength-text');
-        
+
         if (password && strengthMeter && strengthText) {
             password.addEventListener('input', function() {
                 const val = password.value;
                 let strength = 0;
                 let status = '';
-                
+
                 if (val.length >= 8) strength += 25;
                 if (val.match(/[a-z]+/)) strength += 25;
                 if (val.match(/[A-Z]+/)) strength += 25;
                 if (val.match(/[0-9]+/) || val.match(/[^a-zA-Z0-9]+/)) strength += 25;
-                
+
                 // Update the strength meter
                 strengthMeter.value = strength;
-                
+
                 // Update color based on strength
                 if (strength < 25) {
                     strengthMeter.className = 'w-100 bg-danger';
@@ -175,7 +174,7 @@ include_once APP_PATH . 'logic/signupLogic.php';
                     strengthMeter.className = 'w-100 bg-success';
                     status = '<?= $lang["general"]["password_strong"] ?? "Strong"; ?>';
                 }
-                
+
                 strengthText.textContent = '<?= $lang["general"]["password_strength"] ?? "Password strength"; ?>: ' + status;
             });
         }
