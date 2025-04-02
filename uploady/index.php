@@ -49,8 +49,9 @@ include_once APP_PATH . 'logic/indexLogic.php';
           <div id="upload-progress" class="mt-4 d-none">
             <h6 class="mb-2"><?= $lang["general"]['upload_progress'] ?? 'Upload Progress'; ?></h6>
             <div class="progress">
-              <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+              <progress id="upload-progress-bar" class="progress-bar progress-bar-striped progress-bar-animated w-100" value="0" max="100">0%</progress>
             </div>
+            <div class="text-center mt-1 small" id="progress-text">0%</div>
           </div>
         </div>
 
@@ -124,10 +125,12 @@ include_once APP_PATH . 'logic/indexLogic.php';
         });
 
         this.on("uploadprogress", function(file, progress) {
-          let progressBar = document.querySelector('.progress-bar');
-          progressBar.style.width = progress + '%';
-          progressBar.setAttribute('aria-valuenow', progress);
-          progressBar.textContent = Math.round(progress) + '%';
+          let progressBar = document.getElementById('upload-progress-bar');
+          let progressText = document.getElementById('progress-text');
+          let progressValue = Math.round(progress);
+          
+          progressBar.value = progressValue;
+          progressText.textContent = progressValue + '%';
         });
 
         this.on("success", function(file, response) {

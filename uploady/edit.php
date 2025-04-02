@@ -14,7 +14,7 @@
                     <i class="fas fa-arrow-left me-1"></i> <?= $lang["general"]['back_to_files'] ?? 'Back to My Files'; ?>
                 </a>
             </div>
-            
+
             <input type="hidden" id="file_name" value="<?= $file_data['filename'] ?>">
 
             <!-- File Info Card -->
@@ -33,8 +33,8 @@
                                 <label for="delete_at_days" class="form-label"><?= $lang["general"]['delete_after_days'] ?></label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                    <input type="number" id="delete_at_days" class="form-control" 
-                                        placeholder="<?= $lang['general']['delete_after_downloads_placeholder'] ?>" 
+                                    <input type="number" id="delete_at_days" class="form-control"
+                                        placeholder="<?= $lang['general']['delete_after_downloads_placeholder'] ?>"
                                         name="days" value="<?= $file_settings['delete_at']['days'] ?>" min="0">
                                 </div>
                                 <div class="form-text">
@@ -46,7 +46,7 @@
                                 <label for="delete_at_downloads" class="form-label"><?= $lang["general"]['delete_after_downloads'] ?></label>
                                 <div class="input-group">
                                     <span class="input-group-text"><i class="fas fa-download"></i></span>
-                                    <input type="number" id="delete_at_downloads" class="form-control" 
+                                    <input type="number" id="delete_at_downloads" class="form-control"
                                         name="downloads" value="<?= $file_settings['delete_at']['downloads'] ?>" min="0">
                                 </div>
                                 <div class="form-text">
@@ -79,7 +79,7 @@
                         <!-- Image Preview -->
                         <div class="text-center mb-4">
                             <div class="img-container mb-3 p-2 border rounded">
-                                <img name="canvas" id="canvas" src="<?= $picture ?>" class="img-fluid rounded" alt="<?= $file_data['filename'] ?>"></img>
+                                <img id="canvas" src="<?= $picture ?>" class="img-fluid rounded" alt="<?= $file_data['filename'] ?>"></img>
                             </div>
                         </div>
 

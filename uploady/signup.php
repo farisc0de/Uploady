@@ -57,7 +57,7 @@ include_once APP_PATH . 'logic/signupLogic.php';
                             </div>
                             <div class="password-strength mt-2" id="password-strength-meter">
                                 <div class="progress" style="height: 5px;">
-                                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <progress id="password-progress" class="w-100" value="0" max="100" style="height: 5px;"></progress>
                                 </div>
                                 <small class="form-text text-muted" id="password-strength-text"><?= $lang["general"]['password_strength'] ?? 'Password strength'; ?></small>
                             </div>
@@ -144,7 +144,7 @@ include_once APP_PATH . 'logic/signupLogic.php';
         }
         
         // Password strength meter
-        const strengthMeter = document.querySelector('#password-strength-meter .progress-bar');
+        const strengthMeter = document.getElementById('password-progress');
         const strengthText = document.getElementById('password-strength-text');
         
         if (password && strengthMeter && strengthText) {
@@ -159,25 +159,24 @@ include_once APP_PATH . 'logic/signupLogic.php';
                 if (val.match(/[0-9]+/) || val.match(/[^a-zA-Z0-9]+/)) strength += 25;
                 
                 // Update the strength meter
-                strengthMeter.style.width = strength + '%';
-                strengthMeter.setAttribute('aria-valuenow', strength);
+                strengthMeter.value = strength;
                 
                 // Update color based on strength
                 if (strength < 25) {
-                    strengthMeter.className = 'progress-bar bg-danger';
-                    status = '<?= $lang["general"]['password_weak'] ?? 'Weak'; ?>';
+                    strengthMeter.className = 'w-100 bg-danger';
+                    status = '<?= $lang["general"]["password_weak"] ?? "Weak"; ?>';
                 } else if (strength < 50) {
-                    strengthMeter.className = 'progress-bar bg-warning';
-                    status = '<?= $lang["general"]['password_fair'] ?? 'Fair'; ?>';
+                    strengthMeter.className = 'w-100 bg-warning';
+                    status = '<?= $lang["general"]["password_fair"] ?? "Fair"; ?>';
                 } else if (strength < 75) {
-                    strengthMeter.className = 'progress-bar bg-info';
-                    status = '<?= $lang["general"]['password_good'] ?? 'Good'; ?>';
+                    strengthMeter.className = 'w-100 bg-info';
+                    status = '<?= $lang["general"]["password_good"] ?? "Good"; ?>';
                 } else {
-                    strengthMeter.className = 'progress-bar bg-success';
-                    status = '<?= $lang["general"]['password_strong'] ?? 'Strong'; ?>';
+                    strengthMeter.className = 'w-100 bg-success';
+                    status = '<?= $lang["general"]["password_strong"] ?? "Strong"; ?>';
                 }
                 
-                strengthText.textContent = '<?= $lang["general"]['password_strength'] ?? 'Password strength'; ?>: ' + status;
+                strengthText.textContent = '<?= $lang["general"]["password_strength"] ?? "Password strength"; ?>: ' + status;
             });
         }
     });

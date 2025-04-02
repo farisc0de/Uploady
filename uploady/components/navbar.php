@@ -35,13 +35,13 @@
             
             <ul class="navbar-nav ms-auto">
                 <!-- Theme Switcher -->
-                <li class="nav-item me-1">
-                    <a class="nav-link px-2 rounded-circle d-flex align-items-center justify-content-center" 
+                <li class="nav-item me-1 dropdown">
+                    <button class="btn nav-link px-2 rounded-circle d-flex align-items-center justify-content-center" 
                        style="width: 36px; height: 36px;" 
-                       href="#" id="themeswitcher" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                       type="button" id="themeswitcher" data-bs-toggle="dropdown" aria-expanded="false"
                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?= $lang['theme']['change_theme'] ?? 'Change Theme' ?>">
                         <i class="fas fa-palette"></i>
-                    </a>
+                    </button>
 
                     <div class="dropdown-menu dropdown-menu-end shadow-sm border-0" aria-labelledby="themeswitcher">
                         <h6 class="dropdown-header"><?= $lang['theme']['select_theme'] ?? 'Select Theme' ?></h6>
@@ -55,13 +55,13 @@
                 </li>
                 
                 <!-- Language Switcher -->
-                <li class="nav-item me-1">
-                    <a class="nav-link px-2 rounded-circle d-flex align-items-center justify-content-center" 
+                <li class="nav-item me-1 dropdown">
+                    <button class="btn nav-link px-2 rounded-circle d-flex align-items-center justify-content-center" 
                        style="width: 36px; height: 36px;" 
-                       href="#" id="langswitcher" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                       type="button" id="langswitcher" data-bs-toggle="dropdown" aria-expanded="false"
                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?= $lang['navbar']['change_language'] ?? 'Change Language' ?>">
                         <i class="fas fa-globe"></i>
-                    </a>
+                    </button>
 
                     <div class="dropdown-menu dropdown-menu-end shadow-sm border-0" aria-labelledby="langswitcher">
                         <h6 class="dropdown-header"><?= $lang['navbar']['select_language'] ?? 'Select Language' ?></h6>
@@ -75,8 +75,8 @@
                 
                 <?php if (isset($_SESSION['loggedin'])) : ?>
                     <!-- User Menu -->
-                    <li class="nav-item">
-                        <a class="nav-link d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <li class="nav-item dropdown">
+                        <button class="btn nav-link d-flex align-items-center" type="button" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="d-flex align-items-center">
                                 <div class="rounded-circle bg-primary bg-opacity-10 d-flex align-items-center justify-content-center me-2" style="width: 32px; height: 32px;">
                                     <i class="fas fa-user text-primary"></i>
@@ -84,7 +84,7 @@
                                 <span class="d-none d-md-inline"><?= $_SESSION['username'] ?? 'User' ?></span>
                                 <i class="fas fa-chevron-down ms-1 small"></i>
                             </div>
-                        </a>
+                        </button>
 
                         <div class="dropdown-menu dropdown-menu-end shadow-sm border-0" aria-labelledby="navbarDropdown">
                             <h6 class="dropdown-header"><?= $lang['navbar']['account'] ?? 'Account' ?></h6>
