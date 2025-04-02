@@ -109,6 +109,7 @@ v4.0
 5. Adding File Taging (backlog)
 6. Adding Malware Scanning (backlog)
 7. Modernize the UI (done)
+8. Adding short URL (backlog)
 ```
 
 ## License
