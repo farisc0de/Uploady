@@ -88,6 +88,10 @@ class Auth
 
         $row = $this->db->single();
 
+        if (!$row) {
+            return 401; // Invalid credentials
+        }
+
         if (($this->db->rowCount() >= 1) && ($row->failed_login >= $total_failed_login)) {
             $last_login = strtotime($row->last_login);
             $timeout = $last_login + ($lockout_time * 60);
@@ -105,7 +109,7 @@ class Auth
 
         if (
             ($this->db->rowCount() == 1) &&
-            (password_verify($password, $row->password)) &&
+            (\password_verify($password, $row->password)) &&
             ($account_locked == false)
         ) {
             $last_login = $row->last_login;

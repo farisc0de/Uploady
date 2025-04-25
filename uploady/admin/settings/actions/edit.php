@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $utils->redirect("view.php?msg=" . $utils->sanitize($status));
         }
 
-        if (isset($_FILES['website_logo'])) {
+        if (isset($_FILES['website_logo']) && $_FILES['website_logo']['error'] == UPLOAD_ERR_OK) {
             $upload->setSiteUrl(SITE_URL);
 
             $upload->setUploadFolder([
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
             $upload->enableProtection();
 
-            $upload->setSizeLimit(1000000);
+            $upload->setSizeLimit("1 GB");
 
             $upload->setUpload(new Farisc0de\PhpFileUploading\File($_FILES['website_logo'], new \Farisc0de\PhpFileUploading\Utility()));
 
@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             }
         }
 
-        if (isset($_FILES['website_favicon'])) {
+        if (isset($_FILES['website_favicon']) && $_FILES['website_favicon']['error'] == UPLOAD_ERR_OK) {
             $upload->setSiteUrl(SITE_URL);
 
             $upload->setUploadFolder([
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
             $upload->enableProtection();
 
-            $upload->setSizeLimit(1000000);
+            $upload->setSizeLimit("1 GB");
 
             $upload->setUpload(new Farisc0de\PhpFileUploading\File($_FILES['website_favicon'], new \Farisc0de\PhpFileUploading\Utility()));
 

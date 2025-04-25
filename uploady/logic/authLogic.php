@@ -22,7 +22,7 @@ if ($auth->checkDeviceId($uniqueid) == true) {
     $user->regenerateSession();
 }
 
-$g = new \RobThree\Auth\TwoFactorAuth(new \RobThree\Auth\Providers\Qr\BaconQrCodeProvider(), "Uploady");
+$g = new \RobThree\Auth\TwoFactorAuth(new \RobThree\Auth\Providers\Qr\ImageChartsQRCodeProvider(), "Uploady");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $code = $utils->sanitize($_POST['otp_code']);

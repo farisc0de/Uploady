@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 include '../src/Utility.php';
 include '../src/Upload.php';
 include '../src/File.php';

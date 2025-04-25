@@ -2,20 +2,20 @@
     "packages": [
         {
             "name": "farisc0de/phpfileuploading",
-            "version": "v2.0.1",
-            "version_normalized": "2.0.1.0",
+            "version": "v2.5.1",
+            "version_normalized": "2.5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/farisc0de/PhpFileUploading.git",
-                "reference": "ff56c0eab5b30feb28c5a9d7146613f13612cfed"
+                "reference": "ae92742c0b86309c9975d3939fd2753a750ea6fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/farisc0de/PhpFileUploading/zipball/ff56c0eab5b30feb28c5a9d7146613f13612cfed",
-                "reference": "ff56c0eab5b30feb28c5a9d7146613f13612cfed",
+                "url": "https://api.github.com/repos/farisc0de/PhpFileUploading/zipball/ae92742c0b86309c9975d3939fd2753a750ea6fc",
+                "reference": "ae92742c0b86309c9975d3939fd2753a750ea6fc",
                 "shasum": ""
             },
-            "time": "2025-02-15T12:35:56+00:00",
+            "time": "2025-03-31T02:44:08+00:00",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -36,7 +36,7 @@
             "description": "PHP Library to help you build your own file sharing website.",
             "support": {
                 "issues": "https://github.com/farisc0de/PhpFileUploading/issues",
-                "source": "https://github.com/farisc0de/PhpFileUploading/tree/v2.0.1"
+                "source": "https://github.com/farisc0de/PhpFileUploading/tree/v2.5.1"
             },
             "install-path": "../farisc0de/phpfileuploading"
         },
@@ -88,17 +88,17 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.17.0",
-            "version_normalized": "2.17.0.0",
+            "version": "2.18.0",
+            "version_normalized": "2.18.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "075bc0c26631110584175de6523ab3f1652eb28e"
+                "reference": "a7de6c3c6c3c022f5cfc337f8ede6a14460cf77e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/075bc0c26631110584175de6523ab3f1652eb28e",
-                "reference": "075bc0c26631110584175de6523ab3f1652eb28e",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/a7de6c3c6c3c022f5cfc337f8ede6a14460cf77e",
+                "reference": "a7de6c3c6c3c022f5cfc337f8ede6a14460cf77e",
                 "shasum": ""
             },
             "require": {
@@ -114,7 +114,7 @@
                 "symfony/var-dumper": "Pretty print complex values better with var-dumper available",
                 "whoops/soap": "Formats errors as SOAP responses"
             },
-            "time": "2025-01-25T12:00:00+00:00",
+            "time": "2025-03-15T12:00:00+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -150,7 +150,7 @@
             ],
             "support": {
                 "issues": "https://github.com/filp/whoops/issues",
-                "source": "https://github.com/filp/whoops/tree/2.17.0"
+                "source": "https://github.com/filp/whoops/tree/2.18.0"
             },
             "funding": [
                 {
@@ -438,23 +438,23 @@
         },
         {
             "name": "wolfcast/browser-detection",
-            "version": "2.9.8",
-            "version_normalized": "2.9.8.0",
+            "version": "2.9.9",
+            "version_normalized": "2.9.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Wolfcast/BrowserDetection.git",
-                "reference": "bdefc66821164ecdfa7c2596e303f7c681544f4f"
+                "reference": "f863a616536850a9713249de70ee60a18ffb9a13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Wolfcast/BrowserDetection/zipball/bdefc66821164ecdfa7c2596e303f7c681544f4f",
-                "reference": "bdefc66821164ecdfa7c2596e303f7c681544f4f",
+                "url": "https://api.github.com/repos/Wolfcast/BrowserDetection/zipball/f863a616536850a9713249de70ee60a18ffb9a13",
+                "reference": "f863a616536850a9713249de70ee60a18ffb9a13",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
             },
-            "time": "2024-04-22T02:21:19+00:00",
+            "time": "2025-03-23T16:23:10+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -485,7 +485,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Wolfcast/BrowserDetection/issues",
-                "source": "https://github.com/Wolfcast/BrowserDetection/tree/2.9.8"
+                "source": "https://github.com/Wolfcast/BrowserDetection/tree/2.9.9"
             },
             "install-path": "../wolfcast/browser-detection"
         }

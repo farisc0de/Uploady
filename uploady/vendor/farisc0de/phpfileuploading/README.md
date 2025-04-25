@@ -23,12 +23,6 @@ composer require farisc0de/phpfileuploading
 
 take a look at the examples
 
-## TODO
-
-```
-Image Manipulation
-```
-
 ## License
 
 MIT

@@ -1,7 +1,7 @@
 <?php
 include_once '../../session.php';
 
-$otpauth = new \RobThree\Auth\TwoFactorAuth(new \RobThree\Auth\Providers\Qr\BaconQrCodeProvider(), "Uploady");
+$otpauth = new \RobThree\Auth\TwoFactorAuth(new \RobThree\Auth\Providers\Qr\ImageChartsQRCodeProvider(), "Uploady");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($auth->checkToken($_POST['csrf'], $_SESSION['csrf']) == false) {

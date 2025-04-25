@@ -1,5 +1,5 @@
 <div align="center">
-   <img src="https://i.ibb.co/qMSh4gN/UPLOADY-removebg-preview.png" alt="UPLOADY-removebg-preview" border="0">
+<a href="https://ibb.co/LXPzsfRs"><img src="https://raw.githubusercontent.com/farisc0de/Uploady/refs/heads/main/uploady_logo.png" alt="Untitled-design-11" border="0" /></a>
 </div>
 
 ![](https://img.shields.io/github/license/farisc0de/Uploady) ![](https://img.shields.io/github/v/release/farisc0de/Uploady) ![](https://img.shields.io/github/repo-size/farisc0de/Uploady) ![](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=farisc0de_Uploady&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=farisc0de_Uploady)
@@ -43,7 +43,7 @@ And it is free and open source.
 
 ## Screenshots
 
-![](https://i.imgur.com/ropeZWD.png)
+![](https://i.imgur.com/jALS2DN.png)
 
 ![](https://i.imgur.com/fTe1FCZ.png)
 
@@ -102,9 +102,14 @@ Click here for a real demo [Uploady.NET](https://github.com/farisc0de/Uploady.NE
 
 ```
 v4.0
-1. Report abuse dashboard
-2. PhpFileUpload refactor
-3. Upgrade Bootstrap to 5.3.3
+1. Report abuse dashboard (in progress)
+2. PhpFileUpload refactor (done)
+3. Upgrade Bootstrap to 5.3.3 (done)
+4. S3 Bucket Integration (backlog)
+5. Adding File Taging (backlog)
+6. Adding Malware Scanning (backlog)
+7. Modernize the UI (done)
+8. Adding short URL (backlog)
 ```
 
 ## License

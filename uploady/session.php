@@ -5,7 +5,6 @@ session_start();
 include_once 'config/config.php';
 
 if (isset($_SESSION)) {
-
     $username = isset($_SESSION['username']) ? $_SESSION['username'] : null;
     $data = null;
 

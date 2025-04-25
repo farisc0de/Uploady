@@ -23,7 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             [
                 'reporter' => $_POST['emailaddress'],
                 'reported_url' => $_POST['fileid'],
-                'reason' => $_POST['fileabusenote']
+                'reason' => $_POST['fileabusenote'],
+                'type' => $_POST['fileabusetype']
             ]
         )
     );

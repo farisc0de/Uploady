@@ -13,8 +13,8 @@ if (ENVIRONMENT != "installation") {
     $st = $settings->getSettings();
 
     if (ENVIRONMENT == 'development' || ENVIRONMENT == 'testing') {
-        $whoops = new \Whoops\Run;
-        $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+        $whoops = new \Whoops\Run();
+        $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler());
         $whoops->register();
     }
 
