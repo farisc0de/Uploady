@@ -53,7 +53,9 @@ switch ($route) {
     case 'upload':
         $api->processRequest($_SERVER['REQUEST_METHOD'], $id);
         break;
-
+    case 'list':
+        $api->processRequest($_SERVER['REQUEST_METHOD'], $id);
+        break;
     default:
         http_response_code(404);
         echo json_encode(["message" => "Route not found"]);

@@ -117,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'otp_status',
                 Types::Boolean(),
                 Options::notNull(),
-                Options::defaultValue("0")
+                Options::defaultValue(false)
             ],
             [
                 'otp_secret',

@@ -34,8 +34,7 @@ class API
         private \Uploady\DataCollection $dataCollection,
         private \Wolfcast\BrowserDetection $browser,
         private \Uploady\Handler\UploadHandler $handler
-    ) {
-    }
+    ) {}
 
     /**
      * Process API request
@@ -51,110 +50,96 @@ class API
     {
         switch ($method) {
             case "GET":
-                $lang = $this->localization->loadLangauge("en");
-
-                $file = $this->handler->getFile($id);
-
-                if ($file == null) {
-                    $this->responedNotFound($id);
-                    exit();
-                }
-
-                echo $this->responedCreated($file);
+                $this->handleGetRequest($id);
                 break;
             case 'POST':
-                $lang = $this->localization->loadLangauge("en");
-
-                $this->gateway->setSiteUrl(SITE_URL);
-
-                $this->gateway->generateUserID();
-
-                $this->gateway->createUserCloud("../" . UPLOAD_FOLDER);
-
-                $this->gateway->setUploadFolder([
-                    "folder_name" => $this->gateway->getUserCloud(UPLOAD_FOLDER),
-                    "folder_path" => realpath($this->gateway->getUserCloud("../" . UPLOAD_FOLDER)),
-                ]);
-
-                $this->gateway->enableProtection();
-
-                $this->gateway->setSizeLimit($this->role->get($_SESSION['user_role'])->size_limit);
-
-                $this->gateway->generateFileID();
-
-                $this->gateway->setUpload(new \Farisc0de\PhpFileUploading\File($_FILES['file'], $this->utils));
-
-                if (!$this->gateway->checkIfNotEmpty()) {
-                    $this->respondBadRequest(
-                        $lang["general"]['file_is_empty']
-                    );
-                    exit();
-                }
-
-                $this->gateway->hashName();
-
-                if (!$this->gateway->checkSize()) {
-                    $this->respondBadRequest($lang["general"]['file_is_too_large']);
-                    exit();
-                }
-
-                if (
-                    !$this->gateway->checkForbidden()
-                ) {
-                    $this->respondBadRequest($lang["general"]['file_name_is_forbidden']);
-                    exit();
-                }
-
-                if (
-                    !$this->gateway->checkExtension()
-                ) {
-                    $this->respondBadRequest(
-                        $lang["general"]['file_type_is_not_allowed']
-                    );
-                    exit();
-                }
-
-                if (
-                    !$this->gateway->checkMime()
-                ) {
-                    $this->respondBadRequest(
-                        $lang["general"]['file_mime_type_is_not_allowed']
-                    );
-                    exit();
-                }
-
-                if ($this->gateway->upload()) {
-                    $this->handler->addFile(
-                        $this->gateway->getFileID(),
-                        $this->gateway->getUserID(),
-                        $this->gateway->getJSON(),
-                        json_encode(
-                            [
-                                "ip_address" => $this->dataCollection->collectIP(),
-                                "country" => $this->dataCollection->idendifyCountry(),
-                                "browser" => $this->dataCollection->getBrowser($this->browser),
-                                "os" => $this->dataCollection->getOS()
-                            ]
-                        ),
-                        json_encode(
-                            [
-                                "delete_at" => [
-                                    "downloads" => 0,
-                                    "days" => 0,
-                                ],
-                            ]
-                        )
-                    );
-                }
-
-                $files = $this->gateway->getFiles();
-
-                echo $this->responedCreated($files[0]);
+                $this->handlePostRequest();
                 break;
             default:
-                $this->responedMethodNotAllowed(["POST"]);
+                $this->respondMethodNotAllowed(["POST"]);
                 break;
         }
+    }
+
+    private function handleGetRequest(?string $id): void
+    {
+        $lang = $this->localization->loadLangauge("en");
+
+        $file = $this->handler->getFile($id);
+
+        if ($file == null) {
+            $this->respondNotFound($id);
+            exit();
+        }
+
+        $this->respondCreated($file);
+    }
+
+    private function handlePostRequest(): void
+    {
+        $lang = $this->localization->loadLangauge("en");
+
+        $this->gateway->setSiteUrl(SITE_URL);
+        $this->gateway->generateUserID();
+        $this->gateway->createUserCloud("../" . UPLOAD_FOLDER);
+        $this->gateway->setUploadFolder([
+            "folder_name" => $this->gateway->getUserCloud(UPLOAD_FOLDER),
+            "folder_path" => realpath($this->gateway->getUserCloud("../" . UPLOAD_FOLDER)),
+        ]);
+        $this->gateway->enableProtection();
+        $this->gateway->setSizeLimit($this->role->get($_SESSION['user_role'])->size_limit);
+        $this->gateway->generateFileID();
+        $this->gateway->setUpload(new \Farisc0de\PhpFileUploading\File($_FILES['file'], $this->utils));
+
+        if (!$this->gateway->checkIfNotEmpty()) {
+            $this->respondBadRequest($lang["general"]['file_is_empty']);
+            exit();
+        }
+
+        $this->gateway->hashName();
+
+        if (!$this->gateway->checkSize()) {
+            $this->respondBadRequest($lang["general"]['file_is_too_large']);
+            exit();
+        }
+
+        if (!$this->gateway->checkForbidden()) {
+            $this->respondBadRequest($lang["general"]['file_name_is_forbidden']);
+            exit();
+        }
+
+        if (!$this->gateway->checkExtension()) {
+            $this->respondBadRequest($lang["general"]['file_type_is_not_allowed']);
+            exit();
+        }
+
+        if (!$this->gateway->checkMime()) {
+            $this->respondBadRequest($lang["general"]['file_mime_type_is_not_allowed']);
+            exit();
+        }
+
+        if ($this->gateway->upload()) {
+            $this->handler->addFile(
+                $this->gateway->getFileID(),
+                $this->gateway->getUserID(),
+                $this->gateway->getJSON(),
+                json_encode([
+                    "ip_address" => $this->dataCollection->collectIP(),
+                    "country" => $this->dataCollection->idendifyCountry(),
+                    "browser" => $this->dataCollection->getBrowser($this->browser),
+                    "os" => $this->dataCollection->getOS()
+                ]),
+                json_encode([
+                    "delete_at" => [
+                        "downloads" => 0,
+                        "days" => 0,
+                    ],
+                ])
+            );
+        }
+
+        $files = $this->gateway->getFiles();
+        $this->respondCreated($files[0]);
     }
 
     /**
@@ -163,10 +148,9 @@ class API
      * @param array $errors
      * @return void
      */
-    public function responedUnprocessableEntity(array $errors)
+    public function respondUnprocessableEntity(array $errors): void
     {
-        http_response_code(442);
-
+        http_response_code(422);
         echo json_encode(["errors" => $errors]);
     }
 
@@ -176,10 +160,9 @@ class API
      * @param array $allowed_method
      * @return void
      */
-    public function responedMethodNotAllowed(array $allowed_method): void
+    public function respondMethodNotAllowed(array $allowed_method): void
     {
         http_response_code(405);
-
         header("Allow: " . implode(", ", $allowed_method));
     }
 
@@ -189,10 +172,9 @@ class API
      * @param string $id
      * @return void
      */
-    public function responedNotFound(string $id): void
+    public function respondNotFound(string $id): void
     {
         http_response_code(404);
-
         echo json_encode([
             "id" => $id,
             "message" => "File not found"
@@ -205,10 +187,9 @@ class API
      * @param mixed $file
      * @return void
      */
-    public function responedCreated(mixed $file): void
+    public function respondCreated(mixed $file): void
     {
         http_response_code(201);
-
         echo json_encode($file);
     }
 
@@ -221,7 +202,6 @@ class API
     public function respondForbidden($message): void
     {
         http_response_code(403);
-
         echo json_encode(["error" => $message]);
     }
 
@@ -234,10 +214,8 @@ class API
     public function respondBadRequest($message): void
     {
         http_response_code(400);
-
         echo json_encode(["error" => $message]);
     }
-
 
     /**
      * Get validation errors
