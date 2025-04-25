@@ -67,13 +67,15 @@ include_once APP_PATH . 'logic/loginLogic.php';
                     </form>
                 </div>
 
-                <div class="card-footer py-3 text-center">
-                    <p class="mb-0">
-                        <a href="<?= $utils->siteUrl('/signup.php'); ?>" class="fw-bold text-decoration-none">
-                            <?= $lang["general"]['signup_cta_msg']; ?>
-                        </a>
-                    </p>
-                </div>
+                <?php if ($settings->getSettingValue("disable_signup") == false): ?>
+                    <div class="card-footer py-3 text-center">
+                        <p class="mb-0">
+                            <a href="<?= $utils->siteUrl('/signup.php'); ?>" class="fw-bold text-decoration-none">
+                                <?= $lang["general"]['signup_cta_msg']; ?>
+                            </a>
+                        </p>
+                    </div>
+                <?php endif ?>
             </div>
 
             <div class="text-center mt-4">

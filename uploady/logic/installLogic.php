@@ -380,6 +380,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $install->insertValue(
             "settings",
             [
+                "setting_key" => "disable_signup",
+                "setting_value" => false
+            ]
+        );
+        $install->insertValue(
+            "settings",
+            [
                 'setting_key' => 'twitter_link',
                 'setting_value' => null
             ]

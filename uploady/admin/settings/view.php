@@ -128,6 +128,16 @@ include_once 'logic/settings.php';
                                         <hr />
 
                                         <div class="form-group">
+                                            <input hidden name="disable_signup" value="0" />
+                                            <div class="custom-control custom-switch custom-control-right">
+                                                <input class="custom-control-input" id="disable_signup" name="disable_signup" value="1" type="checkbox" <?= ($settings->getSettingValue('disable_signup') == true) ? 'checked' : null; ?>>
+                                                <label class="custom-control-label" for="disable_signup">Disable Signup</label>
+                                            </div>
+                                        </div>
+
+                                        <hr />
+
+                                        <div class="form-group">
                                             <div class="form-label-group">
                                                 <input class="form-control" type="text" id="instagram_link" name="instagram_link" placeholder="Instagram Link" value="<?= $settings->getSettingValue('instagram_link'); ?>">
                                                 <label for="instagram_link"><i class="fab fa-instagram"></i> Instagram Link</label>
