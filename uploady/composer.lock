@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "farisc0de/phpfileuploading",
-            "version": "v2.5.1",
+            "version": "v2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/farisc0de/PhpFileUploading.git",
-                "reference": "ae92742c0b86309c9975d3939fd2753a750ea6fc"
+                "reference": "de4b361417e390e6a6a04e4a2dcc077d05c19061"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/farisc0de/PhpFileUploading/zipball/ae92742c0b86309c9975d3939fd2753a750ea6fc",
-                "reference": "ae92742c0b86309c9975d3939fd2753a750ea6fc",
+                "url": "https://api.github.com/repos/farisc0de/PhpFileUploading/zipball/de4b361417e390e6a6a04e4a2dcc077d05c19061",
+                "reference": "de4b361417e390e6a6a04e4a2dcc077d05c19061",
                 "shasum": ""
             },
             "type": "library",
@@ -39,9 +39,9 @@
             "description": "PHP Library to help you build your own file sharing website.",
             "support": {
                 "issues": "https://github.com/farisc0de/PhpFileUploading/issues",
-                "source": "https://github.com/farisc0de/PhpFileUploading/tree/v2.5.1"
+                "source": "https://github.com/farisc0de/PhpFileUploading/tree/v2.6.0"
             },
-            "time": "2025-03-31T02:44:08+00:00"
+            "time": "2025-05-03T16:48:48+00:00"
         },
         {
             "name": "farisc0de/phpmigration",
