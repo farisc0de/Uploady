@@ -62,7 +62,7 @@ class Localization
         $file = file_get_contents(realpath(APP_PATH . "/languages/en.json"));
         $file = json_decode($file, true);
         $file = json_encode($file, JSON_PRETTY_PRINT);
-        file_put_contents(realpath(APP_PATH . "/languages/{$language}.json"), $file);
+        file_put_contents(APP_PATH . "/languages/{$language}.json", $file);
     }
 
     /**

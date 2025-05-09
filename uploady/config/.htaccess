@@ -1,5 +1,4 @@
 Options -Indexes
 <Files .htaccess>
-Order allow,deny
-Deny from all
+Require all denied
 </Files>
