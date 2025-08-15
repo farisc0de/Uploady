@@ -36,11 +36,14 @@
               <ul class="navbar-nav ms-auto">
                   <!-- Theme Switcher -->
                   <li class="nav-item me-1 dropdown">
-                      <button class="btn nav-link px-2 rounded-circle d-flex align-items-center justify-content-center"
-                          style="width: 36px; height: 36px;"
+                      <button class="btn nav-link d-flex align-items-center"
                           type="button" id="themeswitcher" data-bs-toggle="dropdown" aria-expanded="false"
                           data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?= $lang['theme']['change_theme'] ?? 'Change Theme' ?>">
-                          <i class="fas fa-palette"></i>
+                          <div class="d-flex align-items-center">
+                              <div class="d-flex align-items-center justify-content-center" style="height: 32px;">
+                                  <i class="fas fa-palette"></i>
+                              </div>
+                          </div>
                       </button>
 
                       <div class="dropdown-menu dropdown-menu-end shadow-sm border-0" aria-labelledby="themeswitcher">
@@ -56,11 +59,14 @@
 
                   <!-- Language Switcher -->
                   <li class="nav-item me-1 dropdown">
-                      <button class="btn nav-link px-2 rounded-circle d-flex align-items-center justify-content-center"
-                          style="width: 36px; height: 36px;"
+                      <button class="btn nav-link d-flex align-items-center"
                           type="button" id="langswitcher" data-bs-toggle="dropdown" aria-expanded="false"
                           data-bs-toggle="tooltip" data-bs-placement="bottom" title="<?= $lang['navbar']['change_language'] ?? 'Change Language' ?>">
-                          <i class="fas fa-globe"></i>
+                          <div class="d-flex align-items-center">
+                              <div class="d-flex align-items-center justify-content-center" style="height: 32px;">
+                                  <i class="fas fa-globe"></i>
+                              </div>
+                          </div>
                       </button>
 
                       <div class="dropdown-menu dropdown-menu-end shadow-sm border-0" aria-labelledby="langswitcher">
