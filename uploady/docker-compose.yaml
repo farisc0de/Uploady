@@ -1,13 +1,17 @@
 services:
   app:
     ports:
-      - 80:8080
+      - ${UPLOADY_PORT:-8080}:8080
     volumes:
-      - .:/var/www/html
+      - ${UPLOADY_UPLOADS_PATH:-uploads}:/var/www/html/uploads
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/html
       SSL_MODE: "off"
-    image: serversideup/php:8.3-fpm-apache
+    build:
+      context: .
+      args:
+        USER_ID: ${UPLOADY_UID:-33}
+        GROUP_ID: ${UPLOADY_GID:-33}
     depends_on:
       - db
 
@@ -16,9 +20,9 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: "uploady"
-      MYSQL_USER: "uploady"
-      MYSQL_PASSWORD: "uploady"
-      MYSQL_ROOT_PASSWORD: "uploady"
+      MYSQL_USER: ${UPLOADY_MYSQL_USER:?error}
+      MYSQL_PASSWORD: ${UPLOADY_MYSQL_PASS:?error}
+      MYSQL_ROOT_PASSWORD: ${UPLOADY_MYSQL_ROOT_PASS:?error}
     volumes:
       - mysql_data:/var/lib/mysql
 
