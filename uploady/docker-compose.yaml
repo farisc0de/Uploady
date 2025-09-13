@@ -1,9 +1,12 @@
 services:
-  app:
+  uploady:
+    container_name: uploady
     ports:
       - ${UPLOADY_PORT:-8080}:8080
     volumes:
       - ${UPLOADY_UPLOADS_PATH:-uploads}:/var/www/html/uploads
+    networks:
+      - uploady
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/html
       SSL_MODE: "off"
@@ -13,10 +16,11 @@ services:
         USER_ID: ${UPLOADY_UID:-33}
         GROUP_ID: ${UPLOADY_GID:-33}
     depends_on:
-      - db
+      - uploady-db
 
-  db:
+  uploady-db:
     image: mysql:latest
+    container_name: uploady-db
     restart: always
     environment:
       MYSQL_DATABASE: "uploady"
@@ -25,6 +29,11 @@ services:
       MYSQL_ROOT_PASSWORD: ${UPLOADY_MYSQL_ROOT_PASS:?error}
     volumes:
       - mysql_data:/var/lib/mysql
+    networks:
+      - uploady
 
 volumes:
   mysql_data:
+
+networks:
+  uploady:
