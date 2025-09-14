@@ -1,13 +1,13 @@
 <?php
 
 // Database Settings
-define("DB_HOST", "localhost");
-define("DB_USER", "root");
-define("DB_PASS", "");
-define("DB_NAME", "uploady");
+define("DB_HOST", getenv("UPLOADY_DB_HOST") ?: "localhost");
+define("DB_USER", getenv("UPLOADY_DB_USER") ?: "root");
+define("DB_PASS", getenv("UPLOADY_DB_PASS") ?: "");
+define("DB_NAME", getenv("UPLOADY_DB_NAME") ?: "uploady");
 
 // Application Settings
-define("SITE_URL", "http://localhost/");
+define("SITE_URL", getenv("UPLOADY_SITE_URL") ?: "http://localhost/");
 define("APP_PATH", dirname(__FILE__, 2) . DIRECTORY_SEPARATOR);
 define("LOGS_PATH", APP_PATH . "php_logs.log");
 

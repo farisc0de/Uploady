@@ -10,6 +10,9 @@ services:
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/html
       SSL_MODE: "off"
+      UPLOADY_DB_HOST: ${UPLOADY_MYSQL_HOST:?error}
+      UPLOADY_DB_USER: ${UPLOADY_MYSQL_USER:?error}
+      UPLOADY_DB_PASS: ${UPLOADY_MYSQL_PASS:?error}
     build:
       context: .
       args:
