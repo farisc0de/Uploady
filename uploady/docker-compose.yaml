@@ -20,11 +20,11 @@ services:
         GROUP_ID: ${UPLOADY_GID:-33}
     depends_on:
       - uploady-db
+    restart: unless-stopped
 
   uploady-db:
     image: mysql:latest
     container_name: uploady-db
-    restart: always
     environment:
       MYSQL_DATABASE: "uploady"
       MYSQL_USER: ${UPLOADY_MYSQL_USER:?error}
@@ -34,6 +34,7 @@ services:
       - mysql_data:/var/lib/mysql
     networks:
       - uploady
+    restart: unless-stopped
 
 volumes:
   mysql_data:
