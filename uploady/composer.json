@@ -1,6 +1,6 @@
 {
   "require": {
-    "phpmailer/phpmailer": "^6.2",
+    "phpmailer/phpmailer": "^7.0",
     "google/recaptcha": "^1.2",
     "farisc0de/phpfileuploading": "^2.0",
     "robthree/twofactorauth": "^3.0",
