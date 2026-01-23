@@ -53,4 +53,15 @@ interface RateLimiterInterface
      * @return array Configuration array with 'limit' and 'window' keys
      */
     public function getConfig(): array;
+
+    /**
+     * Check rate limit and return a result object
+     *
+     * This method checks if the identifier is allowed, records a hit if allowed,
+     * and returns a RateLimitResult with all relevant information.
+     *
+     * @param string $identifier Unique identifier (e.g., IP address, user ID)
+     * @return RateLimitResult The rate limit check result
+     */
+    public function check(string $identifier): RateLimitResult;
 }

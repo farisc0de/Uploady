@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "farisc0de/phpfileuploading",
-            "version": "v3.0.0",
+            "version": "v3.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/farisc0de/PhpFileUploading.git",
-                "reference": "10f2ec29fabdd1fe52e04de17518d2c91a93b0b7"
+                "reference": "fba8943f10fe10410332caa6fcd3d27662f48b40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/farisc0de/PhpFileUploading/zipball/10f2ec29fabdd1fe52e04de17518d2c91a93b0b7",
-                "reference": "10f2ec29fabdd1fe52e04de17518d2c91a93b0b7",
+                "url": "https://api.github.com/repos/farisc0de/PhpFileUploading/zipball/fba8943f10fe10410332caa6fcd3d27662f48b40",
+                "reference": "fba8943f10fe10410332caa6fcd3d27662f48b40",
                 "shasum": ""
             },
             "require": {
@@ -68,9 +68,9 @@
             ],
             "support": {
                 "issues": "https://github.com/farisc0de/PhpFileUploading/issues",
-                "source": "https://github.com/farisc0de/PhpFileUploading/tree/v3.0.0"
+                "source": "https://github.com/farisc0de/PhpFileUploading/tree/v3.2.3"
             },
-            "time": "2026-01-10T08:16:05+00:00"
+            "time": "2026-01-23T22:16:10+00:00"
         },
         {
             "name": "farisc0de/phpmigration",

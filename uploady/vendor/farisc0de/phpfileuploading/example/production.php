@@ -32,7 +32,7 @@ use Farisc0de\PhpFileUploading\Logging\LogLevel;
 // Configuration
 $config = [
     'upload_dir' => __DIR__ . '/uploads',
-    'public_url' => 'https://example.com/uploads',
+    'public_url' => 'https://uploady.local/uploady',
     'log_file' => __DIR__ . '/logs/upload.log',
     'rate_limit_dir' => __DIR__ . '/rate_limits',
     'max_uploads_per_minute' => 10,

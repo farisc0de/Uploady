@@ -1,5 +1,119 @@
 # Changelog
 
+## [3.0.0] - 2026-01-10
+
+Major release introducing production-ready features including custom exceptions, PSR-3 logging, event system, storage abstraction, rate limiting, and virus scanning.
+
+### Added
+
+#### Exception Hierarchy
+- `UploadException` - Base exception class with context support
+- `ValidationException` - Validation errors with factory methods
+- `StorageException` - Storage operation failures
+- `FileNotFoundException` - Missing file errors
+- `ConfigurationException` - Configuration issues
+- `ImageException` - Image processing errors
+
+#### PSR-3 Logging
+- `LoggerInterface` - PSR-3 compatible logging interface
+- `LogLevel` - Log level constants
+- `FileLogger` - File-based logger with rotation support
+- `NullLogger` - No-op logger for testing
+- `LoggerAwareTrait` - Trait for adding logging to any class
+
+#### Validation System
+- `ValidationResult` - Rich validation result objects
+- `ValidationError` - Individual error representation
+- `ValidatorInterface` - Validator contract
+- `ValidationChain` - Chain multiple validators together
+- `ExtensionValidator` - Extension whitelist/blacklist validation
+- `MimeTypeValidator` - MIME type validation with strict mode
+- `SizeValidator` - File size validation with category limits
+- `FilenameValidator` - Forbidden names, path traversal detection
+- `ImageDimensionValidator` - Image dimension and aspect ratio validation
+
+#### Storage Abstraction
+- `StorageInterface` - Flysystem-compatible storage interface
+- `LocalStorage` - Local filesystem storage adapter
+- `FileInfo` - File/directory metadata representation
+- `StorageManager` - Multi-disk storage management
+
+#### Rate Limiting
+- `RateLimiterInterface` - Rate limiter contract
+- `RateLimitResult` - Rate limit check result with headers
+- `InMemoryRateLimiter` - Memory-based rate limiter
+- `FileRateLimiter` - Persistent file-based rate limiter
+
+#### Virus Scanning
+- `VirusScannerInterface` - Virus scanner contract
+- `ScanResult` - Scan result representation
+- `ClamAvScanner` - ClamAV integration (socket + CLI)
+- `NullScanner` - No-op scanner for development
+
+#### Event System
+- `EventInterface` - Event contract
+- `AbstractEvent` - Base event class
+- `UploadEvents` - Event name constants
+- `FileEvent` - File-related events
+- `ValidationEvent` - Validation events with result
+- `ScanEvent` - Virus scan events
+- `EventDispatcher` - Event dispatcher with priorities
+- `ListenerInterface` - Event listener contract
+
+#### New Classes
+- `UploadManager` - All-in-one upload manager combining all features
+- `UploadResult` - Comprehensive upload result object
+
+#### Testing
+- PHPUnit test suite with unit tests for all new components
+- `phpunit.xml` configuration file
+
+### Changed
+
+#### Upload Class
+- Integrated `LoggerAwareTrait` for PSR-3 logging
+- Added `EventDispatcher` integration for upload lifecycle events
+- Replaced generic exceptions with custom exception hierarchy
+- Added `enableExceptions()` method to throw exceptions instead of returning false
+- Added `validate()` method returning `ValidationResult` object
+- Added `setEventDispatcher()` and `getEventDispatcher()` methods
+- Added `getFile()` and `getFileName()` accessor methods
+- All validation methods now log warnings on failure
+- Events dispatched for: before/after upload, before/after validation, validation failed, upload failed
+
+#### composer.json
+- Updated PHP requirement to 8.1+
+- Added dev dependencies: phpunit, phpstan, phpcs
+- Added autoload-dev for tests namespace
+- Added scripts: test, test-coverage, phpstan, cs-check, cs-fix
+- Added suggested packages: ext-gd, league/flysystem, monolog
+
+#### Documentation
+- Comprehensive README.md with all new features
+- Usage examples for all components
+- Security best practices guide
+
+### Examples
+- Updated `production.php` with multi-file upload support
+- Demonstrates all new features: validation chain, rate limiting, virus scanning, events, logging
+
+### Dependencies
+- Requires PHP 8.1 or higher
+- Requires `fileinfo` extension
+- Requires `json` extension
+- Optional: `gd` extension for image processing
+
+### Migration Guide
+
+Users upgrading from 2.x should note:
+
+1. Update PHP version to 8.1 or higher
+2. Exceptions are now specific types - update catch blocks
+3. Consider using `UploadManager` for new projects
+4. Enable logging with `setLogger()` method
+5. Use `enableExceptions(true)` for exception-based flow
+6. Use `validate()` method for detailed validation results
+
 ## [2.6.0] - 2025-05-03
 
 Enhanced file filtering and validation with a more comprehensive approach to file type management.

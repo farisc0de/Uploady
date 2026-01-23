@@ -2,10 +2,11 @@
 
 $handler = new Uploady\Handler\UploadHandler($db);
 
+
 if (isset($_GET['file_id']) && isset($_GET['user_id'])) {
 
-    $fileID = $utils->sanitize($_POST['file_id']);
-    $userID = $utils->sanitize($_POST['user_id']);
+    $fileID = $utils->sanitize($_GET['file_id']);
+    $userID = $utils->sanitize($_GET['user_id']);
 
     if ($handler->fileExist($fileID) && $handler->userExist($userID) && $_SESSION['user_id'] == $userID) {
         $file = json_decode($handler->getFile($fileID)->file_data);

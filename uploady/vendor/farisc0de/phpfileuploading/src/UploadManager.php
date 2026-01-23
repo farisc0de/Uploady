@@ -37,6 +37,10 @@ class UploadManager
 
     private bool $hashFilenames = true;
     private string $hashAlgorithm = 'sha256';
+    private ?string $siteUrl = null;
+    private ?string $userId = null;
+    private ?string $fileId = null;
+    private ?string $baseFolderName = null;
 
     public function __construct(
         StorageInterface $storage,
@@ -169,6 +173,27 @@ class UploadManager
                 $result->setPublicUrl($this->storage->publicUrl($fullPath));
             } catch (\Exception $e) {
                 // Public URL not available
+            }
+
+            // Set link generation data
+            if ($this->siteUrl !== null) {
+                $result->setSiteUrl($this->siteUrl);
+                
+                // Use baseFolderName if set, otherwise combine with destination
+                $folderName = $this->baseFolderName ?? '';
+                if (!empty($destination)) {
+                    $folderName = $folderName ? $folderName . '/' . $destination : $destination;
+                }
+                $result->setFolderName($folderName);
+                $result->setHashId($file->getFileHash());
+                
+                if ($this->userId !== null) {
+                    $result->setUserId($this->userId);
+                }
+                
+                if ($this->fileId !== null) {
+                    $result->setFileId($this->fileId);
+                }
             }
 
             // Dispatch after upload event
@@ -315,6 +340,196 @@ class UploadManager
     public function getStorage(): StorageInterface
     {
         return $this->storage;
+    }
+
+    /**
+     * Set site URL for link generation
+     */
+    public function setSiteUrl(?string $url): self
+    {
+        $this->siteUrl = $url ? rtrim($url, '/') : null;
+        return $this;
+    }
+
+    /**
+     * Get site URL
+     */
+    public function getSiteUrl(): ?string
+    {
+        return $this->siteUrl;
+    }
+
+    /**
+     * Set user ID for link generation
+     */
+    public function setUserId(?string $userId): self
+    {
+        $this->userId = $userId;
+        return $this;
+    }
+
+    /**
+     * Get user ID
+     */
+    public function getUserId(): ?string
+    {
+        return $this->userId;
+    }
+
+    /**
+     * Set file ID for link generation (from your database)
+     */
+    public function setFileId(?string $fileId): self
+    {
+        $this->fileId = $fileId;
+        return $this;
+    }
+
+    /**
+     * Get file ID
+     */
+    public function getFileId(): ?string
+    {
+        return $this->fileId;
+    }
+
+    /**
+     * Set base folder name for direct link generation
+     * 
+     * Use this when your storage root is already a subfolder (e.g., uploads/user123)
+     * and you need the direct link to include that path.
+     * 
+     * @param string|null $folderName The base folder path (e.g., 'uploads/user123')
+     */
+    public function setBaseFolderName(?string $folderName): self
+    {
+        $this->baseFolderName = $folderName ? trim($folderName, '/') : null;
+        return $this;
+    }
+
+    /**
+     * Get base folder name
+     */
+    public function getBaseFolderName(): ?string
+    {
+        return $this->baseFolderName;
+    }
+
+    /**
+     * Generate a secure file ID (static version)
+     * 
+     * Can be called without an UploadManager instance.
+     * Uses cryptographically secure random bytes combined with high-resolution
+     * timestamp for uniqueness and unpredictability.
+     *
+     * @param string $algorithm Hash algorithm to use (default: sha256)
+     * @return string The generated file ID
+     */
+    public static function createFileId(string $algorithm = 'sha256'): string
+    {
+        $entropy = sprintf(
+            'file-%s-%s-%s',
+            bin2hex(random_bytes(16)),
+            hrtime(true),
+            uniqid('', true)
+        );
+        
+        return hash($algorithm, $entropy);
+    }
+
+    /**
+     * Generate a secure file ID and set it on this instance
+     *
+     * @param string $algorithm Hash algorithm to use (default: sha256)
+     * @return string The generated file ID
+     */
+    public function generateFileId(string $algorithm = 'sha256'): string
+    {
+        $this->fileId = self::createFileId($algorithm);
+        
+        $this->logDebug('Generated file ID: {file_id}', ['file_id' => $this->fileId]);
+        
+        return $this->fileId;
+    }
+
+    /**
+     * Generate a secure user ID (static version)
+     * 
+     * Can be called without an UploadManager instance.
+     * Supports session-based or stateless generation.
+     *
+     * @param bool $stateless If true, generates ID without session (for APIs/CLI)
+     * @return string The generated or retrieved user ID
+     * @throws \Farisc0de\PhpFileUploading\Exception\ConfigurationException If sessions are required but unavailable
+     */
+    public static function createUserId(bool $stateless = false): string
+    {
+        // Stateless mode - no session dependency (for APIs, CLI, microservices)
+        if ($stateless) {
+            $entropy = sprintf(
+                'user-%s-%s-%s',
+                bin2hex(random_bytes(16)),
+                hrtime(true),
+                getmypid()
+            );
+            
+            return hash('sha256', $entropy);
+        }
+
+        // Session-based mode
+        if (session_status() === PHP_SESSION_DISABLED) {
+            throw \Farisc0de\PhpFileUploading\Exception\ConfigurationException::missingDependency(
+                'sessions',
+                'PHP sessions must be enabled for session-based user ID generation. Use stateless mode for APIs.'
+            );
+        }
+
+        if (session_status() === PHP_SESSION_NONE) {
+            if (!@session_start()) {
+                throw \Farisc0de\PhpFileUploading\Exception\ConfigurationException::missingDependency(
+                    'sessions',
+                    'Failed to start PHP session. Check session configuration or use stateless mode.'
+                );
+            }
+        }
+
+        // Check for existing session user ID
+        if (isset($_SESSION['user_id'])) {
+            return $_SESSION['user_id'];
+        }
+
+        // Generate new session-based user ID
+        $entropy = sprintf(
+            'user-%s-%s-%s',
+            session_id(),
+            bin2hex(random_bytes(8)),
+            hrtime(true)
+        );
+        
+        $userId = hash('sha256', $entropy);
+        $_SESSION['user_id'] = $userId;
+        
+        return $userId;
+    }
+
+    /**
+     * Generate a secure user ID and set it on this instance
+     * 
+     * Can operate in two modes:
+     * - Session-based: Uses PHP session for persistent user identification
+     * - Stateless: Generates a random ID without session dependency
+     *
+     * @param bool $stateless If true, generates ID without session (for APIs/CLI)
+     * @return string The generated or retrieved user ID
+     * @throws \Farisc0de\PhpFileUploading\Exception\ConfigurationException If sessions are required but unavailable
+     */
+    public function generateUserId(bool $stateless = false): string
+    {
+        $this->userId = self::createUserId($stateless);
+        
+        $this->logDebug('User ID set: {user_id}', ['user_id' => $this->userId]);
+        
+        return $this->userId;
     }
 
     /**

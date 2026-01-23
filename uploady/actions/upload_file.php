@@ -35,11 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             throw new \RuntimeException($lang["general"]['file_is_empty']);
         }
 
+        $userId = UploadManager::createUserId();
+        $fileId = UploadManager::createFileId();
+
         $userRole = $role->get($_SESSION['user_role']);
         $sizeLimit = $userRole->size_limit ?? '50 MB';
-
-        $userId = bin2hex(random_bytes(16));
-        $fileId = bin2hex(random_bytes(16));
 
         $userUploadDir = realpath("../" . UPLOAD_FOLDER) . '/' . $userId;
         if (!is_dir($userUploadDir)) {
@@ -113,7 +113,14 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $virusScanner,
             null
         );
+
         $uploadManager->setHashFilenames(true);
+
+        $uploadManager->setSiteUrl(SITE_URL);
+        $uploadManager->setUserId($userId);
+        $uploadManager->setFileId($fileId);
+
+        $uploadManager->setBaseFolderName(UPLOAD_FOLDER . '/' . $userId);
 
         $file = new File($_FILES['file'], $utility);
         $clientIp = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
@@ -136,6 +143,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                 'user_id' => $userId,
                 'sitename' => SITE_URL,
                 'hash' => $result->getFileHash(),
+                'qrcode' => $result->getQrCode(),
+                'downloadlink' => $result->getDownloadLink(),
+                'directlink' => $result->getDirectLink(),
+                'deletelink' => $result->getDeleteLink(),
+                'editlink' => $result->getEditLink(),
             ];
 
             $userData = [
@@ -153,8 +165,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             ];
 
             $handler->addFile(
-                $fileId,
-                $userId,
+                $uploadManager->getFileId(),
+                $uploadManager->getUserId(),
                 json_encode($fileData),
                 json_encode($userData),
                 json_encode($fileSettings)

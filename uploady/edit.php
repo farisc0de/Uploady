@@ -16,7 +16,7 @@
                 </a>
             </div>
 
-            <input type="hidden" id="file_name" value="<?= $file_data['filename'] ?>">
+            <input type="hidden" id="file_name" value="<?= $file_data['filehash'] ?>">
 
             <!-- File Info Card -->
             <div class="card shadow-sm border-0 rounded-3 mb-4">
@@ -65,7 +65,7 @@
                 </div>
             </div>
 
-            <?php if (in_array($file_data['filemime'], $image_mime)) : ?>
+            <?php if (in_array($file_data['filetype'], $image_mime)) : ?>
                 <div id="alert" class="mb-4"></div>
 
                 <!-- Image Editor Card -->
