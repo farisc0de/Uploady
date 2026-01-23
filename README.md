@@ -57,7 +57,6 @@ uploady/
 │   ├── Settings.php   # Application settings
 │   ├── User.php       # User management
 │   └── Utils.php      # Utility functions
-├── storage/           # File storage directory
 ├── uploads/           # User uploaded files
 └── vendor/            # Composer dependencies
 ```
@@ -219,9 +218,9 @@ curl --location 'https://yourdomain.com/api/upload' \
 - [x] Modernize the UI
 - [x] ClamAV malware scanning support
 - [ ] Report abuse dashboard
-- [ ] S3 Bucket integration
-- [ ] File tagging system
-- [ ] Short URL generation
+- [ ] S3 Bucket integration (PhpFileUploading supports it, but not implemented yet in Uploady)
+- [ ] File tagging system (In Progress)
+- [ ] Short URL generation (In Progress)
 
 ## Contributing
 
