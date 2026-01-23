@@ -26,7 +26,6 @@ abstract class BaseHTTPQRCodeProvider implements IQRCodeProvider
             throw new QRException(curl_error($curlhandle));
         }
 
-        curl_close($curlhandle);
         return $data;
     }
 }

@@ -2,68 +2,92 @@
 
 namespace Farisc0de\PhpMigration;
 
-class Database
+use Farisc0de\PhpMigration\Contracts\ConnectionInterface;
+
+/**
+ * Class Database
+ * 
+ * Legacy database connection class that implements ConnectionInterface
+ * for backward compatibility with v1.x/v2.x API
+ */
+class Database implements ConnectionInterface
 {
     /**
      * Database Host
      *
      * @var string
      */
-    private $host;
+    private string $host;
+
     /**
      * Database Username
      *
      * @var string
      */
-    private $user;
+    private string $user;
+
     /**
      * Database Password
      *
      * @var string
      */
-    private $pass;
+    private string $pass;
+
     /**
      * Database Name
      *
      * @var string
      */
-    private $dbname;
+    private string $dbname;
+
+    /**
+     * Database Driver
+     *
+     * @var string
+     */
+    private string $driver = 'mysql';
+
     /**
      * Database Connection
      *
      * @var \PDO
      */
-    private $connection;
+    private \PDO $connection;
+
     /**
      * Database Connection Error
      *
-     * @var string
+     * @var string|null
      */
-    private $error;
+    private ?string $error = null;
+
     /**
-     * Database PDO Statment
+     * Database PDO Statement
      *
-     * @var \PDOStatement|bool
+     * @var \PDOStatement|null
      */
-    private $stmt;
+    private ?\PDOStatement $stmt = null;
+
     /**
      * Check if the database is connected
      *
      * @var bool
      */
-    private $dbconnected = false;
+    private bool $dbconnected = false;
+
     /**
      * Controls the contents of the returned array
      *
      * @var int
      */
-    private $fetch_style = \PDO::FETCH_OBJ;
+    private int $fetch_style = \PDO::FETCH_OBJ;
+
     /**
      * Database charset
      *
      * @var string
      */
-    private $charset;
+    private string $charset = 'utf8mb4';
 
     /**
      * Database class constructor
@@ -127,10 +151,9 @@ class Database
     /**
      * Get the Error Message
      *
-     * @return string
-     *  Returns the error message generated from PDOException
+     * @return string|null Returns the error message
      */
-    public function getError()
+    public function getError(): ?string
     {
         return $this->error;
     }
@@ -138,10 +161,9 @@ class Database
     /**
      * Check if the class is connected to the database
      *
-     * @return bool
-     *  Returns true if the class is connected to the database or false otherwise
+     * @return bool Returns true if connected
      */
-    public function isConnected()
+    public function isConnected(): bool
     {
         return $this->dbconnected;
     }
@@ -149,11 +171,10 @@ class Database
     /**
      * Prepare the statement with SQL query
      *
-     * @param string $query
-     *  The SQL query you want to execute
+     * @param string $query The SQL query you want to execute
      * @return void
      */
-    public function prepare($query)
+    public function prepare(string $query): void
     {
         $this->stmt = $this->connection->prepare($query);
     }
@@ -173,10 +194,9 @@ class Database
     /**
      * Execute the prepared statement
      *
-     * @return bool
-     *  Returns true if the query is prepared query is executed successfully or false otherwise
+     * @return bool Returns true if the query is executed successfully
      */
-    public function execute()
+    public function execute(): bool
     {
         return $this->stmt->execute();
     }
@@ -184,12 +204,10 @@ class Database
     /**
      * Execute a query without results
      *
-     * @param mixed $query
-     *  The SQL query you want to execute
-     * @return mixed
-     *  Returns the number of rows that were modified or deleted
+     * @param string $query The SQL query you want to execute
+     * @return int|false Returns the number of rows affected
      */
-    public function exec($query)
+    public function exec(string $query): int|false
     {
         return $this->connection->exec($query);
     }
@@ -197,62 +215,53 @@ class Database
     /**
      * Get the result set as an array of objects
      *
-     * @return array
-     *  Returns an array containing all of the remaining rows in the result set
+     * @return array Returns an array containing all rows in the result set
      */
-    public function resultset()
+    public function resultset(): array
     {
         $data = $this->stmt->fetchAll($this->fetch_style);
-        return is_array($data) ? $data : array();
+        return is_array($data) ? $data : [];
     }
 
     /**
      * Get the record row count
      *
-     * @return int
-     *  Returns the number of rows
+     * @return int Returns the number of rows
      */
-    public function rowCount()
+    public function rowCount(): int
     {
-        $data = $this->stmt->rowCount();
-        return is_int($data) ? $data : 0;
+        return $this->stmt->rowCount();
     }
 
     /**
      * Get a single record as an object
      *
-     * @return object|bool
-     *  Returns an object that contains the information from a single record or false otherwise
+     * @return object|array|false Returns a single record or false
      */
-    public function single()
+    public function single(): object|array|false
     {
-        $data = $this->stmt->fetch($this->fetch_style);
-        return is_object($data) ? $data : false;
+        return $this->stmt->fetch($this->fetch_style);
     }
 
     /**
      * Return the last inserted record id
      *
-     * @return mixed
-     *  Returns the last row id that was inserted into the database
+     * @return string|false Returns the last inserted ID
      */
-    public function lastInsertId()
+    public function lastInsertId(): string|false
     {
         return $this->connection->lastInsertId();
     }
 
     /**
-     * Bind the values with the PDO statment
+     * Bind the values with the PDO statement
      *
-     * @param string $param
-     *  The query parameter you want bind to it
-     * @param mixed $value
-     *  The value you want to bind with the parameter
-     * @param mixed $type
-     *  The type of the parameter [optional]
+     * @param string $param The query parameter to bind
+     * @param mixed $value The value to bind
+     * @param int|null $type The PDO type (optional)
      * @return void
      */
-    public function bind($param, $value, $type = null)
+    public function bind(string $param, mixed $value, ?int $type = null): void
     {
         if (is_null($type)) {
             switch (true) {
@@ -279,18 +288,18 @@ class Database
      * @return bool
      * @throws \PDOException
      */
-    public function beginTransaction()
+    public function beginTransaction(): bool
     {
         return $this->connection->beginTransaction();
     }
 
     /**
-     * Commit a successfull transaction
+     * Commit a successful transaction
      *
      * @return bool
      * @throws \PDOException
      */
-    public function commit()
+    public function commit(): bool
     {
         return $this->connection->commit();
     }
@@ -301,19 +310,49 @@ class Database
      * @return bool
      * @throws \PDOException
      */
-    public function rollback()
+    public function rollback(): bool
     {
         return $this->connection->rollBack();
     }
 
     /**
-     * Return the Database Name
+     * Return the Database Name (legacy method)
      *
-     * @return void
+     * @return string
      */
-    public function returnDbName()
+    public function returnDbName(): string
     {
         return $this->dbname;
+    }
+
+    /**
+     * Get the database name (ConnectionInterface)
+     *
+     * @return string
+     */
+    public function getDatabaseName(): string
+    {
+        return $this->dbname;
+    }
+
+    /**
+     * Get the driver name (ConnectionInterface)
+     *
+     * @return string
+     */
+    public function getDriverName(): string
+    {
+        return $this->driver;
+    }
+
+    /**
+     * Get the PDO connection
+     *
+     * @return \PDO
+     */
+    public function getPdo(): \PDO
+    {
+        return $this->connection;
     }
 
     /**
@@ -323,6 +362,6 @@ class Database
      */
     public function __destruct()
     {
-        $this->connection = null;
+        unset($this->connection);
     }
 }

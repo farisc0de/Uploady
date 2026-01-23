@@ -50,18 +50,19 @@ include_once APP_PATH . 'logic/installLogic.php';
                         </h5>
                     </div>
                     <div class="card-body p-4">
-                        <form method="POST">
-                            <?php if (isset($msg)) : ?>
-                                <div class="alert alert-success d-flex align-items-center" role="alert">
-                                    <div class="me-3">
-                                        <i class="fas fa-check-circle fa-2x"></i>
-                                    </div>
-                                    <div>
-                                        <h5 class="alert-heading">Success!</h5>
-                                        <p class="mb-0">Script has been installed successfully.</p>
-                                    </div>
+                        <?php if (isset($msg)) : ?>
+                            <div class="text-center py-4">
+                                <div class="mb-4">
+                                    <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
                                 </div>
-                            <?php endif; ?>
+                                <h4 class="text-success mb-3">Installation Complete!</h4>
+                                <p class="text-muted mb-4">Uploady has been installed successfully. You can now log in with your admin account.</p>
+                                <a href="<?= $utils->siteUrl(); ?>/login" class="btn btn-primary">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Go to Login
+                                </a>
+                            </div>
+                        <?php else : ?>
+                        <form method="POST">
 
                             <?php if (isset($error)) : ?>
                                 <div class="alert alert-danger d-flex align-items-center" role="alert">
@@ -69,7 +70,7 @@ include_once APP_PATH . 'logic/installLogic.php';
                                         <i class="fas fa-times-circle fa-2x"></i>
                                     </div>
                                     <div>
-                                        <h5 class="alert-heading">Error</h5>
+                                        <h5 class="alert-heading mb-1">Error</h5>
                                         <p class="mb-0"><?= $error ?></p>
                                     </div>
                                 </div>
@@ -78,45 +79,43 @@ include_once APP_PATH . 'logic/installLogic.php';
                             <?php if (!isset($_POST['install'])) : ?>
                                 <?php echo $php_alert; ?>
 
-                                <div class="alert alert-info mb-4">
-                                    <div class="d-flex">
-                                        <div class="me-3">
-                                            <i class="fas fa-info-circle fa-2x"></i>
-                                        </div>
-                                        <div class="text-start">
-                                            <h5 class="alert-heading">System Requirements</h5>
-                                            <div>
-                                                <p class="mb-2"><strong>PHP Version:</strong> <?php echo PHP_VERSION; ?></p>
-                                                <ul class="list-group mb-3">
-                                                    <?php foreach ($is_installed as $library) : ?>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <?= $library['name'] ?>
-                                                            <?php if (strpos($library['status'], 'Installed') !== false) : ?>
-                                                                <span class="badge bg-success rounded-pill"><i class="fas fa-check"></i></span>
-                                                            <?php else : ?>
-                                                                <span class="badge bg-danger rounded-pill"><i class="fas fa-times"></i></span>
-                                                            <?php endif; ?>
-                                                        </li>
-                                                    <?php endforeach; ?>
-                                                </ul>
-                                                
-                                                <p class="mb-2"><strong>Directory Permissions:</strong></p>
-                                                <ul class="list-group">
-                                                    <?php foreach ($is_writable as $folder) : ?>
-                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            <?= $folder['name'] ?>
-                                                            <?php if (strpos($folder['status'], 'Writable') !== false) : ?>
-                                                                <span class="badge bg-success rounded-pill"><i class="fas fa-check"></i></span>
-                                                            <?php else : ?>
-                                                                <span class="badge bg-danger rounded-pill"><i class="fas fa-times"></i></span>
-                                                            <?php endif; ?>
-                                                        </li>
-                                                    <?php endforeach; ?>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                <div class="mb-4">
+                                    <h6 class="text-muted mb-3"><i class="fas fa-server me-2"></i>System Requirements</h6>
+                                    
+                                    <div class="mb-3">
+                                        <small class="text-muted d-block mb-2">PHP Version: <strong class="text-dark"><?php echo PHP_VERSION; ?></strong></small>
                                     </div>
+
+                                    <small class="text-muted d-block mb-2">Required Extensions:</small>
+                                    <ul class="list-group list-group-flush mb-3">
+                                        <?php foreach ($is_installed as $library) : ?>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2">
+                                                <span class="text-secondary"><?= $library['name'] ?></span>
+                                                <?php if ($library['status'] === 'Installed') : ?>
+                                                    <span class="badge bg-success rounded-pill"><i class="fas fa-check"></i></span>
+                                                <?php else : ?>
+                                                    <span class="badge bg-danger rounded-pill"><i class="fas fa-times"></i></span>
+                                                <?php endif; ?>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                    
+                                    <small class="text-muted d-block mb-2">Directory Permissions:</small>
+                                    <ul class="list-group list-group-flush">
+                                        <?php foreach ($is_writable as $folder) : ?>
+                                            <li class="list-group-item d-flex justify-content-between align-items-center px-0 py-2">
+                                                <code class="text-secondary"><?= $folder['name'] ?></code>
+                                                <?php if ($folder['status'] === 'Writable') : ?>
+                                                    <span class="badge bg-success rounded-pill"><i class="fas fa-check"></i></span>
+                                                <?php else : ?>
+                                                    <span class="badge bg-danger rounded-pill"><i class="fas fa-times"></i></span>
+                                                <?php endif; ?>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
                                 </div>
+                                
+                                <hr class="my-4">
                             <?php endif; ?>
 
                             <h5 class="mb-3">Admin Account Setup</h5>
@@ -153,11 +152,12 @@ include_once APP_PATH . 'logic/installLogic.php';
                             </div>
 
                             <div class="d-grid gap-2">
-                                <button type="submit" name="install" class="btn btn-primary" <?php echo $disabled; ?>>
-                                    <i class="fas fa-cog me-2"></i>Start Installation
+                                <button type="submit" name="install" class="btn btn-primary btn-lg" <?php echo $disabled; ?>>
+                                    <i class="fas fa-rocket me-2"></i>Install Uploady
                                 </button>
                             </div>
                         </form>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

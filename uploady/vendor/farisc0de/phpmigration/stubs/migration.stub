@@ -1,0 +1,29 @@
+<?php
+
+use Farisc0de\PhpMigration\Contracts\MigrationInterface;
+use Farisc0de\PhpMigration\Schema\SchemaBuilder;
+
+return new class implements MigrationInterface
+{
+    /**
+     * Run the migration
+     *
+     * @param SchemaBuilder $schema
+     * @return void
+     */
+    public function up(SchemaBuilder $schema): void
+    {
+        //
+    }
+
+    /**
+     * Reverse the migration
+     *
+     * @param SchemaBuilder $schema
+     * @return void
+     */
+    public function down(SchemaBuilder $schema): void
+    {
+        //
+    }
+};

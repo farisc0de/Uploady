@@ -11,7 +11,7 @@ use RuntimeException;
  * This class provides utility functions for file operations, size conversions,
  * and security measures.
  *
- * @version 1.5.3
+ * @version 2.6.0
  * @category File_Upload
  * @package PhpFileUploading
  * @author fariscode <farisksa79@gmail.com>

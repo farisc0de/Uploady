@@ -1,0 +1,151 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * PhpMigration CLI
+ * 
+ * Command-line interface for database migrations
+ */
+
+// Find autoloader
+$autoloadPaths = [
+    __DIR__ . '/../vendor/autoload.php',
+    __DIR__ . '/../../../autoload.php',
+    __DIR__ . '/../../autoload.php',
+];
+
+$autoloaderFound = false;
+foreach ($autoloadPaths as $autoloadPath) {
+    if (file_exists($autoloadPath)) {
+        require $autoloadPath;
+        $autoloaderFound = true;
+        break;
+    }
+}
+
+if (!$autoloaderFound) {
+    // Manual autoloading for development
+    spl_autoload_register(function ($class) {
+        $prefix = 'Farisc0de\\PhpMigration\\';
+        $baseDir = __DIR__ . '/../src/';
+
+        $len = strlen($prefix);
+        if (strncmp($prefix, $class, $len) !== 0) {
+            return;
+        }
+
+        $relativeClass = substr($class, $len);
+        $file = $baseDir . str_replace('\\', '/', $relativeClass) . '.php';
+
+        if (file_exists($file)) {
+            require $file;
+        }
+    });
+}
+
+use Farisc0de\PhpMigration\Console\Application;
+use Farisc0de\PhpMigration\Console\Commands\MigrateCommand;
+use Farisc0de\PhpMigration\Console\Commands\RollbackCommand;
+use Farisc0de\PhpMigration\Console\Commands\ResetCommand;
+use Farisc0de\PhpMigration\Console\Commands\RefreshCommand;
+use Farisc0de\PhpMigration\Console\Commands\StatusCommand;
+use Farisc0de\PhpMigration\Console\Commands\MakeMigrationCommand;
+use Farisc0de\PhpMigration\Console\Commands\SeedCommand;
+use Farisc0de\PhpMigration\Console\Commands\MakeSeederCommand;
+use Farisc0de\PhpMigration\Console\Commands\InstallCommand;
+use Farisc0de\PhpMigration\Database\Connection;
+use Farisc0de\PhpMigration\Migrations\Migrator;
+use Farisc0de\PhpMigration\Migrations\MigrationRepository;
+use Farisc0de\PhpMigration\Migrations\MigrationCreator;
+use Farisc0de\PhpMigration\Seeders\SeederManager;
+use Farisc0de\PhpMigration\Seeders\SeederCreator;
+use Farisc0de\PhpMigration\Schema\Grammars\MySqlGrammar;
+use Farisc0de\PhpMigration\Schema\Grammars\PostgresGrammar;
+use Farisc0de\PhpMigration\Schema\Grammars\SqliteGrammar;
+use Farisc0de\PhpMigration\Support\Config;
+
+// Load configuration
+$config = new Config();
+
+// Try to load .env file
+$envPath = getcwd() . '/.env';
+if (file_exists($envPath)) {
+    $config->loadEnv($envPath);
+}
+
+// Try to load config file
+$configPath = getcwd() . '/config/database.php';
+if (file_exists($configPath)) {
+    $config->loadFromFile($configPath);
+} else {
+    // Use environment variables directly
+    $driver = $config->env('DB_DRIVER', 'mysql');
+    $config->set('database.default', $driver);
+    $config->set("database.connections.{$driver}", [
+        'driver' => $driver,
+        'host' => $config->env('DB_HOST', 'localhost'),
+        'port' => $config->env('DB_PORT', $driver === 'mysql' ? 3306 : 5432),
+        'database' => $config->env('DB_DATABASE', $config->env('DB_NAME', '')),
+        'username' => $config->env('DB_USERNAME', $config->env('DB_USER', '')),
+        'password' => $config->env('DB_PASSWORD', $config->env('DB_PASS', '')),
+        'charset' => $config->env('DB_CHARSET', 'utf8mb4'),
+    ]);
+}
+
+// Create application
+$app = new Application('PhpMigration', '2.0.0');
+
+// Check if we have database configuration
+$dbConfig = $config->get('database.connections.' . $config->get('database.default', 'mysql'), []);
+
+if (!empty($dbConfig['database']) || !empty($dbConfig['host'])) {
+    try {
+        // Create database connection
+        $connection = Connection::create($dbConfig);
+
+        // Get appropriate grammar
+        $driver = $connection->getDriverName();
+        $grammar = match ($driver) {
+            'mysql' => new MySqlGrammar(),
+            'pgsql' => new PostgresGrammar(),
+            'sqlite' => new SqliteGrammar(),
+            default => new MySqlGrammar(),
+        };
+
+        // Create repository and migrator
+        $repository = new MigrationRepository($connection);
+        $migrator = new Migrator($repository, $connection, $grammar);
+
+        // Set default migration path
+        $migrationsPath = getcwd() . '/database/migrations';
+        if (is_dir($migrationsPath)) {
+            $migrator->path($migrationsPath);
+        }
+
+        // Create seeder manager
+        $seederManager = new SeederManager($connection);
+        $seedersPath = getcwd() . '/database/seeders';
+        if (is_dir($seedersPath)) {
+            $seederManager->path($seedersPath);
+        }
+
+        // Register commands that require database
+        $app->add(new MigrateCommand($migrator));
+        $app->add(new RollbackCommand($migrator));
+        $app->add(new ResetCommand($migrator));
+        $app->add(new RefreshCommand($migrator));
+        $app->add(new StatusCommand($migrator));
+        $app->add(new InstallCommand($repository));
+        $app->add(new SeedCommand($seederManager));
+    } catch (\PDOException $e) {
+        // Database connection failed, but we can still use make commands
+        fwrite(STDERR, "\033[33mWarning: Could not connect to database: {$e->getMessage()}\033[0m\n");
+    }
+}
+
+// Register commands that don't require database
+$app->add(new MakeMigrationCommand(new MigrationCreator()));
+$app->add(new MakeSeederCommand(new SeederCreator()));
+
+// Run the application
+exit($app->run());

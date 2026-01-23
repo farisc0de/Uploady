@@ -7,25 +7,25 @@ namespace Composer\Autoload;
 class ComposerStaticInit5945ad3276d7348e01910cc39dd50b7b
 {
     public static $prefixLengthsPsr4 = array (
-        'W' => 
+        'W' =>
         array (
             'Whoops\\' => 7,
         ),
-        'U' => 
+        'U' =>
         array (
             'Uploady\\' => 8,
         ),
-        'R' => 
+        'R' =>
         array (
             'RobThree\\Auth\\' => 14,
             'ReCaptcha\\' => 10,
         ),
-        'P' => 
+        'P' =>
         array (
             'Psr\\Log\\' => 8,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
-        'F' => 
+        'F' =>
         array (
             'Farisc0de\\PhpMigration\\' => 23,
             'Farisc0de\\PhpFileUploading\\' => 27,
@@ -33,35 +33,35 @@ class ComposerStaticInit5945ad3276d7348e01910cc39dd50b7b
     );
 
     public static $prefixDirsPsr4 = array (
-        'Whoops\\' => 
+        'Whoops\\' =>
         array (
             0 => __DIR__ . '/..' . '/filp/whoops/src/Whoops',
         ),
-        'Uploady\\' => 
+        'Uploady\\' =>
         array (
             0 => __DIR__ . '/../..' . '/src/Uploady',
         ),
-        'RobThree\\Auth\\' => 
+        'RobThree\\Auth\\' =>
         array (
             0 => __DIR__ . '/..' . '/robthree/twofactorauth/lib',
         ),
-        'ReCaptcha\\' => 
+        'ReCaptcha\\' =>
         array (
             0 => __DIR__ . '/..' . '/google/recaptcha/src/ReCaptcha',
         ),
-        'Psr\\Log\\' => 
+        'Psr\\Log\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/log/src',
         ),
-        'PHPMailer\\PHPMailer\\' => 
+        'PHPMailer\\PHPMailer\\' =>
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
-        'Farisc0de\\PhpMigration\\' => 
+        'Farisc0de\\PhpMigration\\' =>
         array (
             0 => __DIR__ . '/..' . '/farisc0de/phpmigration/src',
         ),
-        'Farisc0de\\PhpFileUploading\\' => 
+        'Farisc0de\\PhpFileUploading\\' =>
         array (
             0 => __DIR__ . '/..' . '/farisc0de/phpfileuploading/src',
         ),

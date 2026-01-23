@@ -1,11 +1,28 @@
 {
     "name": "farisc0de/phpmigration",
-    "description": "Migration Library for PHP",
+    "description": "Enterprise-ready database migration library for PHP with fluent schema builder, versioning, CLI tools, and multi-database support",
     "type": "library",
     "license": "MIT",
+    "keywords": [
+        "database",
+        "migration",
+        "schema",
+        "mysql",
+        "postgresql",
+        "sqlite",
+        "orm",
+        "cli",
+        "seeder"
+    ],
+    "homepage": "https://github.com/farisc0de/PhpMigration",
     "autoload": {
         "psr-4": {
             "Farisc0de\\PhpMigration\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Farisc0de\\PhpMigration\\Tests\\": "tests/"
         }
     },
     "authors": [
@@ -15,13 +32,32 @@
         }
     ],
     "require": {
-        "php": ">=7.0"
+        "php": ">=8.1",
+        "ext-pdo": "*"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "*"
+        "phpunit/phpunit": "^10.0",
+        "squizlabs/php_codesniffer": "^3.7",
+        "psr/log": "^3.0"
     },
+    "suggest": {
+        "ext-pdo_mysql": "Required for MySQL database support",
+        "ext-pdo_pgsql": "Required for PostgreSQL database support",
+        "ext-pdo_sqlite": "Required for SQLite database support"
+    },
+    "bin": [
+        "bin/migrate"
+    ],
     "scripts": {
+        "test": "vendor/bin/phpunit --configuration tests/phpunit.xml",
+        "test-coverage": "vendor/bin/phpunit --configuration tests/phpunit.xml --coverage-html coverage",
         "cs-check": "vendor/bin/phpcs",
         "cs-fix": "vendor/bin/phpcbf"
-    }
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }

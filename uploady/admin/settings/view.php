@@ -116,6 +116,16 @@ include_once 'logic/settings.php';
                                         </div>
 
                                         <hr />
+                                        
+                                        <div class="form-group">
+                                            <input hidden name="virus_scanner" value="0" />
+                                            <div class="custom-control custom-switch custom-control-right">
+                                                <input class="custom-control-input" id="virus_scanner" name="virus_scanner" value="1" type="checkbox" <?= ($settings->getSettingValue('virus_scanner') == true) ? 'checked' : null; ?>>
+                                                <label class="custom-control-label" for="virus_scanner">Virus Scanner</label>
+                                            </div>
+                                        </div>
+
+                                        <hr />
 
                                         <div class="form-group">
                                             <input hidden name="public_upload" value="0" />

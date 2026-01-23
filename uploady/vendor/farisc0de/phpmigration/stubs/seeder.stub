@@ -1,0 +1,25 @@
+<?php
+
+namespace Database\Seeders;
+
+use Farisc0de\PhpMigration\Seeders\Seeder;
+
+class {{ class }} extends Seeder
+{
+    /**
+     * Run the database seeds
+     *
+     * @return void
+     */
+    public function run(): void
+    {
+        // Example: Insert data
+        // $this->insert('users', [
+        //     ['name' => 'Admin', 'email' => 'admin@example.com'],
+        //     ['name' => 'User', 'email' => 'user@example.com'],
+        // ]);
+
+        // Example: Call other seeders
+        // $this->call(AnotherSeeder::class);
+    }
+}

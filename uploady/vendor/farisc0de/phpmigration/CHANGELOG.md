@@ -2,7 +2,116 @@
 
 All notable changes to the PHP Migration Library will be documented in this file.
 
-## [2.0.0] - 2025-01-14
+## [3.0.0](https://github.com/farisc0de/PhpMigration/releases/tag/v3.0.0) - 2026-01-09
+
+### Major Features
+
+- **Fluent Schema Builder (Blueprint API)**
+  - Laravel-like fluent interface for defining tables
+  - Support for all common column types
+  - Column modifiers (nullable, default, unsigned, etc.)
+  - Index management (primary, unique, index, fulltext, spatial)
+  - Foreign key constraints with fluent API
+  - Polymorphic relationship helpers (morphs)
+  - Timestamps and soft deletes helpers
+
+- **Migration Versioning System**
+  - Migration tracking with batch numbers
+  - Up/down migration methods for reversibility
+  - Migration repository for tracking executed migrations
+  - Support for step-by-step rollbacks
+
+- **CLI Tool (`bin/migrate`)**
+  - `migrate` - Run pending migrations
+  - `migrate:rollback` - Rollback migrations
+  - `migrate:reset` - Reset all migrations
+  - `migrate:refresh` - Reset and re-run migrations
+  - `migrate:status` - Show migration status
+  - `migrate:install` - Create migration table
+  - `make:migration` - Generate migration files
+  - `make:seeder` - Generate seeder files
+  - `db:seed` - Run database seeders
+
+- **Multi-Database Support**
+  - MySQL driver with full feature support
+  - PostgreSQL driver with native types (SERIAL, JSONB, etc.)
+  - SQLite driver for testing and lightweight apps
+  - Database-agnostic schema operations
+
+- **Database Seeding**
+  - Seeder base class with helper methods
+  - Seeder manager for running seeders
+  - Support for calling nested seeders
+  - Truncate and foreign key helpers
+
+- **Schema Introspection**
+  - Get all tables in database
+  - Get column information and types
+  - Get indexes and foreign keys
+  - Check table/column existence
+  - Get primary key columns
+
+- **Event System**
+  - PSR-compatible event dispatcher
+  - Migration lifecycle events (migrating, migrated, rollingBack, rolledBack)
+  - Seeder lifecycle events
+
+- **Logging**
+  - PSR-3 compatible logger
+  - File and console output
+  - Configurable log levels
+  - Exception logging with stack traces
+
+- **Configuration Management**
+  - Support for `.env` files
+  - PHP configuration files
+  - Environment variable parsing
+  - Dot notation for nested config
+
+### New Classes
+
+- `Farisc0de\PhpMigration\Schema\Blueprint`
+- `Farisc0de\PhpMigration\Schema\ColumnDefinition`
+- `Farisc0de\PhpMigration\Schema\ForeignKeyDefinition`
+- `Farisc0de\PhpMigration\Schema\ForeignIdColumnDefinition`
+- `Farisc0de\PhpMigration\Schema\SchemaBuilder`
+- `Farisc0de\PhpMigration\Schema\SchemaInspector`
+- `Farisc0de\PhpMigration\Schema\Grammars\Grammar`
+- `Farisc0de\PhpMigration\Schema\Grammars\MySqlGrammar`
+- `Farisc0de\PhpMigration\Schema\Grammars\PostgresGrammar`
+- `Farisc0de\PhpMigration\Schema\Grammars\SqliteGrammar`
+- `Farisc0de\PhpMigration\Migrations\Migrator`
+- `Farisc0de\PhpMigration\Migrations\MigrationRepository`
+- `Farisc0de\PhpMigration\Migrations\MigrationCreator`
+- `Farisc0de\PhpMigration\Migrations\Migration`
+- `Farisc0de\PhpMigration\Seeders\Seeder`
+- `Farisc0de\PhpMigration\Seeders\SeederManager`
+- `Farisc0de\PhpMigration\Seeders\SeederCreator`
+- `Farisc0de\PhpMigration\Database\Connection`
+- `Farisc0de\PhpMigration\Database\ConnectionFactory`
+- `Farisc0de\PhpMigration\Console\Application`
+- `Farisc0de\PhpMigration\Console\Command`
+- `Farisc0de\PhpMigration\Console\Commands\*`
+- `Farisc0de\PhpMigration\Support\Config`
+- `Farisc0de\PhpMigration\Support\EventDispatcher`
+- `Farisc0de\PhpMigration\Support\Logger`
+- `Farisc0de\PhpMigration\Contracts\*`
+
+### Breaking Changes
+
+- Minimum PHP version increased to 8.1
+- New `ConnectionInterface` for database connections
+- New `MigrationInterface` for migration classes
+- New `SchemaGrammarInterface` for database grammars
+
+### Backward Compatibility
+
+- Original `Database`, `Migration`, `Utils`, `Options`, and `Types` classes preserved
+- Legacy API continues to work for existing projects
+
+---
+
+## [2.0.0](https://github.com/farisc0de/PhpMigration/releases/tag/v2.0.0) - 2025-01-14
 
 ### Breaking Changes
 - Added strict type hints across all classes

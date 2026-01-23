@@ -2,9 +2,20 @@
 
 namespace Farisc0de\PhpMigration;
 
+use Farisc0de\PhpMigration\Contracts\ConnectionInterface;
+use Farisc0de\PhpMigration\Schema\SchemaBuilder;
+use Farisc0de\PhpMigration\Schema\Grammars\MySqlGrammar;
+use Farisc0de\PhpMigration\Schema\Grammars\PostgresGrammar;
+use Farisc0de\PhpMigration\Schema\Grammars\SqliteGrammar;
 use InvalidArgumentException;
 use PDOException;
 
+/**
+ * Class Migration
+ * 
+ * Legacy migration class for backward compatibility with v1.x/v2.x API.
+ * For new projects, consider using the SchemaBuilder with Blueprint API.
+ */
 class Migration
 {
     /**
@@ -21,27 +32,64 @@ class Migration
     /**
      * Database Connection
      *
-     * @var Database
+     * @var ConnectionInterface
      */
-    private Database $db;
+    private ConnectionInterface $db;
 
     /**
-     * Utils Connection
+     * Utils instance
      *
      * @var Utils
      */
     private Utils $utils;
 
     /**
+     * Schema Builder instance (lazy loaded)
+     *
+     * @var SchemaBuilder|null
+     */
+    private ?SchemaBuilder $schemaBuilder = null;
+
+    /**
      * Migration class constructor
      *
-     * @param Database $database Database connection instance
+     * @param ConnectionInterface $database Database connection instance
      * @param Utils $utils Utils instance
      */
-    public function __construct(Database $database, Utils $utils)
+    public function __construct(ConnectionInterface $database, Utils $utils)
     {
         $this->db = $database;
         $this->utils = $utils;
+    }
+
+    /**
+     * Get the Schema Builder for fluent API
+     *
+     * @return SchemaBuilder
+     */
+    public function getSchemaBuilder(): SchemaBuilder
+    {
+        if ($this->schemaBuilder === null) {
+            $grammar = match ($this->db->getDriverName()) {
+                'mysql' => new MySqlGrammar(),
+                'pgsql' => new PostgresGrammar(),
+                'sqlite' => new SqliteGrammar(),
+                default => new MySqlGrammar(),
+            };
+            $this->schemaBuilder = new SchemaBuilder($this->db, $grammar);
+        }
+
+        return $this->schemaBuilder;
+    }
+
+    /**
+     * Get the database connection
+     *
+     * @return ConnectionInterface
+     */
+    public function getConnection(): ConnectionInterface
+    {
+        return $this->db;
     }
 
     /**

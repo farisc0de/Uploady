@@ -1,4 +1,6 @@
 {
+    "version": "1.1.0",
+    "last_updated": "2025-05-03",
     "extensions": {
         "tiff": "image/tiff",
         "tga": "image/x-tga",
@@ -30,6 +32,8 @@
         "rar": "application/x-rar-compressed",
         "xml": "application/xml",
         "pps": "application/vnd.ms-powerpoint",
+        "ppt": "application/vnd.ms-powerpoint",
+        "pptx": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
         "docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         "doc": "application/msword",
         "pdf": "application/pdf",
@@ -58,7 +62,24 @@
         "mp3": "audio/mpeg",
         "mpg": "video/mpeg",
         "mpeg": "video/mpeg",
-        "ogm": "video/ogg"
+        "ogm": "video/ogg",
+        "csv": "text/csv",
+        "md": "text/markdown",
+        "markdown": "text/markdown",
+        "rtf": "application/rtf",
+        "xls": "application/vnd.ms-excel",
+        "xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "odp": "application/vnd.oasis.opendocument.presentation",
+        "ods": "application/vnd.oasis.opendocument.spreadsheet",
+        "odt": "application/vnd.oasis.opendocument.text",
+        "wav": "audio/wav",
+        "flac": "audio/flac",
+        "ico": "image/x-icon",
+        "heic": "image/heic",
+        "heif": "image/heif",
+        "avif": "image/avif",
+        "epub": "application/epub+zip",
+        "mobi": "application/x-mobipocket-ebook"
     },
     "forbidden": [
         "b374k.php",
@@ -66,6 +87,87 @@
         "r57.php",
         "wso.php",
         "webadmin.php",
-        "weevely.php"
-    ]
+        "weevely.php",
+        "shell.php",
+        "backdoor.php",
+        "cmd.php",
+        "system.php",
+        "exec.php",
+        "alfa.php",
+        "mini.php",
+        "bypass.php",
+        "rootkit.php",
+        "filesman.php",
+        "adminer.php",
+        "phpinfo.php",
+        ".htaccess",
+        ".htpasswd",
+        "config.php",
+        "wp-config.php",
+        "configuration.php"
+    ],
+    "size_limits": {
+        "image": "10 MB",
+        "document": "20 MB",
+        "video": "100 MB",
+        "audio": "50 MB",
+        "archive": "200 MB",
+        "default": "50 MB"
+    },
+    "categories": {
+        "images": [
+            "image/jpeg",
+            "image/png",
+            "image/gif",
+            "image/webp",
+            "image/svg+xml",
+            "image/tiff",
+            "image/bmp",
+            "image/heic",
+            "image/heif",
+            "image/avif"
+        ],
+        "documents": [
+            "application/pdf",
+            "application/msword",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "application/vnd.ms-excel",
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "application/vnd.ms-powerpoint",
+            "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+            "text/plain",
+            "text/csv",
+            "text/markdown",
+            "application/rtf"
+        ],
+        "audio": [
+            "audio/mpeg",
+            "audio/mp4",
+            "audio/ogg",
+            "audio/wav",
+            "audio/flac",
+            "audio/x-ms-wma",
+            "audio/x-aac"
+        ],
+        "video": [
+            "video/mp4",
+            "video/mpeg",
+            "video/ogg",
+            "video/quicktime",
+            "video/x-msvideo",
+            "video/x-flv",
+            "video/x-matroska",
+            "video/3gpp",
+            "video/3gpp2",
+            "video/x-m4v"
+        ],
+        "archives": [
+            "application/zip",
+            "application/x-rar-compressed",
+            "application/x-7z-compressed",
+            "application/x-tar",
+            "application/gzip",
+            "application/x-bzip2"
+        ]
+    }
 }

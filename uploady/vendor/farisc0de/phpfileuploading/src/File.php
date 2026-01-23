@@ -13,7 +13,7 @@ use finfo;
  * It wraps the $_FILES array and provides methods for accessing file information
  * and performing common file operations.
  *
- * @version 1.5.3
+ * @version 2.6.0
  * @category File_Upload
  * @package PhpFileUploading
  * @author fariscode <farisksa79@gmail.com>
@@ -64,7 +64,7 @@ class File
     private function validateFileArray(array $file): void
     {
         $required_keys = ['name', 'type', 'tmp_name', 'error', 'size'];
-        
+
         foreach ($required_keys as $key) {
             if (!isset($file[$key])) {
                 throw new InvalidArgumentException("Missing required key '{$key}' in file array");
@@ -75,15 +75,15 @@ class File
         if (!is_string($file['name'])) {
             throw new InvalidArgumentException('File name must be a string');
         }
-        
+
         if (!is_string($file['type'])) {
             throw new InvalidArgumentException('File type must be a string');
         }
-        
+
         if (!is_string($file['tmp_name'])) {
             throw new InvalidArgumentException('Temporary file name must be a string');
         }
-        
+
         if (!is_numeric($file['size'])) {
             throw new InvalidArgumentException('File size must be numeric');
         }
@@ -116,7 +116,7 @@ class File
         }
 
         $size = $this->utility->fixintOverflow($this->file['size']);
-        
+
         // Double-check size by reading the file directly if possible
         if (file_exists($this->file['tmp_name']) && is_readable($this->file['tmp_name'])) {
             $filesize = filesize($this->file['tmp_name']);
@@ -126,7 +126,7 @@ class File
                 return $filesize;
             }
         }
-        
+
         return $size;
     }
 
@@ -154,7 +154,7 @@ class File
         }
 
         $tempName = $this->getTempName();
-        
+
         // Try using finfo extension
         if (class_exists('finfo')) {
             try {
@@ -168,7 +168,7 @@ class File
                 // Fall through to alternative methods
             }
         }
-        
+
         // Try mime_content_type function
         if (function_exists('mime_content_type')) {
             $mime_type = mime_content_type($tempName);
@@ -176,7 +176,7 @@ class File
                 return $mime_type;
             }
         }
-        
+
         // Last resort: use a mapping of extensions to MIME types
         $extension = $this->getExtension();
         $mime_map = [
@@ -198,11 +198,11 @@ class File
             'json' => 'application/json',
             'xml' => 'application/xml',
         ];
-        
+
         if (isset($mime_map[$extension])) {
             return $mime_map[$extension];
         }
-        
+
         throw new RuntimeException('Failed to determine MIME type');
     }
 
@@ -240,13 +240,13 @@ class File
         if ($this->isEmpty()) {
             throw new RuntimeException('Cannot get temporary name of empty file');
         }
-        
+
         $temp_name = $this->file['tmp_name'];
-        
+
         if (!file_exists($temp_name)) {
             throw new RuntimeException('Temporary file does not exist');
         }
-        
+
         if (!is_readable($temp_name)) {
             throw new RuntimeException('Temporary file is not readable');
         }
@@ -261,10 +261,10 @@ class File
      */
     public function isEmpty(): bool
     {
-        return $this->file['error'] === UPLOAD_ERR_NO_FILE || 
-               empty($this->file['name']) || 
-               empty($this->file['tmp_name']) || 
-               $this->file['size'] === 0;
+        return $this->file['error'] === UPLOAD_ERR_NO_FILE ||
+            empty($this->file['name']) ||
+            empty($this->file['tmp_name']) ||
+            $this->file['size'] === 0;
     }
 
     /**
@@ -280,7 +280,7 @@ class File
         }
 
         $mtime = filemtime($this->getTempName());
-        
+
         if ($mtime === false) {
             throw new RuntimeException('Failed to get file modification time');
         }
@@ -299,24 +299,24 @@ class File
         if ($this->isEmpty()) {
             throw new RuntimeException('Cannot get hash of empty file');
         }
-        
+
         $tempName = $this->getTempName();
-        
+
         // Check file size before hashing to prevent memory issues with large files
         $fileSize = filesize($tempName);
         if ($fileSize === false) {
             throw new RuntimeException('Failed to determine file size');
         }
-        
+
         // For very large files, use a streaming approach
         if ($fileSize > 10 * 1024 * 1024) { // 10MB threshold
             $context = hash_init('sha256');
             $handle = fopen($tempName, 'rb');
-            
+
             if ($handle === false) {
                 throw new RuntimeException('Failed to open file for hashing');
             }
-            
+
             try {
                 while (!feof($handle)) {
                     $buffer = fread($handle, 8192);
@@ -325,16 +325,16 @@ class File
                     }
                     hash_update($context, $buffer);
                 }
-                
+
                 return hash_final($context);
             } finally {
                 fclose($handle);
             }
         }
-        
+
         // For smaller files, use hash_file
         $hash = hash_file('sha256', $tempName);
-        
+
         if ($hash === false) {
             throw new RuntimeException('Failed to calculate file hash');
         }
@@ -349,7 +349,7 @@ class File
      */
     public function getError(): ?string
     {
-        return $this->file['error'] !== UPLOAD_ERR_OK 
+        return $this->file['error'] !== UPLOAD_ERR_OK
             ? self::UPLOAD_ERRORS[$this->file['error']]
             : null;
     }
@@ -366,7 +366,7 @@ class File
         }
 
         $tempName = $this->getTempName();
-        
+
         // Check if the file was uploaded via HTTP POST
         if (!is_uploaded_file($tempName)) {
             throw new RuntimeException('File was not uploaded via HTTP POST');
@@ -376,15 +376,15 @@ class File
         if (!is_readable($tempName)) {
             throw new RuntimeException('Uploaded file is not readable');
         }
-        
+
         // Check if the file size is consistent
         $reportedSize = $this->file['size'];
         $actualSize = filesize($tempName);
-        
+
         if ($actualSize === false) {
             throw new RuntimeException('Failed to determine actual file size');
         }
-        
+
         if (abs($reportedSize - $actualSize) > 1024) { // Allow small discrepancy (1KB)
             throw new RuntimeException("File size mismatch: reported {$reportedSize}, actual {$actualSize}");
         }

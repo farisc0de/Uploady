@@ -12,7 +12,7 @@ use GdImage;
  * Provides comprehensive image manipulation functionality including
  * resizing, cropping, watermarking, and format conversion.
  *
- * @version 1.5.3
+ * @version 2.6.0
  * @category File_Upload
  * @package PhpFileUploading
  * @author fariscode <farisksa79@gmail.com>
@@ -93,7 +93,7 @@ class Image
         ?string $outputFormat = null
     ): bool {
         $this->validateImageFile($source);
-        
+
         $imageInfo = getimagesize($source);
         if ($imageInfo === false) {
             throw new RuntimeException("Failed to get image information: {$source}");
@@ -106,15 +106,15 @@ class Image
 
         $srcImage = null;
         $dstImage = null;
-        
+
         try {
             $createFunc = self::SUPPORTED_TYPES[$mimeType]['create'];
             $srcImage = $createFunc($source);
-            
+
             if (!$srcImage instanceof GdImage) {
                 throw new RuntimeException("Failed to create image resource");
             }
-            
+
             // Determine output format and function
             $outputMime = $mimeType;
             if ($outputFormat !== null) {
@@ -123,23 +123,23 @@ class Image
                     throw new RuntimeException("Unsupported output format: {$outputFormat}");
                 }
             }
-            
+
             $outputFunc = self::SUPPORTED_TYPES[$outputMime]['output'];
             $normalizedQuality = $this->normalizeQuality($quality, $outputMime);
-            
+
             // Handle transparency for PNG images
             if ($outputMime === 'image/png') {
                 imagealphablending($srcImage, false);
                 imagesavealpha($srcImage, true);
             }
-            
+
             // Save with specified quality
             $result = $outputFunc($srcImage, $destination, $normalizedQuality);
-            
+
             if (!$result) {
                 throw new RuntimeException("Failed to save compressed image");
             }
-            
+
             return true;
         } finally {
             // Clean up resources
@@ -171,7 +171,7 @@ class Image
         int $quality = 85
     ): bool {
         $this->validateImageFile($source);
-        
+
         $imageInfo = getimagesize($source);
         if ($imageInfo === false) {
             throw new RuntimeException("Failed to get image information");
@@ -187,12 +187,12 @@ class Image
 
         $srcImage = null;
         $dstImage = null;
-        
+
         try {
             // Create image resource
             $createFunc = self::SUPPORTED_TYPES[$mimeType]['create'];
             $srcImage = $createFunc($source);
-            
+
             if (!$srcImage instanceof GdImage) {
                 throw new RuntimeException("Failed to create source image resource");
             }
@@ -274,14 +274,14 @@ class Image
         // Get source image info
         $sourceInfo = getimagesize($source);
         $watermarkInfo = getimagesize($watermark);
-        
+
         if ($sourceInfo === false || $watermarkInfo === false) {
             throw new RuntimeException("Failed to get image information");
         }
 
         $sourceImage = null;
         $watermarkImage = null;
-        
+
         try {
             // Create image resources
             $sourceImage = $this->createImageResource($source, $sourceInfo['mime']);
@@ -374,7 +374,7 @@ class Image
     ): bool {
         $format = strtolower($format);
         $outputMime = "image/{$format}";
-        
+
         if (!isset(self::SUPPORTED_TYPES[$outputMime])) {
             throw new InvalidArgumentException("Unsupported output format: {$format}");
         }
@@ -399,14 +399,14 @@ class Image
         array $args = []
     ): bool {
         $this->validateImageFile($source);
-        
+
         $imageInfo = getimagesize($source);
         if ($imageInfo === false) {
             throw new RuntimeException("Failed to get image information");
         }
 
         $image = null;
-        
+
         try {
             $image = $this->createImageResource($source, $imageInfo['mime']);
 
@@ -443,7 +443,7 @@ class Image
     public function getInfo(string $source): array
     {
         $this->validateImageFile($source);
-        
+
         $imageInfo = getimagesize($source);
         if ($imageInfo === false) {
             throw new RuntimeException("Failed to get image information");
@@ -474,7 +474,7 @@ class Image
         if (!extension_loaded('gd')) {
             throw new RuntimeException('GD extension is not available. Please install or enable it.');
         }
-        
+
         if (!file_exists($path)) {
             throw new RuntimeException("Image file not found: {$path}");
         }
@@ -504,7 +504,7 @@ class Image
                 return $mimeType;
             }
         }
-        
+
         // Try fileinfo extension
         if (function_exists('finfo_open')) {
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
@@ -514,7 +514,7 @@ class Image
                 return $mimeType;
             }
         }
-        
+
         // Try to determine from file extension
         $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
         $extensionMap = [
@@ -524,7 +524,7 @@ class Image
             'gif' => 'image/gif',
             'webp' => 'image/webp'
         ];
-        
+
         return $extensionMap[$extension] ?? false;
     }
 
@@ -541,30 +541,30 @@ class Image
         if (!isset(self::SUPPORTED_TYPES[$mimeType])) {
             throw new RuntimeException("Unsupported image type: {$mimeType}");
         }
-        
+
         $createFunc = self::SUPPORTED_TYPES[$mimeType]['create'];
         if (!function_exists($createFunc)) {
             throw new RuntimeException("GD function {$createFunc} is not available");
         }
-        
+
         // Set memory limit temporarily for large images
         $memoryLimit = ini_get('memory_limit');
         ini_set('memory_limit', '256M');
-        
+
         try {
             // Suppress warnings and convert to exceptions
             $image = @$createFunc($path);
-            
+
             if (!$image instanceof GdImage) {
                 throw new RuntimeException("Failed to create image resource from {$path}");
             }
-            
+
             // Handle transparency for PNG images
             if ($mimeType === 'image/png') {
                 imagealphablending($image, false);
                 imagesavealpha($image, true);
             }
-            
+
             return $image;
         } finally {
             // Restore original memory limit
@@ -585,7 +585,7 @@ class Image
             // PNG quality is 0-9 (compression level)
             return min(9, max(0, (int)round($quality / 11.1)));
         }
-        
+
         // JPEG/WEBP quality is 0-100
         return min(100, max(0, $quality));
     }

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Installation Logic - Using New PHPMigration Library
+ * 
+ * This file handles the database installation using the fluent Schema Builder API
+ */
+
 session_start();
 
 if (ENVIRONMENT == 'production' || ENVIRONMENT == 'testing' || ENVIRONMENT == 'development') {
@@ -7,31 +13,17 @@ if (ENVIRONMENT == 'production' || ENVIRONMENT == 'testing' || ENVIRONMENT == 'd
     exit;
 }
 
-use Farisc0de\PhpMigration\Options\Options;
-use Farisc0de\PhpMigration\Options\Types;
+use Farisc0de\PhpMigration\Database\Connection;
+use Farisc0de\PhpMigration\Schema\SchemaBuilder;
+use Farisc0de\PhpMigration\Schema\Grammars\MySqlGrammar;
 use Uploady\Utils;
-
-$config = [
-    'DB_HOST' => DB_HOST,
-    'DB_USER' => DB_USER,
-    'DB_PASS' => DB_PASS,
-    'DB_NAME' => DB_NAME,
-];
-
-$DButils = new \Farisc0de\PhpMigration\Utils();
 
 $utils = new Utils();
 
-$database = new \Farisc0de\PhpMigration\Database($config);
+$php_alert = "";
 
-$install = new \Farisc0de\PhpMigration\Migration($database, $DButils);
-
-$upload = new Farisc0de\PhpFileUploading\Upload(new Farisc0de\PhpFileUploading\Utility());
-
-$php_alert =  "";
-
-if (PHP_VERSION_ID < 70200) {
-    $php_alert = $utils->alert("Please update your PHP to 7.2", "danger", "times-circle");
+if (PHP_VERSION_ID < 80100) {
+    $php_alert = $utils->alert("Please update your PHP to 8.1 or higher", "danger", "times-circle");
 }
 
 $required_libs = [
@@ -67,514 +59,212 @@ $disabled = "";
 if (
     $utils->findKeyValue($is_installed, "status", "Missing") ||
     $utils->findKeyValue($is_writable, "status", "Not Writable") ||
-    PHP_VERSION_ID < 70200
+    PHP_VERSION_ID < 80100
 ) {
     $disabled = "disabled";
 }
 
+$upload = new Farisc0de\PhpFileUploading\Upload(new Farisc0de\PhpFileUploading\Utility());
 $upload->generateUserID();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
-        $users = [
-            [
-                'id',
-                Types::integer(),
-                Options::unSigned(),
-                Options::notNull()
-            ],
-            [
-                'username',
-                Types::string(25),
-                Options::notNull()
-            ],
-            [
-                'email',
-                Types::string(225),
-                Options::notNull()
-            ],
-            [
-                'password',
-                Types::string(225),
-                Options::notNull()
-            ],
-            [
-                'user_id',
-                Types::string(64),
-                Options::notNull()
-            ],
-            [
-                'role',
-                Types::integer(),
-                Options::notNull(),
-                Options::defaultValue("1")
-            ],
-            [
-                'api_key',
-                Types::string(255),
-                Options::notNull(),
-                Options::defaultValue(bin2hex(random_bytes(16)))
-            ],
-            [
-                'otp_status',
-                Types::Boolean(),
-                Options::notNull(),
-                Options::defaultValue(false)
-            ],
-            [
-                'otp_secret',
-                Types::string(255),
-                Options::Null(),
-            ],
-            [
-                'failed_login',
-                Types::integer(),
-                Options::notNull(),
-                Options::defaultValue("0")
-            ],
-            [
-                'last_login',
-                Types::timeStamp(),
-                Options::notNull(),
-                Options::currentTimeStamp()
-            ],
-            [
-                'reset_hash',
-                Types::string(64),
-                Options::Null(),
-            ],
-            [
-                'created_at',
-                Types::timeStamp(),
-                Options::Null(),
-            ],
-            [
-                'activation_hash',
-                Types::string(64),
-                Options::Null(),
-            ],
-            [
-                'is_active',
-                Types::Boolean(),
-                Options::notNull(),
-                Options::defaultValue("0")
-            ]
+        // Create database connection using new API
+        $connection = Connection::create([
+            'driver' => 'mysql',
+            'host' => DB_HOST,
+            'database' => DB_NAME,
+            'username' => DB_USER,
+            'password' => DB_PASS,
+            'charset' => 'utf8mb4',
+        ]);
+
+        // Create schema builder with MySQL grammar
+        $grammar = new MySqlGrammar();
+        $schema = new SchemaBuilder($connection, $grammar);
+
+        // Create users table
+        $schema->create('users', function ($table) {
+            $table->id();
+            $table->string('username', 25);
+            $table->string('email', 225)->unique();
+            $table->string('password', 225);
+            $table->string('user_id', 64)->unique();
+            $table->integer('role')->default(1);
+            $table->string('api_key', 255)->default(bin2hex(random_bytes(16)));
+            $table->boolean('otp_status')->default(false);
+            $table->string('otp_secret', 255)->nullable();
+            $table->integer('failed_login')->default(0);
+            $table->timestamp('last_login')->useCurrent();
+            $table->string('reset_hash', 64)->nullable();
+            $table->timestamp('created_at')->nullable();
+            $table->string('activation_hash', 64)->nullable()->unique();
+            $table->boolean('is_active')->default(false);
+        });
+
+        // Create files table
+        $schema->create('files', function ($table) {
+            $table->id();
+            $table->string('file_id', 100)->unique();
+            $table->string('user_id', 100);
+            $table->longText('file_data');
+            $table->longText('file_settings');
+            $table->longText('user_data');
+            $table->boolean('is_banned')->default(false);
+            $table->integer('downloads')->nullable();
+            $table->timestamp('uploaded_at')->nullable();
+        });
+
+        // Create settings table
+        $schema->create('settings', function ($table) {
+            $table->id();
+            $table->string('setting_key', 50);
+            $table->string('setting_value', 225)->nullable();
+        });
+
+        // Create pages table
+        $schema->create('pages', function ($table) {
+            $table->id();
+            $table->text('slug');
+            $table->boolean('deletable')->default(false);
+            $table->timestamp('created_at')->useCurrent();
+        });
+
+        // Create languages table
+        $schema->create('languages', function ($table) {
+            $table->id();
+            $table->string('language', 50);
+            $table->string('language_code', 50);
+            $table->string('language_direction', 10)->default('ltr');
+            $table->boolean('is_active')->default(false);
+            $table->timestamp('created_at')->useCurrent();
+        });
+
+        // Create pages_translation table
+        $schema->create('pages_translation', function ($table) {
+            $table->id();
+            $table->integer('page_id');
+            $table->integer('language_id');
+            $table->text('title');
+            $table->longText('content');
+            $table->timestamp('created_at')->useCurrent();
+        });
+
+        // Create roles table
+        $schema->create('roles', function ($table) {
+            $table->id();
+            $table->string('title', 75);
+            $table->string('size_limit', 150);
+            $table->timestamp('created_at')->useCurrent();
+        });
+
+        // Insert admin user
+        $connection->prepare(
+            "INSERT INTO users (username, email, password, user_id, role, api_key, is_active) 
+             VALUES (:username, :email, :password, :user_id, :role, :api_key, :is_active)"
+        );
+        $connection->bind(':username', $utils->sanitize($_POST["username"]));
+        $connection->bind(':email', $utils->sanitize($_POST["email"]));
+        $connection->bind(':password', password_hash($utils->sanitize($_POST["password"]), PASSWORD_BCRYPT));
+        $connection->bind(':user_id', $upload->getUserID());
+        $connection->bind(':role', 3);
+        $connection->bind(':api_key', bin2hex(random_bytes(16)));
+        $connection->bind(':is_active', 1);
+        $connection->execute();
+
+        // Insert default settings
+        $defaultSettings = [
+            ['website_name', 'Uploady'],
+            ['website_headline', 'Simple File Uploading Software'],
+            ['description', 'this is uploading service website'],
+            ['keywords', 'upload,file upload,file uploading,file sharing'],
+            ['website_logo', null],
+            ['website_favicon', null],
+            ['owner_name', $utils->sanitize($_POST['username'])],
+            ['owner_email', $utils->sanitize($_POST['email'])],
+            ['virus_scanner', '0'],
+            ['public_upload', '0'],
+            ['disable_signup', '0'],
+            ['twitter_link', null],
+            ['instagram_link', null],
+            ['linkedin_link', null],
+            ['smtp_status', '0'],
+            ['smtp_host', ''],
+            ['smtp_username', ''],
+            ['smtp_password', ''],
+            ['smtp_port', ''],
+            ['smtp_security', ''],
+            ['maintenance_mode', '0'],
+            ['recaptcha_status', '0'],
+            ['recaptcha_site_key', ''],
+            ['recaptcha_secret_key', ''],
+            ['adsense_status', '0'],
+            ['adsense_client_code', ''],
+            ['analytics_status', '0'],
+            ['analytics_code', ''],
+            ['sharethis_status', '0'],
+            ['sharethis_code', ''],
         ];
 
-        $files = [
-            ['id', Types::integer(), Options::unSigned(), Options::notNull()],
-            ['file_id', Types::string(100), Options::notNull()],
-            ['user_id', Types::string(100), Options::notNull()],
-            ['file_data', Types::LongText(), Options::notNull()],
-            ['file_settings', Types::LongText(), Options::notNull()],
-            ['user_data', Types::LongText(), Options::notNull()],
-            ["is_banned", Types::Boolean(), Options::defaultValue(0), Options::notNull()],
-            ['downloads', Types::integer(), Options::null()],
-            ['uploaded_at', Types::timeStamp(), Options::null()],
-        ];
+        foreach ($defaultSettings as $setting) {
+            $connection->prepare("INSERT INTO settings (setting_key, setting_value) VALUES (:key, :value)");
+            $connection->bind(':key', $setting[0]);
+            $connection->bind(':value', $setting[1]);
+            $connection->execute();
+        }
 
-        $settings = [
-            ["id", Types::integer(), Options::unSigned(), Options::notNull()],
-            ["setting_key", Types::string(50), Options::notNull()],
-            ["setting_value", Types::string(225)],
-        ];
+        // Insert default pages
+        $connection->prepare("INSERT INTO pages (slug, deletable) VALUES (:slug, :deletable)");
+        $connection->bind(':slug', 'about');
+        $connection->bind(':deletable', 0);
+        $connection->execute();
 
-        $pages = [
-            ["id", Types::integer(), Options::unSigned(), Options::notNull()],
-            ["slug", Types::Text(), Options::notNull()],
-            ["deletable", Types::Boolean(), Options::defaultValue(0), Options::notNull()],
-            ["created_at", Types::timeStamp(), Options::currentTimeStamp(), Options::notNull()]
-        ];
+        $connection->prepare("INSERT INTO pages (slug, deletable) VALUES (:slug, :deletable)");
+        $connection->bind(':slug', 'terms');
+        $connection->bind(':deletable', 0);
+        $connection->execute();
 
-        $languages = [
-            ["id", Types::integer(), Options::unSigned(), Options::notNull()],
-            ["language", Types::string(50), Options::notNull()],
-            ["language_code", Types::string(50), Options::notNull()],
-            ["language_direction", Types::string(10), Options::defaultValue("ltr"), Options::notNull()],
-            ["is_active", Types::boolean(), Options::defaultValue(0), Options::notNull()],
-            ["created_at", Types::timeStamp(), Options::currentTimeStamp(), Options::notNull()]
-        ];
+        $connection->prepare("INSERT INTO pages (slug, deletable) VALUES (:slug, :deletable)");
+        $connection->bind(':slug', 'privacy');
+        $connection->bind(':deletable', 0);
+        $connection->execute();
 
-        $pages_translation = [
-            ["id", Types::integer(), Options::unSigned(), Options::notNull()],
-            ["page_id", Types::integer(), Options::notNull()],
-            ["language_id", Types::integer(), Options::notNull()],
-            ["title", Types::Text(), Options::notNull()],
-            ["content", Types::LongText(), Options::notNull()],
-            ["created_at", Types::timeStamp(), Options::currentTimeStamp(), Options::notNull()]
-        ];
+        // Insert default roles
+        $connection->prepare("INSERT INTO roles (title, size_limit) VALUES (:title, :size_limit)");
+        $connection->bind(':title', 'User');
+        $connection->bind(':size_limit', '150 MB');
+        $connection->execute();
 
-        $roles = [
-            ["id", Types::integer(), Options::unSigned(), Options::notNull()],
-            ["title", Types::string(75), Options::notNull()],
-            ["size_limit", Types::string(150), Options::notNull()],
-            ["created_at", Types::timeStamp(), Options::currentTimeStamp(), Options::notNull()]
-        ];
+        $connection->prepare("INSERT INTO roles (title, size_limit) VALUES (:title, :size_limit)");
+        $connection->bind(':title', 'Guest');
+        $connection->bind(':size_limit', '50 MB');
+        $connection->execute();
 
-        $install->createTable("users", $users);
+        $connection->prepare("INSERT INTO roles (title, size_limit) VALUES (:title, :size_limit)");
+        $connection->bind(':title', 'Admin');
+        $connection->bind(':size_limit', '500 MB');
+        $connection->execute();
 
-        $install->createTable("files", $files);
-
-        $install->createTable("settings", $settings);
-
-        $install->createTable("pages", $pages);
-
-        $install->createTable("pages_translation", $pages_translation);
-
-        $install->createTable("roles", $roles);
-
-        $install->createTable("languages", $languages);
-
-        $install->setPrimary("users", "id");
-
-        $install->setUnique("users", "email");
-
-        $install->setUnique("users", "user_id");
-
-        $install->setUnique("users", "activation_hash");
-
-        $install->setAutoIncrement("users", [
-            "id",
-            Types::integer(),
-            Options::unSigned(),
-            Options::notNull()
-        ]);
-
-        $install->setPrimary("files", "id");
-
-        $install->setUnique("files", "file_id");
-
-        $install->setAutoIncrement("files", [
-            "id",
-            Types::integer(),
-            Options::unSigned(),
-            Options::notNull()
-        ]);
-
-        $install->setPrimary("settings", "id");
-
-        $install->setAutoIncrement("settings", [
-            "id",
-            Types::integer(),
-            Options::unSigned(),
-            Options::notNull()
-        ]);
-
-        $install->setPrimary("pages", "id");
-
-        $install->setAutoIncrement("pages", [
-            "id",
-            Types::integer(),
-            Options::unSigned(),
-            Options::notNull()
-        ]);
-
-        $install->setPrimary("roles", "id");
-
-        $install->setAutoIncrement("roles", [
-            "id",
-            Types::integer(),
-            Options::unSigned(),
-            Options::notNull()
-        ]);
-
-        $install->setPrimary("languages", "id");
-
-        $install->setAutoIncrement("languages", [
-            "id",
-            Types::integer(),
-            Options::unSigned(),
-            Options::notNull()
-        ]);
-
-        $install->setPrimary("pages_translation", "id");
-
-        $install->setAutoIncrement("pages_translation", [
-            "id",
-            Types::integer(),
-            Options::unSigned(),
-            Options::notNull()
-        ]);
-
-
-        $install->insertValue("users", [
-            "username" => $utils->sanitize($_POST["username"]),
-            "email" => $utils->sanitize($_POST["email"]),
-            "password" => password_hash($utils->sanitize($_POST["password"]), PASSWORD_BCRYPT),
-            "user_id" => $upload->getUserID(),
-            "role" => 3,
-            "api_key" => bin2hex(random_bytes(16)),
-            "is_active" => true
-        ]);
-
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'website_name',
-                'setting_value' => 'Uploady'
-            ]
-        );
-
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'website_headline',
-                'setting_value' => 'Simple File Uploading Software'
-            ]
-        );
-
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'description',
-                'setting_value' => 'this is uploading service website'
-            ]
-        );
-
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'keywords',
-                'setting_value' => 'upload,file upload,file uploading,file sharing'
-            ]
-        );
-
-
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'website_logo',
-                'setting_value' => null
-            ]
-        );
-
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'website_favicon',
-                'setting_value' => null
-            ]
-        );
-
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'owner_name',
-                'setting_value' => $utils->sanitize($_POST['username'])
-            ]
-        );
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'owner_email',
-                'setting_value' => $utils->sanitize($_POST['email'])
-            ]
-        );
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'public_upload',
-                'setting_value' => false
-            ]
-        );
-        $install->insertValue(
-            "settings",
-            [
-                "setting_key" => "disable_signup",
-                "setting_value" => false
-            ]
-        );
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'twitter_link',
-                'setting_value' => null
-            ]
-        );
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'instagram_link',
-                'setting_value' => null
-            ]
-        );
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'linkedin_link',
-                'setting_value' => null
-            ]
-        );
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'smtp_status',
-                'setting_value' => false
-            ]
-        );
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'smtp_host',
-                'setting_value' => ''
-            ]
-        );
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'smtp_username',
-                'setting_value' => ''
-            ]
-        );
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'smtp_password',
-                'setting_value' => ''
-            ]
-        );
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'smtp_port',
-                'setting_value' => ''
-            ]
-        );
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'smtp_security',
-                'setting_value' => ''
-            ]
-        );
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'maintenance_mode',
-                'setting_value' => false
-            ]
-        );
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'recaptcha_status',
-                'setting_value' => false
-            ]
-        );
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'recaptcha_site_key',
-                'setting_value' =>  ''
-            ]
-        );
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'recaptcha_secret_key',
-                'setting_value' =>  ''
-            ]
-        );
-
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'adsense_status',
-                'setting_value' =>  false
-            ]
-        );
-
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'adsense_client_code',
-                'setting_value' =>  ''
-            ]
-        );
-
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'analytics_status',
-                'setting_value' =>  false
-            ]
-        );
-
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'analytics_code',
-                'setting_value' =>  ''
-            ]
-        );
-
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'sharethis_status',
-                'setting_value' =>  false
-            ]
-        );
-
-        $install->insertValue(
-            "settings",
-            [
-                'setting_key' => 'sharethis_code',
-                'setting_value' =>  ''
-            ]
-        );
-
-        $install->insertValue("pages", [
-            'slug' => 'about',
-            'deletable' => false
-        ]);
-
-        $install->insertValue("pages", [
-            'slug' => 'terms',
-            'deletable' => false
-        ]);
-
-        $install->insertValue("pages", [
-            'slug' => 'privacy',
-            'deletable' => false
-        ]);
-
-        $install->insertValue("roles", [
-            'title' => 'User',
-            'size_limit' => '150 MB',
-        ]);
-
-
-        $install->insertValue("roles", [
-            'title' => 'Guest',
-            'size_limit' => '50 MB',
-        ]);
-
-        $install->insertValue("roles", [
-            'title' => 'Admin',
-            'size_limit' => '500 MB',
-        ]);
-
+        // Insert languages
         foreach ($utils->getLanguages() as $code => $name) {
-            $install->insertValue("languages", [
-                'language' => $name,
-                'language_code' => $code,
-                'is_active' => $code == 'en' ? true : false,
-            ]);
+            $connection->prepare("INSERT INTO languages (language, language_code, is_active) VALUES (:language, :language_code, :is_active)");
+            $connection->bind(':language', $name);
+            $connection->bind(':language_code', $code);
+            $connection->bind(':is_active', $code == 'en' ? 1 : 0);
+            $connection->execute();
         }
 
         // Enable Production Mode
-        /* -------------------------- */
         $env_file = APP_PATH . "config/environment.php";
-
         $env_file_content = file_get_contents($env_file);
-
         $env_file_content = preg_replace("/installation/", "production", $env_file_content, 1);
-
         file_put_contents($env_file, $env_file_content);
-        /* -------------------------- */
+
         $msg = true;
-    } catch (PDOException $ex) {
+    } catch (\PDOException $ex) {
+        $error = $ex->getMessage();
+        error_log($ex->getMessage() . "\n", 3, LOGS_PATH);
+    } catch (\Exception $ex) {
         $error = $ex->getMessage();
         error_log($ex->getMessage() . "\n", 3, LOGS_PATH);
     }
