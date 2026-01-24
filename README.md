@@ -221,6 +221,9 @@ curl --location 'https://yourdomain.com/api/upload' \
 - [ ] S3 Bucket integration (PhpFileUploading supports it, but not implemented yet in Uploady)
 - [ ] File tagging system (In Progress)
 - [ ] Short URL generation (In Progress)
+- [ ] File preview (PDF, video, audio players)
+- [ ] File comments/notes
+- [ ] Email file sharing
 
 ## Contributing
 

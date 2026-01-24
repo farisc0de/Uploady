@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         $fileId = UploadManager::createFileId();
 
         $userRole = $role->get($_SESSION['user_role']);
-        $sizeLimit = $userRole->size_limit ?? '50 MB';
+        $sizeLimit = $userRole->size_limit ?? '1 GB';
 
         $userUploadDir = realpath("../" . UPLOAD_FOLDER) . '/' . $userId;
         if (!is_dir($userUploadDir)) {
