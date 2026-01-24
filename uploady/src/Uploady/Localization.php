@@ -23,6 +23,8 @@ class Localization
 
     private $db;
 
+    private string $languagesDir;
+
     /**
      * The constructor
      *
@@ -32,6 +34,51 @@ class Localization
     public function __construct($db)
     {
         $this->db = $db;
+        $this->languagesDir = realpath(APP_PATH . '/languages');
+    }
+
+    /**
+     * Validate and sanitize language code to prevent path traversal
+     *
+     * @param string $language The language code
+     * @return string|null Sanitized language code or null if invalid
+     */
+    private function validateLanguageCode(string $language): ?string
+    {
+        $sanitized = preg_replace('/[^a-zA-Z0-9_-]/', '', $language);
+        
+        if (empty($sanitized) || strlen($sanitized) > 10) {
+            return null;
+        }
+        
+        return $sanitized;
+    }
+
+    /**
+     * Get safe path to language file with path traversal protection
+     *
+     * @param string $language The language code
+     * @return string|null Safe file path or null if invalid
+     */
+    private function getLanguageFilePath(string $language): ?string
+    {
+        $sanitized = $this->validateLanguageCode($language);
+        if ($sanitized === null) {
+            return null;
+        }
+
+        $filePath = $this->languagesDir . '/' . $sanitized . '.json';
+        $realPath = realpath($filePath);
+
+        if ($realPath === false) {
+            return $this->languagesDir . '/' . $sanitized . '.json';
+        }
+
+        if (!str_starts_with($realPath, $this->languagesDir)) {
+            return null;
+        }
+
+        return $realPath;
     }
 
     /**
@@ -42,11 +89,21 @@ class Localization
      * @return mixed
      *  An array contains the language file data
      */
-    public function loadLangauge($language)
+    public function loadLangauge(string $language): ?array
     {
-        $file = file_get_contents(realpath(APP_PATH . "/languages/{$language}.json"));
-        $file = json_decode($file, true);
-        return $file;
+        $filePath = $this->getLanguageFilePath($language);
+        
+        if ($filePath === null || !file_exists($filePath)) {
+            return null;
+        }
+
+        $content = file_get_contents($filePath);
+        if ($content === false) {
+            return null;
+        }
+
+        $data = json_decode($content, true);
+        return is_array($data) ? $data : null;
     }
 
     /**
@@ -57,12 +114,35 @@ class Localization
      * @return void
      *  Create a new language file
      */
-    public function createLanguage($language)
+    public function createLanguage(string $language): bool
     {
-        $file = file_get_contents(realpath(APP_PATH . "/languages/en.json"));
-        $file = json_decode($file, true);
-        $file = json_encode($file, JSON_PRETTY_PRINT);
-        file_put_contents(APP_PATH . "/languages/{$language}.json", $file);
+        $sanitized = $this->validateLanguageCode($language);
+        if ($sanitized === null) {
+            return false;
+        }
+
+        $templatePath = $this->getLanguageFilePath('en');
+        if ($templatePath === null || !file_exists($templatePath)) {
+            return false;
+        }
+
+        $targetPath = $this->languagesDir . '/' . $sanitized . '.json';
+        
+        if (!str_starts_with(realpath(dirname($targetPath)) ?: '', $this->languagesDir)) {
+            return false;
+        }
+
+        $content = file_get_contents($templatePath);
+        if ($content === false) {
+            return false;
+        }
+
+        $data = json_decode($content, true);
+        if (!is_array($data)) {
+            return false;
+        }
+
+        return file_put_contents($targetPath, json_encode($data, JSON_PRETTY_PRINT)) !== false;
     }
 
     /**
@@ -99,17 +179,32 @@ class Localization
      * @return void
      *  Update the language file
      */
-    public function updateLanguage($type, $data, $language)
+    public function updateLanguage(string $type, array $data, string $language): bool
     {
-        $file = file_get_contents(realpath(APP_PATH . "/languages/{$language}.json"));
-        $file = json_decode($file, true);
-
-        foreach ($data as $key => $value) {
-            $file[$type][$key] = $value;
+        $filePath = $this->getLanguageFilePath($language);
+        
+        if ($filePath === null || !file_exists($filePath)) {
+            return false;
         }
 
-        $file = json_encode($file, JSON_PRETTY_PRINT);
-        file_put_contents(realpath(APP_PATH . "/languages/{$language}.json"), $file);
+        $content = file_get_contents($filePath);
+        if ($content === false) {
+            return false;
+        }
+
+        $file = json_decode($content, true);
+        if (!is_array($file)) {
+            return false;
+        }
+
+        $type = preg_replace('/[^a-zA-Z0-9_]/', '', $type);
+        
+        foreach ($data as $key => $value) {
+            $safeKey = preg_replace('/[^a-zA-Z0-9_]/', '', $key);
+            $file[$type][$safeKey] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+        }
+
+        return file_put_contents($filePath, json_encode($file, JSON_PRETTY_PRINT)) !== false;
     }
 
     /**
@@ -120,9 +215,19 @@ class Localization
      * @return void
      *  Delete the language file
      */
-    public function deleteLanguage($language)
+    public function deleteLanguage(string $language): bool
     {
-        unlink(realpath(APP_PATH . "/languages/{$language}.json"));
+        if ($language === 'en') {
+            return false;
+        }
+
+        $filePath = $this->getLanguageFilePath($language);
+        
+        if ($filePath === null || !file_exists($filePath)) {
+            return false;
+        }
+
+        return unlink($filePath);
     }
 
     /**
