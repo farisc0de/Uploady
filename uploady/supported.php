@@ -15,6 +15,12 @@ include_once APP_PATH . 'logic/supportedLogic.php';
           <i class="fas fa-arrow-left me-1"></i> <?= $lang["general"]['back_to_home'] ?? 'Back to Home'; ?>
         </a>
       </div>
+
+      <?php if(isset($_SESSION['loggedin'])): ?>
+        <?php $maxSize = $role->get($_SESSION['user_role'])->size_limit; ?>
+      <?php else: ?>
+        <?php $maxSize = MAX_SIZE; ?>
+      <?php endif; ?>
       
       <div class="card shadow-sm border-0 rounded-3">
         <div class="card-header py-3">
@@ -59,7 +65,7 @@ include_once APP_PATH . 'logic/supportedLogic.php';
                       <span class="badge bg-light text-dark me-2">.<?= $key ?></span>
                       <strong><?= $value ?? $key ?></strong>
                     </td>
-                    <td><?= MAX_SIZE; ?></td>
+                    <td><?= $maxSize; ?></td>
                     <td>
                       <span class="badge bg-success">
                         <i class="fas fa-check me-1"></i><?= $lang["general"]['allowed'] ?>

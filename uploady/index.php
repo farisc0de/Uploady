@@ -23,7 +23,12 @@ include_once APP_PATH . 'logic/indexLogic.php';
           </h5>
         </div>
         <div class="card-body p-4">
-          <input type="hidden" id="max_file_size" value="<?= $utility->convertUnit($utility->sizeInBytes(MAX_SIZE), "MB"); ?>">
+          <?php if(isset($_SESSION['loggedin'])): ?>
+            <?php $maxSize = $role->get($_SESSION['user_role'])->size_limit; ?>
+          <?php else: ?>
+            <?php $maxSize = MAX_SIZE; ?>
+          <?php endif; ?>
+          <input type="hidden" id="max_file_size" value="<?= $maxSize; ?>">
 
           <!-- Upload Instructions -->
           <div class="alert alert-info mb-4">
@@ -33,7 +38,7 @@ include_once APP_PATH . 'logic/indexLogic.php';
               </div>
               <div>
                 <h5 class="alert-heading"><?= $lang["general"]['upload_instructions'] ?? 'How to Upload'; ?></h5>
-                <p class="mb-0"><?= $lang["general"]['drag_drop_instructions'] ?? 'Drag and drop files here, or click to select files. Maximum file size: '; ?> <strong><?= MAX_SIZE; ?></strong></p>
+                <p class="mb-0"><?= $lang["general"]['drag_drop_instructions'] ?? 'Drag and drop files here, or click to select files. Maximum file size: '; ?> <strong><?= $maxSize; ?></strong></p>
               </div>
             </div>
           </div>
