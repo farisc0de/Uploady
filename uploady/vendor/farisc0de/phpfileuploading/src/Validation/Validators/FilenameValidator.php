@@ -92,6 +92,25 @@ class FilenameValidator implements ValidatorInterface
             );
         }
 
+        // Check for XSS/HTML injection characters
+        if (preg_match('/[<>"\'\`]/', $filename)) {
+            $result->addError(
+                'Filename contains potentially dangerous characters',
+                'XSS_CHARACTERS_DETECTED',
+                ['filename' => $filename]
+            );
+        }
+
+        // Check for JavaScript event handlers and protocols
+        if (preg_match('/(?:javascript|data|vbscript):/i', $filename) ||
+            preg_match('/on\w+\s*=/i', $filename)) {
+            $result->addError(
+                'Filename contains script injection attempt',
+                'SCRIPT_INJECTION_DETECTED',
+                ['filename' => $filename]
+            );
+        }
+
         // Check for invalid characters (if unicode not allowed)
         if (!$this->allowUnicode && preg_match('/[^\x20-\x7E]/', $filename)) {
             $result->addError(

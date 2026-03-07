@@ -100,6 +100,20 @@ class UploadResult
     }
 
     /**
+     * Get original filename with HTML entities escaped (XSS-safe)
+     * 
+     * Use this method when displaying the filename in HTML context.
+     */
+    public function getOriginalFilenameSafe(): ?string
+    {
+        if ($this->originalFilename === null) {
+            return null;
+        }
+        
+        return htmlspecialchars($this->originalFilename, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    }
+
+    /**
      * Set original filename
      */
     public function setOriginalFilename(?string $filename): self
@@ -514,10 +528,45 @@ class UploadResult
     }
 
     /**
+     * Convert to array with HTML-escaped strings (XSS-safe)
+     * 
+     * Use this method when the output will be rendered in HTML context.
+     */
+    public function toArraySafe(): array
+    {
+        return [
+            'success' => $this->success,
+            'error' => $this->error !== null ? htmlspecialchars($this->error, ENT_QUOTES | ENT_HTML5, 'UTF-8') : null,
+            'error_code' => $this->errorCode,
+            'original_filename' => $this->getOriginalFilenameSafe(),
+            'stored_filename' => $this->storedFilename,
+            'stored_path' => $this->storedPath,
+            'public_url' => $this->publicUrl,
+            'file_size' => $this->fileSize,
+            'mime_type' => $this->mimeType,
+            'file_hash' => $this->fileHash,
+            'validation' => $this->validationResult?->toArray(),
+            'scan' => $this->scanResult?->toArray(),
+            'metadata' => $this->metadata,
+            'links' => $this->getLinks(),
+        ];
+    }
+
+    /**
      * Convert to JSON
      */
     public function toJson(): string
     {
         return json_encode($this->toArray(), JSON_THROW_ON_ERROR);
+    }
+
+    /**
+     * Convert to JSON with HTML-escaped strings (XSS-safe)
+     * 
+     * Use this method when the JSON will be embedded in HTML or rendered by JavaScript.
+     */
+    public function toJsonSafe(): string
+    {
+        return json_encode($this->toArraySafe(), JSON_THROW_ON_ERROR | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
     }
 }
