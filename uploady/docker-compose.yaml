@@ -23,7 +23,7 @@ services:
     restart: unless-stopped
 
   uploady-db:
-    image: mysql:latest
+    image: mysql:9.4
     container_name: uploady-db
     environment:
       MYSQL_DATABASE: "uploady"
