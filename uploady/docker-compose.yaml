@@ -32,13 +32,13 @@ services:
       MYSQL_PASSWORD: ${UPLOADY_MYSQL_PASS:?error}
       MYSQL_ROOT_PASSWORD: ${UPLOADY_MYSQL_ROOT_PASS:?error}
     volumes:
-      - mysql_data:/var/lib/mysql
+      - uploady_mysql_data:/var/lib/mysql
     networks:
       - uploady
     restart: unless-stopped
 
 volumes:
-  mysql_data:
+  uploady_mysql_data:
 
 networks:
   uploady:
