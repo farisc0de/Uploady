@@ -4,7 +4,7 @@ FROM serversideup/php:8.3-fpm-apache
 # https://serversideup.net/open-source/docker-php/docs/guide/understanding-file-permissions
 ARG USER_ID
 ARG GROUP_ID
-
+# TODO: Allow changing UID & GID via ENV variables in the entrypoint script
 USER root
 COPY --chown=$USER_ID:$GROUP_ID . /var/www/html
 RUN docker-php-serversideup-set-id www-data $USER_ID:$GROUP_ID && \
