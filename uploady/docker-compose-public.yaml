@@ -1,8 +1,6 @@
 services:
-  uploady:
-    container_name: uploady
-    ports:
-      - ${UPLOADY_PORT:-8080}:8080
+  uploady-public:
+    container_name: uploady-public
     volumes:
       - ${UPLOADY_UPLOADS_PATH:-uploads}:/var/www/html/uploads
     networks:
@@ -10,7 +8,7 @@ services:
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/html
       SSL_MODE: "off"
-      UPLOADY_SITE_URL: ${UPLOADY_SITE_URL:-http://localhost}
+      UPLOADY_SITE_URL: ${UPLOADY_SITE_EXTERNAL_URL:?error}
       UPLOADY_DB_HOST: ${UPLOADY_MYSQL_HOST:?error}
       UPLOADY_DB_USER: ${UPLOADY_MYSQL_USER:?error}
       UPLOADY_DB_PASS: ${UPLOADY_MYSQL_PASS:?error}
@@ -22,6 +20,14 @@ services:
     depends_on:
       - uploady-db
     restart: unless-stopped
+
+  uploady:
+    extends: uploady-public
+    container_name: uploady
+    ports:
+      - ${UPLOADY_PORT:-8080}:8080
+    environment:
+      UPLOADY_SITE_URL: ${UPLOADY_SITE_URL:-http://localhost}
 
   uploady-db:
     image: mysql:9.4
