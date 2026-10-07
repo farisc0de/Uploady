@@ -10,6 +10,7 @@ define("DB_NAME", getenv("UPLOADY_DB_NAME") ?: "uploady");
 define("SITE_URL", getenv("UPLOADY_SITE_URL") ?: "http://localhost/");
 define("APP_PATH", dirname(__FILE__, 2) . DIRECTORY_SEPARATOR);
 define("LOGS_PATH", APP_PATH . "php_logs.log");
+define("HASH_FILENAMES", getenv("UPLOADY_HASH_FILENAMES") !== "false");
 
 // Upload Settings
 define("MAX_SIZE", "1 GB");

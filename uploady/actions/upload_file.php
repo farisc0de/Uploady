@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             null
         );
 
-        $uploadManager->setHashFilenames(true);
+        $uploadManager->setHashFilenames(HASH_FILENAMES);
 
         $uploadManager->setSiteUrl(SITE_URL);
         $uploadManager->setUserId($userId);
