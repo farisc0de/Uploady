@@ -1,44 +1,26 @@
 services:
-  uploady:
-    container_name: uploady
+  app:
     ports:
-      - ${UPLOADY_PORT:-8080}:8080
+      - 80:8080
     volumes:
-      - ${UPLOADY_UPLOADS_PATH:-uploads}:/var/www/html/uploads
-    networks:
-      - uploady
+      - .:/var/www/html
     environment:
       APACHE_DOCUMENT_ROOT: /var/www/html
       SSL_MODE: "off"
-      UPLOADY_SITE_URL: ${UPLOADY_SITE_URL:-http://localhost}
-      UPLOADY_DB_HOST: ${UPLOADY_MYSQL_HOST:?error}
-      UPLOADY_DB_USER: ${UPLOADY_MYSQL_USER:?error}
-      UPLOADY_DB_PASS: ${UPLOADY_MYSQL_PASS:?error}
-    build:
-      context: .
-      args:
-        USER_ID: ${UPLOADY_UID:-33}
-        GROUP_ID: ${UPLOADY_GID:-33}
+    image: serversideup/php:8.3-fpm-apache
     depends_on:
-      - uploady-db
-    restart: unless-stopped
+      - db
 
-  uploady-db:
-    image: mysql:9.4
-    container_name: uploady-db
+  db:
+    image: mysql:latest
+    restart: always
     environment:
       MYSQL_DATABASE: "uploady"
-      MYSQL_USER: ${UPLOADY_MYSQL_USER:?error}
-      MYSQL_PASSWORD: ${UPLOADY_MYSQL_PASS:?error}
-      MYSQL_ROOT_PASSWORD: ${UPLOADY_MYSQL_ROOT_PASS:?error}
+      MYSQL_USER: "uploady"
+      MYSQL_PASSWORD: "uploady"
+      MYSQL_ROOT_PASSWORD: "uploady"
     volumes:
-      - uploady_mysql_data:/var/lib/mysql
-    networks:
-      - uploady
-    restart: unless-stopped
+      - mysql_data:/var/lib/mysql
 
 volumes:
-  uploady_mysql_data:
-
-networks:
-  uploady:
+  mysql_data:
