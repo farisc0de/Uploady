@@ -50,8 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             
             $targetFilename = $_FILES['file']['name'];
             
-            $allowedExtensions = $utility->getAllExtensions();
-            $allowedMimes = $utility->getAllMimeTypes();
+            $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'tiff', 'tif'];
+            $allowedMimes = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp', 'image/tiff'];
             
             $extension = strtolower(pathinfo($targetFilename, PATHINFO_EXTENSION));
             if (!in_array($extension, $allowedExtensions)) {
