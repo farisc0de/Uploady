@@ -1,3 +1,4 @@
 /uploady/error_logs/php_scripts_error.log
 /uploady/php_logs.log
 uploady/config/environment.php
+.env

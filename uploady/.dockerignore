@@ -1,0 +1,50 @@
+# Git
+.git
+.gitignore
+.github
+
+# Docker
+.dockerignore
+docker-compose*.yaml
+Dockerfile
+
+# Environment files
+.env*
+.env.sample
+
+# Documentation
+README.md
+LICENSE
+CHANGELOG.md
+*.md
+
+# IDEs
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# CI/CD
+.gitlab-ci.yml
+.travis.yml
+.github
+
+# Development
+.tests
+tests
+*.test.php
+phpunit.xml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Cache
+cache/
+tmp/
+temp/

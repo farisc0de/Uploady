@@ -1,0 +1,22 @@
+FROM serversideup/php:8.3-fpm-apache
+
+# Metadata labels
+LABEL maintainer="Uploady"
+LABEL description="Uploady - File upload management system"
+LABEL version="1.0"
+
+# Create custom permissions so the uploaded files are accessible on the Docker host
+# https://serversideup.net/open-source/docker-php/docs/guide/understanding-file-permissions
+ARG USER_ID=33
+ARG GROUP_ID=33
+# TODO: Allow changing UID & GID via ENV variables in the entrypoint script
+USER root
+COPY --chown=$USER_ID:$GROUP_ID . /var/www/html
+RUN docker-php-serversideup-set-id www-data $USER_ID:$GROUP_ID && \
+    docker-php-serversideup-set-file-permissions --owner $USER_ID:$GROUP_ID --service apache
+
+USER www-data
+
+# Health check to ensure the Apache service is running
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8080/ || exit 1
