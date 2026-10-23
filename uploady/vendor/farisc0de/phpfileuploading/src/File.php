@@ -179,25 +179,7 @@ class File
 
         // Last resort: use a mapping of extensions to MIME types
         $extension = $this->getExtension();
-        $mime_map = [
-            'jpg' => 'image/jpeg',
-            'jpeg' => 'image/jpeg',
-            'png' => 'image/png',
-            'gif' => 'image/gif',
-            'webp' => 'image/webp',
-            'pdf' => 'application/pdf',
-            'doc' => 'application/msword',
-            'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            'xls' => 'application/vnd.ms-excel',
-            'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            'zip' => 'application/zip',
-            'txt' => 'text/plain',
-            'html' => 'text/html',
-            'css' => 'text/css',
-            'js' => 'application/javascript',
-            'json' => 'application/json',
-            'xml' => 'application/xml',
-        ];
+        $mime_map = $this->utility->getMimeTypeMap();
 
         if (isset($mime_map[$extension])) {
             return $mime_map[$extension];

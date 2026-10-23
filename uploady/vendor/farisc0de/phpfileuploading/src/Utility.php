@@ -343,4 +343,56 @@ class Utility
             throw new RuntimeException("Failed to set permissions on php.ini file: {$path}");
         }
     }
+
+    /**
+     * Get the MIME type for a given extension
+     *
+     * @param string $extension The file extension
+     * @return string The MIME type
+     */
+    public function getMimeType(string $extension): string
+    {
+        $filter_list = json_decode(file_get_contents(__DIR__ . '/filter.json'), true);
+        $mime_map = $filter_list['extensions'];
+        
+        return $mime_map[$extension] ?? 'application/octet-stream';
+    }
+
+    public function getExtensions(string $mimeType): array
+    {
+        $filter_list = json_decode(file_get_contents(__DIR__ . '/filter.json'), true);
+        $mime_map = $filter_list['extensions'];
+        
+        return array_keys($mime_map, $mimeType);
+    }
+
+    public function getAllMimeTypes(): array
+    {
+        $filter_list = json_decode(file_get_contents(__DIR__ . '/filter.json'), true);
+        return array_values($filter_list['extensions']);
+    }
+
+    public function getAllExtensions(): array
+    {
+        $filter_list = json_decode(file_get_contents(__DIR__ . '/filter.json'), true);
+        return array_keys($filter_list['extensions']);
+    }
+
+    public function returnSemiColonSeparatedMimeTypes(): string
+    {
+        $filter_list = json_decode(file_get_contents(__DIR__ . '/filter.json'), true);
+        return implode(';', array_values($filter_list['extensions']));
+    }
+
+    public function returnCommaSeparatedExtensions(): string
+    {
+        $filter_list = json_decode(file_get_contents(__DIR__ . '/filter.json'), true);
+        return implode(',', array_values($filter_list['extensions']));
+    }
+
+    public function getMimeTypeMap(): array
+    {
+        $filter_list = json_decode(file_get_contents(__DIR__ . '/filter.json'), true);
+        return $filter_list['extensions'];
+    }
 }
